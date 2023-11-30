@@ -6,7 +6,12 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "ra": "npx expo start --localhost --android",
+    "about:ra": "echo 'Starts the app on android connected via the USB cable'",
+    "tn": "npx expo start --tunnel",
+    "about:rn": "echo 'Starts the app via a tunnel, and devices from any network can connect'"
+
   },
   "dependencies": {
     "expo": "~49.0.15",
