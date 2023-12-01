@@ -33,7 +33,7 @@ module.exports = {
         'prefer-const': 'warn',
 
         'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': 'warn',
+        '@typescript-eslint/no-unused-vars': 'error',
 
         'react/prop-types': 'off',
         'react/react-in-jsx-scope': 'off',
@@ -42,6 +42,7 @@ module.exports = {
 
         '@typescript-eslint/no-empty-function': ['warn'],
         '@typescript-eslint/no-explicit-any': ['warn'],
+        'no-console': 'warn',
 
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
       },
