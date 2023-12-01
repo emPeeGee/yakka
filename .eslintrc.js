@@ -5,6 +5,9 @@ module.exports = {
   env: { node: true, es6: true },
   extends: ['eslint:recommended', 'prettier'],
   plugins: ['react', '@typescript-eslint', 'prettier'],
+  parserOptions: {
+    ecmaVersion: 'latest',
+  },
 
   ignorePatterns: ['node_modules/*'],
   overrides: [
@@ -14,7 +17,6 @@ module.exports = {
       parserOptions: {
         project: './tsconfig.json',
         ecmaFeatures: { jsx: true },
-        ecmaVersion: 'latest',
         sourceType: 'module',
       },
       settings: {
