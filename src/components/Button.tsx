@@ -8,9 +8,16 @@ type ButtonProps = {
   backgroundColor?: string;
   titleColor?: string;
   onPress?: () => void;
+  radius?: number;
 };
 
-export const Button = ({ title, titleColor, backgroundColor, onPress }: ButtonProps) => {
+export const Button = ({
+  title,
+  titleColor,
+  backgroundColor,
+  radius = 12,
+  onPress,
+}: ButtonProps) => {
   // TODO: move into theme
   const background = backgroundColor || '#ffffff';
   const color = titleColor || getContrastColor(background);
@@ -19,11 +26,11 @@ export const Button = ({ title, titleColor, backgroundColor, onPress }: ButtonPr
     <Pressable
       style={({ pressed }) => [
         styles.button,
-        { backgroundColor: background },
+        { backgroundColor: background, borderRadius: radius },
         pressed ? { opacity: 0.8 } : {},
       ]}
       onPress={onPress}>
-      <Text style={{ color }}>{title}</Text>
+      <Text style={[{ color }, styles.text]}>{title}</Text>
     </Pressable>
   );
 };
@@ -33,5 +40,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     padding: 12,
     borderRadius: 26,
+    width: '100%',
+    paddingVertical: 16,
+  },
+  text: {
+    fontWeight: '500',
+    fontSize: 18,
   },
 });
