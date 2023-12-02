@@ -1,7 +1,10 @@
-import { Button } from '@/components';
-import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 
+import { StatusBar } from 'expo-status-bar';
+
+import { Button } from '@/components';
+
+// eslint-disable-next-line import/no-default-export
 export default function App() {
   return (
     <View style={styles.container}>

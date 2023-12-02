@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
-import { getContrastColor } from '@/utils';
 import React from 'react';
+import { Pressable, StyleSheet, Text } from 'react-native';
+
+import { getContrastColor } from '@/utils';
 
 type ButtonProps = {
   title: string;
@@ -8,6 +9,7 @@ type ButtonProps = {
   titleColor?: string;
   onPress?: () => void;
 };
+
 export const Button = ({ title, titleColor, backgroundColor, onPress }: ButtonProps) => {
   // TODO: move into theme
   const background = backgroundColor || '#ffffff';
@@ -25,8 +27,6 @@ export const Button = ({ title, titleColor, backgroundColor, onPress }: ButtonPr
     </Pressable>
   );
 };
-
-export default Button;
 
 const styles = StyleSheet.create({
   button: {

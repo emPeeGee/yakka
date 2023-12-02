@@ -1,15 +1,49 @@
-// TODO: Add import, airbnb, and others
+// TODO:  airbnb, and others
 // https://github.com/expo/expo/blob/master/packages/eslint-config-universe/shared/react.js
 module.exports = {
   root: true,
   env: { node: true, es6: true },
-  extends: ['eslint:recommended', 'prettier'],
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'prettier',
+
+    // import
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+  ],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'import'],
   parserOptions: {
     ecmaVersion: 'latest',
   },
-
   ignorePatterns: ['node_modules/*'],
+  rules: {
+    'import/prefer-default-export': 'off',
+    'import/no-default-export': 'error',
+    'import/default': 'error',
+    'import/no-named-as-default-member': 'error',
+    'import/no-named-as-default': 'error',
+
+    // First, include built-in imports like 'react' and 'react-native'.
+    // Second, add third-party imports like 'reanimated'.
+    // Third, include internal imports like 'utils'.
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        groups: ['builtin', 'external', 'internal', ['sibling', 'parent'], 'index'],
+        pathGroups: [
+          { pattern: 'react', group: 'builtin' },
+          { pattern: 'react-native', group: 'builtin' },
+        ],
+        pathGroupsExcludedImportTypes: ['internal'],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
+  },
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],
@@ -21,6 +55,9 @@ module.exports = {
       },
       settings: {
         react: { version: 'detect' },
+        'import/resolver': {
+          typescript: true,
+        },
       },
       extends: [
         'eslint:recommended',
