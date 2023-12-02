@@ -1,6 +1,6 @@
+import { Button } from '@/components';
 import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import Button from './src/components/Button';
 
 export default function App() {
   return (
