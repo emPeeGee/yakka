@@ -23,6 +23,7 @@ module.exports = {
       [
         '🎉 init',
         '✨ feat',
+        '🚧 feat',
         '🐞 fix',
         '📃 docs',
         '🌈 style',
