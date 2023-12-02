@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
-import { getContrastColor } from '@/utils';
+import { getContrastColor } from '@/core/utils';
 
 type ButtonProps = {
   title: string;

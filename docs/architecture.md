@@ -8,6 +8,7 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
 
 ### Overview
 .
+├── assets  ## assets folder can contain all the static files such as images, fonts, etc.
 ├── api ## any thing related to api calls and data fetching
 │   ├── common ##common api files such as axios client 
 │   ├── index.tsx
@@ -48,6 +49,8 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
     └── utils.tsx
 
 ### Explanation
+`assets`: This folder contains all the static files such as images, fonts, etc.
+
 `ui`: This folder contains all the UI components and the theme configuration. We provide minimal components with a basic obytes theme. You can add your own components and theme configuration here.
 
 `core`: This folder contains the core files, such as authentication, localization, storage, and more. It can be shared with other projects. That’s why we are only including modules that have nothing to do with project logic. This approach helps us share code between projects and also update the starter with new features.
@@ -60,7 +63,7 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
 
 `translations`: This folder contains the translation resources files. We recommend using translation files even if you are not supporting multiple languages as it will help you to support multiple languages in the future and also help you to find all the strings in one place.
 
-`typesz: This folder contains the global types.
+`types`: This folder contains the global types.
 
 ## Reference
 
