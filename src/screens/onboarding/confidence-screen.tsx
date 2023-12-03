@@ -1,32 +1,43 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Theme } from '@/types';
 import { Button } from '@/ui/core';
+import { useGlobalStyles, useTheme } from '@/ui/theme';
 
 import { ConfidenceSvg } from './components/ConfidenceSvg';
 
 export const ConfidenceScreen = () => {
+  const { theme } = useTheme();
+  const globalStyles = useGlobalStyles();
+
+  const styles = useMemo(() => getStyles(theme), [theme]);
+
   return (
     <View style={styles.container}>
       <ConfidenceSvg />
 
-      <Text>Confidence in your words</Text>
-      <Text>With conversation-based learning, you&#39;ll be talking from lesson one</Text>
+      <Text style={globalStyles.text}>Confidence in your words</Text>
+      <Text style={globalStyles.text}>
+        With conversation-based learning, you&#39;ll be talking from lesson one
+      </Text>
 
       <View style={{ flexDirection: 'row' }}>
         <Button title="Choose a language" backgroundColor="#5B7BFE" />
       </View>
 
-      <Text>Already a yakka user? Log in</Text>
+      <Text style={globalStyles.text}>Already a yakka user? Log in</Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 12,
-  },
-});
+const getStyles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 12,
+      backgroundColor: theme.colors.background,
+    },
+  });
