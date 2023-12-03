@@ -8,3 +8,4 @@ This is early development version. I am currently considering:
 [ ] Splash screen.
 [ ] Lessons tab.
 [ ] Exercises as POC.
+[ ] Translation
