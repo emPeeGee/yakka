@@ -3,10 +3,10 @@ import { View, SafeAreaView, Text } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
 
-import { ConfidenceScreen } from '@/screens/onboarding/confidence-screen';
+import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
 import { RadioGroup } from '@/ui/core';
 // TODO: @ui/theme or @ui ???
-import { useGlobalStyles, useTheme } from '@/ui/theme';
+import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 // TODO: move
 const options = [
@@ -16,7 +16,7 @@ const options = [
 ];
 
 export function ApplicationConfigurator() {
-  const { container } = useGlobalStyles();
+  const { container } = useGlobalThemedStyles();
   const { setColorScheme, userColorScheme } = useTheme();
 
   const [selected, setSelected] = useState(userColorScheme);

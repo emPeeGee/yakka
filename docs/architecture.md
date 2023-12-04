@@ -7,10 +7,11 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
 ## Project structure (example)
 
 ### Overview
+
 .
-├── assets  ## assets folder can contain all the static files such as images, fonts, etc.
+├── assets ## assets folder can contain all the static files such as images, fonts, etc.
 ├── api ## any thing related to api calls and data fetching
-│   ├── common ##common api files such as axios client 
+│   ├── common ##common api files such as axios client
 │   ├── index.tsx
 │   ├── posts ## query and mutation related to post
 │   └── types.ts
@@ -39,16 +40,17 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
 ├── types
 │   └── index.ts
 └── ui # ui components and theme configuration
-    ├── core
-    ├── error-handler
-    ├── focus-aware-status-bar.tsx
-    ├── icons
-    ├── index.tsx
-    ├── screen.tsx
-    ├── theme
-    └── utils.tsx
+├── core
+├── error-handler
+├── focus-aware-status-bar.tsx
+├── icons
+├── index.tsx
+├── screen.tsx
+├── theme
+└── utils.tsx
 
 ### Explanation
+
 `assets`: This folder contains all the static files such as images, fonts, etc.
 
 `ui`: This folder contains all the UI components and the theme configuration. We provide minimal components with a basic obytes theme. You can add your own components and theme configuration here.
@@ -64,6 +66,11 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
 `translations`: This folder contains the translation resources files. We recommend using translation files even if you are not supporting multiple languages as it will help you to support multiple languages in the future and also help you to find all the strings in one place.
 
 `types`: This folder contains the global types.
+
+## Naming conventions
+
+`components` and `screens`: will use PascalCase.
+`anything else`: camelCase is recommended.
 
 ## Reference
 

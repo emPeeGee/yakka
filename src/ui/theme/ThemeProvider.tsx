@@ -7,7 +7,7 @@ import { Theme } from '@/types';
 
 import { getTheme } from './colors';
 
-const SELECTED_THEME = 'SELECTED_THEME';
+const SELECTED_THEME_KEY = 'SELECTED_THEME';
 
 interface ThemeContextType {
   theme: Theme;
@@ -36,7 +36,7 @@ type ThemeProviderProps = {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const systemColorScheme = useColorScheme();
-  const { getItem, setItem } = useAsyncStorage(SELECTED_THEME);
+  const { getItem, setItem } = useAsyncStorage(SELECTED_THEME_KEY);
   const [theme, setTheme] = useState<Theme>(getTheme(systemColorScheme));
   const userColorScheme = useRef<ColorSchemeType>(systemColorScheme as ColorSchemeType);
 

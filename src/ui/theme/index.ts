@@ -1,4 +1,4 @@
-import { useGlobalStyles } from './global-styles';
-import { useTheme, ThemeProvider } from './theme-provider';
+import { ThemeProvider, useTheme } from './ThemeProvider';
+import { useGlobalThemedStyles } from './useGlobalThemedStyles';
 
-export { useGlobalStyles, useTheme, ThemeProvider };
+export { useGlobalThemedStyles, useTheme, ThemeProvider };

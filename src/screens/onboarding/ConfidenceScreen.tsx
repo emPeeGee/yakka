@@ -3,13 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { Theme } from '@/types';
 import { Button } from '@/ui/core';
-import { useGlobalStyles, useTheme } from '@/ui/theme';
+import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 import { ConfidenceSvg } from './components/ConfidenceSvg';
 
 export const ConfidenceScreen = () => {
   const { theme } = useTheme();
-  const globalStyles = useGlobalStyles();
+  const globalStyles = useGlobalThemedStyles();
 
   const styles = useMemo(() => getStyles(theme), [theme]);
 
