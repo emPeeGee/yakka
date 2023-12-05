@@ -16,15 +16,13 @@ const options = [
 ];
 
 export function ApplicationConfigurator() {
-  const { container } = useGlobalThemedStyles();
+  const { notchSafeArea } = useGlobalThemedStyles();
   const { setColorScheme, userColorScheme } = useTheme();
 
   const [selected, setSelected] = useState(userColorScheme);
 
   return (
-    <SafeAreaView style={container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <SafeAreaView style={notchSafeArea}>
       <ConfidenceScreen />
 
       <View>

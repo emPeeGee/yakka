@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StatusBar, StyleSheet } from 'react-native';
 
 import { Theme } from '@/types';
 
@@ -7,6 +7,14 @@ import { useTheme } from './ThemeProvider';
 
 const getGlobalStyles = (theme: Theme) =>
   StyleSheet.create({
+    // in case it doesn't work: https://docs.expo.dev/versions/latest/sdk/safe-area-context/
+    notchSafeArea: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     container: {
       flex: 1,
       alignItems: 'center',
