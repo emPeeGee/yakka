@@ -17,12 +17,13 @@ const options = [
 
 export function ApplicationConfigurator() {
   const { notchSafeArea } = useGlobalThemedStyles();
-  const { setColorScheme, userColorScheme } = useTheme();
+  const { setColorScheme, userColorScheme, statusBarScheme } = useTheme();
 
   const [selected, setSelected] = useState(userColorScheme);
 
   return (
     <SafeAreaView style={notchSafeArea}>
+      <StatusBar style={statusBarScheme} />
       <ConfidenceScreen />
 
       <View>

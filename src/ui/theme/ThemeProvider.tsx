@@ -1,22 +1,22 @@
 import React, { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react';
-import { useColorScheme } from 'react-native';
+import { ColorSchemeName, useColorScheme } from 'react-native';
 
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { StatusBarStyle } from 'expo-status-bar';
 
 import { Theme } from '@/types';
 
 import { getTheme } from './colors';
 
-const SELECTED_THEME_KEY = 'SELECTED_THEME';
-
-interface ThemeContextType {
+type ColorSchemeType = 'light' | 'dark' | 'system';
+type ThemeContextType = {
   theme: Theme;
   userColorScheme: ColorSchemeType;
+  statusBarScheme: StatusBarStyle;
   setColorScheme: (colorScheme: ColorSchemeType) => Promise<void>;
-}
+};
 
-type ColorSchemeType = 'light' | 'dark' | 'system';
-
+const SELECTED_THEME_KEY = 'SELECTED_THEME';
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const useTheme = () => {
@@ -28,7 +28,7 @@ export const useTheme = () => {
   return context;
 };
 
-// TODO: storage and default light, dark and system https://medium.com/simform-engineering/manage-dark-mode-in-react-native-application-2a04ba7e76d0
+// DONE: Storage and default schemes: light, dark and system https://medium.com/simform-engineering/manage-dark-mode-in-react-native-application-2a04ba7e76d0
 
 type ThemeProviderProps = {
   children: ReactNode;
@@ -78,8 +78,29 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ theme, userColorScheme: userColorScheme.current, setColorScheme }}>
+      value={{
+        theme,
+        userColorScheme: userColorScheme.current,
+        setColorScheme,
+        statusBarScheme: getStatusBarScheme(userColorScheme.current, systemColorScheme),
+      }}>
       {children}
     </ThemeContext.Provider>
   );
 };
+
+function getStatusBarScheme(
+  userColorScheme: ColorSchemeType,
+  systemColorScheme: ColorSchemeName,
+): StatusBarStyle {
+  switch (userColorScheme) {
+    case 'light':
+      return 'dark';
+    case 'dark':
+      return 'light';
+    case 'system':
+      return systemColorScheme === 'dark' ? 'light' : 'dark';
+    default:
+      throw new Error('No such color scheme');
+  }
+}
