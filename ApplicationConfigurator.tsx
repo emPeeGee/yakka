@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { View, SafeAreaView, Text } from 'react-native';
+import { View, SafeAreaView, Text, ActivityIndicator } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 
+import { useIsFirstTime } from '@/core/hooks';
 import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
-import { RadioGroup } from '@/ui/core';
-// TODO: @ui/theme or @ui ???
+import { Button, RadioGroup } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 // TODO: move
@@ -20,12 +21,15 @@ export function ApplicationConfigurator() {
   const { setColorScheme, userColorScheme, statusBarScheme } = useTheme();
 
   const [selected, setSelected] = useState(userColorScheme);
+  const [isFirstTime, , isLoading] = useIsFirstTime();
 
   return (
     <SafeAreaView style={notchSafeArea}>
       <StatusBar style={statusBarScheme} />
       <ConfidenceScreen />
 
+      {isLoading && <ActivityIndicator size="large" />}
+      <Text>Is first time {isFirstTime ? 'yes' : 'no'}</Text>
       <View>
         <RadioGroup
           label="Favorite avatar"
@@ -38,6 +42,13 @@ export function ApplicationConfigurator() {
         />
       </View>
       <Text>You have selected: {selected}</Text>
+
+      <Button
+        title="Clear the storage"
+        onPress={() => {
+          AsyncStorage.removeItem('IS_FIRST_TIME');
+        }}
+      />
     </SafeAreaView>
   );
 }
