@@ -1,4 +1,5 @@
 import { Button } from './Button';
-import { RadioGroup } from './RadioGroup';
+import { RadioGroup, RadioGroupOption } from './RadioGroup';
 
 export { Button, RadioGroup };
+export type { RadioGroupOption };

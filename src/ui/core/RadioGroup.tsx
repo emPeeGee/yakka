@@ -1,5 +1,7 @@
 import { TouchableOpacity, View, Text } from 'react-native';
 
+import { useTheme } from '../theme';
+
 type RadioButtonProps<T> = {
   label: string;
   selected: boolean;
@@ -8,6 +10,8 @@ type RadioButtonProps<T> = {
 };
 
 function RadioButton<T>({ label, value, selected, onSelect }: RadioButtonProps<T>) {
+  const { theme } = useTheme();
+
   return (
     <TouchableOpacity onPress={() => onSelect(value)}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -17,24 +21,31 @@ function RadioButton<T>({ label, value, selected, onSelect }: RadioButtonProps<T
             width: 24,
             borderRadius: 12,
             borderWidth: 2,
-            borderColor: '#3498db',
+            borderColor: theme.colors.primary,
             alignItems: 'center',
             justifyContent: 'center',
             marginRight: 8,
-            backgroundColor: selected ? '#3498db' : 'transparent',
+            backgroundColor: selected ? theme.colors.primary : 'transparent',
           }}>
           {selected && (
-            <View style={{ height: 12, width: 12, borderRadius: 6, backgroundColor: '#fff' }} />
+            <View
+              style={{
+                height: 12,
+                width: 12,
+                borderRadius: 6,
+                backgroundColor: theme.colors.accent,
+              }}
+            />
           )}
         </View>
-        <Text>{label}</Text>
+        <Text style={{ color: theme.colors.text }}>{label}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 
 // TODO: better name and export
-type RadioGroupOption<T> = {
+export type RadioGroupOption<T> = {
   label: string;
   value: T;
 };
@@ -47,9 +58,11 @@ type RadioGroupProps<T> = {
 };
 
 export function RadioGroup<T>({ label, options, value, onChange }: RadioGroupProps<T>) {
+  const { theme } = useTheme();
+
   return (
     <View>
-      <Text>{label}</Text>
+      <Text style={{ color: theme.colors.text }}>{label}</Text>
       {options.map((option, index) => (
         <RadioButton
           key={index}

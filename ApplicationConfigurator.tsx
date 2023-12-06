@@ -6,11 +6,12 @@ import { StatusBar } from 'expo-status-bar';
 
 import { useIsFirstTime } from '@/core/hooks';
 import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
-import { Button, RadioGroup } from '@/ui/core';
+import { ColorSchemeType } from '@/types';
+import { Button, RadioGroup, RadioGroupOption } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 // TODO: move
-const options = [
+const options: RadioGroupOption<ColorSchemeType>[] = [
   { label: 'Light', value: 'light' },
   { label: 'Dark', value: 'dark' },
   { label: 'System', value: 'system' },

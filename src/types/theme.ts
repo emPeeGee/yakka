@@ -1,3 +1,5 @@
+export type ColorSchemeType = 'light' | 'dark' | 'system';
+
 export type Shadow = {
   shadowColor: string;
   shadowOffset: { width: number; height: number };

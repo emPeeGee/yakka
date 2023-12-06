@@ -1,3 +1,3 @@
-import { Theme, Shadow, Colors } from './theme';
+import { Theme, Shadow, Colors, ColorSchemeType } from './theme';
 
-export { Theme, Shadow, Colors };
+export { Theme, Shadow, Colors, ColorSchemeType };

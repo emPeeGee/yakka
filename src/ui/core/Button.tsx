@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
-import { getContrastColor } from '@/core/utils';
+import { useTheme } from '../theme';
 
 type ButtonProps = {
   title: string;
@@ -18,9 +18,9 @@ export const Button = ({
   radius = 12,
   onPress,
 }: ButtonProps) => {
-  // TODO: move into theme
-  const background = backgroundColor || '#ffffff';
-  const color = titleColor || getContrastColor(background);
+  const { theme } = useTheme();
+  const background = backgroundColor || theme.colors.accent;
+  const color = titleColor || theme.colors.text;
 
   return (
     <Pressable
@@ -37,7 +37,6 @@ export const Button = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'blue',
     padding: 12,
     borderRadius: 26,
     width: '100%',

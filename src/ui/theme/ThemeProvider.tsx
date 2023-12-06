@@ -4,10 +4,9 @@ import { ColorSchemeName, useColorScheme } from 'react-native';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { StatusBarStyle } from 'expo-status-bar';
 
-import { Theme } from '@/types';
+import { ColorSchemeType, Theme } from '@/types';
 import { getTheme } from './colors';
 
-type ColorSchemeType = 'light' | 'dark' | 'system';
 type ThemeContextType = {
   theme: Theme;
   userColorScheme: ColorSchemeType;
@@ -26,8 +25,6 @@ export const useTheme = () => {
 
   return context;
 };
-
-// DONE: Storage and default schemes: light, dark and system https://medium.com/simform-engineering/manage-dark-mode-in-react-native-application-2a04ba7e76d0
 
 type ThemeProviderProps = {
   children: ReactNode;
