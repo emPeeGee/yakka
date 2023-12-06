@@ -1,5 +1,6 @@
-import { TouchableOpacity, View, Text } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
+import { EnhancedText } from './EnhancedText';
 import { useTheme } from '../theme';
 
 type RadioButtonProps<T> = {
@@ -38,7 +39,7 @@ function RadioButton<T>({ label, value, selected, onSelect }: RadioButtonProps<T
             />
           )}
         </View>
-        <Text style={{ color: theme.colors.text }}>{label}</Text>
+        <EnhancedText>{label}</EnhancedText>
       </View>
     </TouchableOpacity>
   );
@@ -58,11 +59,9 @@ type RadioGroupProps<T> = {
 };
 
 export function RadioGroup<T>({ label, options, value, onChange }: RadioGroupProps<T>) {
-  const { theme } = useTheme();
-
   return (
     <View>
-      <Text style={{ color: theme.colors.text }}>{label}</Text>
+      <EnhancedText>{label}</EnhancedText>
       {options.map((option, index) => (
         <RadioButton
           key={index}

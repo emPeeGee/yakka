@@ -1,6 +1,7 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 
+import { EnhancedText } from './EnhancedText';
 import { useTheme } from '../theme';
 
 type ButtonProps = {
@@ -30,7 +31,7 @@ export const Button = ({
         pressed ? { opacity: 0.8 } : {},
       ]}
       onPress={onPress}>
-      <Text style={[{ color }, styles.text]}>{title}</Text>
+      <EnhancedText style={[{ color }, styles.text]}>{title}</EnhancedText>
     </Pressable>
   );
 };

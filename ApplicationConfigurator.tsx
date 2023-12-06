@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, SafeAreaView, Text, ActivityIndicator } from 'react-native';
+import { View, SafeAreaView, ActivityIndicator } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useIsFirstTime } from '@/core/hooks';
 import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
 import { ColorSchemeType } from '@/types';
-import { Button, RadioGroup, RadioGroupOption } from '@/ui/core';
+import { Button, EnhancedText, RadioGroup, RadioGroupOption } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 // TODO: move
@@ -30,7 +30,7 @@ export function ApplicationConfigurator() {
       <ConfidenceScreen />
 
       {isLoading && <ActivityIndicator size="large" />}
-      <Text>Is first time {isFirstTime ? 'yes' : 'no'}</Text>
+      <EnhancedText>Is first time {isFirstTime ? 'yes' : 'no'}</EnhancedText>
       <View>
         <RadioGroup
           label="Favorite avatar"
@@ -42,7 +42,7 @@ export function ApplicationConfigurator() {
           }}
         />
       </View>
-      <Text>You have selected: {selected}</Text>
+      <EnhancedText>You have selected: {selected}</EnhancedText>
 
       <Button
         title="Clear the storage"
