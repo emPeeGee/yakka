@@ -22,8 +22,9 @@ module.exports = {
       'always',
       [
         '🎉 init',
-        '✨ feat',
-        '🚧 feat',
+        '✨ feat', // Major feat
+        '🌱 feat', // Minor feat
+        '🚧 feat', // WIP feat
         '🐞 fix',
         '📃 docs',
         '🌈 style',

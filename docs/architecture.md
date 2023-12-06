@@ -72,6 +72,13 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
 `components` and `screens`: will use PascalCase.
 `anything else`: camelCase is recommended.
 
+## Git conventions
+
+`✨ feat`: Major feature
+`🌱 feat`: Minor feature
+`🚧 feat`: WIP feature
+... to be added
+
 ## Reference
 
 https://github.com/infinitered/ignite/blob/master/docs/Folder-Structure.md
