@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { Platform, StatusBar, StyleSheet } from 'react-native';
 
 import { Theme } from '@/types';
-
 import { useTheme } from './ThemeProvider';
 
 const getGlobalStyles = (theme: Theme) =>

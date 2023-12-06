@@ -4,7 +4,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Theme } from '@/types';
 import { Button } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-
 import { ConfidenceSvg } from './components/ConfidenceSvg';
 
 export const ConfidenceScreen = () => {

@@ -5,7 +5,6 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { StatusBarStyle } from 'expo-status-bar';
 
 import { Theme } from '@/types';
-
 import { getTheme } from './colors';
 
 type ColorSchemeType = 'light' | 'dark' | 'system';
