@@ -1,9 +1,9 @@
 import React, { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { ColorSchemeName, useColorScheme } from 'react-native';
 
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { StatusBarStyle } from 'expo-status-bar';
 
+import { getItem, setItem } from '@/core/storage';
 import { ColorSchemeType, Theme } from '@/types';
 import { getTheme } from './colors';
 
@@ -32,18 +32,17 @@ type ThemeProviderProps = {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const systemColorScheme = useColorScheme();
-  const { getItem, setItem } = useAsyncStorage(SELECTED_THEME_KEY);
   const [theme, setTheme] = useState<Theme>(getTheme(systemColorScheme));
   const userColorScheme = useRef<ColorSchemeType>(systemColorScheme as ColorSchemeType);
 
+  //TODO: functional error handling
+
   useEffect(() => {
     const readTheme = async () => {
-      try {
-        const colorScheme = (await getItem()) as ColorSchemeType;
+      const colorScheme = await getItem<ColorSchemeType>(SELECTED_THEME_KEY);
+      if (colorScheme) {
         setColorScheme(colorScheme);
         userColorScheme.current = colorScheme;
-      } catch (error) {
-        console.error('Error fetching theme from AsyncStorage:', error);
       }
     };
     readTheme();
@@ -58,7 +57,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   console.log('theme-provider');
 
   const setColorScheme = async (colorScheme: ColorSchemeType) => {
-    await setItem(colorScheme);
+    await setItem(SELECTED_THEME_KEY, colorScheme);
     userColorScheme.current = colorScheme;
 
     switch (colorScheme) {

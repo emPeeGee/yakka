@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { View, SafeAreaView, ActivityIndicator } from 'react-native';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 
 import { useIsFirstTime } from '@/core/hooks';
+import { removeItem } from '@/core/storage';
 import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
 import { ColorSchemeType } from '@/types';
 import { Button, EnhancedText, RadioGroup, RadioGroupOption } from '@/ui/core';
@@ -47,7 +47,7 @@ export function ApplicationConfigurator() {
       <Button
         title="Clear the storage"
         onPress={() => {
-          AsyncStorage.removeItem('IS_FIRST_TIME');
+          removeItem('IS_FIRST_TIME');
         }}
       />
     </SafeAreaView>

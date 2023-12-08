@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getItem, setItem } from '../storage';
 
 const IS_FIRST_TIME_KEY = 'IS_FIRST_TIME';
 
@@ -10,20 +10,18 @@ export const useIsFirstTime = () => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const storedIsFirstTime = await AsyncStorage.getItem(IS_FIRST_TIME_KEY);
-
-        if (storedIsFirstTime === null) {
-          setIsFirstTime(true);
-          await AsyncStorage.setItem(IS_FIRST_TIME_KEY, 'false');
-        } else {
-          setIsFirstTime(storedIsFirstTime === 'true');
-        }
-      } catch (err) {
-        console.log('useIsFirstTime error', err);
-      } finally {
-        setIsLoading(false);
-      }
+      getItem<boolean>(IS_FIRST_TIME_KEY)
+        .then(async item => {
+          if (item === null) {
+            setIsFirstTime(true);
+            await setItem(IS_FIRST_TIME_KEY, false);
+          } else {
+            setIsFirstTime(item === true);
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     })();
   }, []);
 
