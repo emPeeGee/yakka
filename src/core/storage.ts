@@ -9,7 +9,7 @@ export async function getItem<T>(key: string): Promise<T | null> {
     } else {
       return null;
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.warn(`Error reading AsyncStorage key '${key}':`, error);
     return null;
   }

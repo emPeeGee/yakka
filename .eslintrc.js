@@ -38,6 +38,10 @@ module.exports = {
     'import/no-named-as-default-member': 'error',
     'import/no-named-as-default': 'error',
 
+    'max-params': ['error', 3], // Limit the number of parameters in a function to use object instead
+    'max-lines-per-function': ['error', 70],
+    // '@typescript-eslint/consistent-type-imports': 'error', // Ensure `import type` is used when it's necessary
+
     // First, include built-in imports like 'react' and 'react-native'.
     // Second, add third-party imports like 'reanimated'.
     // Third, include internal imports like '@/types', './utils'.
