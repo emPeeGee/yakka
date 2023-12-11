@@ -1,5 +1,4 @@
-type LoggerColors = {
-  default: null;
+export type LoggerColors = {
   black: number;
   red: number;
   green: number;
@@ -19,7 +18,6 @@ type LoggerColors = {
 };
 
 const LOGGER_COLORS: LoggerColors = {
-  default: null,
   black: 30,
   red: 31,
   green: 32,

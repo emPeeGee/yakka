@@ -30,6 +30,7 @@ export type Colors = {
 };
 
 export type Theme = {
+  colors: Colors;
   typography: {
     fontFamily: string;
     fontSize: {

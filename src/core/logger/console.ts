@@ -1,26 +1,33 @@
-import { LOGGER_COLORS, RESET_COLOR } from '@/core/logger/colors';
+import { LOGGER_COLORS, LoggerColors, RESET_COLOR } from '@/core/logger/colors';
 
-type transportFunctionType = (props: {
-  msg: any;
-  rawMsg: any;
+type TransportType = {
+  msg: string;
+  rawMsg: string;
   level: { severity: number; text: string };
   extension?: string | null;
-  options?: any;
-}) => any;
+  options?: TransportOptionsType;
+};
 
-type levelsType = { [key: string]: number };
-type logMethodType = (level: string, extension: string | null, ...msgs: any[]) => boolean;
-type levelLogMethodType = (...msgs: any[]) => boolean;
-type extendedLogType = { [key: string]: levelLogMethodType | any };
+type TransportOptionsType = {
+  colors: { [key: string]: keyof LoggerColors };
+  extensionColors: { [key: string]: keyof LoggerColors };
+  consoleFunc?: ((...data: unknown[]) => void) | null;
+};
+
+type TransportFunctionType = (props: TransportType) => any;
+
+type LevelsType = { [key: string]: number };
+type LogMethodType = (level: string, extension: string | null, ...msgs: any[]) => boolean | void;
+type ExtendedLogType = { [key: string]: (...msgs: any[]) => boolean | any };
 
 type ConfigLoggerType = {
-  severity?: string;
-  transport?: transportFunctionType | transportFunctionType[];
-  transportOptions?: any;
-  levels?: levelsType;
+  severity: string;
+  transport?: TransportFunctionType | TransportFunctionType[];
+  transportOptions?: TransportOptionsType;
+  levels?: LevelsType;
   async?: boolean;
-  asyncFunc?: Function;
-  stringifyFunc?: (msg: any) => string;
+  asyncFunc?: (cb: () => boolean) => void;
+  stringifyFunc?: (msg: unknown) => string;
   dateFormat?: string | ((date: Date) => string); //"time" | "local" | "utc" | "iso" | "function";
   printLevel?: boolean;
   printDate?: boolean;
@@ -28,7 +35,7 @@ type ConfigLoggerType = {
   enabledExtensions?: string[] | string | null;
 };
 
-const consoleTransport: transportFunctionType = props => {
+const consoleTransport: TransportFunctionType = (props: TransportType) => {
   if (!props) return false;
 
   let msg = props.msg;
@@ -55,8 +62,8 @@ const consoleTransport: transportFunctionType = props => {
       }m`;
     }
 
-    let extStart = color ? RESET_COLOR + extensionColor : extensionColor;
-    let extEnd = color ? RESET_COLOR + color : RESET_COLOR;
+    const extStart = color ? RESET_COLOR + extensionColor : extensionColor;
+    const extEnd = color ? RESET_COLOR + color : RESET_COLOR;
     msg = msg.replace(props.extension, `${extStart} ${props.extension} ${extEnd}`);
   }
 
@@ -69,7 +76,7 @@ const consoleTransport: transportFunctionType = props => {
   return true;
 };
 
-const asyncFunc = (cb: Function) => {
+const asyncFunc = (cb: () => boolean): void => {
   setTimeout(() => {
     return cb();
   }, 0);
@@ -101,15 +108,18 @@ const reservedKey: string[] = [
   'getExtensions',
   'setSeverity',
   'getSeverity',
-  'patchConsole',
   'getOriginalConsole',
 ];
 
 /** Default configuration parameters for logger */
-const defaultLogger = {
+const defaultLogger: ConfigLoggerType = {
   severity: 'debug',
   transport: consoleTransport,
-  transportOptions: {},
+  transportOptions: {
+    colors: {},
+    extensionColors: {},
+    consoleFunc: null,
+  },
   levels: {
     debug: 0,
     info: 1,
@@ -124,26 +134,23 @@ const defaultLogger = {
   dateFormat: 'time',
   enabled: true,
   enabledExtensions: null,
-  printFileLine: false,
-  fileLineOffset: 0,
 };
 
-/** Logger Main Class */
-class logs {
-  private _levels: levelsType;
+class Logs {
+  private _levels: LevelsType;
   private _level: string;
-  private _transport: transportFunctionType | transportFunctionType[];
-  private _transportOptions: any;
+  private _transport: TransportFunctionType | TransportFunctionType[];
+  private _transportOptions: TransportOptionsType;
   private _async: boolean;
-  private _asyncFunc: Function;
-  private _stringifyFunc: (msg: any) => string;
+  private _asyncFunc: (cb: () => boolean) => void;
+  private _stringifyFunc: (msg: unknown) => string;
   private _dateFormat: string | ((date: Date) => string);
   private _printLevel: boolean;
   private _printDate: boolean;
   private _enabled: boolean;
   private _enabledExtensions: string[] | null = null;
   private _extensions: string[] = [];
-  private _extendedLogs: { [key: string]: extendedLogType } = {};
+  private _extendedLogs: { [key: string]: ExtendedLogType } = {};
   private _originalConsole?: typeof console;
 
   constructor(config: Required<ConfigLoggerType>) {
@@ -172,7 +179,8 @@ class logs {
     }
 
     /** Bind correct log levels methods */
-    let _this: any = this;
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    let _this = this;
     Object.keys(this._levels).forEach((level: string) => {
       if (typeof level !== 'string') {
         throw Error(`[logger] ERROR: levels must be strings`);
@@ -187,6 +195,8 @@ class logs {
           `[logger] ERROR: [${level}] is a reserved key, you cannot set it as custom level`,
         );
       }
+
+      console.info('level', level);
       if (typeof this._levels[level] === 'number') {
         _this[level] = this._log.bind(this, level, null);
       } else {
@@ -196,14 +206,14 @@ class logs {
   }
 
   /** Log messages methods and level filter */
-  private _log: logMethodType = (level, extension, ...msgs) => {
+  private _log: LogMethodType = (level, extension, ...msgs) => {
     if (this._async) {
       return this._asyncFunc(() => {
-        this._sendToTransport(level, extension, msgs);
+        return this._sendToTransport(level, extension, msgs);
       });
-    } else {
-      return this._sendToTransport(level, extension, msgs);
     }
+
+    return this._sendToTransport(level, extension, msgs);
   };
 
   private _sendToTransport = (level: string, extension: string | null, msgs: any) => {
@@ -214,9 +224,9 @@ class logs {
     if (extension && !this._isExtensionEnabled(extension)) {
       return false;
     }
-    let msg = this._formatMsg(level, extension, msgs);
-    let transportProps = {
-      msg: msg,
+    const msg = this._formatMsg(level, extension, msgs);
+    const transportProps: TransportType = {
+      msg,
       rawMsg: msgs,
       level: { severity: this._levels[level], text: level },
       extension: extension,
@@ -232,7 +242,7 @@ class logs {
     return true;
   };
 
-  private _stringifyMsg = (msg: any): string => {
+  private _stringifyMsg = (msg: unknown): string => {
     return this._stringifyFunc(msg);
   };
 
@@ -304,23 +314,21 @@ class logs {
   };
 
   /** Extend logger with a new extension */
-  extend = (extension: string): extendedLogType => {
+  extend = (extension: string): ExtendedLogType => {
     if (extension === 'console') {
-      throw Error(
-        `[logger:extend] ERROR: you cannot set [console] as extension, use patchConsole instead`,
-      );
+      throw Error(`[logger:extend] ERROR: you cannot set [console] as extension!`);
     }
     if (this._extensions.includes(extension)) {
       return this._extendedLogs[extension];
     }
     this._extendedLogs[extension] = {};
     this._extensions.push(extension);
-    let extendedLog = this._extendedLogs[extension];
+    const extendedLog = this._extendedLogs[extension];
     Object.keys(this._levels).forEach((level: string) => {
       extendedLog[level] = (...msgs: any) => {
         this._log(level, extension, ...msgs);
       };
-      extendedLog['extend'] = (extension: string) => {
+      extendedLog['extend'] = () => {
         throw Error(`[logger] ERROR: you cannot extend a logger from an already extended logger`);
       };
       extendedLog['enable'] = () => {
@@ -332,14 +340,11 @@ class logs {
       extendedLog['getExtensions'] = () => {
         throw Error(`[logger] ERROR: You cannot get extensions from extended logger`);
       };
-      extendedLog['setSeverity'] = (level: string) => {
+      extendedLog['setSeverity'] = () => {
         throw Error(`[logger] ERROR: You cannot set severity from extended logger`);
       };
       extendedLog['getSeverity'] = () => {
         throw Error(`[logger] ERROR: You cannot get severity from extended logger`);
-      };
-      extendedLog['patchConsole'] = () => {
-        throw Error(`[logger] ERROR: You cannot patch console from extended logger`);
       };
       extendedLog['getOriginalConsole'] = () => {
         throw Error(`[logger] ERROR: You cannot get original console from extended logger`);
@@ -373,7 +378,7 @@ class logs {
     }
   };
 
-  /** Disable logger or extension */
+  // /** Disable logger or extension */
   disable = (extension?: string): boolean => {
     if (!extension) {
       this._enabled = false;
@@ -413,40 +418,7 @@ class logs {
   getSeverity = (): string => {
     return this._level;
   };
-
-  /** Monkey Patch global console.log */
-  patchConsole = (): void => {
-    let extension = 'console';
-    let levelKeys = Object.keys(this._levels);
-
-    if (!this._originalConsole) {
-      this._originalConsole = console;
-    }
-
-    if (!this._transportOptions.consoleFunc) {
-      this._transportOptions.consoleFunc = this._originalConsole.log;
-    }
-
-    console['log'] = (...msgs: any) => {
-      this._log(levelKeys[0], extension, ...msgs);
-    };
-
-    levelKeys.forEach((level: string) => {
-      if ((console as any)[level]) {
-        (console as any)[level] = (...msgs: any) => {
-          this._log(level, extension, ...msgs);
-        };
-      } else {
-        this._originalConsole &&
-          this._originalConsole.log(
-            `[logger:patchConsole] WARNING: "${level}" method does not exist in console and will not be available`,
-          );
-      }
-    });
-  };
 }
-
-type LogLevels = 'debug' | 'info' | 'warn' | 'error';
 
 /**
  * Create a logger object. All params will take default values if not passed.
@@ -455,21 +427,22 @@ type LogLevels = 'debug' | 'info' | 'warn' | 'error';
  * through the transport
  */
 const createLogger = <Y extends string>(config?: ConfigLoggerType) => {
-  type levelMethods<levels extends string> = {
+  type LevelMethods<levels extends string> = {
     [key in levels]: (...args: unknown[]) => void;
   };
 
-  type loggerType = levelMethods<Y>;
+  type LoggerType = LevelMethods<Y>;
 
-  type extendMethods = {
-    extend: (extension: string) => loggerType;
+  type ExtendMethods = {
+    extend: (extension: string) => LoggerType;
   };
 
-  const mergedConfig = { ...defaultLogger, ...config };
-
-  return new logs(mergedConfig) as unknown as Omit<logs, 'extend'> & loggerType & extendMethods;
+  return new Logs({
+    ...defaultLogger,
+    ...(config as Required<ConfigLoggerType>),
+  }) as unknown as Omit<Logs, 'extend'> & LoggerType & ExtendMethods;
 };
 
 export { createLogger, consoleTransport };
 
-export type { transportFunctionType, ConfigLoggerType, LogLevels };
+export type { TransportFunctionType as transportFunctionType, ConfigLoggerType };

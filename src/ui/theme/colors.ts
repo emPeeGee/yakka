@@ -44,6 +44,7 @@ export const lightColors: Colors = {
   focus: '#673ab7',
 };
 
+// eslint-disable-next-line max-lines-per-function
 export const getTheme = (colorScheme: ColorSchemeName): Theme => {
   const colors = colorScheme === 'dark' ? darkColors : lightColors;
   return {
