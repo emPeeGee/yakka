@@ -7,6 +7,11 @@ import { useTheme } from './ThemeProvider';
 const getGlobalStyles = (theme: Theme) =>
   StyleSheet.create({
     // in case it doesn't work: https://docs.expo.dev/versions/latest/sdk/safe-area-context/
+    /**
+     * Used to handle safe area view on android
+     *
+     * @deprecated
+     */
     notchSafeArea: {
       flex: 1,
       backgroundColor: theme.colors.background,

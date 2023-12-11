@@ -1,17 +1,29 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { Theme } from '@/types';
 import { Button, EnhancedText } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { ConfidenceSvg } from './components/ConfidenceSvg';
 
 export const ConfidenceScreen = () => {
+  const insets = useSafeAreaInsets();
   const { theme } = useTheme();
   const styles = useMemo(() => getStyles(theme), [theme]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}>
       <ConfidenceSvg />
 
       <EnhancedText>Confidence in your words</EnhancedText>

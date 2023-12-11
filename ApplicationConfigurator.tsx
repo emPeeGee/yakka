@@ -1,22 +1,7 @@
-import { useEffect, useState } from 'react';
-import { View, SafeAreaView, ActivityIndicator } from 'react-native';
+import { useEffect } from 'react';
 
-import { StatusBar } from 'expo-status-bar';
-
-import { useIsFirstTime } from '@/core/hooks';
 import { ConfigLoggerType, consoleTransport, createLogger } from '@/core/logger/console';
-import { removeItem } from '@/core/storage';
-import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
-import { ColorSchemeType } from '@/types';
-import { Button, EnhancedText, RadioGroup, RadioGroupOption } from '@/ui/core';
-import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-
-// TODO: move
-const options: RadioGroupOption<ColorSchemeType>[] = [
-  { label: 'Light', value: 'light' },
-  { label: 'Dark', value: 'dark' },
-  { label: 'System', value: 'system' },
-];
+import { RootNavigator } from '@/navigations/RootNavigator';
 
 type ApplicationLogs = 'cus' | 'info' | 'error' | 'debug' | 'warn' | 'trace';
 
@@ -53,48 +38,14 @@ const log = createLogger<ApplicationLogs>(defaultConfig);
 const rootLog = log.extend('root');
 
 export function ApplicationConfigurator() {
-  const { notchSafeArea } = useGlobalThemedStyles();
-  const { setColorScheme, userColorScheme, statusBarScheme } = useTheme();
-
-  const [selected, setSelected] = useState(userColorScheme);
-  const [isFirstTime, , isLoading] = useIsFirstTime();
-
   // kinda, create own function, like info, info2 with different preset
   useEffect(() => {
     log.info('hello there', log.getSeverity());
-    log.warn('hello there', setColorScheme, log.getSeverity());
-    log.debug('hello there', setColorScheme, log.getSeverity());
-    log.cus('hello there', setColorScheme);
+    log.warn('hello there', log.getSeverity());
+    log.debug('hello there', log.getSeverity());
+    log.cus('hello there');
     rootLog.warn('showing');
-    // log.patchConsole();
   }, []);
 
-  return (
-    <SafeAreaView style={notchSafeArea}>
-      <StatusBar style={statusBarScheme} />
-      <ConfidenceScreen />
-
-      {isLoading && <ActivityIndicator size="large" />}
-      <EnhancedText>Is first time {isFirstTime ? 'yes' : 'no'}</EnhancedText>
-      <View>
-        <RadioGroup
-          label="Favorite avatar"
-          options={options}
-          value={selected}
-          onChange={selected => {
-            setColorScheme(selected);
-            setSelected(selected);
-          }}
-        />
-      </View>
-      <EnhancedText>You have selected: {selected}</EnhancedText>
-
-      <Button
-        title="Clear the storage"
-        onPress={() => {
-          removeItem('IS_FIRST_TIME');
-        }}
-      />
-    </SafeAreaView>
-  );
+  return <RootNavigator />;
 }
