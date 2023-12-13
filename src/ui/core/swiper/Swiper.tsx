@@ -1,5 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
-import { StyleSheet, View, useWindowDimensions, FlatList, ViewToken } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  useWindowDimensions,
+  FlatList,
+  ViewToken,
+  ImageSourcePropType,
+} from 'react-native';
 
 import Animated, {
   useAnimatedRef,
@@ -14,15 +21,15 @@ import { SwiperButton } from './SwiperButton';
 import { Pagination } from './SwiperPagination';
 import { EnhancedText } from '../EnhancedText';
 
-export type SwiperDataItem = {
+export type SwiperItemType = {
   id: number;
-  image: any;
+  image: ImageSourcePropType;
   title: string;
   text: string;
 };
 
 type SwiperProps = {
-  items: SwiperDataItem[];
+  items: SwiperItemType[];
 };
 
 export const Swiper = ({ items }: SwiperProps) => {

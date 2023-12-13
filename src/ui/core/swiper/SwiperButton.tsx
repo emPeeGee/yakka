@@ -2,12 +2,7 @@ import React, { RefObject } from 'react';
 import { FlatList, Pressable, StyleSheet } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
-import Animated, {
-  SharedValue,
-  useAnimatedStyle,
-  withSpring,
-  withTiming,
-} from 'react-native-reanimated';
+import Animated, { SharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 import { Theme } from '@/types';
 import { useTheme } from '@/ui/theme';
@@ -26,10 +21,11 @@ type SwiperButtonProps = {
 export function SwiperButton({ dataLength, flatListIndex, flatListRef }: SwiperButtonProps) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
+
   const buttonAnimationStyle = useAnimatedStyle(() => {
     const isLastScreen = flatListIndex.value === dataLength - 1;
     return {
-      width: isLastScreen ? withSpring(150) : withSpring(60),
+      width: isLastScreen ? withTiming(150) : withTiming(60),
       height: 60,
     };
   });

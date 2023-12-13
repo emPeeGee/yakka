@@ -10,10 +10,10 @@ import Animated, {
 
 import { Theme } from '@/types';
 import { useTheme } from '@/ui/theme';
-import { SwiperDataItem } from './Swiper';
+import { SwiperItemType } from './Swiper';
 
 type SwiperItemProps = {
-  item: SwiperDataItem;
+  item: SwiperItemType;
   index: number;
   x: SharedValue<number>;
 };

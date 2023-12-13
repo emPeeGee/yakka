@@ -6,11 +6,13 @@
 [x] Another lib for persistance because don't like that async storage is async. Sol: MMKV is the only way, but expo go doesn't support it.
 [x] DONE: Storage and default schemes: light, dark and system https://medium.com/simform-engineering/manage-dark-mode-in-react-native-application-2a04ba7e76d0
 [x] Use storage.ts
-[ ] Better logging
 [x] Consume theme in ui
 [x] Text as a custom component which consumes theme
 [x] In theme, colors should be separated. SOL: will continue using colors as a part of the theme.
-[ ] Change the pagination animation
+[ ] Better logging
 [ ] Suffix for types
+[ ] Change the pagination animation
 [ ] Better docs
+[ ] Swiper on last page execute callback
+[ ] Better and correct colors
 [ ] Add https://github.com/gvergnaud/ts-pattern

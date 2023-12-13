@@ -1,7 +1,7 @@
 import { Button } from './Button';
 import { EnhancedText } from './EnhancedText';
 import { RadioGroup, RadioGroupOption } from './RadioGroup';
-import { Swiper, SwiperDataItem } from './swiper/Swiper';
+import { Swiper, SwiperItemType } from './swiper/Swiper';
 
 export { Button, RadioGroup, EnhancedText, Swiper };
-export type { RadioGroupOption, SwiperDataItem };
+export type { RadioGroupOption, SwiperItemType as SwiperDataItem };

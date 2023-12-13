@@ -11,13 +11,13 @@ import Animated, {
 import { Theme } from '@/types';
 import { useTheme } from '../../theme';
 
-type PaginationCompProps = {
+type PaginationIndicatorProps = {
   index: number;
   x: SharedValue<number>;
   screenWidth: number;
 };
 
-const PaginationComp = ({ index, x, screenWidth }: PaginationCompProps) => {
+const PaginationIndicator = ({ index, x, screenWidth }: PaginationIndicatorProps) => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
 
@@ -58,7 +58,7 @@ export function Pagination<T>({ data, screenWidth, x }: PaginationProps<T>) {
   return (
     <View style={styles.container}>
       {data.map((item, index) => (
-        <PaginationComp key={index} index={index} x={x} screenWidth={screenWidth} />
+        <PaginationIndicator key={index} index={index} x={x} screenWidth={screenWidth} />
       ))}
     </View>
   );

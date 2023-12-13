@@ -69,8 +69,18 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
 
 ## Naming conventions
 
+### Files
+
 `components` and `screens`: will use PascalCase.
 `anything else`: camelCase is recommended.
+
+### Inside files
+
+`types` and `interfaces`: will use PascalCase and :
+
+1. Are suffixed with `Props` if they describe component properties.
+2. Are suffixed with `Type` when it makes sense (due to collision or other reasons).
+3. Are not suffixed with anything when it makes sense (Theme, Colors).
 
 ## Git conventions
 
