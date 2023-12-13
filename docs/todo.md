@@ -10,5 +10,7 @@
 [x] Consume theme in ui
 [x] Text as a custom component which consumes theme
 [x] In theme, colors should be separated. SOL: will continue using colors as a part of the theme.
+[ ] Change the pagination animation
+[ ] Suffix for types
 [ ] Better docs
 [ ] Add https://github.com/gvergnaud/ts-pattern

@@ -34,7 +34,7 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'error',
-    'import/default': 'error',
+    'import/default': 'off',
     'import/no-named-as-default-member': 'error',
     'import/no-named-as-default': 'error',
 
