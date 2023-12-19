@@ -6,11 +6,10 @@ import Animated, { SharedValue, useAnimatedStyle, withTiming } from 'react-nativ
 
 import { ConfigLoggerType, consoleTransport, createLogger } from '@/core/logger/console';
 import { Theme } from '@/types';
+import { EnhancedText } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
-import { EnhancedText } from '../EnhancedText';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-const AnimatedFeather = Animated.createAnimatedComponent(Feather);
 const AnimatedText = Animated.createAnimatedComponent(EnhancedText);
 
 type SwiperButtonProps = {
@@ -113,12 +112,10 @@ export function SwiperButton({
         Get Started
       </AnimatedText>
 
-      <AnimatedFeather
-        name="arrow-right"
-        size={30}
-        color={theme.colors.base0}
-        style={[styles.arrow, arrowAnimationStyle]}
-      />
+      {/* I've wrapped the icon in an animated view, otherwise animation won't work https://github.com/software-mansion/react-native-reanimated/issues/2869*/}
+      <Animated.View style={arrowAnimationStyle}>
+        <Feather name="arrow-right" size={30} color={theme.colors.base0} />
+      </Animated.View>
     </AnimatedPressable>
   );
 }
