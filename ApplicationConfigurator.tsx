@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { ConfigLoggerType, consoleTransport, createLogger } from '@/core/logger/console';
 import { FirstLaunchProvider } from '@/core/providers';
-import { RootNavigator } from '@/navigations/RootNavigator';
+import { RootNavigator } from '@/navigation';
 
 type ApplicationLogs = 'cus' | 'info' | 'error' | 'debug' | 'warn' | 'trace';
 
