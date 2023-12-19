@@ -4,6 +4,7 @@ import { FlatList, Pressable, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Animated, { SharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
+import { ConfigLoggerType, consoleTransport, createLogger } from '@/core/logger/console';
 import { Theme } from '@/types';
 import { useTheme } from '@/ui/theme';
 import { EnhancedText } from '../EnhancedText';
@@ -16,9 +17,57 @@ type SwiperButtonProps = {
   flatListRef: RefObject<FlatList>;
   flatListIndex: SharedValue<number>;
   dataLength: number;
+  onFinish: () => void;
 };
 
-export function SwiperButton({ dataLength, flatListIndex, flatListRef }: SwiperButtonProps) {
+const defaultConfig: ConfigLoggerType = {
+  levels: {
+    debug: 0,
+    info: 1,
+    warn: 2,
+    error: 3,
+    cus: 4,
+  },
+  severity: 'debug',
+  transport: consoleTransport,
+  transportOptions: {
+    colors: {
+      info: 'blueBright',
+      warn: 'yellowBright',
+      error: 'redBright',
+      debug: 'greenBright',
+      cus: 'magenta',
+    },
+    extensionColors: {
+      root: 'green',
+    },
+  },
+  async: true,
+  dateFormat: 'time',
+  printLevel: true,
+  printDate: true,
+  enabled: true,
+};
+
+// TODO: to utils
+const isLast = <T,>(arr: Array<T> | number, index: number): boolean => {
+  if (Array.isArray(arr)) {
+    return index === arr.length - 1;
+  }
+
+  return index === arr - 1;
+};
+
+type ApplicationLogs = 'cus' | 'info' | 'error' | 'debug' | 'warn' | 'trace';
+const log = createLogger<ApplicationLogs>(defaultConfig);
+const onboardingLog = log.extend('onboarding');
+
+export function SwiperButton({
+  dataLength,
+  flatListIndex,
+  flatListRef,
+  onFinish,
+}: SwiperButtonProps) {
   const { theme } = useTheme();
   const styles = getStyles(theme);
 
@@ -50,6 +99,11 @@ export function SwiperButton({ dataLength, flatListIndex, flatListRef }: SwiperB
     const isLastScreen = flatListIndex.value === dataLength - 1;
     if (!isLastScreen) {
       flatListRef.current?.scrollToIndex({ index: flatListIndex.value + 1 });
+    }
+
+    if (isLastScreen) {
+      onboardingLog.info('Onboarding finished');
+      onFinish();
     }
   };
 

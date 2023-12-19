@@ -30,9 +30,10 @@ export type SwiperItemType = {
 
 type SwiperProps = {
   items: SwiperItemType[];
+  onFinish: () => void;
 };
 
-export const Swiper = ({ items }: SwiperProps) => {
+export const Swiper = ({ items, onFinish }: SwiperProps) => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
 
   const { theme } = useTheme();
@@ -77,6 +78,7 @@ export const Swiper = ({ items }: SwiperProps) => {
           flatListIndex={flatListIndex}
           flatListRef={flatListRef}
           dataLength={items.length}
+          onFinish={onFinish}
         />
       </View>
       <View style={styles.logInContainer}>

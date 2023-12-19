@@ -15,5 +15,7 @@
 [ ] Swiper on last page execute callback
 [ ] Better and correct colors
 [ ] Add https://github.com/gvergnaud/ts-pattern
+[ ] Logger. Make it singleton.
+[ ] Deprecate useIsFirstTime
 [ ] Logger types refactor. LOW Priority.
 [ ] Change the pagination animation: worm style https://www.animatereactnative.com/post/react-native-parallax-carousel-%2B-worm-pagination https://github.com/weahforsage/react-native-animated-pagination-dots

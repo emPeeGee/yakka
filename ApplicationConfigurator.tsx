@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { ConfigLoggerType, consoleTransport, createLogger } from '@/core/logger/console';
+import { FirstLaunchProvider } from '@/core/providers';
 import { RootNavigator } from '@/navigations/RootNavigator';
 
 type ApplicationLogs = 'cus' | 'info' | 'error' | 'debug' | 'warn' | 'trace';
@@ -47,5 +48,9 @@ export function ApplicationConfigurator() {
     rootLog.warn('showing');
   }, []);
 
-  return <RootNavigator />;
+  return (
+    <FirstLaunchProvider>
+      <RootNavigator />
+    </FirstLaunchProvider>
+  );
 }

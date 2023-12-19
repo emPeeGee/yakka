@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { useIsFirstTime } from '@/core/hooks';
+import { useFirstLaunch } from '@/core/providers';
 import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
 import { Sandbox } from '@/screens/sandbox/Sandbox';
 
@@ -10,7 +10,7 @@ const userStatus = 'signOut';
 const Stack = createNativeStackNavigator();
 
 export function RootNavigator() {
-  const [isFirstTime, ,] = useIsFirstTime();
+  const { isFirstLaunch } = useFirstLaunch();
 
   return (
     <NavigationContainer>
@@ -20,7 +20,7 @@ export function RootNavigator() {
           gestureEnabled: false,
           animation: 'none',
         }}>
-        {isFirstTime ? (
+        {isFirstLaunch ? (
           <Stack.Screen name="Onboarding" component={ConfidenceScreen} />
         ) : (
           <Stack.Group>
