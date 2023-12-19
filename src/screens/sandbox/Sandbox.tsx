@@ -3,12 +3,12 @@ import { View, Text, ActivityIndicator, Button } from 'react-native';
 
 import { useIsFirstTime } from '@/core/hooks';
 import { removeItem } from '@/core/storage';
-import { ColorSchemeType } from '@/types';
+import { UserColorSchemeType } from '@/types';
 import { EnhancedText, RadioGroup, RadioGroupOption } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 // TODO: move
-const options: RadioGroupOption<ColorSchemeType>[] = [
+const options: RadioGroupOption<UserColorSchemeType>[] = [
   { label: 'Light', value: 'light' },
   { label: 'Dark', value: 'dark' },
   { label: 'System', value: 'system' },

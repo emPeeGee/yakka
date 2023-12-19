@@ -1,3 +1,3 @@
-import { Theme, Shadow, Colors, ColorSchemeType } from './theme';
+import { Theme, Shadow, Colors, UserColorSchemeType, AppColorSchemeType } from './theme';
 
-export type { Theme, Shadow, Colors, ColorSchemeType };
+export type { Theme, Shadow, Colors, UserColorSchemeType, AppColorSchemeType };

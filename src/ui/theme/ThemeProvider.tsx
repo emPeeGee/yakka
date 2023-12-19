@@ -4,14 +4,15 @@ import { ColorSchemeName, useColorScheme } from 'react-native';
 import { StatusBarStyle } from 'expo-status-bar';
 
 import { getItem, setItem } from '@/core/storage';
-import { ColorSchemeType, Theme } from '@/types';
+import { UserColorSchemeType, Theme, AppColorSchemeType } from '@/types';
 import { getTheme } from './colors';
 
 type ThemeContextType = {
   theme: Theme;
-  userColorScheme: ColorSchemeType;
+  userColorScheme: UserColorSchemeType;
+  appColorScheme: AppColorSchemeType;
   statusBarScheme: StatusBarStyle;
-  setColorScheme: (colorScheme: ColorSchemeType) => Promise<void>;
+  setColorScheme: (colorScheme: UserColorSchemeType) => Promise<void>;
 };
 
 const SELECTED_THEME_KEY = 'SELECTED_THEME';
@@ -33,16 +34,26 @@ type ThemeProviderProps = {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = useState<Theme>(getTheme(systemColorScheme));
-  const userColorScheme = useRef<ColorSchemeType>(systemColorScheme as ColorSchemeType);
+
+  /**
+   * The color scheme selected by the user, which can be one of: dark, light, or system.
+   */
+  const userColorScheme = useRef<UserColorSchemeType>(systemColorScheme as UserColorSchemeType);
+
+  /**
+   * The color scheme of the application, which is based on user preferences and can be 'dark', 'light', or 'system'.
+   * If 'system' is selected, the actual color (dark or light) is determined by the system.
+   *
+   */
+  const appColorScheme = useRef<AppColorSchemeType>(systemColorScheme as AppColorSchemeType);
 
   //TODO: functional error handling
 
   useEffect(() => {
     const readTheme = async () => {
-      const colorScheme = await getItem<ColorSchemeType>(SELECTED_THEME_KEY);
+      const colorScheme = await getItem<UserColorSchemeType>(SELECTED_THEME_KEY);
       if (colorScheme) {
         setColorScheme(colorScheme);
-        userColorScheme.current = colorScheme;
       }
     };
     readTheme();
@@ -56,16 +67,19 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   console.log('theme-provider');
 
-  const setColorScheme = async (colorScheme: ColorSchemeType) => {
+  const setColorScheme = async (colorScheme: UserColorSchemeType) => {
     await setItem(SELECTED_THEME_KEY, colorScheme);
     userColorScheme.current = colorScheme;
 
     switch (colorScheme) {
       case 'light':
       case 'dark':
+        appColorScheme.current = colorScheme;
         setTheme(getTheme(colorScheme));
         break;
       case 'system':
+        // NOTE: Assigning appColorScheme after setTheme won't have the latest value when consumed. It must be set before.
+        appColorScheme.current = systemColorScheme as AppColorSchemeType;
         setTheme(getTheme(systemColorScheme));
         break;
     }
@@ -76,6 +90,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       value={{
         theme,
         userColorScheme: userColorScheme.current,
+        appColorScheme: appColorScheme.current,
         setColorScheme,
         statusBarScheme: getStatusBarScheme(userColorScheme.current, systemColorScheme),
       }}>
@@ -85,7 +100,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 };
 
 function getStatusBarScheme(
-  userColorScheme: ColorSchemeType,
+  userColorScheme: UserColorSchemeType,
   systemColorScheme: ColorSchemeName,
 ): StatusBarStyle {
   switch (userColorScheme) {

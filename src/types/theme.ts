@@ -1,4 +1,5 @@
-export type ColorSchemeType = 'light' | 'dark' | 'system';
+export type AppColorSchemeType = 'light' | 'dark';
+export type UserColorSchemeType = 'light' | 'dark' | 'system';
 
 export type Shadow = {
   shadowColor: string;

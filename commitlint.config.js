@@ -39,3 +39,5 @@ module.exports = {
     ],
   },
 };
+
+// Js(Node, React and React Native). Python(Fastapi). Golang.
