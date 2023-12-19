@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Theme } from '@/types';
-import { useTheme } from '../../theme';
+import { useTheme } from '@/ui/theme';
 
 type PaginationIndicatorProps = {
   index: number;
@@ -76,7 +76,7 @@ const getStyles = (theme: Theme) =>
       width: 10,
       height: 10,
       borderRadius: 5,
-      backgroundColor: theme.colors.accent,
+      backgroundColor: theme.colors.primary100,
       marginHorizontal: 10,
     },
   });

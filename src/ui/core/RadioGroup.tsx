@@ -22,11 +22,11 @@ function RadioButton<T>({ label, value, selected, onSelect }: RadioButtonProps<T
             width: 24,
             borderRadius: 12,
             borderWidth: 2,
-            borderColor: theme.colors.primary,
+            borderColor: theme.colors.primary100,
             alignItems: 'center',
             justifyContent: 'center',
             marginRight: 8,
-            backgroundColor: selected ? theme.colors.primary : 'transparent',
+            backgroundColor: selected ? theme.colors.primary100 : 'transparent',
           }}>
           {selected && (
             <View
@@ -34,7 +34,7 @@ function RadioButton<T>({ label, value, selected, onSelect }: RadioButtonProps<T
                 height: 12,
                 width: 12,
                 borderRadius: 6,
-                backgroundColor: theme.colors.accent,
+                backgroundColor: theme.colors.primary100,
               }}
             />
           )}

@@ -65,7 +65,7 @@ export const Swiper = ({ items, onFinish }: SwiperProps) => {
         renderItem={({ item, index }) => <SwiperItem index={index} item={item} x={x} />}
         horizontal
         bounces={false}
-        showsHorizontalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
         pagingEnabled
         onViewableItemsChanged={onViewableItemsChanged}
         onScroll={onScroll}
@@ -97,14 +97,14 @@ const getStyles = (theme: Theme) =>
       justifyContent: 'space-around',
     },
     itemTitle: {
-      color: theme.colors.text,
+      color: theme.colors.textPri,
       fontSize: 22,
       fontWeight: 'bold',
       textAlign: 'center',
       marginBottom: 10,
     },
     itemText: {
-      color: theme.colors.text,
+      color: theme.colors.textPri,
       textAlign: 'center',
       lineHeight: 20,
       marginHorizontal: 30,
