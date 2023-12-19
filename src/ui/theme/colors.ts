@@ -2,51 +2,84 @@ import { ColorSchemeName } from 'react-native';
 
 import { Theme, Colors } from '@/types';
 
-export const darkColors: Colors = {
-  primary: '#3498db',
-  secondary: '#2ecc71',
-  background: '#2c3e50',
-  surface: '#34495e',
-  error: '#e74c3c',
-  success: '#2ecc71',
-  warning: '#f39c12',
-  info: '#3498db',
-  text: '#ecf0f1',
-  textSecondary: '#bdc3c7',
-  disabled: '#7f8c8d',
-  accent: '#f39c12',
-  link: '#3498db',
-  selection: '#3498db',
-  backgroundSecondary: '#2c3e50',
-  border: '#bdc3c7',
-  placeholder: '#bdc3c7',
-  focus: '#3498db',
+const PRIMARY_COLORS = {
+  primary100: '#0074CE',
+  primary80: '#0693F1',
+  primary60: '#3DB2FF',
+  primary40: '#B8E1FF',
+  primary20: '#EFF8FF',
 };
 
-export const lightColors: Colors = {
-  primary: '#f44336',
-  secondary: '#e91e63',
-  background: '#ffffff',
-  surface: '#f5f5f5',
-  error: '#ff5722',
-  success: '#c0ca33',
-  warning: '#ffce56',
-  info: '#673ab7',
-  text: '#212121',
-  textSecondary: '#757575',
-  disabled: '#cccccc',
-  accent: '#ffce56',
-  link: '#673ab7',
-  selection: '#673ab7',
-  backgroundSecondary: '#ffffff',
-  border: '#cccccc',
-  placeholder: '#999999',
-  focus: '#673ab7',
+const SECONDARY_COLORS = {
+  secondary100: '#FFC107',
+  secondary80: '#FFD899',
+  secondary60: '#FFE5BB',
+  secondary40: '#FFF2DD',
+  secondary20: '#FFF9EF',
+};
+
+const BASE_COLORS = {
+  base100: '#111111',
+  base80: '#707070',
+  base60: '#A0A0A0',
+  base40: '#CFCFCF',
+  base20: '#F3F3F3',
+  base0: '#FFFFFF',
+};
+
+const DARK_COLORS: Colors = {
+  ...PRIMARY_COLORS,
+  ...SECONDARY_COLORS,
+  ...BASE_COLORS,
+
+  // Accent Colors
+  success: '#99CC29',
+  warning: '#FFD237',
+  error: '#FF4B4C',
+  info: '#3870FF',
+
+  surface: '#FAFAFA',
+  background: '#2C3E50',
+  textPri: '#FFFFFF',
+  textSec: '#9C9FA5',
+  border: '#DADADA',
+  link: '#3DB2FF',
+
+  disabled: '#AA36A2',
+  focus: '#AA36A2',
+  placeholder: '#AA36A2',
+  selection: '#AA36A2',
+};
+
+// TODO: Colors to be added/changed as per application needs
+
+const LIGHT_COLORS: Colors = {
+  ...PRIMARY_COLORS,
+  ...SECONDARY_COLORS,
+  ...BASE_COLORS,
+
+  // Accent Colors
+  success: '#99CC29',
+  warning: '#FFD237',
+  error: '#FF4B4C',
+  info: '#3870FF',
+
+  surface: '#FAFAFA',
+  background: '#FFFFFF',
+  textPri: '#263238',
+  textSec: '#898989',
+  border: '#DADADA',
+  link: '#3DB2FF',
+
+  disabled: '#AA36A2',
+  focus: '#AA36A2',
+  placeholder: '#AA36A2',
+  selection: '#AA36A2',
 };
 
 // eslint-disable-next-line max-lines-per-function
 export const getTheme = (colorScheme: ColorSchemeName): Theme => {
-  const colors = colorScheme === 'dark' ? darkColors : lightColors;
+  const colors = colorScheme === 'dark' ? DARK_COLORS : LIGHT_COLORS;
   return {
     colors,
     typography: {

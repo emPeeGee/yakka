@@ -26,7 +26,7 @@ const getGlobalStyles = (theme: Theme) =>
       backgroundColor: theme.colors.background,
     },
     text: {
-      color: theme.colors.text,
+      color: theme.colors.textPri,
     },
   });
 

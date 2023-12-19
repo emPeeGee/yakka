@@ -20,7 +20,7 @@ export function RootNavigator() {
           gestureEnabled: false,
           animation: 'none',
         }}>
-        {true ? (
+        {isFirstTime ? (
           <Stack.Screen name="Onboarding" component={ConfidenceScreen} />
         ) : (
           <Stack.Group>

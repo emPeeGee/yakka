@@ -62,7 +62,7 @@ export function SwiperButton({ dataLength, flatListIndex, flatListRef }: SwiperB
       <AnimatedFeather
         name="arrow-right"
         size={30}
-        color={theme.colors.accent}
+        color={theme.colors.base0}
         style={[styles.arrow, arrowAnimationStyle]}
       />
     </AnimatedPressable>
@@ -72,7 +72,7 @@ export function SwiperButton({ dataLength, flatListIndex, flatListRef }: SwiperB
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: theme.colors.secondary,
+      backgroundColor: theme.colors.primary80,
       padding: 10,
       borderRadius: 100,
       alignItems: 'center',
@@ -86,6 +86,6 @@ const getStyles = (theme: Theme) =>
       position: 'absolute',
       fontSize: 16,
       fontWeight: 'bold',
-      color: theme.colors.text,
+      color: theme.colors.base0,
     },
   });

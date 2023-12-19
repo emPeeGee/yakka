@@ -9,10 +9,11 @@
 [x] Consume theme in ui
 [x] Text as a custom component which consumes theme
 [x] In theme, colors should be separated. SOL: will continue using colors as a part of the theme.
-[ ] Better logging
-[ ] Suffix for types
-[ ] Change the pagination animation
+[x] Better logging
+[x] Suffix for types
 [ ] Better docs
 [ ] Swiper on last page execute callback
 [ ] Better and correct colors
 [ ] Add https://github.com/gvergnaud/ts-pattern
+[ ] Logger types refactor. LOW Priority.
+[ ] Change the pagination animation: worm style https://www.animatereactnative.com/post/react-native-parallax-carousel-%2B-worm-pagination https://github.com/weahforsage/react-native-animated-pagination-dots

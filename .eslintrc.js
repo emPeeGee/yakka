@@ -39,7 +39,7 @@ module.exports = {
     'import/no-named-as-default': 'error',
 
     'max-params': ['error', 3], // Limit the number of parameters in a function to use object instead
-    'max-lines-per-function': ['error', 70],
+    // 'max-lines-per-function': ['error', 70],
     // '@typescript-eslint/consistent-type-imports': 'error', // Ensure `import type` is used when it's necessary
 
     // First, include built-in imports like 'react' and 'react-native'.

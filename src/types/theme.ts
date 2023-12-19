@@ -8,25 +8,42 @@ export type Shadow = {
 };
 
 export type Colors = {
-  primary: string; // Color for primary elements
-  secondary: string; // Color for secondary elements
-  accent: string; // Accent color for highlighting certain elements
-  background: string; // Background color for the entire app
-  backgroundSecondary: string; // Secondary background color for specific sections
-  surface: string; // Surface color for cards and containers
-  error: string; // Color for error messages or indicators
-  success: string; // Color for success messages or indicators
-  warning: string; // Color for warning messages or indicators
-  info: string; // Color for informational messages or indicators
-  text: string; // Text color for standard content
-  textSecondary: string; // Text color for secondary or muted content
-  disabled: string; // Color for disabled or inactive elements
+  primary100: string;
+  primary80: string;
+  primary60: string;
+  primary40: string;
+  primary20: string;
 
-  link: string; // Color for hyperlinks
-  selection: string; // Color for selected text or elements
-  border: string; // Border color for elements with borders
-  placeholder: string; // Color for placeholder text in input fields
-  focus: string; // Color for focused elements or input fields
+  secondary100: string;
+  secondary80: string;
+  secondary60: string;
+  secondary40: string;
+  secondary20: string;
+
+  base100: string;
+  base80: string;
+  base60: string;
+  base40: string;
+  base20: string;
+  base0: string;
+
+  background: string;
+  textPri: string;
+  textSec: string;
+  border: string;
+  link: string;
+
+  // Accent Colors
+  success: string;
+  warning: string;
+  error: string;
+  info: string;
+  surface: string;
+
+  disabled: string;
+  selection: string;
+  placeholder: string;
+  focus: string; // Do I need this?
 };
 
 export type Theme = {
