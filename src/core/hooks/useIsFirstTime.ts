@@ -3,7 +3,10 @@ import { useState, useEffect } from 'react';
 import { getItem, setItem } from '../storage';
 
 const IS_FIRST_TIME_KEY = 'IS_FIRST_TIME';
-
+/**
+ * @deprecated
+ * @returns
+ */
 export const useIsFirstTime = () => {
   const [isFirstTime, setIsFirstTime] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(true);
