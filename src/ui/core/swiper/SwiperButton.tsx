@@ -4,7 +4,6 @@ import { FlatList, Pressable, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Animated, { SharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
-import { ConfigLoggerType, consoleTransport, createLogger } from '@/core/logger/console';
 import { isLast } from '@/core/utils';
 import { Theme } from '@/types';
 import { useTheme } from '@/ui/theme';
@@ -19,39 +18,6 @@ type SwiperButtonProps = {
   dataLength: number;
   onFinish: () => void;
 };
-
-const defaultConfig: ConfigLoggerType = {
-  levels: {
-    debug: 0,
-    info: 1,
-    warn: 2,
-    error: 3,
-    cus: 4,
-  },
-  severity: 'debug',
-  transport: consoleTransport,
-  transportOptions: {
-    colors: {
-      info: 'blueBright',
-      warn: 'yellowBright',
-      error: 'redBright',
-      debug: 'greenBright',
-      cus: 'magenta',
-    },
-    extensionColors: {
-      root: 'green',
-    },
-  },
-  async: true,
-  dateFormat: 'time',
-  printLevel: true,
-  printDate: true,
-  enabled: true,
-};
-
-type ApplicationLogs = 'cus' | 'info' | 'error' | 'debug' | 'warn' | 'trace';
-const log = createLogger<ApplicationLogs>(defaultConfig);
-const onboardingLog = log.extend('onboarding');
 
 export function SwiperButton({
   dataLength,
@@ -93,7 +59,6 @@ export function SwiperButton({
     }
 
     if (isLastScreen) {
-      onboardingLog.info('Onboarding finished');
       onFinish();
     }
   };

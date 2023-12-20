@@ -3,6 +3,7 @@ import { ColorSchemeName, useColorScheme } from 'react-native';
 
 import { StatusBarStyle } from 'expo-status-bar';
 
+import { rootLog } from '@/core/logger';
 import { getItem, setItem } from '@/core/storage';
 import { UserColorSchemeType, Theme, AppColorSchemeType } from '@/types';
 import { getTheme } from './colors';
@@ -65,8 +66,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }
   }, [systemColorScheme]);
 
-  console.log('theme-provider');
-
   const setColorScheme = async (colorScheme: UserColorSchemeType) => {
     await setItem(SELECTED_THEME_KEY, colorScheme);
     userColorScheme.current = colorScheme;
@@ -83,6 +82,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         setTheme(getTheme(systemColorScheme));
         break;
     }
+
+    rootLog.info('User theme changed: ', userColorScheme.current, appColorScheme.current);
   };
 
   return (

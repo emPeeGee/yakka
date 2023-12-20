@@ -196,7 +196,6 @@ class Logs {
         );
       }
 
-      console.info('level', level);
       if (typeof this._levels[level] === 'number') {
         _this[level] = this._log.bind(this, level, null);
       } else {
@@ -445,4 +444,4 @@ const createLogger = <Y extends string>(config?: ConfigLoggerType) => {
 
 export { createLogger, consoleTransport };
 
-export type { TransportFunctionType as transportFunctionType, ConfigLoggerType };
+export type { ConfigLoggerType };

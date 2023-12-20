@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { onboardLog } from '@/core/logger';
 import { useFirstLaunch } from '@/core/providers';
 import { Theme } from '@/types';
 import { SwiperDataItem, Swiper } from '@/ui/core';
@@ -35,6 +36,11 @@ export const ConfidenceScreen = () => {
   const styles = useMemo(() => getStyles(theme), [theme]);
   const { setIsFirstLaunch } = useFirstLaunch();
 
+  const onFinish = () => {
+    setIsFirstLaunch(false);
+    onboardLog.info('Onboarding finished');
+  };
+
   return (
     <View
       style={[
@@ -46,12 +52,7 @@ export const ConfidenceScreen = () => {
           paddingRight: insets.right,
         },
       ]}>
-      <Swiper
-        items={onboardingItems}
-        onFinish={() => {
-          setIsFirstLaunch(false);
-        }}
-      />
+      <Swiper items={onboardingItems} onFinish={onFinish} />
 
       {/* <ConfidenceSvg />
       <EnhancedText></EnhancedText>
