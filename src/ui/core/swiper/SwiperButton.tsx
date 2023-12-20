@@ -5,9 +5,10 @@ import { Feather } from '@expo/vector-icons';
 import Animated, { SharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 import { ConfigLoggerType, consoleTransport, createLogger } from '@/core/logger/console';
+import { isLast } from '@/core/utils';
 import { Theme } from '@/types';
-import { EnhancedText } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
+import { EnhancedText } from '../EnhancedText';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const AnimatedText = Animated.createAnimatedComponent(EnhancedText);
@@ -48,15 +49,6 @@ const defaultConfig: ConfigLoggerType = {
   enabled: true,
 };
 
-// TODO: to utils
-const isLast = <T,>(arr: Array<T> | number, index: number): boolean => {
-  if (Array.isArray(arr)) {
-    return index === arr.length - 1;
-  }
-
-  return index === arr - 1;
-};
-
 type ApplicationLogs = 'cus' | 'info' | 'error' | 'debug' | 'warn' | 'trace';
 const log = createLogger<ApplicationLogs>(defaultConfig);
 const onboardingLog = log.extend('onboarding');
@@ -71,7 +63,7 @@ export function SwiperButton({
   const styles = getStyles(theme);
 
   const buttonAnimationStyle = useAnimatedStyle(() => {
-    const isLastScreen = flatListIndex.value === dataLength - 1;
+    const isLastScreen = isLast(dataLength, flatListIndex.value);
     return {
       width: isLastScreen ? withTiming(150) : withTiming(60),
       height: 60,
@@ -79,7 +71,7 @@ export function SwiperButton({
   });
 
   const arrowAnimationStyle = useAnimatedStyle(() => {
-    const isLastScreen = flatListIndex.value === dataLength - 1;
+    const isLastScreen = isLast(dataLength, flatListIndex.value);
     return {
       opacity: isLastScreen ? withTiming(0) : withTiming(1),
       transform: [{ translateX: isLastScreen ? withTiming(100) : withTiming(0) }],
@@ -87,7 +79,7 @@ export function SwiperButton({
   });
 
   const textAnimationStyle = useAnimatedStyle(() => {
-    const isLastScreen = flatListIndex.value === dataLength - 1;
+    const isLastScreen = isLast(dataLength, flatListIndex.value);
     return {
       opacity: isLastScreen ? withTiming(1) : withTiming(0),
       transform: [{ translateX: isLastScreen ? withTiming(0) : withTiming(-100) }],
@@ -95,7 +87,7 @@ export function SwiperButton({
   });
 
   const handleNextScreen = () => {
-    const isLastScreen = flatListIndex.value === dataLength - 1;
+    const isLastScreen = isLast(dataLength, flatListIndex.value);
     if (!isLastScreen) {
       flatListRef.current?.scrollToIndex({ index: flatListIndex.value + 1 });
     }
