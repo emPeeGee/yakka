@@ -1,11 +1,9 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 
 import { getItem, setItem } from '../storage';
+import { noop } from '../utils';
 
 const IS_FIRST_TIME_KEY = 'IS_FIRST_TIME';
-
-// TODO: move
-const noop = () => {};
 
 type FirstLaunchContextType = {
   isFirstLaunch: boolean | null;

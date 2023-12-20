@@ -1,14 +1,5 @@
 import { getContrastColor } from './colors';
+import { isLast } from './isLast';
+import { noop } from './noop';
 
-// TODO: to utils
-function isLast<T>(arr: Array<T> | number, index: number) {
-  'worklet';
-
-  if (Array.isArray(arr)) {
-    return index === arr.length - 1;
-  }
-
-  return index === arr - 1;
-}
-
-export { getContrastColor, isLast };
+export { getContrastColor, isLast, noop };
