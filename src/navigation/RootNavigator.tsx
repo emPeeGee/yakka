@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useFirstLaunch } from '@/core/providers';
-import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
+import { ConfidenceScreen } from '@/screens/onboarding/OnboardingScreen';
 import { useTheme } from '@/ui/theme';
 import { TabNavigator } from './TabNavigator';
 

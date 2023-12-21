@@ -69,7 +69,7 @@ export const SwiperItem = ({ item, index, x }: SwiperItemProps) => {
 
   return (
     <View style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
-      <Animated.Image source={item.image} style={imageAnimatedStyle} />
+      <Animated.Image source={item.image} style={[{ resizeMode: 'contain' }, imageAnimatedStyle]} />
 
       <Animated.View style={textAnimatedStyle}>
         <Text style={styles.itemTitle}>{item.title}</Text>

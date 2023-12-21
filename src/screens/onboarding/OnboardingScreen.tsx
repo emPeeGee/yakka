@@ -12,21 +12,21 @@ import { useTheme } from '@/ui/theme';
 export const onboardingItems: SwiperDataItem[] = [
   {
     id: 1,
-    image: require('../../assets/image1.png'),
+    image: require('../../assets/onboarding1.png'),
     title: 'Confidence in your words',
     text: "With conversation-based learning, you'll be talking from lesson one.",
   },
   {
     id: 2,
-    image: require('../../assets/image2.png'),
-    title: 'Lorem Ipsum',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    image: require('../../assets/onboarding2.png'),
+    title: 'Take your time to learn',
+    text: 'Develop a habit of learning and make it a part of your daily routine',
   },
   {
     id: 3,
-    image: require('../../assets/image3.png'),
-    title: 'Lorem Ipsum',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    image: require('../../assets/onboarding3.png'),
+    title: 'The lessons you need to learn',
+    text: 'Using a variety of learning styles to learn and retain',
   },
 ];
 
@@ -40,6 +40,8 @@ export const ConfidenceScreen = () => {
     setIsFirstLaunch(false);
     onboardLog.info('Onboarding finished');
   };
+
+  // TODO: Log in button in onboarding
 
   return (
     <View
