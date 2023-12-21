@@ -7,8 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { rootLog } from '@/core/logger';
-import { ProfileScreen } from '@/screens';
-import { Sandbox } from '@/screens/sandbox/Sandbox';
+import { ProfileScreen, SettingsScreen } from '@/screens';
 import { useTheme } from '@/ui/theme';
 
 export type ProfileStackParamList = {
@@ -30,7 +29,7 @@ export const ProfileNavigator = () => {
           headerLeft: props => <CustomBackButton {...props} />,
         }}>
         <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="Settings" component={Sandbox} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

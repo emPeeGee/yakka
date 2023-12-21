@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ActivityIndicator, Button } from 'react-native';
 
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useHeaderHeight } from '@react-navigation/elements';
 
 import { useIsFirstTime } from '@/core/hooks';
 import { removeItem } from '@/core/storage';
@@ -16,22 +16,25 @@ const options: RadioGroupOption<UserColorSchemeType>[] = [
   { label: 'System', value: 'system' },
 ];
 
-export const Sandbox = () => {
+export const SettingsScreen = () => {
   const { setColorScheme, userColorScheme } = useTheme();
   const [selected, setSelected] = useState(userColorScheme);
   const [isFirstTime, , isLoading] = useIsFirstTime();
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
+  const headerHeight = useHeaderHeight();
 
   return (
     <View
       style={[
         {
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
+          // TODO: it looks like stack screen has default insets
+          // paddingTop: insets.top,
+          // paddingBottom: insets.bottom,
+          // paddingLeft: insets.left,
+          // paddingRight: insets.right,
         },
       ]}>
+      <View style={{ height: headerHeight }}></View>
       <Text>Sandbox</Text>
 
       {isLoading && <ActivityIndicator size="large" />}
