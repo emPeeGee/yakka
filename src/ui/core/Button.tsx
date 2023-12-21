@@ -20,8 +20,8 @@ export const Button = ({
   onPress,
 }: ButtonProps) => {
   const { theme } = useTheme();
-  const background = backgroundColor || theme.colors.accent;
-  const color = titleColor || theme.colors.text;
+  const background = backgroundColor || theme.colors.primary80;
+  const color = titleColor || theme.colors.textPri;
 
   return (
     <Pressable
