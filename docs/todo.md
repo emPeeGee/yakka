@@ -15,7 +15,12 @@
 [x] Better and correct colors
 [x] Logger. Make it singleton.
 [x] Deprecate useIsFirstTime
+[ ] better colors for background in light and dark
+[ ] Add a proper font
+[ ] proper color for tab separator
+[ ] Add proper typology
 [ ] Add https://github.com/gvergnaud/ts-pattern
 [ ] Better docs
 [ ] Logger types refactor. LOW Priority.
+[ ] animation after onboarding is finished. LowP.
 [ ] Change the pagination animation: worm style https://www.animatereactnative.com/post/react-native-parallax-carousel-%2B-worm-pagination https://github.com/weahforsage/react-native-animated-pagination-dots

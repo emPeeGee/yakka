@@ -39,11 +39,13 @@ const DARK_COLORS: Colors = {
   info: '#3870FF',
 
   surface: '#FAFAFA',
-  background: '#2C3E50',
+  background: '#000000',
   textPri: '#FFFFFF',
   textSec: '#9C9FA5',
   border: '#DADADA',
   link: '#3DB2FF',
+
+  tabColor: '#888890',
 
   disabled: '#AA36A2',
   focus: '#AA36A2',
@@ -70,6 +72,8 @@ const LIGHT_COLORS: Colors = {
   textSec: '#898989',
   border: '#DADADA',
   link: '#3DB2FF',
+
+  tabColor: '#1C1C1E',
 
   disabled: '#AA36A2',
   focus: '#AA36A2',

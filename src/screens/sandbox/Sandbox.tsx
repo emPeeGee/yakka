@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, ActivityIndicator, Button } from 'react-native';
 
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { useIsFirstTime } from '@/core/hooks';
 import { removeItem } from '@/core/storage';
 import { UserColorSchemeType } from '@/types';
@@ -18,9 +20,18 @@ export const Sandbox = () => {
   const { setColorScheme, userColorScheme } = useTheme();
   const [selected, setSelected] = useState(userColorScheme);
   const [isFirstTime, , isLoading] = useIsFirstTime();
+  const insets = useSafeAreaInsets();
 
   return (
-    <View>
+    <View
+      style={[
+        {
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}>
       <Text>Sandbox</Text>
 
       {isLoading && <ActivityIndicator size="large" />}

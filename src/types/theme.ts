@@ -34,6 +34,8 @@ export type Colors = {
   border: string;
   link: string;
 
+  tabColor: string;
+
   // Accent Colors
   success: string;
   warning: string;

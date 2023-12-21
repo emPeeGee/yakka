@@ -3,8 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useFirstLaunch } from '@/core/providers';
 import { ConfidenceScreen } from '@/screens/onboarding/ConfidenceScreen';
-import { Sandbox } from '@/screens/sandbox/Sandbox';
 import { useTheme } from '@/ui/theme';
+import { TabNavigator } from './TabNavigator';
 
 const userStatus = 'signOut';
 
@@ -40,12 +40,10 @@ export function RootNavigator() {
           <Stack.Group>
             {userStatus === 'signOut' ? (
               // TODO:
-              // <Stack.Screen name="Auth" component={AuthNavigator} />
-              <Stack.Screen name="Home" component={Sandbox} />
+              <Stack.Screen name="App" component={TabNavigator} />
             ) : (
               // TODO:
-              // <Stack.Screen name="Home" component={TabNavigator} />
-              <Stack.Screen name="Home" component={Sandbox} />
+              <Stack.Screen name="App" component={TabNavigator} />
             )}
           </Stack.Group>
         )}
