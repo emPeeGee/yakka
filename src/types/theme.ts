@@ -72,6 +72,7 @@ export type Theme = {
   };
   spacing: {
     tiny: number;
+    extraSmall: number;
     small: number;
     medium: number;
     large: number;

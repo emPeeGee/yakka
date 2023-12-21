@@ -38,11 +38,11 @@ const DARK_COLORS: Colors = {
   error: '#FF4B4C',
   info: '#3870FF',
 
-  surface: '#FAFAFA',
+  surface: '#828282',
   background: '#000000',
   textPri: '#FFFFFF',
   textSec: '#9C9FA5',
-  border: '#DADADA',
+  border: '#444444',
   link: '#3DB2FF',
 
   tabColor: '#888890',
@@ -107,6 +107,7 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
     },
     spacing: {
       tiny: 4,
+      extraSmall: 6,
       small: 8,
       medium: 16,
       large: 24,

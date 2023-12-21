@@ -8,10 +8,10 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { SvgProps } from 'react-native-svg';
 
 import { noop } from '@/core/utils';
-import { Sandbox } from '@/screens/sandbox/Sandbox';
 import { EnhancedText } from '@/ui/core';
 import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
+import { ProfileNavigator } from './ProfileNavigator';
 
 const Learn = () => {
   return (
@@ -50,7 +50,7 @@ type TabParamList = {
   Learn: undefined;
   Vocabulary: undefined;
   Achievements: undefined;
-  Profile: undefined;
+  ProfileTab: undefined;
 };
 
 type TabType = {
@@ -67,7 +67,7 @@ const tabsIcons: TabIconsType = {
   Learn: (props: SvgProps) => <PathIcon {...props} />,
   Vocabulary: (props: SvgProps) => <BookIcon {...props} />,
   Achievements: (props: SvgProps) => <TrophyIcon {...props} />,
-  Profile: (props: SvgProps) => <PersonIcon {...props} />,
+  ProfileTab: (props: SvgProps) => <PersonIcon {...props} />,
 };
 
 export type TabList<T extends keyof TabParamList> = {
@@ -92,9 +92,9 @@ const tabs: TabType[] = [
     label: 'Achievements',
   },
   {
-    name: 'Profile',
-    component: Sandbox,
-    label: 'Profile',
+    name: 'ProfileTab',
+    component: ProfileNavigator,
+    label: 'ProfileTab',
   },
 ];
 
@@ -110,6 +110,7 @@ export const TabNavigator = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName="ProfileTab"
       screenOptions={({ route }) => ({
         tabBarStyle: {
           borderTopWidth: 0,

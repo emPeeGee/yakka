@@ -15,6 +15,8 @@
 [x] Better and correct colors
 [x] Logger. Make it singleton.
 [x] Deprecate useIsFirstTime
+[ ] Hide back button on tab main screen
+[ ] too many unstyled pressables
 [ ] better colors for background in light and dark
 [ ] Add a proper font
 [ ] proper color for tab separator
