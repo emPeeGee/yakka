@@ -79,6 +79,7 @@ export type Theme = {
     extraLarge: number;
   };
   borderRadius: {
+    extraSmall: number;
     small: number;
     medium: number;
     large: number;

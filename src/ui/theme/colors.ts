@@ -114,7 +114,8 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
       extraLarge: 32,
     },
     borderRadius: {
-      small: 4,
+      extraSmall: 4,
+      small: 6,
       medium: 8,
       large: 12,
     },

@@ -1,25 +1,22 @@
 import React from 'react';
-import { View, Image, StyleSheet, Pressable } from 'react-native';
+import { View, Image, StyleSheet, Pressable, FlatList } from 'react-native';
 
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { Path, Svg } from 'react-native-svg';
 
 import { noop } from '@/core/utils';
 import { Theme } from '@/types';
-import { Button, EnhancedText } from '@/ui/core';
+import { EnhancedText } from '@/ui/core';
+import { AchievementsIcon, SettingsIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
-
-const GoToSettings = () => {
-  const { navigate } = useNavigation();
-  return <Button onPress={() => navigate('Settings' as unknown as never)} title="Settings" />;
-};
 
 export const ProfileScreen = () => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const headerHeight = useHeaderHeight();
+  const { navigate } = useNavigation();
 
   return (
     <View>
@@ -92,7 +89,46 @@ export const ProfileScreen = () => {
           </View>
         </View>
 
-        <GoToSettings />
+        {/* TODO: Extract, and use styles */}
+        <FlatList
+          style={{
+            borderColor: theme.colors.border,
+            borderWidth: 1,
+            borderRadius: theme.borderRadius.small,
+            marginBottom: theme.spacing.large,
+          }}
+          ListHeaderComponent={() => (
+            <EnhancedText style={{ color: theme.colors.textSec, fontSize: 12 }}>
+              Dashboard
+            </EnhancedText>
+          )}
+          // TODO: 12 doesnt exist in theme
+          ListHeaderComponentStyle={{ paddingHorizontal: 12, marginBottom: 6 }}
+          contentContainerStyle={{ paddingHorizontal: 12, paddingVertical: 12 }}
+          data={[
+            { screen: 'Settings', label: 'Settings', Icon: SettingsIcon },
+            { screen: 'Settings', label: 'Achievements', Icon: AchievementsIcon },
+          ]}
+          renderItem={({ item: { label, screen, Icon } }) => {
+            return (
+              <Pressable
+                onPress={() => navigate(screen as never)}
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingVertical: 12,
+                  paddingHorizontal: 12,
+                }}>
+                <Icon />
+                <View style={{ flex: 1, justifyContent: 'flex-start', paddingLeft: 12 }}>
+                  <EnhancedText>{label}</EnhancedText>
+                </View>
+                <Ionicons name="chevron-forward" color={theme.colors.textPri} size={16} />
+              </Pressable>
+            );
+          }}
+        />
       </View>
     </View>
   );
@@ -140,6 +176,7 @@ const getStyles = (theme: Theme) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+      marginBottom: theme.spacing.large,
     },
     statContainer: {
       flexDirection: 'column',
