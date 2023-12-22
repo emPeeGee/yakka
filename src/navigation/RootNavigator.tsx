@@ -21,8 +21,8 @@ export function RootNavigator() {
         dark: appColorScheme === 'dark',
         colors: {
           background: theme.colors.background,
-          primary: theme.colors.primary100,
-          card: theme.colors.surface,
+          card: theme.colors.background,
+          primary: theme.colors.primary80,
           text: theme.colors.textPri,
           border: theme.colors.border,
           notification: theme.colors.focus, // TODO: Do I need it?

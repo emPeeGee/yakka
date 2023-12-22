@@ -60,7 +60,7 @@ const CustomBackButton = ({
         borderWidth: noBorder === false && appColorScheme === 'dark' ? 1 : undefined,
         padding: theme.spacing.extraSmall,
         borderRadius: theme.borderRadius.large,
-        elevation: theme.elevation.large,
+        ...theme.shadows.medium,
       }}>
       <Ionicons name="ios-chevron-back" size={24} color={theme.colors.primary60} />
     </Pressable>
