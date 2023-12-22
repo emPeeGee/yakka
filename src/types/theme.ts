@@ -6,6 +6,7 @@ export type Shadow = {
   shadowOffset: { width: number; height: number };
   shadowOpacity: number;
   shadowRadius: number;
+  elevation: number;
 };
 
 export type Colors = {
@@ -83,13 +84,6 @@ export type Theme = {
     small: number;
     medium: number;
     large: number;
-  };
-  elevation: {
-    tiny: number;
-    small: number;
-    medium: number;
-    large: number;
-    extraLarge: number;
   };
   shadows: {
     small: Shadow;
