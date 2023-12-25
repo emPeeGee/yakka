@@ -15,11 +15,13 @@
 [x] Better and correct colors
 [x] Logger. Make it singleton.
 [x] Deprecate useIsFirstTime
+[ ] use more global styles and extract the existing ones
 [ ] Hide back button on tab main screen
 [ ] too many unstyled pressables
 [ ] better colors for background in light and dark
 [ ] Add a proper font
 [ ] proper color for tab separator
+[ ] chevron on hover changes color in dark theme
 [ ] Add proper typology
 [ ] Add https://github.com/gvergnaud/ts-pattern
 [ ] Better docs

@@ -28,8 +28,27 @@ const getGlobalStyles = (theme: Theme) =>
     text: {
       color: theme.colors.textPri,
     },
+
+    centerRowBetween: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+
+    centerColumnBetween: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+
+    fullWidthFromStart: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+    },
   });
 
+// TODO: Make it provider!
 export const useGlobalThemedStyles = () => {
   const { theme } = useTheme();
 

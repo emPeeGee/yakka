@@ -45,9 +45,9 @@ export const ProfileScreen = () => {
       <View style={{ height: headerHeight + 42 }}></View>
 
       <View style={[styles.container]}>
-        <View style={styles.userContainer}>
+        <View style={gStyles.centerRowBetween}>
           <Image source={require('../../assets/profile.png')} style={styles.profileImg} />
-          <View style={styles.nameContainer}>
+          <View style={[gStyles.fullWidthFromStart, styles.nameContainer]}>
             <EnhancedText style={styles.name}>Mihail Mitrofanov</EnhancedText>
             <EnhancedText style={styles.grade}>Newbie</EnhancedText>
           </View>
@@ -60,8 +60,8 @@ export const ProfileScreen = () => {
 
         <Separator />
 
-        <View style={styles.statisticsContainer}>
-          <View style={styles.statContainer}>
+        <View style={[gStyles.centerRowBetween, { marginBottom: theme.spacing.large }]}>
+          <View style={gStyles.centerColumnBetween}>
             <View>
               <EnhancedText style={styles.statValue}>2+ hours</EnhancedText>
             </View>
@@ -72,7 +72,7 @@ export const ProfileScreen = () => {
 
           <View style={{ width: 1, height: 24, backgroundColor: theme.colors.border }} />
 
-          <View style={styles.statContainer}>
+          <View style={gStyles.centerColumnBetween}>
             <View>
               <EnhancedText style={styles.statValue}>20</EnhancedText>
             </View>
@@ -84,7 +84,7 @@ export const ProfileScreen = () => {
           {/* TODO: vertical separator */}
           <View style={{ width: 1, height: 24, backgroundColor: theme.colors.border }} />
 
-          <View style={styles.statContainer}>
+          <View style={gStyles.centerColumnBetween}>
             <View>
               <EnhancedText style={styles.statValue}>1</EnhancedText>
             </View>
@@ -154,16 +154,8 @@ const getStyles = (theme: Theme) =>
     container: {
       paddingHorizontal: theme.spacing.medium,
     },
-    userContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    },
     nameContainer: {
-      flex: 1,
       paddingHorizontal: theme.spacing.small,
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
     },
     profileImg: {
       height: 85,
@@ -176,17 +168,6 @@ const getStyles = (theme: Theme) =>
     grade: {
       fontSize: 12,
       color: theme.colors.textSec,
-    },
-    statisticsContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginBottom: theme.spacing.large,
-    },
-    statContainer: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'space-between',
     },
     statLabel: { color: theme.colors.textSec, fontSize: 12 },
     statValue: { fontSize: 18 },
