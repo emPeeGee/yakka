@@ -7,7 +7,7 @@ import { SvgProps } from 'react-native-svg';
 
 import { rootLog } from '@/core/logger';
 import { Theme } from '@/types';
-import { EnhancedText } from '@/ui/core';
+import { EnhancedText } from '@/ui/core/index';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export type DataListType = {
@@ -24,7 +24,6 @@ type ListProps = {
   data: DataListType[];
 };
 
-/* TODO: Extract, and use styles */
 export const List = ({ data, title }: ListProps) => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
@@ -37,13 +36,11 @@ export const List = ({ data, title }: ListProps) => {
     <FlatList
       style={styles.container}
       ListHeaderComponent={() => <EnhancedText style={styles.listHeader}>{title}</EnhancedText>}
-      // TODO: 12 doesnt exist in theme
       ListHeaderComponentStyle={styles.listHeaderContainer}
       contentContainerStyle={styles.contentContainer}
       data={data}
       keyExtractor={item => item.label}
-      // different renred items ?
-      // TODO: thought on making separate render item for case, but since it is small, no need
+      // NOTE: I thought about creating a separate render item for every case, but since it is small, there's no need.
       renderItem={({ item: { label, screen, Icon, callback, color, withChevron } }) => {
         return (
           <Pressable
@@ -68,15 +65,21 @@ const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       borderColor: theme.colors.border,
-      borderWidth: 1,
+      borderWidth: theme.borders.thin,
       borderRadius: theme.borderRadius.small,
       marginBottom: theme.spacing.large,
     },
     listHeader: { color: theme.colors.textSec, fontSize: 12 },
-    listHeaderContainer: { paddingHorizontal: 12, marginBottom: 6 },
-    contentContainer: { paddingHorizontal: 12, paddingVertical: 12 },
+    listHeaderContainer: {
+      paddingHorizontal: theme.spacing.small,
+      marginBottom: theme.spacing.tiny,
+    },
+    contentContainer: {
+      paddingHorizontal: theme.spacing.small,
+      paddingVertical: theme.spacing.small,
+    },
     itemContainer: {
-      paddingVertical: 12,
-      paddingHorizontal: 12,
+      paddingVertical: theme.spacing.small,
+      paddingHorizontal: theme.spacing.small,
     },
   });

@@ -31,7 +31,7 @@ export const BackButton = ({ noBorder, ...props }: BackButtonProps) => {
             ? theme.colors.border
             : undefined,
         borderWidth: appColorScheme === 'dark' ? 1 : undefined,
-        padding: theme.spacing.extraSmall,
+        padding: theme.spacing.tiny,
         borderRadius: theme.borderRadius.large,
         ...(appColorScheme === 'light' ? { ...theme.shadows.medium } : {}),
       }}>

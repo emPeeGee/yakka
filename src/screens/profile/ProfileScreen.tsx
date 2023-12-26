@@ -11,7 +11,7 @@ import { Theme } from '@/types';
 import { EnhancedText } from '@/ui/core';
 import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-import { DataListType, List } from './List';
+import { DataListType, List } from '../../ui/core/List';
 
 const DASHBOARD_LIST: DataListType[] = [
   { screen: 'Settings', label: 'Settings', Icon: SettingsIcon, withChevron: true },
@@ -135,7 +135,7 @@ const getStyles = (theme: Theme) =>
       paddingHorizontal: theme.spacing.medium,
     },
     nameContainer: {
-      paddingHorizontal: theme.spacing.small,
+      paddingHorizontal: theme.spacing.extraSmall,
     },
     profileImg: {
       height: 85,

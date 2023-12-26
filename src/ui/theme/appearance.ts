@@ -85,6 +85,7 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
   const colors = colorScheme === 'dark' ? DARK_COLORS : LIGHT_COLORS;
   return {
     colors,
+    // TODO: typography not used yet
     typography: {
       fontFamily: 'Arial, sans-serif',
       fontSize: {
@@ -104,10 +105,11 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
         extraLarge: 28,
       },
     },
+    // naming, XXS, XS, S, M, L, XL, XXL
     spacing: {
-      tiny: 4,
-      extraSmall: 6,
-      small: 8,
+      tiny: 6,
+      extraSmall: 8,
+      small: 12,
       medium: 16,
       large: 24,
       extraLarge: 32,
