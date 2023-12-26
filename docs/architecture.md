@@ -84,10 +84,20 @@ The Yakka will follow a group by functionality mixed with feature based(for exam
 
 ## Git conventions
 
-`✨ feat`: Major feature
-`🌱 feat`: Minor feature
-`🚧 feat`: WIP feature
-... to be added
+`🎉 init`,
+`✨ feat`: Major feature.
+`🌱 feat`: Minor feature.
+`🚧 feat`: WIP feature.
+`🐞 fix`: A bug fix or correction to resolve an issue.
+`📃 docs`: Documentation only changes.
+`🌈 style`:  Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
+`🦄 refactor`: Rewrite/restructure your code.
+`🎈 perf`: Documentation only changes.
+`🧪 test`: Add missing tests or correcting existing tests.
+`🔧 build`: Affect build components like build tool, ci pipeline, dependencies, project version
+`🐎 ci`: Changes to CI configuration files and scripts.
+`🐳 chore`: Other changes that don't modify src or test files e.g. modifying .gitignore.
+`↩ revert`: Reverts a previous commit.
 
 ## Reference
 
