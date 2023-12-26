@@ -16,16 +16,15 @@ export function RootNavigator() {
 
   return (
     <NavigationContainer
-      // TODO: better theme here and where it will be used?
       theme={{
         dark: appColorScheme === 'dark',
         colors: {
           background: theme.colors.background,
-          card: theme.colors.background,
+          card: theme.colors.surface,
           primary: theme.colors.primary80,
           text: theme.colors.textPri,
           border: theme.colors.border,
-          notification: theme.colors.focus, // TODO: Do I need it?
+          notification: theme.colors.focus,
         },
       }}>
       <Stack.Navigator
