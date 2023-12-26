@@ -20,21 +20,11 @@ export const SettingsScreen = () => {
   const { setColorScheme, userColorScheme } = useTheme();
   const [selected, setSelected] = useState(userColorScheme);
   const [isFirstTime, , isLoading] = useIsFirstTime();
-  // const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
 
   return (
-    <View
-      style={[
-        {
-          // TODO: it looks like stack screen has default insets
-          // paddingTop: insets.top,
-          // paddingBottom: insets.bottom,
-          // paddingLeft: insets.left,
-          // paddingRight: insets.right,
-        },
-      ]}>
-      <View style={{ height: headerHeight }}></View>
+    <View>
+      <View style={{ height: headerHeight }} />
       <Text>Sandbox</Text>
 
       {isLoading && <ActivityIndicator size="large" />}
