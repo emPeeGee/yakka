@@ -6,7 +6,7 @@ import { StatusBarStyle } from 'expo-status-bar';
 import { rootLog } from '@/core/logger';
 import { getItem, setItem } from '@/core/storage';
 import { UserColorSchemeType, Theme, AppColorSchemeType } from '@/types';
-import { getTheme } from './colors';
+import { getTheme } from './appearance';
 
 type ThemeContextType = {
   theme: Theme;

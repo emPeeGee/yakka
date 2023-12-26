@@ -32,14 +32,15 @@ const DARK_COLORS: Colors = {
   ...SECONDARY_COLORS,
   ...BASE_COLORS,
 
-  // Accent Colors
   success: '#99CC29',
   warning: '#FFD237',
   error: '#FF4B4C',
   info: '#3870FF',
 
+  // https://uxplanet.org/8-tips-for-dark-theme-design-8dfc2f8f7ab6
   surface: '#828282',
   background: '#000000',
+  // background: '#121212',
   textPri: '#FFFFFF',
   textSec: '#9C9FA5',
   border: '#444444',
@@ -52,8 +53,6 @@ const DARK_COLORS: Colors = {
   placeholder: '#AA36A2',
   selection: '#AA36A2',
 };
-
-// TODO: Colors to be added/changed as per application needs
 
 const LIGHT_COLORS: Colors = {
   ...PRIMARY_COLORS,
