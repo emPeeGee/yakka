@@ -1,5 +1,6 @@
 import { TouchableOpacity, View } from 'react-native';
 
+import { SelectableOption } from '@/types';
 import { EnhancedText } from './EnhancedText';
 import { useTheme } from '../theme';
 
@@ -45,15 +46,9 @@ function RadioButton<T>({ label, value, selected, onSelect }: RadioButtonProps<T
   );
 }
 
-// TODO: better name and export
-export type RadioGroupOption<T> = {
-  label: string;
-  value: T;
-};
-
 type RadioGroupProps<T> = {
   label: string;
-  options: RadioGroupOption<T>[];
+  options: SelectableOption<T>[];
   value: T;
   onChange: (value: T) => void;
 };
