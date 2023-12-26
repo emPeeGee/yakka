@@ -9,6 +9,15 @@ export type Shadow = {
   elevation: number;
 };
 
+export type Spacing = {
+  tiny: number;
+  extraSmall: number;
+  small: number;
+  medium: number;
+  large: number;
+  extraLarge: number;
+};
+
 export type Colors = {
   primary100: string;
   primary80: string;
@@ -71,14 +80,7 @@ export type Theme = {
       extraLarge: number;
     };
   };
-  spacing: {
-    tiny: number;
-    extraSmall: number;
-    small: number;
-    medium: number;
-    large: number;
-    extraLarge: number;
-  };
+  spacing: Spacing;
   borderRadius: {
     extraSmall: number;
     small: number;

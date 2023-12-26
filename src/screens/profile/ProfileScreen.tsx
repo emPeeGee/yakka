@@ -8,10 +8,9 @@ import { Path, Svg } from 'react-native-svg';
 import { rootLog } from '@/core/logger';
 import { noop } from '@/core/utils';
 import { Theme } from '@/types';
-import { EnhancedText } from '@/ui/core';
+import { EnhancedText, List, DataListType, Separator } from '@/ui/core';
 import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-import { DataListType, List } from '../../ui/core/List';
 
 const DASHBOARD_LIST: DataListType[] = [
   { screen: 'Settings', label: 'Settings', Icon: SettingsIcon, withChevron: true },
@@ -76,7 +75,7 @@ export const ProfileScreen = () => {
           </Pressable>
         </View>
 
-        <Separator />
+        <Separator paddingVertical={theme.spacing.medium} />
 
         <View style={[gStyles.centerRowBetween, { marginBottom: theme.spacing.large }]}>
           <View style={gStyles.centerColumnBetween}>
@@ -88,7 +87,7 @@ export const ProfileScreen = () => {
             </View>
           </View>
 
-          <View style={{ width: 1, height: 24, backgroundColor: theme.colors.border }} />
+          <Separator isVertical height={24} paddingVertical={0} />
 
           <View style={gStyles.centerColumnBetween}>
             <View>
@@ -99,8 +98,7 @@ export const ProfileScreen = () => {
             </View>
           </View>
 
-          {/* TODO: vertical separator */}
-          <View style={{ width: 1, height: 24, backgroundColor: theme.colors.border }} />
+          <Separator isVertical height={24} paddingVertical={0} />
 
           <View style={gStyles.centerColumnBetween}>
             <View>
@@ -118,16 +116,6 @@ export const ProfileScreen = () => {
     </View>
   );
 };
-
-function Separator() {
-  const { theme } = useTheme();
-
-  return (
-    <View style={{ flexDirection: 'row', paddingVertical: theme.spacing.medium }}>
-      <View style={{ flex: 1, height: 1, backgroundColor: theme.colors.border }}></View>
-    </View>
-  );
-}
 
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
