@@ -48,8 +48,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
    */
   const appColorScheme = useRef<AppColorSchemeType>(systemColorScheme as AppColorSchemeType);
 
-  //TODO: functional error handling
-
   useEffect(() => {
     const readTheme = async () => {
       const colorScheme = await getItem<UserColorSchemeType>(SELECTED_THEME_KEY);
