@@ -10,7 +10,7 @@ const CustomText = (
   const globalThemes = useGlobalThemedStyles();
 
   return (
-    <Text ref={ref} style={[globalThemes.text, style, { fontFamily: 'monospace' }]} {...rest}>
+    <Text ref={ref} style={[globalThemes.text, style]} {...rest}>
       {children}
     </Text>
   );
