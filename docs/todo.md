@@ -15,9 +15,9 @@
 [x] Better and correct colors
 [x] Logger. Make it singleton.
 [x] Deprecate useIsFirstTime
+[x] too many unstyled pressables
 [ ] use more global styles and extract the existing ones
-[ ] Hide back button on tab main screen
-[ ] too many unstyled pressables
+[x] Hide back button on tab main screen
 [ ] better colors for background in light and dark
 [ ] Add a proper font
 [ ] proper color for tab separator

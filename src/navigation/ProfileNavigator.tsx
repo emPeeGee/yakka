@@ -26,9 +26,7 @@ export const ProfileNavigator = () => {
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
-          options={{
-            headerLeft: props => <BackButton {...props} noBorder />,
-          }}
+          options={{ headerLeft: undefined }}
         />
         <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Group>
