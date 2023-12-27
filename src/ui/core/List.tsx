@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Pressable, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,7 @@ import { SvgProps } from 'react-native-svg';
 
 import { rootLog } from '@/core/logger';
 import { Theme } from '@/types';
-import { EnhancedText } from '@/ui/core/index';
+import { EnhancedPressable, EnhancedText } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export type DataListType = {
@@ -33,6 +33,7 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
 
   rootLog.info(data);
 
+  // NOTE: I thought about creating a separate render item for every case, but since it is small, there's no need.
   return (
     <FlatList
       style={styles.container}
@@ -45,10 +46,9 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
       contentContainerStyle={styles.contentContainer}
       data={data}
       keyExtractor={item => item.label}
-      // NOTE: I thought about creating a separate render item for every case, but since it is small, there's no need.
       renderItem={({ item: { label, screen, Icon, callback, color, withChevron } }) => {
         return (
-          <Pressable
+          <EnhancedPressable
             onPress={() => (callback ? callback() : navigate(screen as never))}
             style={[gStyles.centerRowBetween, styles.itemContainer]}>
             {Icon && <Icon />}
@@ -59,7 +59,7 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
             {withChevron && (
               <Ionicons name="chevron-forward" color={theme.colors.textPri} size={16} />
             )}
-          </Pressable>
+          </EnhancedPressable>
         );
       }}
     />

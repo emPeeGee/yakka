@@ -1,6 +1,7 @@
 import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
+import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
 import { useTheme } from '../theme';
 
@@ -24,15 +25,11 @@ export const Button = ({
   const color = titleColor || theme.colors.textPri;
 
   return (
-    <Pressable
-      style={({ pressed }) => [
-        styles.button,
-        { backgroundColor: background, borderRadius: radius },
-        pressed ? { opacity: 0.8 } : {},
-      ]}
+    <EnhancedPressable
+      style={[styles.button, { backgroundColor: background, borderRadius: radius }]}
       onPress={onPress}>
       <EnhancedText style={[{ color }, styles.text]}>{title}</EnhancedText>
-    </Pressable>
+    </EnhancedPressable>
   );
 };
 

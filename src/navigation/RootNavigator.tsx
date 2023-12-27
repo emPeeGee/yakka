@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useFirstLaunch } from '@/core/providers';
+import { isThemeDark } from '@/core/utils';
 import { ConfidenceScreen } from '@/screens/onboarding/OnboardingScreen';
 import { useTheme } from '@/ui/theme';
 import { TabNavigator } from './TabNavigator';
@@ -17,7 +18,7 @@ export function RootNavigator() {
   return (
     <NavigationContainer
       theme={{
-        dark: appColorScheme === 'dark',
+        dark: isThemeDark(appColorScheme),
         colors: {
           background: theme.colors.background,
           card: theme.colors.surface,

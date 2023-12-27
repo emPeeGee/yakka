@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, ActivityIndicator, Button } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 
 import { useHeaderHeight } from '@react-navigation/elements';
 
 import { COLOR_SCHEME_OPTIONS } from '@/core/constants';
 import { useIsFirstTime } from '@/core/hooks';
 import { removeItem } from '@/core/storage';
-import { EnhancedText, RadioGroup } from '@/ui/core';
+import { EnhancedText, RadioGroup, Button } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export const SettingsScreen = () => {

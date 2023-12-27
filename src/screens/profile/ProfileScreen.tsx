@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Image, StyleSheet, Pressable } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useHeaderHeight } from '@react-navigation/elements';
@@ -7,7 +7,14 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { rootLog } from '@/core/logger';
 import { noop } from '@/core/utils';
 import { Theme } from '@/types';
-import { EnhancedText, List, DataListType, Separator, CurvedShape } from '@/ui/core';
+import {
+  EnhancedText,
+  List,
+  DataListType,
+  Separator,
+  CurvedShape,
+  EnhancedPressable,
+} from '@/ui/core';
 import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
@@ -49,9 +56,9 @@ export const ProfileScreen = () => {
           </View>
 
           {/* TODO: for future to implement */}
-          <Pressable onPress={noop}>
+          <EnhancedPressable onPress={noop}>
             <FontAwesome5 name="edit" size={22} color={theme.colors.textPri} />
-          </Pressable>
+          </EnhancedPressable>
         </View>
 
         <Separator paddingVertical={theme.spacing.medium} />
