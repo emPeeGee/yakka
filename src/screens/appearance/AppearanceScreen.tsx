@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 
-import { useHeaderHeight } from '@react-navigation/elements';
-
 import { COLOR_SCHEME_OPTIONS } from '@/core/constants';
-import { RadioGroup, EnhancedText } from '@/ui/core';
+import { RadioGroup, EnhancedText, HeaderPlaceholder } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export const AppearanceScreen = () => {
   const { setColorScheme, userColorScheme } = useTheme();
   const [selected, setSelected] = useState(userColorScheme);
-  const headerHeight = useHeaderHeight();
 
   return (
     <View>
-      <View style={{ height: headerHeight }} />
+      <HeaderPlaceholder />
 
       <View>
         <RadioGroup

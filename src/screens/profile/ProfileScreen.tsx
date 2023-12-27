@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
 import { FontAwesome5 } from '@expo/vector-icons';
-import { useHeaderHeight } from '@react-navigation/elements';
 
 import { rootLog } from '@/core/logger';
 import { noop } from '@/core/utils';
@@ -14,6 +13,7 @@ import {
   Separator,
   CurvedShape,
   EnhancedPressable,
+  HeaderPlaceholder,
 } from '@/ui/core';
 import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -26,7 +26,6 @@ const DASHBOARD_LIST: DataListType[] = [
 export const ProfileScreen = () => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
-  const headerHeight = useHeaderHeight();
   const gStyles = useGlobalThemedStyles();
 
   const ACCOUNT_LIST = useMemo(
@@ -45,7 +44,7 @@ export const ProfileScreen = () => {
     <View>
       <CurvedShape />
       {/* TODO: 42 is hardcoded */}
-      <View style={{ height: headerHeight + 42 }}></View>
+      <HeaderPlaceholder additionalSpace={42} />
 
       <View style={[styles.container]}>
         <View style={gStyles.centerRowBetween}>

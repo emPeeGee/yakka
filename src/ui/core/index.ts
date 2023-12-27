@@ -3,6 +3,7 @@ import { Button } from './Button';
 import { CurvedShape } from './CurvedShape';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
+import { HeaderPlaceholder } from './HeaderPlaceholder';
 import { List, DataListType } from './List';
 import { RadioGroup } from './RadioGroup';
 import { Separator } from './Separator';
@@ -18,5 +19,6 @@ export {
   Separator,
   CurvedShape,
   EnhancedPressable,
+  HeaderPlaceholder,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType };
