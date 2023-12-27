@@ -18,11 +18,13 @@
 [x] too many unstyled pressables
 [ ] use more global styles and extract the existing ones
 [x] Hide back button on tab main screen
+[ ] Better radio box
+[ ] List with switch
 [ ] better colors for background in light and dark
 [ ] Add a proper font
-[ ] proper color for tab separator
-[ ] chevron on hover changes color in dark theme
 [ ] Add proper typology
+[ ] proper color for tab separator
+[ ] chevron on hover changes color in dark theme. Cannot reproduce on Android. Check ios
 [ ] Add https://github.com/gvergnaud/ts-pattern
 [ ] Better docs
 [ ] Logger types refactor. LOW Priority.

@@ -19,8 +19,8 @@ import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 const DASHBOARD_LIST: DataListType[] = [
-  { screen: 'Settings', label: 'Settings', Icon: SettingsIcon, withChevron: true },
-  { screen: 'Settings', label: 'Achievements', Icon: AchievementsIcon, withChevron: true },
+  { screen: 'SettingsScreen', label: 'Settings', Icon: SettingsIcon, withChevron: true },
+  { screen: 'SettingsScreen', label: 'Achievements', Icon: AchievementsIcon, withChevron: true },
 ];
 
 export const ProfileScreen = () => {

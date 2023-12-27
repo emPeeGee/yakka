@@ -2,17 +2,20 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ProfileScreen, SettingsScreen } from '@/screens';
+import { AppearanceScreen, ProfileScreen, SettingsScreen } from '@/screens';
 import { BackButton } from '@/ui/core';
+import { useTheme } from '@/ui/theme';
 
 export type ProfileStackParamList = {
-  Profile: undefined;
-  Settings: undefined;
+  ProfileScreen: undefined;
+  SettingsScreen: undefined;
+  AppearanceScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
 export const ProfileNavigator = () => {
+  const { theme } = useTheme();
   return (
     <Stack.Navigator>
       <Stack.Group
@@ -21,14 +24,28 @@ export const ProfileNavigator = () => {
           headerTransparent: true,
           headerTitleAlign: 'center',
           headerBackVisible: false,
+          contentStyle: { paddingHorizontal: theme.spacing.medium },
           headerLeft: props => <BackButton {...props} />,
         }}>
         <Stack.Screen
-          name="Profile"
+          name="ProfileScreen"
           component={ProfileScreen}
-          options={{ headerLeft: undefined }}
+          options={{
+            headerLeft: undefined,
+            headerTitle: 'Profile',
+            contentStyle: { paddingHorizontal: null },
+          }}
         />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen
+          options={{ headerTitle: 'Settings' }}
+          name="SettingsScreen"
+          component={SettingsScreen}
+        />
+        <Stack.Screen
+          options={{ headerTitle: 'Appearance' }}
+          name="AppearanceScreen"
+          component={AppearanceScreen}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
