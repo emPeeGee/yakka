@@ -14,10 +14,10 @@ type EnhancedPressableProps = {
 export function EnhancedPressable({ children, style, onPress, ...props }: EnhancedPressableProps) {
   const { theme, appColorScheme } = useTheme();
   const isDark = isThemeDark(appColorScheme);
-  const { light } = useHaptics();
+  const { lightHaptics } = useHaptics();
 
   const onPressHandle = () => {
-    light();
+    lightHaptics();
     onPress?.();
   };
 

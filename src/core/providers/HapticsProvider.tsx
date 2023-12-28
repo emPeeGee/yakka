@@ -10,7 +10,14 @@ import { noop } from '../utils';
 const IS_HAPTICS_ENABLED_KEY = 'IS_HAPTICS_ENABLED';
 
 // TODO: names
-type FeedbackType = 'light' | 'medium' | 'heavy' | 'selection' | 'success' | 'warning' | 'error';
+type FeedbackType =
+  | 'lightHaptics'
+  | 'mediumHaptics'
+  | 'heavyHaptics'
+  | 'selectionHaptics'
+  | 'successHaptics'
+  | 'warningHaptics'
+  | 'errorHaptics';
 
 type HapticCallbackType = (b: boolean) => void | undefined;
 
@@ -23,13 +30,13 @@ type HapticsContextType = {
 const initialValue: HapticsContextType = {
   isHapticsEnabled: true,
   setHapticsEnabled: noop,
-  light: () => Promise.resolve(),
-  medium: () => Promise.resolve(),
-  heavy: () => Promise.resolve(),
-  selection: () => Promise.resolve(),
-  success: () => Promise.resolve(),
-  warning: () => Promise.resolve(),
-  error: () => Promise.resolve(),
+  lightHaptics: () => Promise.resolve(),
+  mediumHaptics: () => Promise.resolve(),
+  heavyHaptics: () => Promise.resolve(),
+  selectionHaptics: () => Promise.resolve(),
+  successHaptics: () => Promise.resolve(),
+  warningHaptics: () => Promise.resolve(),
+  errorHaptics: () => Promise.resolve(),
 };
 
 const HapticsContext = createContext<HapticsContextType>(initialValue);
@@ -73,13 +80,13 @@ export const HapticsProvider = ({ children }: HapticsProviderProps): React.React
 
   const haptics = useMemo(
     () => ({
-      light: createHapticHandler(Haptics.ImpactFeedbackStyle.Light),
-      medium: createHapticHandler(Haptics.ImpactFeedbackStyle.Medium),
-      heavy: createHapticHandler(Haptics.ImpactFeedbackStyle.Heavy),
-      success: createNotificationFeedback(Haptics.NotificationFeedbackType.Success),
-      warning: createNotificationFeedback(Haptics.NotificationFeedbackType.Warning),
-      error: createNotificationFeedback(Haptics.NotificationFeedbackType.Error),
-      selection: isHapticsAvailable ? Haptics.selectionAsync : () => Promise.resolve(),
+      lightHaptics: createHapticHandler(Haptics.ImpactFeedbackStyle.Light),
+      mediumHaptics: createHapticHandler(Haptics.ImpactFeedbackStyle.Medium),
+      heavyHaptics: createHapticHandler(Haptics.ImpactFeedbackStyle.Heavy),
+      successHaptics: createNotificationFeedback(Haptics.NotificationFeedbackType.Success),
+      warningHaptics: createNotificationFeedback(Haptics.NotificationFeedbackType.Warning),
+      errorHaptics: createNotificationFeedback(Haptics.NotificationFeedbackType.Error),
+      selectionHaptics: isHapticsAvailable ? Haptics.selectionAsync : () => Promise.resolve(),
     }),
     [createHapticHandler, createNotificationFeedback],
   );
