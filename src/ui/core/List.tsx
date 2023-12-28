@@ -7,14 +7,16 @@ import { SvgProps } from 'react-native-svg';
 
 import { isBool } from '@/core/utils';
 import { Theme } from '@/types';
-import { EnhancedPressable, EnhancedText } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { EnhancedPressable } from './EnhancedPressable';
+import { EnhancedText } from './EnhancedText';
 
+// IDEA: Conditional type
 export type DataListType = {
   label: string;
   Icon?: (props: SvgProps) => React.JSX.Element;
   screen?: string;
-  callback?: () => void;
+  callback?: (...args: unknown[]) => void;
   color?: string;
   withChevron?: boolean;
   checked?: boolean;
@@ -53,9 +55,10 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
               // switchRef.current.onChange(!checked);
               // switchRef.current.setNativeProps({ value: !checked });
 
-              callback();
+              callback(!checked);
               return;
             }
+
             callback();
           } else {
             navigate(screen as never);
@@ -77,7 +80,9 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
             {isBool(checked) && (
               <Switch
                 // TODO?: When pressing the switch, it show a unknown color
-                onChange={callback}
+                onChange={e => {
+                  callback && callback(e.nativeEvent.value);
+                }}
                 value={checked}
                 thumbColor={checked ? theme.colors.secondary100 : undefined}
                 trackColor={{ true: theme.colors.secondary60, false: theme.colors.base40 }}

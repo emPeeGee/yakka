@@ -1,16 +1,16 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
 import * as Haptics from 'expo-haptics';
 
 import { useIsFirstTime } from '@/core/hooks';
+import { useHaptics } from '@/core/providers';
 import { removeItem } from '@/core/storage';
 import { EnhancedText, Button, List, DataListType, HeaderPlaceholder } from '@/ui/core';
 
 export const SettingsScreen = () => {
   const [isFirstTime] = useIsFirstTime();
-
-  const [enabledHaptic, setEnabledHaptic] = useState(true);
+  const { setHapticsEnabled, isHapticsEnabled } = useHaptics();
 
   const SETTINGS_LIST = useMemo(
     () =>
@@ -21,18 +21,18 @@ export const SettingsScreen = () => {
         },
         {
           label: 'Haptics',
-          checked: enabledHaptic,
-          callback: () => {
-            setEnabledHaptic(prev => {
-              if (prev === false) {
+          checked: isHapticsEnabled,
+          callback: (value: boolean) => {
+            setHapticsEnabled(value, (enabled: boolean) => {
+              if (enabled === true) {
+                // Calling Haptics directly, because by the time it is called, useHaptics, will have haptics disabled
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
               }
-              return !prev;
             });
           },
         },
       ] as DataListType[],
-    [enabledHaptic],
+    [isHapticsEnabled],
   );
 
   return (

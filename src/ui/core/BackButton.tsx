@@ -25,7 +25,6 @@ export const BackButton = ({ noBorder, ...props }: BackButtonProps) => {
   return (
     <EnhancedPressable
       onPress={onBackPress}
-      noHaptic
       style={{
         backgroundColor: theme.colors.background,
         // when noBorder, border color becomes background color

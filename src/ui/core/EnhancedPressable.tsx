@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 import { Pressable, PressableProps, StyleProp, ViewStyle } from 'react-native';
 
-import * as Haptics from 'expo-haptics';
-
+import { useHaptics } from '@/core/providers';
 import { isThemeDark } from '@/core/utils';
 import { useTheme } from '../theme';
 
@@ -10,23 +9,15 @@ type EnhancedPressableProps = {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
-  noHaptic?: boolean;
 } & PressableProps;
 
-export function EnhancedPressable({
-  noHaptic = false,
-  children,
-  style,
-  onPress,
-  ...props
-}: EnhancedPressableProps) {
+export function EnhancedPressable({ children, style, onPress, ...props }: EnhancedPressableProps) {
   const { theme, appColorScheme } = useTheme();
   const isDark = isThemeDark(appColorScheme);
+  const { light } = useHaptics();
 
   const onPressHandle = () => {
-    if (!noHaptic) {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-    }
+    light();
     onPress?.();
   };
 

@@ -1,10 +1,12 @@
-import { FirstLaunchProvider } from '@/core/providers';
+import { FirstLaunchProvider, HapticsProvider } from '@/core/providers';
 import { RootNavigator } from '@/navigation';
 
 export function ApplicationConfigurator() {
   return (
-    <FirstLaunchProvider>
-      <RootNavigator />
-    </FirstLaunchProvider>
+    <HapticsProvider>
+      <FirstLaunchProvider>
+        <RootNavigator />
+      </FirstLaunchProvider>
+    </HapticsProvider>
   );
 }

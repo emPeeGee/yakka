@@ -6,5 +6,3 @@ export function isBool(bool: BooleanConstructor | boolean | null | undefined) {
       typeof (bool as BooleanConstructor).valueOf() === 'boolean')
   );
 }
-
-Boolean(true);
