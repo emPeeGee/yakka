@@ -1,15 +1,16 @@
-import React, { useMemo } from 'react';
-import { View, Text } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { View } from 'react-native';
 
-import { useHeaderHeight } from '@react-navigation/elements';
+import * as Haptics from 'expo-haptics';
 
 import { useIsFirstTime } from '@/core/hooks';
 import { removeItem } from '@/core/storage';
-import { EnhancedText, Button, List, DataListType } from '@/ui/core';
+import { EnhancedText, Button, List, DataListType, HeaderPlaceholder } from '@/ui/core';
 
 export const SettingsScreen = () => {
   const [isFirstTime] = useIsFirstTime();
-  const headerHeight = useHeaderHeight();
+
+  const [enabledHaptic, setEnabledHaptic] = useState(true);
 
   const SETTINGS_LIST = useMemo(
     () =>
@@ -20,16 +21,23 @@ export const SettingsScreen = () => {
         },
         {
           label: 'Haptics',
-          checked: false,
+          checked: enabledHaptic,
+          callback: () => {
+            setEnabledHaptic(prev => {
+              if (prev === false) {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              }
+              return !prev;
+            });
+          },
         },
       ] as DataListType[],
-    [],
+    [enabledHaptic],
   );
 
   return (
     <View>
-      <View style={{ height: headerHeight }} />
-      <Text>Sandbox</Text>
+      <HeaderPlaceholder />
 
       <List title="Settings" data={SETTINGS_LIST} />
 
