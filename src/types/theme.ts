@@ -19,17 +19,41 @@ export type Spacing = {
 };
 
 export type Colors = {
+  primary: string;
+  primaryLight: string;
+  primaryDark: string;
+  primary50: string;
   primary100: string;
-  primary80: string;
-  primary60: string;
-  primary40: string;
-  primary20: string;
+  primary200: string;
+  primary300: string;
+  primary400: string;
+  primary500: string;
+  primary600: string;
+  primary700: string;
+  primary800: string;
+  primary900: string;
+  primaryA100: string;
+  primaryA200: string;
+  primaryA400: string;
+  primaryA700: string;
 
+  secondary: string;
+  secondaryLight: string;
+  secondaryDark: string;
+  secondary50: string;
   secondary100: string;
-  secondary80: string;
-  secondary60: string;
-  secondary40: string;
-  secondary20: string;
+  secondary200: string;
+  secondary300: string;
+  secondary400: string;
+  secondary500: string;
+  secondary600: string;
+  secondary700: string;
+  secondary800: string;
+  secondary900: string;
+  secondaryA100: string;
+  secondaryA200: string;
+  secondaryA400: string;
+  secondaryA700: string;
 
   base100: string;
   base80: string;
@@ -38,25 +62,20 @@ export type Colors = {
   base20: string;
   base0: string;
 
+  surface: string;
   background: string;
+
   textPri: string;
   textSec: string;
+  textDis: string;
   border: string;
-  link: string;
-
-  tabColor: string;
 
   // Accent Colors
   success: string;
   warning: string;
   error: string;
   info: string;
-  surface: string;
-
-  disabled: string;
-  selection: string;
-  placeholder: string;
-  focus: string; // Do I need this?
+  tabColor: string;
 };
 
 export type Theme = {

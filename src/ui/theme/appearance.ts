@@ -3,19 +3,43 @@ import { ColorSchemeName } from 'react-native';
 import { Theme, Colors } from '@/types';
 
 const PRIMARY_COLORS = {
-  primary100: '#0074CE',
-  primary80: '#0693F1',
-  primary60: '#3DB2FF',
-  primary40: '#B8E1FF',
-  primary20: '#EFF8FF',
+  primary: '#009688',
+  primaryLight: 'rgb(0, 105, 95)',
+  primaryDark: 'rgb(51, 171, 159)',
+  primary50: '#E0F2F1',
+  primary100: '#B2DFDB',
+  primary200: '#80CBC4',
+  primary300: '#4DB6AC',
+  primary400: '#26A69A',
+  primary500: '#009688',
+  primary600: '#00897B',
+  primary700: '#00796B',
+  primary800: '#00695C',
+  primary900: '#004D40',
+  primaryA100: '#A7FFEB',
+  primaryA200: '#64FFDA',
+  primaryA400: '#1DE9B6',
+  primaryA700: '#00BFA5',
 };
 
 const SECONDARY_COLORS = {
-  secondary100: '#FFC107',
-  secondary80: '#FFD899',
-  secondary60: '#FFE5BB',
-  secondary40: '#FFF2DD',
-  secondary20: '#FFF9EF',
+  secondary: '#FFC107',
+  secondaryLight: 'rgb(255, 205, 56)',
+  secondaryDark: 'rgb(178, 135, 4)',
+  secondary50: '#FFF8E1',
+  secondary100: '#FFECB3',
+  secondary200: '#FFE082',
+  secondary300: '#FFD54F',
+  secondary400: '#FFCA28',
+  secondary500: '#FFC107',
+  secondary600: '#FFB300',
+  secondary700: '#FFA000',
+  secondary800: '#FF8F00',
+  secondary900: '#FF6F00',
+  secondaryA100: '#FFE57F',
+  secondaryA200: '#FFD740',
+  secondaryA400: '#FFC400',
+  secondaryA700: '#FFAB00',
 };
 
 const BASE_COLORS = {
@@ -38,20 +62,16 @@ const DARK_COLORS: Colors = {
   info: '#3870FF',
 
   // https://uxplanet.org/8-tips-for-dark-theme-design-8dfc2f8f7ab6
-  surface: '#828282',
-  background: '#000000',
-  // background: '#121212',
+  surface: '#424242',
+  background: '#303030',
+
   textPri: '#FFFFFF',
-  textSec: '#9C9FA5',
-  border: '#444444',
-  link: '#3DB2FF',
+  textSec: 'rgba(255, 255, 255, 0.7)',
+  textDis: 'rgba(255, 255, 255, 0.5)',
+  border: 'rgba(255, 255, 255, 0.12)',
 
-  tabColor: '#888890',
-
-  disabled: '#AA36A2',
-  focus: '#AA36A2',
-  placeholder: '#AA36A2',
-  selection: '#AA36A2',
+  // as textSec
+  tabColor: 'rgba(255, 255, 255, 0.5)',
 };
 
 const LIGHT_COLORS: Colors = {
@@ -65,21 +85,18 @@ const LIGHT_COLORS: Colors = {
   error: '#FF4B4C',
   info: '#3870FF',
 
-  surface: '#FAFAFA',
-  background: '#FFFFFF',
-  textPri: '#263238',
-  textSec: '#898989',
-  border: '#DADADA',
-  link: '#3DB2FF',
+  surface: '#FFFFFF',
+  background: '#FAFAFA',
+  textPri: 'rgba(0, 0, 0, 0.87)',
+  textSec: 'rgba(0, 0, 0, 0.54)',
+  textDis: 'rgba(0, 0, 0, 0.38)',
 
-  tabColor: '#1C1C1E',
+  border: 'rgba(0, 0, 0, 0.12)',
 
-  disabled: '#AA36A2',
-  focus: '#AA36A2',
-  placeholder: '#AA36A2',
-  selection: '#AA36A2',
+  // as textPri
+  tabColor: 'rgba(0, 0, 0, 0.87)',
 };
-
+// https://bareynol.github.io/mui-theme-creator/
 // eslint-disable-next-line max-lines-per-function
 export const getTheme = (colorScheme: ColorSchemeName): Theme => {
   const colors = colorScheme === 'dark' ? DARK_COLORS : LIGHT_COLORS;

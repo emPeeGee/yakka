@@ -80,7 +80,7 @@ export function SwiperButton({
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: theme.colors.primary80,
+      backgroundColor: theme.colors.primary800,
       padding: 10,
       borderRadius: 100,
       alignItems: 'center',

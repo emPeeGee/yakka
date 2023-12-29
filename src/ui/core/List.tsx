@@ -85,7 +85,7 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
                 }}
                 value={checked}
                 thumbColor={checked ? theme.colors.secondary100 : undefined}
-                trackColor={{ true: theme.colors.secondary60, false: theme.colors.base40 }}
+                trackColor={{ true: theme.colors.secondary, false: theme.colors.base40 }}
               />
             )}
           </EnhancedPressable>

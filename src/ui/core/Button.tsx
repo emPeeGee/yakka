@@ -21,7 +21,7 @@ export const Button = ({
   onPress,
 }: ButtonProps) => {
   const { theme } = useTheme();
-  const background = backgroundColor || theme.colors.primary80;
+  const background = backgroundColor || theme.colors.primary;
   const color = titleColor || theme.colors.textPri;
 
   return (

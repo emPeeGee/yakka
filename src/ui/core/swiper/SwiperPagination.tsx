@@ -76,7 +76,7 @@ const getStyles = (theme: Theme) =>
       width: 10,
       height: 10,
       borderRadius: 5,
-      backgroundColor: theme.colors.primary100,
+      backgroundColor: theme.colors.primary800,
       marginHorizontal: 10,
     },
   });

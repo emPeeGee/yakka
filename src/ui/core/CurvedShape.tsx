@@ -3,7 +3,11 @@ import { View } from 'react-native';
 
 import { Path, Svg } from 'react-native-svg';
 
+import { useTheme } from '@/ui/theme';
+
 export function CurvedShape() {
+  const { theme } = useTheme();
+
   return (
     <View
       style={{
@@ -21,7 +25,7 @@ export function CurvedShape() {
         fill="none">
         <Path
           d="M199.81 125.92C321.578 132.028 389.543 78.392 408.304 50.8105L464.252 -71.1497C418.522 -66.6995 305.335 -65.9644 218.428 -98.6253C109.793 -139.451 45.3276 -145.631 -120.477 -111.942C-253.121 -84.9906 -244.976 132.779 -224.324 238.295L-9.88153 275.653C9.27883 223.197 78.0416 119.812 199.81 125.92Z"
-          fill="#3DB2FF"
+          fill={theme.colors.primary600}
         />
       </Svg>
     </View>

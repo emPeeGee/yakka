@@ -127,7 +127,7 @@ export const TabNavigator = () => {
         },
         tabBarActiveBackgroundColor: theme.colors.background,
         tabBarInactiveBackgroundColor: theme.colors.background,
-        tabBarActiveTintColor: theme.colors.primary60,
+        tabBarActiveTintColor: theme.colors.primary500,
         tabBarInactiveTintColor: theme.colors.tabColor,
         tabBarIcon: () => <BarIcon name={route.name} />,
       })}>

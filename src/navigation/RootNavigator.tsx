@@ -21,11 +21,11 @@ export function RootNavigator() {
         dark: isThemeDark(appColorScheme),
         colors: {
           background: theme.colors.background,
-          card: theme.colors.surface,
-          primary: theme.colors.primary80,
+          card: theme.colors.background,
+          primary: theme.colors.primary500,
           text: theme.colors.textPri,
           border: theme.colors.border,
-          notification: theme.colors.focus,
+          notification: theme.colors.secondary,
         },
       }}>
       <Stack.Navigator
