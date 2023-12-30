@@ -4,8 +4,8 @@ import { Theme, Colors } from '@/types';
 
 const PRIMARY_COLORS = {
   primary: '#009688',
-  primaryLight: 'rgb(0, 105, 95)',
-  primaryDark: 'rgb(51, 171, 159)',
+  primaryLight: '#4DB6AC',
+  primaryDark: '#00796B',
   primary50: '#E0F2F1',
   primary100: '#B2DFDB',
   primary200: '#80CBC4',
@@ -24,8 +24,8 @@ const PRIMARY_COLORS = {
 
 const SECONDARY_COLORS = {
   secondary: '#FFC107',
-  secondaryLight: 'rgb(255, 205, 56)',
-  secondaryDark: 'rgb(178, 135, 4)',
+  secondaryLight: '#FFD54F',
+  secondaryDark: '#FFA000',
   secondary50: '#FFF8E1',
   secondary100: '#FFECB3',
   secondary200: '#FFE082',

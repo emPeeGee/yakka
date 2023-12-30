@@ -8,6 +8,7 @@ import { List, DataListType } from './List';
 import { RadioGroup } from './RadioGroup';
 import { Separator } from './Separator';
 import { Swiper, SwiperItemType } from './swiper/Swiper';
+import { Tile } from './Tile';
 
 export {
   Button,
@@ -20,5 +21,6 @@ export {
   CurvedShape,
   EnhancedPressable,
   HeaderPlaceholder,
+  Tile,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType };

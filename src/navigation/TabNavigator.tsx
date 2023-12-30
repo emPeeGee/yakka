@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,8 +9,9 @@ import type { SvgProps } from 'react-native-svg';
 
 import { noop } from '@/core/utils';
 import { EnhancedText } from '@/ui/core';
-import { BookIcon, PathIcon, PersonIcon, Tile, TrophyIcon } from '@/ui/icons';
+import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
+import { LearnNavigator } from './LearnNavigator';
 import { ProfileNavigator } from './ProfileNavigator';
 
 const Vocabulary = () => {
@@ -67,7 +68,7 @@ export type TabList<T extends keyof TabParamList> = {
 const tabs: TabType[] = [
   {
     name: 'Learn',
-    component: LearnN,
+    component: LearnNavigator,
     label: 'Learn',
   },
   {

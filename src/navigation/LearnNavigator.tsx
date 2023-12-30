@@ -1,12 +1,10 @@
 import React from 'react';
+import { ScrollView, View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { AppearanceScreen, SettingsScreen } from '@/screens';
-import { BackButton } from '@/ui/core';
+import { BackButton, Tile } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
-import { ScrollView, View } from 'react-native';
-import { Tile } from '@/ui/icons';
 
 export type LearnStackParamList = {
   LearnScreen: undefined;
@@ -44,17 +42,22 @@ export const LearnNavigator = () => {
 const LearnScreen = () => {
   return (
     <ScrollView style={{ flex: 1 }}>
-      <View style={{ gap: 16, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile completed />
-        <Tile completed />
-        <Tile completed />
-        <Tile completed />
-        <Tile completed />
+      <View
+        style={{
+          gap: 16,
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          flexDirection: 'column',
+        }}>
+        <Tile type="globe" />
+        <Tile type="countdown" withHero heroPos="left" />
+        <Tile type="globe" />
+        <Tile completed type="globe" />
+        <Tile completed type="countdown" withHero heroPos="right" />
+        <Tile completed type="globe" />
+        <Tile completed type="globe" withHero heroPos="left" />
+        <Tile completed type="start" />
       </View>
     </ScrollView>
   );
