@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,20 +9,9 @@ import type { SvgProps } from 'react-native-svg';
 
 import { noop } from '@/core/utils';
 import { EnhancedText } from '@/ui/core';
-import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
+import { BookIcon, PathIcon, PersonIcon, Tile, TrophyIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { ProfileNavigator } from './ProfileNavigator';
-
-const Learn = () => {
-  return (
-    <View>
-      <EnhancedText>Learn</EnhancedText>
-      <FontAwesome.Button name="facebook" backgroundColor="#3b5998" onPress={noop}>
-        Login with Facebook
-      </FontAwesome.Button>
-    </View>
-  );
-};
 
 const Vocabulary = () => {
   return (
@@ -78,7 +67,7 @@ export type TabList<T extends keyof TabParamList> = {
 const tabs: TabType[] = [
   {
     name: 'Learn',
-    component: Learn,
+    component: LearnN,
     label: 'Learn',
   },
   {
