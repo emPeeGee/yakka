@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -45,7 +45,6 @@ const LearnScreen = () => {
     <View style={{ flex: 1 }}>
       <HeaderPlaceholder />
       <View>
-        <Text style={{ fontFamily: 'Fredoka_500Medium', fontSize: 40 }}>Inter Black</Text>
         <EnhancedText variant="headlineLarge">Hello, Mate</EnhancedText>
         <EnhancedText
           variant="headlineSmall"
