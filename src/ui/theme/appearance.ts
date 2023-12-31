@@ -1,6 +1,6 @@
-import { ColorSchemeName } from 'react-native';
+import { ColorSchemeName, Platform } from 'react-native';
 
-import { Theme, Colors } from '@/types';
+import { Theme, Colors, FontVariant, Font } from '@/types';
 
 const PRIMARY_COLORS = {
   primary: '#009688',
@@ -104,23 +104,7 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
     colors,
     // TODO: typography not used yet
     typography: {
-      fontFamily: 'Arial, sans-serif',
-      fontSize: {
-        small: 12,
-        medium: 16,
-        large: 20,
-        extraLarge: 24,
-      },
-      fontWeight: {
-        regular: '400',
-        bold: '700',
-      },
-      lineHeight: {
-        small: 16,
-        medium: 20,
-        large: 24,
-        extraLarge: 28,
-      },
+      variants: VARIANTS,
     },
     // naming, XXS, XS, S, M, L, XL, XXL
     spacing: {
@@ -170,4 +154,118 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
       secondary: ['#f39c12', '#e74c3c'],
     },
   };
+};
+
+const regularType: Font = {
+  fontFamily: Platform.select({
+    web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+    ios: 'System',
+    default: 'sans-serif',
+  }),
+  letterSpacing: 0,
+  fontWeight: '400',
+  fontSize: undefined,
+};
+
+const mediumType: Font = {
+  fontFamily: Platform.select({
+    web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+    ios: 'System',
+    default: 'sans-serif-medium',
+  }),
+  letterSpacing: 0.15,
+  fontWeight: '500',
+  fontSize: undefined,
+};
+
+export const VARIANTS: FontVariant = {
+  displayLarge: {
+    ...regularType,
+    lineHeight: 64,
+    fontSize: 57,
+  },
+  displayMedium: {
+    ...regularType,
+    lineHeight: 52,
+    fontSize: 45,
+  },
+  displaySmall: {
+    ...regularType,
+    lineHeight: 44,
+    fontSize: 36,
+  },
+
+  headlineLarge: {
+    ...regularType,
+    lineHeight: 40,
+    fontSize: 32,
+  },
+  headlineMedium: {
+    ...regularType,
+    lineHeight: 36,
+    fontSize: 28,
+  },
+  headlineSmall: {
+    ...regularType,
+    lineHeight: 32,
+    fontSize: 24,
+  },
+
+  titleLarge: {
+    ...regularType,
+    lineHeight: 28,
+    fontSize: 22,
+  },
+  titleMedium: {
+    ...mediumType,
+    lineHeight: 24,
+    fontSize: 16,
+  },
+  titleSmall: {
+    ...mediumType,
+    letterSpacing: 0.1,
+    lineHeight: 20,
+    fontSize: 14,
+  },
+
+  labelLarge: {
+    ...mediumType,
+    letterSpacing: 0.1,
+    lineHeight: 20,
+    fontSize: 14,
+  },
+  labelMedium: {
+    ...mediumType,
+    letterSpacing: 0.5,
+    lineHeight: 16,
+    fontSize: 12,
+  },
+  labelSmall: {
+    ...mediumType,
+    letterSpacing: 0.5,
+    lineHeight: 16,
+    fontSize: 11,
+  },
+
+  bodyLarge: {
+    ...mediumType,
+    lineHeight: 24,
+    fontSize: 16,
+  },
+  bodyMedium: {
+    ...mediumType,
+    letterSpacing: 0.25,
+    lineHeight: 20,
+    fontSize: 14,
+  },
+  bodySmall: {
+    ...mediumType,
+    letterSpacing: 0.4,
+    lineHeight: 16,
+    fontSize: 12,
+  },
+
+  default: {
+    ...regularType,
+  },
 };

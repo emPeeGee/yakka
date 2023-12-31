@@ -46,13 +46,10 @@ const LearnScreen = () => {
       <HeaderPlaceholder />
       <View>
         <Text style={{ fontFamily: 'Fredoka_500Medium', fontSize: 40 }}>Inter Black</Text>
-        <EnhancedText style={{ fontSize: theme.typography.fontSize.extraLarge, fontWeight: '700' }}>
-          Hello, Mate
-        </EnhancedText>
+        <EnhancedText variant="headlineLarge">Hello, Mate</EnhancedText>
         <EnhancedText
+          variant="headlineSmall"
           style={{
-            fontSize: theme.typography.fontSize.medium,
-            fontWeight: '500',
             color: theme.colors.textSec,
           }}>
           What would you like to learn today?

@@ -22,7 +22,8 @@
 [ ] List with switch
 [ ] better colors for background in light and dark
 [ ] Add a proper font
-[ ] Add proper typology
+[x] Add proper typology
+[ ] Use typology
 [ ] proper color for tab separator
 [ ] chevron on hover changes color in dark theme. Cannot reproduce on Android. Check ios
 [ ] Add https://github.com/gvergnaud/ts-pattern

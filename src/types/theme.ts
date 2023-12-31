@@ -81,23 +81,7 @@ export type Colors = {
 export type Theme = {
   colors: Colors;
   typography: {
-    fontFamily: string;
-    fontSize: {
-      small: number;
-      medium: number;
-      large: number;
-      extraLarge: number;
-    };
-    fontWeight: {
-      regular: string;
-      bold: string;
-    };
-    lineHeight: {
-      small: number;
-      medium: number;
-      large: number;
-      extraLarge: number;
-    };
+    variants: FontVariant;
   };
   spacing: Spacing;
   borderRadius: {
@@ -120,4 +104,50 @@ export type Theme = {
     primary: string[];
     secondary: string[];
   };
+};
+
+export type FontWeight =
+  | 'normal'
+  | 'bold'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900'
+  | undefined;
+
+export type Font = {
+  fontFamily?: string;
+  fontSize?: number;
+  letterSpacing?: number;
+  lineHeight?: number;
+  fontWeight: FontWeight;
+};
+
+export type FontVariant = {
+  displayLarge: Font;
+  displayMedium: Font;
+  displaySmall: Font;
+
+  headlineLarge: Font;
+  headlineMedium: Font;
+  headlineSmall: Font;
+
+  titleLarge: Font;
+  titleMedium: Font;
+  titleSmall: Font;
+
+  labelLarge: Font;
+  labelMedium: Font;
+  labelSmall: Font;
+
+  bodyLarge: Font;
+  bodyMedium: Font;
+  bodySmall: Font;
+
+  default: Font;
 };
