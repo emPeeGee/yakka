@@ -11,6 +11,7 @@ import Animated, {
 import { Theme } from '@/types';
 import { useTheme } from '@/ui/theme';
 import { SwiperItemType } from './Swiper';
+import { EnhancedText } from '../EnhancedText';
 
 type SwiperItemProps = {
   item: SwiperItemType;
@@ -72,7 +73,9 @@ export const SwiperItem = ({ item, index, x }: SwiperItemProps) => {
       <Animated.Image source={item.image} style={[{ resizeMode: 'contain' }, imageAnimatedStyle]} />
 
       <Animated.View style={textAnimatedStyle}>
-        <Text style={styles.itemTitle}>{item.title}</Text>
+        <EnhancedText style={styles.itemTitle} weight="700" variant="titleLarge">
+          {item.title}
+        </EnhancedText>
         <Text style={styles.itemText}>{item.text}</Text>
       </Animated.View>
     </View>
@@ -89,8 +92,6 @@ const getStyles = (theme: Theme) =>
     },
     itemTitle: {
       color: theme.colors.textPri,
-      fontSize: 22,
-      fontWeight: 'bold',
       textAlign: 'center',
       marginBottom: 10,
     },

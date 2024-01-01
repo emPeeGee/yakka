@@ -162,7 +162,7 @@ const regularType: Font = {
     ios: 'System',
     default: 'sans-serif',
   }),
-  letterSpacing: 0,
+  // letterSpacing: 0,
   fontWeight: '400',
   fontSize: undefined,
 };
@@ -173,7 +173,7 @@ const mediumType: Font = {
     ios: 'System',
     default: 'sans-serif-medium',
   }),
-  letterSpacing: 0.15,
+  // letterSpacing: 0.15,
   fontWeight: '500',
   fontSize: undefined,
 };
@@ -219,30 +219,30 @@ export const VARIANTS: FontVariant = {
   titleMedium: {
     ...mediumType,
     lineHeight: 24,
-    fontSize: 16,
+    fontSize: 18,
   },
   titleSmall: {
     ...mediumType,
-    letterSpacing: 0.1,
+    // letterSpacing: 0.1,
     lineHeight: 20,
     fontSize: 14,
   },
 
   labelLarge: {
     ...mediumType,
-    letterSpacing: 0.1,
+    // letterSpacing: 0.1,
     lineHeight: 20,
     fontSize: 14,
   },
   labelMedium: {
     ...mediumType,
-    letterSpacing: 0.5,
+    // letterSpacing: 0.5,
     lineHeight: 16,
     fontSize: 12,
   },
   labelSmall: {
     ...mediumType,
-    letterSpacing: 0.5,
+    // letterSpacing: 0.5,
     lineHeight: 16,
     fontSize: 11,
   },
@@ -254,13 +254,13 @@ export const VARIANTS: FontVariant = {
   },
   bodyMedium: {
     ...mediumType,
-    letterSpacing: 0.25,
+    // letterSpacing: 0.25,
     lineHeight: 20,
     fontSize: 14,
   },
   bodySmall: {
     ...mediumType,
-    letterSpacing: 0.4,
+    // letterSpacing: 0.4,
     lineHeight: 16,
     fontSize: 12,
   },

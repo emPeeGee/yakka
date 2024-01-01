@@ -55,14 +55,6 @@ export const ConfidenceScreen = () => {
         },
       ]}>
       <Swiper items={onboardingItems} onFinish={onFinish} />
-
-      {/* <ConfidenceSvg />
-      <EnhancedText></EnhancedText>
-      <EnhancedText></EnhancedText>
-      <View style={{ flexDirection: 'row' }}>
-        <Button title="Choose a language" backgroundColor="#5B7BFE" />
-      </View>
-      <EnhancedText></EnhancedText> */}
     </View>
   );
 };
@@ -72,30 +64,5 @@ const getStyles = (theme: Theme) =>
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
-    },
-    itemContainer: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-      alignItems: 'center',
-      justifyContent: 'space-around',
-    },
-    itemTitle: {
-      color: theme.colors.textPri,
-      fontSize: 22,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginBottom: 10,
-    },
-    itemText: {
-      color: theme.colors.textPri,
-      textAlign: 'center',
-      lineHeight: 20,
-      marginHorizontal: 30,
-    },
-    footerContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      margin: 20,
     },
   });

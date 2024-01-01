@@ -65,7 +65,11 @@ export function SwiperButton({
 
   return (
     <AnimatedPressable onPress={handleNextScreen} style={[styles.container, buttonAnimationStyle]}>
-      <AnimatedText numberOfLines={1} style={[styles.text, textAnimationStyle]}>
+      <AnimatedText
+        numberOfLines={1}
+        variant="bodyLarge"
+        weight="700"
+        style={[styles.text, textAnimationStyle]}>
         Get Started
       </AnimatedText>
 
@@ -92,8 +96,6 @@ const getStyles = (theme: Theme) =>
     },
     text: {
       position: 'absolute',
-      fontSize: 16,
-      fontWeight: 'bold',
       color: theme.colors.base0,
     },
   });

@@ -96,19 +96,6 @@ const getStyles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'space-around',
     },
-    itemTitle: {
-      color: theme.colors.textPri,
-      fontSize: 22,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginBottom: 10,
-    },
-    itemText: {
-      color: theme.colors.textPri,
-      textAlign: 'center',
-      lineHeight: 20,
-      marginHorizontal: 30,
-    },
     footerContainer: {
       flexDirection: 'row',
       alignItems: 'center',

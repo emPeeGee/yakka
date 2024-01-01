@@ -42,7 +42,11 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
       alwaysBounceHorizontal={bounces}
       alwaysBounceVertical={bounces}
       overScrollMode={bounces ? 'auto' : 'never'}
-      ListHeaderComponent={() => <EnhancedText style={styles.listHeader}>{title}</EnhancedText>}
+      ListHeaderComponent={() => (
+        <EnhancedText style={styles.listHeader} variant="labelMedium">
+          {title}
+        </EnhancedText>
+      )}
       ListHeaderComponentStyle={styles.listHeaderContainer}
       contentContainerStyle={styles.contentContainer}
       data={data}
@@ -103,7 +107,7 @@ const getStyles = (theme: Theme) =>
       borderRadius: theme.borderRadius.small,
       marginBottom: theme.spacing.large,
     },
-    listHeader: { color: theme.colors.textSec, fontSize: 12 },
+    listHeader: { color: theme.colors.textSec },
     listHeaderContainer: {
       paddingHorizontal: theme.spacing.small,
       marginBottom: theme.spacing.tiny,

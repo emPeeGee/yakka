@@ -28,7 +28,9 @@ export const Button = ({
     <EnhancedPressable
       style={[styles.button, { backgroundColor: background, borderRadius: radius }]}
       onPress={onPress}>
-      <EnhancedText style={[{ color }, styles.text]}>{title}</EnhancedText>
+      <EnhancedText style={[{ color }]} variant="titleMedium">
+        {title}
+      </EnhancedText>
     </EnhancedPressable>
   );
 };
@@ -39,9 +41,5 @@ const styles = StyleSheet.create({
     borderRadius: 26,
     width: '100%',
     paddingVertical: 16,
-  },
-  text: {
-    fontWeight: '500',
-    fontSize: 18,
   },
 });

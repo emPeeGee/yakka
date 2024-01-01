@@ -50,8 +50,12 @@ export const ProfileScreen = () => {
         <View style={gStyles.centerRowBetween}>
           <Image source={require('../../assets/profile.png')} style={styles.profileImg} />
           <View style={[gStyles.fullWidthFromStart, styles.nameContainer]}>
-            <EnhancedText style={styles.name}>Mihail Mitrofanov</EnhancedText>
-            <EnhancedText style={styles.grade}>Newbie</EnhancedText>
+            <EnhancedText style={styles.name} variant="titleMedium">
+              Mihail Mitrofanov
+            </EnhancedText>
+            <EnhancedText style={styles.grade} variant="bodySmall">
+              Newbie
+            </EnhancedText>
           </View>
 
           {/* TODO: for future to implement */}
@@ -65,21 +69,12 @@ export const ProfileScreen = () => {
         <View style={[gStyles.centerRowBetween, { marginBottom: theme.spacing.large }]}>
           <View style={gStyles.centerColumnBetween}>
             <View>
-              <EnhancedText style={styles.statValue}>2+ hours</EnhancedText>
+              <EnhancedText variant="titleMedium">2+ hours</EnhancedText>
             </View>
             <View>
-              <EnhancedText style={styles.statLabel}>Total learn</EnhancedText>
-            </View>
-          </View>
-
-          <Separator isVertical height={24} paddingVertical={0} />
-
-          <View style={gStyles.centerColumnBetween}>
-            <View>
-              <EnhancedText style={styles.statValue}>20</EnhancedText>
-            </View>
-            <View>
-              <EnhancedText style={styles.statLabel}>Achievements</EnhancedText>
+              <EnhancedText style={styles.statLabel} variant="labelMedium">
+                Total learn
+              </EnhancedText>
             </View>
           </View>
 
@@ -87,10 +82,25 @@ export const ProfileScreen = () => {
 
           <View style={gStyles.centerColumnBetween}>
             <View>
-              <EnhancedText style={styles.statValue}>1</EnhancedText>
+              <EnhancedText variant="titleMedium">20</EnhancedText>
             </View>
             <View>
-              <EnhancedText style={styles.statLabel}>Languages</EnhancedText>
+              <EnhancedText style={styles.statLabel} variant="labelMedium">
+                Achievements
+              </EnhancedText>
+            </View>
+          </View>
+
+          <Separator isVertical height={24} paddingVertical={0} />
+
+          <View style={gStyles.centerColumnBetween}>
+            <View>
+              <EnhancedText variant="titleMedium">1</EnhancedText>
+            </View>
+            <View>
+              <EnhancedText style={styles.statLabel} variant="labelMedium">
+                Languages
+              </EnhancedText>
             </View>
           </View>
         </View>
@@ -115,13 +125,10 @@ const getStyles = (theme: Theme) =>
       width: 85,
     },
     name: {
-      fontSize: 18,
       color: theme.colors.textPri,
     },
     grade: {
-      fontSize: 12,
       color: theme.colors.textSec,
     },
-    statLabel: { color: theme.colors.textSec, fontSize: 12 },
-    statValue: { fontSize: 18 },
+    statLabel: { color: theme.colors.textSec },
   });
