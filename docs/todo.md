@@ -21,9 +21,9 @@
 [ ] Better radio box
 [ ] List with switch
 [ ] better colors for background in light and dark
-[ ] Add a proper font
+[x] Add a proper font. SOL: use the default one.
 [x] Add proper typology
-[ ] Use typology
+[x] Use typology
 [ ] proper color for tab separator
 [ ] chevron on hover changes color in dark theme. Cannot reproduce on Android. Check ios
 [ ] Add https://github.com/gvergnaud/ts-pattern
