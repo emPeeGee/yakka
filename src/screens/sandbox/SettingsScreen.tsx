@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
 import * as Haptics from 'expo-haptics';
+import * as Speech from 'expo-speech';
 
 import { useIsFirstTime } from '@/core/hooks';
 import { useHaptics } from '@/core/providers';
@@ -49,6 +50,30 @@ export const SettingsScreen = () => {
           removeItem('IS_FIRST_TIME');
         }}
       />
+      {/* POC: Speech */}
+      <Button
+        title="Sound"
+        onPress={() => {
+          Speech.speak('Red apple', {
+            language: 'en',
+            // voice: '',
+          });
+          Speech.getAvailableVoicesAsync().then(val => {
+            val
+              .filter(voice => voice.language.includes('en'))
+              .forEach(v => console.log(v.name, v.identifier));
+          });
+        }}
+      />
     </View>
   );
 };
+// TODO: voices
+[
+  'com.apple.voice.compact.en-IE.Moira',
+  'com.apple.voice.compact.en-US.Samantha',
+  'com.apple.voice.compact.en-GB.Daniel',
+  'com.apple.voice.compact.en-ZA.Tessa',
+  'com.apple.voice.compact.en-AU.Karen',
+  'com.apple.voice.compact.en-IN.Rishi',
+];
