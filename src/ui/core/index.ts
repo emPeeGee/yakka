@@ -9,6 +9,7 @@ import { RadioGroup } from './RadioGroup';
 import { Separator } from './Separator';
 import { Swiper, SwiperItemType } from './swiper/Swiper';
 import { Tile } from './Tile';
+import { Wizard } from './wizard/Wizard';
 
 export {
   Button,
@@ -22,5 +23,6 @@ export {
   EnhancedPressable,
   HeaderPlaceholder,
   Tile,
+  Wizard,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType };

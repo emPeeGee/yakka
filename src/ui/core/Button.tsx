@@ -28,7 +28,7 @@ export const Button = ({
     <EnhancedPressable
       style={[styles.button, { backgroundColor: background, borderRadius: radius }]}
       onPress={onPress}>
-      <EnhancedText style={[{ color }]} variant="titleMedium">
+      <EnhancedText style={[{ color, textAlign: 'center' }]} variant="titleMedium">
         {title}
       </EnhancedText>
     </EnhancedPressable>
