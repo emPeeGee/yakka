@@ -1,5 +1,7 @@
+import { isLast } from './arrays';
 import { getContrastColor, isThemeDark, isThemeLight } from './colors';
 import { isBool } from './isBoolean';
-import { isLast } from './isLast';
 import { noop } from './noop';
-export { getContrastColor, isThemeDark, isThemeLight, isLast, noop, isBool };
+import { isZero } from './numbers';
+
+export { getContrastColor, isThemeDark, isThemeLight, isLast, noop, isBool, isZero };
