@@ -31,7 +31,7 @@ export const LearnScreen = () => {
           }}>
           <Tile type="globe" />
           <Tile type="countdown" withHero heroPos="left" />
-          <Tile type="globe" />
+          <Tile type="globe" current />
           <Tile completed type="globe" />
           <Tile completed type="countdown" withHero heroPos="right" />
           <Tile completed type="globe" />

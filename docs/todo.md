@@ -1,5 +1,7 @@
 # Todo
 
+## High
+
 [x] Naming files conventions, right now kebab-case. Sol: PascalCase and camelCase
 [x] importing rules, group in 3: builtin, external and local
 [x] Look how theme provider is implemented in obytes and revise it. Sol: Current impl is ok, because I don't use native wind.
@@ -18,16 +20,24 @@
 [x] too many unstyled pressables
 [ ] use more global styles and extract the existing ones
 [x] Hide back button on tab main screen
-[ ] Better radio box
-[ ] List with switch
-[ ] better colors for background in light and dark
+[x] List with switch
+[x] better colors for background in light and dark
 [x] Add a proper font. SOL: use the default one.
 [x] Add proper typology
 [x] Use typology
+
+## Medium:
+
+[ ] Animated the start of the current tile.
+[ ] Better docs
+
+## Low:
+
+[ ] zig-zag layout in the learn path. https://codepen.io/anon/pen/jwaQEq?editors=1100
 [ ] proper color for tab separator
 [ ] chevron on hover changes color in dark theme. Cannot reproduce on Android. Check ios
 [ ] Add https://github.com/gvergnaud/ts-pattern
-[ ] Better docs
 [ ] Logger types refactor. LOW Priority.
+[ ] Better radio box
 [ ] animation after onboarding is finished. LowP.
 [ ] Change the pagination animation: worm style https://www.animatereactnative.com/post/react-native-parallax-carousel-%2B-worm-pagination https://github.com/weahforsage/react-native-animated-pagination-dots

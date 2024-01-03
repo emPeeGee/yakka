@@ -29,6 +29,18 @@ const getGlobalStyles = (theme: Theme) =>
       color: theme.colors.textPri,
     },
 
+    centerRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    centerColumn: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
     centerRowBetween: {
       flexDirection: 'row',
       alignItems: 'center',
