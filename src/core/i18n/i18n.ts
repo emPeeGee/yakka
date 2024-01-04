@@ -1,30 +1,28 @@
-import { I18nManager } from 'react-native';
+import { I18nManager, NativeModules, Platform } from 'react-native';
 
-import i18n from 'i18n-js';
-import * as Localization from 'expo-localization';
+// import * as Localization from 'expo-localization';
+import { I18n, TranslateOptions } from 'i18n-js';
 
 // if English isn't your default language, move Translations to the appropriate language file.
-import { ar } from './ar';
 import { en, Translations } from './en';
-import fr from './fr';
+import { ro } from './ro';
+// TODO: ru
+import { rootLog } from '../logger';
 
-i18n.fallbacks = true;
-/**
- * we need always include "*-US" for some valid language codes because when you change the system language,
- * the language code is the suffixed with "-US". i.e. if a device is set to English ("en"),
- * if you change to another language and then return to English language code is now "en-US".
- */
-i18n.translations = { ar, en, 'en-US': en, fr };
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale ||
+      NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
+    : NativeModules.I18nManager.localeIdentifier;
 
-const locales = Localization.getLocales(); // This method is guaranteed to return at least one array item.
 // The preferred language is the first element in the array, however, we fallback to en-US, especially for tests.
-const preferredLanguage:
-  | Localization.Locale
-  | { languageTag: string; textDirection: 'ltr' | 'rtl' } = locales[0] || {
+const preferredLanguage: { languageTag: string; textDirection: 'ltr' | 'rtl' } = {
+  languageTag: deviceLanguage,
+  textDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+} || {
   languageTag: 'en-US',
   textDirection: 'ltr',
 };
-i18n.locale = preferredLanguage.languageTag;
 
 // handle RTL languages
 export const isRTL = preferredLanguage.textDirection === 'rtl';
@@ -53,3 +51,45 @@ type RecursiveKeyOfHandleValue<TValue, Text extends string> = TValue extends any
   : TValue extends object
     ? Text | `${Text}${RecursiveKeyOfInner<TValue>}`
     : Text;
+
+/**
+ * we need always include "*-US" for some valid language codes because when you change the system language,
+ * the language code is the suffixed with "-US". i.e. if a device is set to English ("en"),
+ * if you change to another language and then return to English language code is now "en-US".
+ */
+export const i18n = new I18n(
+  { en, 'en-US': en, ro },
+  { enableFallback: true, locale: preferredLanguage.languageTag },
+);
+
+/**
+ * Translates text.
+ *
+ * @param key The i18n key.
+ * @param options The i18n options.
+ * @returns The translated text.
+ *
+ * @example
+ * Translations:
+ *
+ * ```en.ts
+ * {
+ *  "hello": "Hello, {{name}}!"
+ * }
+ * ```
+ *
+ * Usage:
+ * ```ts
+ * import { translate } from "i18n-js"
+ *
+ * translate("common.ok", { name: "world" })
+ * // => "Hello world!"
+ * ```
+ */
+export function translate(key: TxKeyPath, options?: TranslateOptions) {
+  return i18n.t(key, options);
+}
+
+rootLog.info(
+  `I18N has been initialized. Preferred locale is ${preferredLanguage.languageTag} and ${preferredLanguage.textDirection} `,
+);

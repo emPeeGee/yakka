@@ -30,6 +30,7 @@
 
 [ ] Animated the start of the current tile.
 [ ] Better docs
+[ ] Russian language support
 
 ## Low:
 
