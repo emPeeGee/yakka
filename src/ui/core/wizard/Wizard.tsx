@@ -17,6 +17,7 @@ import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { Button } from '../Button';
 import { EnhancedPressable } from '../EnhancedPressable';
+import { TextField } from '../TextField';
 
 type WizardProps = {
   screens: (() => React.JSX.Element)[];
@@ -133,6 +134,8 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
         renderItem={({ item: Screen, index }) => (
           <View key={index} style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
             <Screen />
+
+            <TextField helper="1234" label="123" />
           </View>
         )}
         horizontal

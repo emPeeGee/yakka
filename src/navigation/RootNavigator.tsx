@@ -115,3 +115,5 @@ const getStyles = (theme: Theme) =>
       backgroundColor: theme.colors.background,
     },
   });
+
+// TODO: translations and
