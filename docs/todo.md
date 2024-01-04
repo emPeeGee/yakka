@@ -25,6 +25,7 @@
 [x] Add a proper font. SOL: use the default one.
 [x] Add proper typology
 [x] Use typology
+[ ] Merge Text and EnhancedText
 
 ## Medium:
 

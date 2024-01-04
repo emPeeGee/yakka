@@ -17,6 +17,7 @@ import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { Button } from '../Button';
 import { EnhancedPressable } from '../EnhancedPressable';
+import { Text } from '../Text';
 import { TextField } from '../TextField';
 
 type WizardProps = {
@@ -135,6 +136,7 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
           <View key={index} style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
             <Screen />
 
+            <Text tx="common.back" />
             <TextField helper="1234" label="123" />
           </View>
         )}
