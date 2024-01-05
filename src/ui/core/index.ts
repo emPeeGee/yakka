@@ -8,9 +8,9 @@ import { List, DataListType } from './List';
 import { RadioGroup } from './RadioGroup';
 import { Separator } from './Separator';
 import { Swiper, SwiperItemType } from './swiper/Swiper';
+import { TextField } from './TextField';
 import { Tile } from './Tile';
 import { Wizard } from './wizard/Wizard';
-import { TextField } from './TextField';
 
 export {
   Button,

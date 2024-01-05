@@ -26,6 +26,7 @@
 [x] Add proper typology
 [x] Use typology
 [ ] Merge Text and EnhancedText
+[ ] Refactors typography
 
 ## Medium:
 

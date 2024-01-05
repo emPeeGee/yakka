@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { Text, TextProps } from './Text';
+import { EnhancedText, TextProps } from './EnhancedText';
 import { useTheme } from '../theme';
 // import { isRTL, translate } from '../i18n';
 // import { colors, spacing, typography } from '../theme';
@@ -176,7 +176,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       onPress={focusInput}
       accessibilityState={{ disabled }}>
       {!!(label || labelTx) && (
-        <Text
+        <EnhancedText
           // preset="formLabel"
           text={label}
           tx={labelTx}
@@ -218,7 +218,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       </View>
 
       {!!(helper || helperTx) && (
-        <Text
+        <EnhancedText
           // preset="formHelper"
           text={helper}
           tx={helperTx}
