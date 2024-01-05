@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import { useState, type ComponentType } from 'react';
 import { View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
@@ -8,19 +8,24 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { SvgProps } from 'react-native-svg';
 
 import { noop } from '@/core/utils';
-import { EnhancedText } from '@/ui/core';
+import { EnhancedText, Toggle } from '@/ui/core';
 import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { LearnNavigator } from './LearnNavigator';
 import { ProfileNavigator } from './ProfileNavigator';
 
 const Vocabulary = () => {
+  const [on, setOn] = useState(false);
   return (
     <View>
       <EnhancedText>Vocabulary</EnhancedText>
       <FontAwesome.Button name="facebook" backgroundColor="#3b5998" onPress={noop}>
         Login with Facebook
       </FontAwesome.Button>
+
+      <Toggle variant="checkbox" value={on} onPress={() => setOn(o => !o)} />
+      <Toggle variant="radio" value={on} onPress={() => setOn(o => !o)} />
+      <Toggle variant="switch" value={on} onPress={() => setOn(o => !o)} />
     </View>
   );
 };

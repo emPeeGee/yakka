@@ -10,6 +10,7 @@ import { Separator } from './Separator';
 import { Swiper, SwiperItemType } from './swiper/Swiper';
 import { TextField } from './TextField';
 import { Tile } from './Tile';
+import { Toggle } from './Toggle';
 import { Wizard } from './wizard/Wizard';
 
 export {
@@ -26,5 +27,6 @@ export {
   Tile,
   Wizard,
   TextField,
+  Toggle,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType };
