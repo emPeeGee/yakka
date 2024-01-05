@@ -104,20 +104,20 @@ const getStyles = (theme: Theme) =>
     container: {
       borderColor: theme.colors.border,
       borderWidth: theme.borders.thin,
-      borderRadius: theme.borderRadius.small,
-      marginBottom: theme.spacing.large,
+      borderRadius: theme.borderRadius.sm,
+      marginBottom: theme.spacing.lg,
     },
     listHeader: { color: theme.colors.textSec },
     listHeaderContainer: {
-      paddingHorizontal: theme.spacing.small,
-      marginBottom: theme.spacing.tiny,
+      paddingHorizontal: theme.spacing.sm,
+      marginBottom: theme.spacing.xxs,
     },
     contentContainer: {
-      paddingHorizontal: theme.spacing.small,
-      paddingVertical: theme.spacing.small,
+      paddingHorizontal: theme.spacing.sm,
+      paddingVertical: theme.spacing.sm,
     },
     itemContainer: {
-      paddingVertical: theme.spacing.small,
-      paddingHorizontal: theme.spacing.small,
+      paddingVertical: theme.spacing.sm,
+      paddingHorizontal: theme.spacing.sm,
     },
   });

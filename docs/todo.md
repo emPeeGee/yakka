@@ -27,7 +27,9 @@
 [x] Use typology
 [x] Merge Text and EnhancedText
 [x] Refactors typography
-[ ] Text field implementation
+[x] Text field implementation
+[ ] Enhanced radio box
+[x] refactor theme props to be consistent: xxs, xs, sm, md, lg...
 
 ## Medium:
 

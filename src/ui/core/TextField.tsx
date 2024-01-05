@@ -235,14 +235,15 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     label: {
-      marginBottom: theme.spacing.extraSmall,
+      marginBottom: theme.spacing.xs,
     },
     inputWrapper: {
       flexDirection: 'row',
       alignItems: 'flex-start',
       borderWidth: theme.borders.medium,
-      borderRadius: theme.borderRadius.large,
+      borderRadius: theme.borderRadius.xl,
       borderColor: theme.colors.border,
+      paddingVertical: theme.spacing.xs,
       overflow: 'hidden',
     },
     input: {
@@ -255,20 +256,20 @@ const getStyles = (theme: Theme) =>
       // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
       paddingVertical: 0,
       paddingHorizontal: 0,
-      marginVertical: theme.spacing.extraSmall,
-      marginHorizontal: theme.spacing.small,
+      marginVertical: theme.spacing.xs,
+      marginHorizontal: theme.spacing.sm,
     },
     helper: {
-      marginTop: theme.spacing.extraSmall,
+      marginTop: theme.spacing.xs,
     },
     rightAccessory: {
-      marginEnd: theme.spacing.extraSmall,
+      marginEnd: theme.spacing.xs,
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',
     },
     leftAccessory: {
-      marginStart: theme.spacing.extraSmall,
+      marginStart: theme.spacing.xs,
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',

@@ -1,5 +1,7 @@
 import { StyleProp, TextStyle } from 'react-native';
 
+import { Dimensions } from './common';
+
 export type AppColorSchemeType = 'light' | 'dark';
 export type UserColorSchemeType = 'light' | 'dark' | 'system';
 
@@ -9,15 +11,6 @@ export type Shadow = {
   shadowOpacity: number;
   shadowRadius: number;
   elevation: number;
-};
-
-export type Spacing = {
-  tiny: number;
-  extraSmall: number;
-  small: number;
-  medium: number;
-  large: number;
-  extraLarge: number;
 };
 
 export type Colors = {
@@ -87,18 +80,14 @@ export type Theme = {
     sizes: FontSizes;
     presets: TypographyPresets;
   };
-  spacing: Spacing;
-  borderRadius: {
-    extraSmall: number;
-    small: number;
-    medium: number;
-    large: number;
-  };
+  spacing: Dimensions;
+  borderRadius: Pick<Dimensions, 'xs' | 'sm' | 'md' | 'lg' | 'xl'>;
   shadows: {
     small: Shadow;
     medium: Shadow;
     large: Shadow;
   };
+  // TODO: dimensions as well
   borders: {
     thin: number;
     medium: number;

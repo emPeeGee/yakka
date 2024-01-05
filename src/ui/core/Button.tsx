@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
+import { Theme } from '@/types';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
 import { useTheme } from '../theme';
@@ -10,24 +11,16 @@ type ButtonProps = {
   backgroundColor?: string;
   titleColor?: string;
   onPress?: () => void;
-  radius?: number;
 };
 
-export const Button = ({
-  title,
-  titleColor,
-  backgroundColor,
-  radius = 12,
-  onPress,
-}: ButtonProps) => {
+export const Button = ({ title, titleColor, backgroundColor, onPress }: ButtonProps) => {
   const { theme } = useTheme();
   const background = backgroundColor || theme.colors.primary;
   const color = titleColor || theme.colors.textPri;
+  const styles = useMemo(() => getStyles(theme), [theme]);
 
   return (
-    <EnhancedPressable
-      style={[styles.button, { backgroundColor: background, borderRadius: radius }]}
-      onPress={onPress}>
+    <EnhancedPressable style={[styles.button, { backgroundColor: background }]} onPress={onPress}>
       <EnhancedText style={[{ color, textAlign: 'center' }]} size="md">
         {title}
       </EnhancedText>
@@ -35,11 +28,12 @@ export const Button = ({
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    padding: 12,
-    borderRadius: 26,
-    width: '100%',
-    paddingVertical: 16,
-  },
-});
+const getStyles = (theme: Theme) =>
+  StyleSheet.create({
+    button: {
+      padding: 12,
+      borderRadius: theme.borderRadius.xl,
+      width: '100%',
+      paddingVertical: 16,
+    },
+  });

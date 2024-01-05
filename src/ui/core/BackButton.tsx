@@ -30,8 +30,8 @@ export const BackButton = ({ noBorder, ...props }: BackButtonProps) => {
         // when noBorder, border color becomes background color
         borderColor: noBorder ? theme.colors.background : isDark ? theme.colors.border : undefined,
         borderWidth: isDark ? 1 : undefined,
-        padding: theme.spacing.tiny,
-        borderRadius: theme.borderRadius.large,
+        padding: theme.spacing.xxs,
+        borderRadius: theme.borderRadius.lg,
         ...(isDark ? {} : { ...theme.shadows.medium }),
       }}>
       <Ionicons name="ios-chevron-back" size={24} color={theme.colors.primary} />

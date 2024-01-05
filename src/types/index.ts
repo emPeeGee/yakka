@@ -1,11 +1,10 @@
-import { SelectableOption } from './common';
+import { SelectableOption, Dimensions } from './common';
 import {
   Theme,
   Shadow,
   Colors,
   UserColorSchemeType,
   AppColorSchemeType,
-  Spacing,
   FontWeights,
   TypographyPresets,
   FontSizes,
@@ -18,8 +17,8 @@ export type {
   UserColorSchemeType,
   AppColorSchemeType,
   SelectableOption,
-  Spacing,
   TypographyPresets,
   FontSizes,
   FontWeights,
+  Dimensions,
 };

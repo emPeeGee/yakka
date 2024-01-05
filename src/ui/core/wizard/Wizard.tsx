@@ -100,7 +100,7 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
   });
 
   return (
-    <View style={{ flex: 1, paddingVertical: theme.spacing.medium }}>
+    <View style={{ flex: 1, paddingVertical: theme.spacing.md }}>
       <View style={[gStyles.centerRowBetween, styles.headerContainer]}>
         <EnhancedPressable onPress={onBackPress}>
           <Ionicons name="ios-chevron-back" size={24} color={theme.colors.primary} />
@@ -109,7 +109,7 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
           <View
             style={[
               {
-                borderRadius: theme.borderRadius.large,
+                borderRadius: theme.borderRadius.lg,
                 backgroundColor: theme.colors.base40,
                 width: '100%',
               },
@@ -119,7 +119,7 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
                 {
                   height: 24,
                   backgroundColor: theme.colors.primary,
-                  borderRadius: theme.borderRadius.large,
+                  borderRadius: theme.borderRadius.lg,
                 },
                 progressIndicatorStyles,
               ]}
@@ -139,7 +139,17 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
             <TextField labelTx="welcomeScreen.letsGo" status="error" />
 
             <TextField
-              helper="1234"
+              label="123"
+              inputWrapperStyle={{ width: '100%' }}
+              // multiline
+              LeftAccessory={props => (
+                <View style={[props.style]}>
+                  <Ionicons color="white" size={26} name="airplane-outline" />
+                </View>
+              )}
+            />
+
+            <TextField
               label="123"
               inputWrapperStyle={{ width: '100%' }}
               // multiline
@@ -172,7 +182,6 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
           title={isLastScreen ? 'Finish' : 'Continue'}
           onPress={onNextPress}
           backgroundColor={theme.colors.secondary300}
-          radius={theme.borderRadius.large}
         />
       </View>
     </View>
@@ -186,10 +195,10 @@ const getStyles = (theme: Theme) =>
       backgroundColor: theme.colors.background,
       alignItems: 'center',
       justifyContent: 'space-around',
-      padding: theme.spacing.medium,
+      padding: theme.spacing.md,
     },
     headerContainer: {
-      paddingHorizontal: theme.spacing.medium,
+      paddingHorizontal: theme.spacing.md,
     },
     footerContainer: {
       margin: 20,

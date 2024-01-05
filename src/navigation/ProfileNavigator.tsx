@@ -24,7 +24,7 @@ export const ProfileNavigator = () => {
           headerTransparent: true,
           headerTitleAlign: 'center',
           headerBackVisible: false,
-          contentStyle: { paddingHorizontal: theme.spacing.medium },
+          contentStyle: { paddingHorizontal: theme.spacing.md },
           headerLeft: props => <BackButton {...props} />,
         }}>
         <Stack.Screen

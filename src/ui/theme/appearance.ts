@@ -125,6 +125,18 @@ const FONT_PRESETS = {
   formHelper: [textBaseStyle, TYPOGRAPHY_SIZES.sm, FONT_WEIGHTS.regular] as StyleProp<TextStyle>,
 };
 
+const SPACING = {
+  xxxs: 2,
+  xxs: 4,
+  xs: 8,
+  sm: 12,
+  md: 16,
+  lg: 24,
+  xl: 32,
+  xxl: 48,
+  xxxl: 64,
+};
+
 // https://bareynol.github.io/mui-theme-creator/
 // eslint-disable-next-line max-lines-per-function
 export const getTheme = (colorScheme: ColorSchemeName): Theme => {
@@ -137,19 +149,13 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
       presets: FONT_PRESETS,
     },
     // TODO: naming, XXS, XS, S, M, L, XL, XXL
-    spacing: {
-      tiny: 6,
-      extraSmall: 8,
-      small: 12,
-      medium: 16,
-      large: 24,
-      extraLarge: 32,
-    },
+    spacing: SPACING,
     borderRadius: {
-      extraSmall: 4,
-      small: 6,
-      medium: 8,
-      large: 12,
+      xs: 4,
+      sm: 6,
+      md: 8,
+      lg: 12,
+      xl: 40,
     },
     shadows: {
       small: {

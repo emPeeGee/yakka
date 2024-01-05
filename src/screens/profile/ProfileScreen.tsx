@@ -64,9 +64,9 @@ export const ProfileScreen = () => {
           </EnhancedPressable>
         </View>
 
-        <Separator paddingVertical={theme.spacing.medium} />
+        <Separator paddingVertical={theme.spacing.md} />
 
-        <View style={[gStyles.centerRowBetween, { marginBottom: theme.spacing.large }]}>
+        <View style={[gStyles.centerRowBetween, { marginBottom: theme.spacing.lg }]}>
           <View style={gStyles.centerColumnBetween}>
             <View>
               <EnhancedText size="md">2+ hours</EnhancedText>
@@ -115,10 +115,10 @@ export const ProfileScreen = () => {
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      paddingHorizontal: theme.spacing.medium,
+      paddingHorizontal: theme.spacing.md,
     },
     nameContainer: {
-      paddingHorizontal: theme.spacing.extraSmall,
+      paddingHorizontal: theme.spacing.xs,
     },
     profileImg: {
       height: 85,

@@ -115,11 +115,11 @@ const getStyles = (theme: Theme) =>
     tooltip: {
       alignItems: 'center',
       paddingVertical: 2,
-      paddingHorizontal: theme.spacing.medium,
+      paddingHorizontal: theme.spacing.md,
       backgroundColor: theme.colors.background,
       borderWidth: theme.borders.thick,
       borderColor: theme.colors.primary400,
-      borderRadius: theme.borderRadius.large,
+      borderRadius: theme.borderRadius.lg,
       zIndex: 2,
     },
     triangle: {
