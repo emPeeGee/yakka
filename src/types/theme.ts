@@ -1,3 +1,5 @@
+import { StyleProp, TextStyle } from 'react-native';
+
 export type AppColorSchemeType = 'light' | 'dark';
 export type UserColorSchemeType = 'light' | 'dark' | 'system';
 
@@ -81,7 +83,9 @@ export type Colors = {
 export type Theme = {
   colors: Colors;
   typography: {
-    variants: FontVariant;
+    weights: FontWeights;
+    sizes: FontSizes;
+    presets: TypographyPresets;
   };
   spacing: Spacing;
   borderRadius: {
@@ -120,34 +124,30 @@ export type FontWeight =
   | '900'
   | undefined;
 
-export type Font = {
-  fontFamily?: string;
-  fontSize?: number;
-  letterSpacing?: number;
-  lineHeight?: number;
-  fontWeight: FontWeight;
+export type FontWeights = {
+  bold: { fontWeight: FontWeight };
+  medium: { fontWeight: FontWeight };
+  regular: { fontWeight: FontWeight };
+  light: { fontWeight: FontWeight };
 };
 
-export type FontVariant = {
-  displayLarge: Font;
-  displayMedium: Font;
-  displaySmall: Font;
+type FontSize = { fontSize: number; lineHeight: number };
 
-  headlineLarge: Font;
-  headlineMedium: Font;
-  headlineSmall: Font;
+export type FontSizes = {
+  xxl: FontSize;
+  xl: FontSize;
+  lg: FontSize;
+  md: FontSize;
+  sm: FontSize;
+  xs: FontSize;
+  xxs: FontSize;
+};
 
-  titleLarge: Font;
-  titleMedium: Font;
-  titleSmall: Font;
-
-  labelLarge: Font;
-  labelMedium: Font;
-  labelSmall: Font;
-
-  bodyLarge: Font;
-  bodyMedium: Font;
-  bodySmall: Font;
-
-  default: Font;
+export type TypographyPresets = {
+  default: StyleProp<TextStyle>;
+  bold: StyleProp<TextStyle>;
+  heading: StyleProp<TextStyle>;
+  subheading: StyleProp<TextStyle>;
+  formLabel: StyleProp<TextStyle>;
+  formHelper: StyleProp<TextStyle>;
 };

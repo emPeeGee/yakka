@@ -67,8 +67,8 @@ export function SwiperButton({
     <AnimatedPressable onPress={handleNextScreen} style={[styles.container, buttonAnimationStyle]}>
       <AnimatedText
         numberOfLines={1}
-        variant="bodyLarge"
-        weight="700"
+        size="sm"
+        weight="bold"
         style={[styles.text, textAnimationStyle]}>
         Get Started
       </AnimatedText>

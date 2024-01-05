@@ -6,15 +6,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { rootLog } from '@/core/logger';
+import { useFirstLaunch } from '@/core/providers';
 import { isThemeDark } from '@/core/utils';
+import { ConfidenceScreen } from '@/screens/onboarding/OnboardingScreen';
 import { Theme } from '@/types';
 import { EnhancedText, Wizard } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
+import { TabNavigator } from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
+const userStatus = 'signOut';
 
 export function RootNavigator() {
-  // const { isFirstLaunch } = useFirstLaunch();
+  const { isFirstLaunch } = useFirstLaunch();
   const { theme, appColorScheme } = useTheme();
 
   return (
@@ -36,8 +40,8 @@ export function RootNavigator() {
           gestureEnabled: false,
           animation: 'none',
         }}>
-        <Stack.Screen name="Onboarding" component={LanguageInterrogationScreen} />
-        {/* {isFirstLaunch ? (
+        {/* <Stack.Screen name="Onboarding" component={LanguageInterrogationScreen} /> */}
+        {isFirstLaunch ? (
           <Stack.Screen name="Onboarding" component={ConfidenceScreen} />
         ) : (
           <Stack.Group>
@@ -48,8 +52,8 @@ export function RootNavigator() {
               // TODO:
               <Stack.Screen name="App" component={TabNavigator} />
             )}
-          </Stack.Group> */}
-        {/* )} */}
+          </Stack.Group>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

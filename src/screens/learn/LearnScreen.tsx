@@ -10,9 +10,9 @@ export const LearnScreen = () => {
     <View style={{ flex: 1 }}>
       <HeaderPlaceholder />
       <View>
-        <EnhancedText variant="headlineLarge">Hello, Mate</EnhancedText>
+        <EnhancedText size="xxl">Hello, Mate</EnhancedText>
         <EnhancedText
-          variant="headlineSmall"
+          size="xl"
           style={{
             color: theme.colors.textSec,
           }}>

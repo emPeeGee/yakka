@@ -1,6 +1,6 @@
-import { ColorSchemeName, Platform } from 'react-native';
+import { ColorSchemeName, StyleProp, TextStyle } from 'react-native';
 
-import { Theme, Colors, FontVariant, Font } from '@/types';
+import { Theme, Colors } from '@/types';
 
 const PRIMARY_COLORS = {
   primary: '#009688',
@@ -96,17 +96,47 @@ const LIGHT_COLORS: Colors = {
   // as textPri
   tabColor: 'rgba(0, 0, 0, 0.87)',
 };
+
+const TYPOGRAPHY_SIZES = {
+  xxl: { fontSize: 36, lineHeight: 44 } satisfies TextStyle,
+  xl: { fontSize: 24, lineHeight: 32 } satisfies TextStyle,
+  lg: { fontSize: 20, lineHeight: 30 } satisfies TextStyle,
+  md: { fontSize: 18, lineHeight: 24 } satisfies TextStyle,
+  sm: { fontSize: 16, lineHeight: 24 } satisfies TextStyle,
+  xs: { fontSize: 14, lineHeight: 20 } satisfies TextStyle,
+  xxs: { fontSize: 12, lineHeight: 16 } satisfies TextStyle,
+};
+
+const FONT_WEIGHTS = {
+  bold: { fontWeight: '700' } satisfies TextStyle,
+  medium: { fontWeight: '500' } satisfies TextStyle,
+  regular: { fontWeight: '400' } satisfies TextStyle,
+  light: { fontWeight: '300' } satisfies TextStyle,
+};
+
+const textBaseStyle: StyleProp<TextStyle> = [TYPOGRAPHY_SIZES.xs, FONT_WEIGHTS.regular];
+
+const FONT_PRESETS = {
+  default: textBaseStyle,
+  bold: [textBaseStyle, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
+  heading: [textBaseStyle, TYPOGRAPHY_SIZES.xxl, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
+  subheading: [textBaseStyle, TYPOGRAPHY_SIZES.lg, FONT_WEIGHTS.medium] as StyleProp<TextStyle>,
+  formLabel: [textBaseStyle, FONT_WEIGHTS.medium] as StyleProp<TextStyle>,
+  formHelper: [textBaseStyle, TYPOGRAPHY_SIZES.sm, FONT_WEIGHTS.regular] as StyleProp<TextStyle>,
+};
+
 // https://bareynol.github.io/mui-theme-creator/
 // eslint-disable-next-line max-lines-per-function
 export const getTheme = (colorScheme: ColorSchemeName): Theme => {
   const colors = colorScheme === 'dark' ? DARK_COLORS : LIGHT_COLORS;
   return {
     colors,
-    // TODO: typography not used yet
     typography: {
-      variants: VARIANTS,
+      sizes: TYPOGRAPHY_SIZES,
+      weights: FONT_WEIGHTS,
+      presets: FONT_PRESETS,
     },
-    // naming, XXS, XS, S, M, L, XL, XXL
+    // TODO: naming, XXS, XS, S, M, L, XL, XXL
     spacing: {
       tiny: 6,
       extraSmall: 8,
@@ -154,118 +184,4 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
       secondary: ['#f39c12', '#e74c3c'],
     },
   };
-};
-
-const regularType: Font = {
-  fontFamily: Platform.select({
-    web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-    ios: 'System',
-    default: 'sans-serif',
-  }),
-  // letterSpacing: 0,
-  fontWeight: '400',
-  fontSize: undefined,
-};
-
-const mediumType: Font = {
-  fontFamily: Platform.select({
-    web: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-    ios: 'System',
-    default: 'sans-serif-medium',
-  }),
-  // letterSpacing: 0.15,
-  fontWeight: '500',
-  fontSize: undefined,
-};
-
-export const VARIANTS: FontVariant = {
-  displayLarge: {
-    ...regularType,
-    lineHeight: 64,
-    fontSize: 57,
-  },
-  displayMedium: {
-    ...regularType,
-    lineHeight: 52,
-    fontSize: 45,
-  },
-  displaySmall: {
-    ...regularType,
-    lineHeight: 44,
-    fontSize: 36,
-  },
-
-  headlineLarge: {
-    ...regularType,
-    lineHeight: 40,
-    fontSize: 32,
-  },
-  headlineMedium: {
-    ...regularType,
-    lineHeight: 36,
-    fontSize: 28,
-  },
-  headlineSmall: {
-    ...regularType,
-    lineHeight: 32,
-    fontSize: 24,
-  },
-
-  titleLarge: {
-    ...regularType,
-    lineHeight: 28,
-    fontSize: 22,
-  },
-  titleMedium: {
-    ...mediumType,
-    lineHeight: 24,
-    fontSize: 18,
-  },
-  titleSmall: {
-    ...mediumType,
-    // letterSpacing: 0.1,
-    lineHeight: 20,
-    fontSize: 14,
-  },
-
-  labelLarge: {
-    ...mediumType,
-    // letterSpacing: 0.1,
-    lineHeight: 20,
-    fontSize: 14,
-  },
-  labelMedium: {
-    ...mediumType,
-    // letterSpacing: 0.5,
-    lineHeight: 16,
-    fontSize: 12,
-  },
-  labelSmall: {
-    ...mediumType,
-    // letterSpacing: 0.5,
-    lineHeight: 16,
-    fontSize: 11,
-  },
-
-  bodyLarge: {
-    ...mediumType,
-    lineHeight: 24,
-    fontSize: 16,
-  },
-  bodyMedium: {
-    ...mediumType,
-    // letterSpacing: 0.25,
-    lineHeight: 20,
-    fontSize: 14,
-  },
-  bodySmall: {
-    ...mediumType,
-    // letterSpacing: 0.4,
-    lineHeight: 16,
-    fontSize: 12,
-  },
-
-  default: {
-    ...regularType,
-  },
 };

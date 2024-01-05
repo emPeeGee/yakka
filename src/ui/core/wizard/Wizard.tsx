@@ -137,6 +137,12 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
             <Screen />
 
             <EnhancedText tx="common.back" />
+            <EnhancedText tx="common.back" preset="bold" />
+            <EnhancedText tx="common.back" preset="formHelper" />
+            <EnhancedText tx="common.back" preset="formLabel" />
+            <EnhancedText tx="common.back" preset="subheading" />
+            <EnhancedText tx="common.back" preset="heading" />
+
             <TextField helper="1234" label="123" />
           </View>
         )}

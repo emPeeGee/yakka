@@ -43,7 +43,7 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
       alwaysBounceVertical={bounces}
       overScrollMode={bounces ? 'auto' : 'never'}
       ListHeaderComponent={() => (
-        <EnhancedText style={styles.listHeader} variant="labelMedium">
+        <EnhancedText style={styles.listHeader} size="xxs">
           {title}
         </EnhancedText>
       )}

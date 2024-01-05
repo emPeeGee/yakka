@@ -6,9 +6,9 @@ import {
   UserColorSchemeType,
   AppColorSchemeType,
   Spacing,
-  FontVariant,
-  Font,
-  FontWeight,
+  FontWeights,
+  TypographyPresets,
+  FontSizes,
 } from './theme';
 
 export type {
@@ -19,7 +19,7 @@ export type {
   AppColorSchemeType,
   SelectableOption,
   Spacing,
-  FontVariant,
-  Font,
-  FontWeight,
+  TypographyPresets,
+  FontSizes,
+  FontWeights,
 };

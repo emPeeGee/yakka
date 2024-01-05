@@ -4,11 +4,11 @@ import { StyleProp, Text, TextProps as RNTextProps, TextStyle } from 'react-nati
 import i18n from 'i18n-js';
 
 import { isRTL, TxKeyPath, translate } from '@/core/i18n';
-import { FontVariant, FontWeight } from '@/types';
+import { TypographyPresets, FontSizes, FontWeights } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '../theme';
 
-type Sizes = keyof typeof $sizeStyles;
-type Presets = keyof typeof $presets;
+type Sizes = keyof FontSizes;
+type Presets = keyof TypographyPresets;
 
 export interface TextProps extends RNTextProps {
   /**
@@ -35,15 +35,11 @@ export interface TextProps extends RNTextProps {
   /**
    * Text weight modifier.
    */
-  weight?: FontWeight;
+  weight?: keyof FontWeights;
   /**
    * Text size modifier.
    */
   size?: Sizes;
-  /**
-   * Children components.
-   */
-  variant?: keyof FontVariant;
   /**
    * Children components.
    */
@@ -57,14 +53,14 @@ export interface TextProps extends RNTextProps {
 
 const CustomText = (props: React.PropsWithChildren<TextProps>, ref: ForwardedRef<Text>) => {
   const {
-    variant = 'default',
     weight,
     size,
     tx,
     txOptions,
     text,
     children,
-    style: $styleOverride,
+    style: styleOverride,
+    preset = 'default',
     ...rest
   } = props;
   const globalThemes = useGlobalThemedStyles();
@@ -73,60 +69,23 @@ const CustomText = (props: React.PropsWithChildren<TextProps>, ref: ForwardedRef
   const i18nText = tx && translate(tx, txOptions);
   const content = i18nText || text || children;
 
-  const preset: Presets = props.preset ?? 'default';
-  const $styles: StyleProp<TextStyle> = [
-    $rtlStyle,
-    $presets[preset],
-    // weight && $fontWeightStyles[weight],
-    size && $sizeStyles[size],
+  const styles: StyleProp<TextStyle> = [
+    rtlStyle,
+    theme.typography.presets[preset],
+    weight && theme.typography.weights[weight],
+    size && theme.typography.sizes[size],
 
     globalThemes.text,
-    { ...theme.typography.variants[variant] },
-    { fontWeight: weight },
-    $styleOverride,
+    styleOverride,
   ];
 
   return (
-    <Text ref={ref} style={$styles} {...rest}>
+    <Text ref={ref} style={styles} {...rest}>
       {content}
     </Text>
   );
 };
 
-const $sizeStyles = {
-  xxl: { fontSize: 36, lineHeight: 44 } satisfies TextStyle,
-  xl: { fontSize: 24, lineHeight: 34 } satisfies TextStyle,
-  lg: { fontSize: 20, lineHeight: 32 } satisfies TextStyle,
-  md: { fontSize: 18, lineHeight: 26 } satisfies TextStyle,
-  sm: { fontSize: 16, lineHeight: 24 } satisfies TextStyle,
-  xs: { fontSize: 14, lineHeight: 21 } satisfies TextStyle,
-  xxs: { fontSize: 12, lineHeight: 18 } satisfies TextStyle,
-};
-
-// const $fontWeightStyles = Object.entries(typography.primary).reduce((acc, [weight, fontFamily]) => {
-//   return { ...acc, [weight]: { fontFamily } };
-// }, {}) as Record<Weights, TextStyle>;
-
-const $baseStyle: StyleProp<TextStyle> = [
-  $sizeStyles.sm,
-  // $fontWeightStyles.normal,
-  // { color: theme.colors.textPri },
-];
-
-const $presets = {
-  default: $baseStyle,
-
-  // bold: [$baseStyle, $fontWeightStyles.bold] as StyleProp<TextStyle>,
-
-  // heading: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.bold] as StyleProp<TextStyle>,
-
-  // subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
-
-  // formLabel: [$baseStyle, $fontWeightStyles.medium] as StyleProp<TextStyle>,
-
-  // formHelper: [$baseStyle, $sizeStyles.sm, $fontWeightStyles.normal] as StyleProp<TextStyle>,
-};
-
-const $rtlStyle: TextStyle = isRTL ? { writingDirection: 'rtl' } : {};
+const rtlStyle: TextStyle = isRTL ? { writingDirection: 'rtl' } : {};
 
 export const EnhancedText = forwardRef(CustomText);

@@ -73,7 +73,7 @@ export const SwiperItem = ({ item, index, x }: SwiperItemProps) => {
       <Animated.Image source={item.image} style={[{ resizeMode: 'contain' }, imageAnimatedStyle]} />
 
       <Animated.View style={textAnimatedStyle}>
-        <EnhancedText style={styles.itemTitle} weight="700" variant="titleLarge">
+        <EnhancedText style={styles.itemTitle} weight="bold" size="xl">
           {item.title}
         </EnhancedText>
         <Text style={styles.itemText}>{item.text}</Text>

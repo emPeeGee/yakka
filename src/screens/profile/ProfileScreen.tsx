@@ -50,10 +50,10 @@ export const ProfileScreen = () => {
         <View style={gStyles.centerRowBetween}>
           <Image source={require('../../assets/profile.png')} style={styles.profileImg} />
           <View style={[gStyles.fullWidthFromStart, styles.nameContainer]}>
-            <EnhancedText style={styles.name} variant="titleMedium">
+            <EnhancedText style={styles.name} size="md">
               Mihail Mitrofanov
             </EnhancedText>
-            <EnhancedText style={styles.grade} variant="bodySmall">
+            <EnhancedText style={styles.grade} size="xxs">
               Newbie
             </EnhancedText>
           </View>
@@ -69,10 +69,10 @@ export const ProfileScreen = () => {
         <View style={[gStyles.centerRowBetween, { marginBottom: theme.spacing.large }]}>
           <View style={gStyles.centerColumnBetween}>
             <View>
-              <EnhancedText variant="titleMedium">2+ hours</EnhancedText>
+              <EnhancedText size="md">2+ hours</EnhancedText>
             </View>
             <View>
-              <EnhancedText style={styles.statLabel} variant="labelMedium">
+              <EnhancedText style={styles.statLabel} size="xxs">
                 Total learn
               </EnhancedText>
             </View>
@@ -82,10 +82,10 @@ export const ProfileScreen = () => {
 
           <View style={gStyles.centerColumnBetween}>
             <View>
-              <EnhancedText variant="titleMedium">20</EnhancedText>
+              <EnhancedText size="md">20</EnhancedText>
             </View>
             <View>
-              <EnhancedText style={styles.statLabel} variant="labelMedium">
+              <EnhancedText style={styles.statLabel} size="xxs">
                 Achievements
               </EnhancedText>
             </View>
@@ -95,10 +95,10 @@ export const ProfileScreen = () => {
 
           <View style={gStyles.centerColumnBetween}>
             <View>
-              <EnhancedText variant="titleMedium">1</EnhancedText>
+              <EnhancedText size="md">1</EnhancedText>
             </View>
             <View>
-              <EnhancedText style={styles.statLabel} variant="labelMedium">
+              <EnhancedText style={styles.statLabel} size="xxs">
                 Languages
               </EnhancedText>
             </View>
