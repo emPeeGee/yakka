@@ -1,6 +1,7 @@
 import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from 'react';
 import {
   StyleProp,
+  StyleSheet,
   TextInput,
   TextInputProps,
   TextStyle,
@@ -11,6 +12,7 @@ import {
 
 import { EnhancedText, TextProps } from './EnhancedText';
 import { useTheme } from '../theme';
+import { Theme } from '@/types';
 // import { isRTL, translate } from '../i18n';
 // import { colors, spacing, typography } from '../theme';
 
@@ -231,11 +233,12 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   );
 });
 
-const $labelStyle: TextStyle = {
-  // marginBottom: spacing.xs,
-};
+const getStyles = (theme: Theme) => StyleSheet.create({
+  labelStyle : {
+    marginBottom: spacing.xs,
+  },
 
-const $inputWrapperStyle: ViewStyle = {
+inputWrapperStyle:  {
   flexDirection: 'row',
   alignItems: 'flex-start',
   borderWidth: 1,
@@ -243,9 +246,9 @@ const $inputWrapperStyle: ViewStyle = {
   // backgroundColor: colors.palette.neutral200,
   // borderColor: colors.palette.neutral400,
   overflow: 'hidden',
-};
+},
 
-const $inputStyle: TextStyle = {
+inputStyle:  {
   flex: 1,
   alignSelf: 'stretch',
   // fontFamily: typography.primary.normal,
@@ -257,21 +260,24 @@ const $inputStyle: TextStyle = {
   paddingHorizontal: 0,
   // marginVertical: spacing.xs,
   // marginHorizontal: spacing.sm,
-};
+},
 
-const $helperStyle: TextStyle = {
+helperStyle : {
   // marginTop: spacing.xs,
-};
+},
 
-const $rightAccessoryStyle: ViewStyle = {
+rightAccessoryStyle: {
   // marginEnd: spacing.xs,
   height: 40,
   justifyContent: 'center',
   alignItems: 'center',
 };
-const $leftAccessoryStyle: ViewStyle = {
+leftAccessoryStyle:  {
   // marginStart: spacing.xs,
   height: 40,
   justifyContent: 'center',
   alignItems: 'center',
-};
+}
+})
+
+
