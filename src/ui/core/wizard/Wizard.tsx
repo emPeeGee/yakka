@@ -136,14 +136,26 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
           <View key={index} style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
             <Screen />
 
+            <TextField labelTx="welcomeScreen.letsGo" status="error" />
+
+            <TextField
+              helper="1234"
+              label="123"
+              inputWrapperStyle={{ width: '100%' }}
+              // multiline
+              LeftAccessory={props => (
+                <View style={[props.style]}>
+                  <Ionicons color="white" size={26} name="airplane-outline" />
+                </View>
+              )}
+            />
+
             <EnhancedText tx="common.back" />
             <EnhancedText tx="common.back" preset="bold" />
             <EnhancedText tx="common.back" preset="formHelper" />
             <EnhancedText tx="common.back" preset="formLabel" />
             <EnhancedText tx="common.back" preset="subheading" />
             <EnhancedText tx="common.back" preset="heading" />
-
-            <TextField helper="1234" label="123" />
           </View>
         )}
         horizontal

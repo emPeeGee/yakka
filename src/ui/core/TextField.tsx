@@ -10,11 +10,10 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import { isRTL, translate } from '@/core/i18n';
+import { Theme } from '@/types';
 import { EnhancedText, TextProps } from './EnhancedText';
 import { useTheme } from '../theme';
-import { Theme } from '@/types';
-// import { isRTL, translate } from '../i18n';
-// import { colors, spacing, typography } from '../theme';
 
 export interface TextFieldAccessoryProps {
   style: StyleProp<any>;
@@ -40,7 +39,7 @@ export interface TextFieldProps extends Omit<TextInputProps, 'ref'> {
    * Optional label options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  // labelTxOptions?: TextProps['txOptions'];
+  labelTxOptions?: TextProps['txOptions'];
   /**
    * Pass any additional props directly to the label Text component.
    */
@@ -57,7 +56,7 @@ export interface TextFieldProps extends Omit<TextInputProps, 'ref'> {
    * Optional helper options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  // helperTxOptions?: TextProps['txOptions'];
+  helperTxOptions?: TextProps['txOptions'];
   /**
    * Pass any additional props directly to the helper Text component.
    */
@@ -69,12 +68,12 @@ export interface TextFieldProps extends Omit<TextInputProps, 'ref'> {
   /**
    * Placeholder text which is looked up via i18n.
    */
-  // placeholderTx?: TextProps['tx'];
+  placeholderTx?: TextProps['tx'];
   /**
    * Optional placeholder options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  // placeholderTxOptions?: TextProps['txOptions'];
+  placeholderTxOptions?: TextProps['txOptions'];
   /**
    * Optional input style override.
    */
@@ -108,57 +107,57 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   const {
     labelTx,
     label,
-    // labelTxOptions,
-    // placeholderTx,
-    // placeholder,
-    // placeholderTxOptions,
+    labelTxOptions,
+    placeholderTx,
+    placeholder,
+    placeholderTxOptions,
     helper,
     helperTx,
-    // helperTxOptions,
+    helperTxOptions,
     status,
     RightAccessory,
     LeftAccessory,
     HelperTextProps,
     LabelTextProps,
-    style: $inputStyleOverride,
-    containerStyle: $containerStyleOverride,
-    inputWrapperStyle: $inputWrapperStyleOverride,
-    ...TextInputProps
+    style: inputStyleOverride,
+    containerStyle: containerStyleOverride,
+    inputWrapperStyle: inputWrapperStyleOverride,
+    ...textInputProps
   } = props;
 
   const { theme } = useTheme();
+  const styles = getStyles(theme);
   const input = useRef<TextInput>(null);
 
-  const disabled = TextInputProps.editable === false || status === 'disabled';
+  const disabled = textInputProps.editable === false || status === 'disabled';
 
-  const placeholderContent = 'placeholder';
-  // const placeholderContent = placeholderTx
-  //   ? translate(placeholderTx, placeholderTxOptions)
-  //   : placeholder;
+  const placeholderContent = placeholderTx
+    ? translate(placeholderTx, placeholderTxOptions)
+    : placeholder;
 
-  const $containerStyles = [$containerStyleOverride];
+  const containerStyles = [containerStyleOverride];
 
-  const $labelStyles = [$labelStyle, LabelTextProps?.style];
+  const labelStyles = [styles.label, LabelTextProps?.style];
 
-  const $inputWrapperStyles = [
-    $inputWrapperStyle,
+  const inputWrapperStyles = [
+    styles.inputWrapper,
     status === 'error' && { borderColor: theme.colors.error },
-    TextInputProps.multiline && { minHeight: 112 },
+    textInputProps.multiline && { minHeight: 112 },
     LeftAccessory && { paddingStart: 0 },
     RightAccessory && { paddingEnd: 0 },
-    $inputWrapperStyleOverride,
+    inputWrapperStyleOverride,
   ];
 
-  const $inputStyles: StyleProp<TextStyle> = [
-    $inputStyle,
+  const inputStyles: StyleProp<TextStyle> = [
+    styles.input,
     disabled && { color: theme.colors.textDis },
-    // isRTL && { textAlign: 'right' as TextStyle['textAlign'] },
-    TextInputProps.multiline && { height: 'auto' },
-    $inputStyleOverride,
+    isRTL && { textAlign: 'right' as TextStyle['textAlign'] },
+    textInputProps.multiline && { height: 'auto' },
+    inputStyleOverride,
   ];
 
-  const $helperStyles = [
-    $helperStyle,
+  const helperStyles = [
+    styles.helper,
     status === 'error' && { color: theme.colors.error },
     HelperTextProps?.style,
   ];
@@ -174,27 +173,27 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   return (
     <TouchableOpacity
       activeOpacity={1}
-      style={$containerStyles}
+      style={containerStyles}
       onPress={focusInput}
       accessibilityState={{ disabled }}>
       {!!(label || labelTx) && (
         <EnhancedText
-          // preset="formLabel"
+          preset="formLabel"
           text={label}
           tx={labelTx}
-          // txOptions={labelTxOptions}
+          txOptions={labelTxOptions}
           {...LabelTextProps}
-          style={$labelStyles}
+          style={labelStyles}
         />
       )}
 
-      <View style={$inputWrapperStyles}>
+      <View style={inputWrapperStyles}>
         {!!LeftAccessory && (
           <LeftAccessory
-            style={$leftAccessoryStyle}
+            style={styles.leftAccessory}
             status={status}
             editable={!disabled}
-            multiline={TextInputProps.multiline ?? false}
+            multiline={textInputProps.multiline ?? false}
           />
         )}
 
@@ -204,80 +203,74 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           textAlignVertical="top"
           placeholder={placeholderContent}
           placeholderTextColor={theme.colors.textDis}
-          {...TextInputProps}
+          {...textInputProps}
           editable={!disabled}
-          style={$inputStyles}
+          style={inputStyles}
         />
 
         {!!RightAccessory && (
           <RightAccessory
-            style={$rightAccessoryStyle}
+            style={styles.rightAccessory}
             status={status}
             editable={!disabled}
-            multiline={TextInputProps.multiline ?? false}
+            multiline={textInputProps.multiline ?? false}
           />
         )}
       </View>
 
       {!!(helper || helperTx) && (
         <EnhancedText
-          // preset="formHelper"
+          preset="formHelper"
           text={helper}
           tx={helperTx}
-          // txOptions={helperTxOptions}
+          txOptions={helperTxOptions}
           {...HelperTextProps}
-          style={$helperStyles}
+          style={helperStyles}
         />
       )}
     </TouchableOpacity>
   );
 });
 
-const getStyles = (theme: Theme) => StyleSheet.create({
-  labelStyle : {
-    marginBottom: spacing.xs,
-  },
-
-inputWrapperStyle:  {
-  flexDirection: 'row',
-  alignItems: 'flex-start',
-  borderWidth: 1,
-  borderRadius: 4,
-  // backgroundColor: colors.palette.neutral200,
-  // borderColor: colors.palette.neutral400,
-  overflow: 'hidden',
-},
-
-inputStyle:  {
-  flex: 1,
-  alignSelf: 'stretch',
-  // fontFamily: typography.primary.normal,
-  // color: colors.text,
-  fontSize: 16,
-  height: 24,
-  // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
-  paddingVertical: 0,
-  paddingHorizontal: 0,
-  // marginVertical: spacing.xs,
-  // marginHorizontal: spacing.sm,
-},
-
-helperStyle : {
-  // marginTop: spacing.xs,
-},
-
-rightAccessoryStyle: {
-  // marginEnd: spacing.xs,
-  height: 40,
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-leftAccessoryStyle:  {
-  // marginStart: spacing.xs,
-  height: 40,
-  justifyContent: 'center',
-  alignItems: 'center',
-}
-})
-
-
+const getStyles = (theme: Theme) =>
+  StyleSheet.create({
+    label: {
+      marginBottom: theme.spacing.extraSmall,
+    },
+    inputWrapper: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      borderWidth: theme.borders.medium,
+      borderRadius: theme.borderRadius.large,
+      borderColor: theme.colors.border,
+      overflow: 'hidden',
+    },
+    input: {
+      flex: 1,
+      width: 'auto',
+      alignSelf: 'stretch',
+      color: theme.colors.textPri,
+      fontSize: 16,
+      height: 24,
+      // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
+      paddingVertical: 0,
+      paddingHorizontal: 0,
+      marginVertical: theme.spacing.extraSmall,
+      marginHorizontal: theme.spacing.small,
+    },
+    helper: {
+      marginTop: theme.spacing.extraSmall,
+    },
+    rightAccessory: {
+      marginEnd: theme.spacing.extraSmall,
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    leftAccessory: {
+      marginStart: theme.spacing.extraSmall,
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
