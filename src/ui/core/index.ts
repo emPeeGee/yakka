@@ -1,5 +1,6 @@
 import { BackButton } from './BackButton';
 import { Button } from './Button';
+import { ChoiceGroup } from './ChoiceGroup';
 import { CurvedShape } from './CurvedShape';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
@@ -28,5 +29,6 @@ export {
   Wizard,
   TextField,
   Toggle,
+  ChoiceGroup,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType };

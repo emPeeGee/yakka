@@ -8,7 +8,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { SvgProps } from 'react-native-svg';
 
 import { noop } from '@/core/utils';
-import { EnhancedText, Toggle } from '@/ui/core';
+import { ChoiceGroup, EnhancedText, Toggle } from '@/ui/core';
 import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { LearnNavigator } from './LearnNavigator';
@@ -16,6 +16,8 @@ import { ProfileNavigator } from './ProfileNavigator';
 
 const Vocabulary = () => {
   const [on, setOn] = useState(false);
+  const [lang, setLang] = useState('en');
+
   return (
     <View>
       <EnhancedText>Vocabulary</EnhancedText>
@@ -33,6 +35,25 @@ const Vocabulary = () => {
       />
       <Toggle variant="radio" value={on} onPress={() => setOn(o => !o)} />
       <Toggle variant="switch" value={on} onPress={() => setOn(o => !o)} />
+
+      <ChoiceGroup
+        options={[
+          {
+            label: 'English',
+            value: 'en',
+            Left: () => <EnhancedText size="xl">🇬🇧</EnhancedText>,
+          },
+          {
+            label: 'Romanian',
+            value: 'ro',
+            Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
+          },
+        ]}
+        value={lang}
+        onChange={(value: string): void => {
+          setLang(value);
+        }}
+      />
     </View>
   );
 };
