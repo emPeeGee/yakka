@@ -23,7 +23,14 @@ const Vocabulary = () => {
         Login with Facebook
       </FontAwesome.Button>
 
-      <Toggle variant="checkbox" value={on} onPress={() => setOn(o => !o)} />
+      <Toggle
+        labelTx="common.logOut"
+        labelPosition="right"
+        labelStyle={{ paddingLeft: 10 }}
+        variant="checkbox"
+        value={on}
+        onPress={() => setOn(o => !o)}
+      />
       <Toggle variant="radio" value={on} onPress={() => setOn(o => !o)} />
       <Toggle variant="switch" value={on} onPress={() => setOn(o => !o)} />
     </View>
