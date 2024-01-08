@@ -1,5 +1,4 @@
 import { useState, type ComponentType } from 'react';
-import { View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,9 +9,50 @@ import type { SvgProps } from 'react-native-svg';
 import { noop } from '@/core/utils';
 import { ChoiceGroup, EnhancedText, Toggle } from '@/ui/core';
 import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
-import { useTheme } from '@/ui/theme';
+import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { LearnNavigator } from './LearnNavigator';
 import { ProfileNavigator } from './ProfileNavigator';
+
+import { View, Text, Image } from 'react-native';
+
+const HeroWithChat = () => {
+  const { theme } = useTheme();
+  const gStyles = useGlobalThemedStyles();
+  // const styles = getStyles(theme);
+
+  return (
+    <View>
+      <View
+        style={[
+          gStyles.centerRow,
+          // styles.hero,
+          {
+            // ...(heroPos === 'left' ? { left: 0 } : {}),
+            // ...(heroPos === 'right' ? { right: 0 } : {}),
+          },
+        ]}>
+        <Image
+          source={require('../assets/hero/heroWithChat.png')}
+          style={{ width: 140, height: 140 }}
+        />
+
+        <EnhancedText
+          size="lg"
+          weight="medium"
+          style={{
+            width: 180,
+            textAlign: 'center',
+            borderWidth: theme.borders.medium,
+            borderColor: theme.colors.border,
+            borderRadius: theme.borderRadius.lg,
+            padding: theme.spacing.xs,
+          }}>
+          What language do you want to use for Yakka?
+        </EnhancedText>
+      </View>
+    </View>
+  );
+};
 
 const Vocabulary = () => {
   const [on, setOn] = useState(false);
@@ -24,6 +64,8 @@ const Vocabulary = () => {
       <FontAwesome.Button name="facebook" backgroundColor="#3b5998" onPress={noop}>
         Login with Facebook
       </FontAwesome.Button>
+
+      <HeroWithChat />
 
       <Toggle
         labelTx="common.logOut"
