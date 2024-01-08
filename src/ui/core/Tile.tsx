@@ -64,7 +64,7 @@ export function Tile({ completed, type, withHero, heroPos, current = false }: Ti
             },
             styles.tooltip,
           ]}>
-          <EnhancedText weight="700" style={{ color: theme.colors.primary400 }}>
+          <EnhancedText weight="bold" style={{ color: theme.colors.primary400 }}>
             START
           </EnhancedText>
           <View style={styles.triangle} />

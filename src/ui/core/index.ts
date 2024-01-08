@@ -5,6 +5,7 @@ import { CurvedShape } from './CurvedShape';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
 import { HeaderPlaceholder } from './HeaderPlaceholder';
+import { HeroWithChat } from './hero/HeroWithChat';
 import { List, DataListType } from './List';
 import { RadioGroup } from './RadioGroup';
 import { Separator } from './Separator';
@@ -30,5 +31,6 @@ export {
   TextField,
   Toggle,
   ChoiceGroup,
+  HeroWithChat,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType };
