@@ -123,6 +123,7 @@ export type FontWeights = {
 type FontSize = { fontSize: number; lineHeight: number };
 
 export type FontSizes = {
+  xxxl: FontSize;
   xxl: FontSize;
   xl: FontSize;
   lg: FontSize;
@@ -139,4 +140,5 @@ export type TypographyPresets = {
   subheading: StyleProp<TextStyle>;
   formLabel: StyleProp<TextStyle>;
   formHelper: StyleProp<TextStyle>;
+  button: StyleProp<TextStyle>;
 };

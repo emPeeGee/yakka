@@ -43,7 +43,7 @@ export interface TextFieldProps extends Omit<TextInputProps, 'ref'> {
   /**
    * Pass any additional props directly to the label Text component.
    */
-  LabelTextProps?: TextProps;
+  labelTextProps?: TextProps;
   /**
    * The helper text to display if not using `helperTx`.
    */
@@ -118,7 +118,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     RightAccessory,
     LeftAccessory,
     HelperTextProps,
-    LabelTextProps,
+    labelTextProps,
     style: inputStyleOverride,
     containerStyle: containerStyleOverride,
     inputWrapperStyle: inputWrapperStyleOverride,
@@ -137,7 +137,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const containerStyles = [containerStyleOverride];
 
-  const labelStyles = [styles.label, LabelTextProps?.style];
+  const labelStyles = [styles.label, labelTextProps?.style];
 
   const inputWrapperStyles = [
     styles.inputWrapper,
@@ -182,7 +182,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           text={label}
           tx={labelTx}
           txOptions={labelTxOptions}
-          {...LabelTextProps}
+          {...labelTextProps}
           style={labelStyles}
         />
       )}

@@ -98,6 +98,7 @@ const LIGHT_COLORS: Colors = {
 };
 
 const TYPOGRAPHY_SIZES = {
+  xxxl: { fontSize: 48, lineHeight: 56 } satisfies TextStyle,
   xxl: { fontSize: 36, lineHeight: 44 } satisfies TextStyle,
   xl: { fontSize: 24, lineHeight: 32 } satisfies TextStyle,
   lg: { fontSize: 20, lineHeight: 30 } satisfies TextStyle,
@@ -123,6 +124,7 @@ const FONT_PRESETS = {
   subheading: [textBaseStyle, TYPOGRAPHY_SIZES.lg, FONT_WEIGHTS.medium] as StyleProp<TextStyle>,
   formLabel: [textBaseStyle, FONT_WEIGHTS.medium] as StyleProp<TextStyle>,
   formHelper: [textBaseStyle, TYPOGRAPHY_SIZES.sm, FONT_WEIGHTS.regular] as StyleProp<TextStyle>,
+  button: [textBaseStyle, TYPOGRAPHY_SIZES.sm, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
 };
 
 const SPACING = {
