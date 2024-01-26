@@ -16,11 +16,11 @@ const PRIMARY_COLORS = {
   primary700: '#00796B',
   primary800: '#00695C',
   primary900: '#004D40',
-  primaryA100: '#A7FFEB',
-  primaryA200: '#64FFDA',
-  primaryA400: '#1DE9B6',
-  primaryA700: '#00BFA5',
-};
+  // primaryA100: '#A7FFEB',
+  // primaryA200: '#64FFDA',
+  // primaryA400: '#1DE9B6',
+  // primaryA700: '#00BFA5',
+} satisfies Partial<Colors>;
 
 const SECONDARY_COLORS = {
   secondary: '#FFC107',
@@ -36,11 +36,11 @@ const SECONDARY_COLORS = {
   secondary700: '#FFA000',
   secondary800: '#FF8F00',
   secondary900: '#FF6F00',
-  secondaryA100: '#FFE57F',
-  secondaryA200: '#FFD740',
-  secondaryA400: '#FFC400',
-  secondaryA700: '#FFAB00',
-};
+  // secondaryA100: '#FFE57F',
+  // secondaryA200: '#FFD740',
+  // secondaryA400: '#FFC400',
+  // secondaryA700: '#FFAB00',
+} satisfies Partial<Colors>;
 
 const BASE_COLORS = {
   base100: '#111111',
