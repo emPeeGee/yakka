@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { onboardLog } from '@/core/logger';
-import { useFirstLaunch } from '@/core/providers';
 import { Theme } from '@/types';
 import { SwiperDataItem, Swiper } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
@@ -30,18 +30,20 @@ export const onboardingItems: SwiperDataItem[] = [
   },
 ];
 
-export const ConfidenceScreen = () => {
+export const OnboardIntroScreen = () => {
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
+  const { navigate } = useNavigation();
   const styles = useMemo(() => getStyles(theme), [theme]);
-  const { setIsFirstLaunch } = useFirstLaunch();
+  // const { setIsFirstLaunch } = useFirstLaunch();
 
   const onFinish = () => {
-    setIsFirstLaunch(false);
+    // TODO: how to make it
+    // setIsFirstLaunch(false);
+
+    navigate('OnboardGetStarted' as never);
     onboardLog.info('Onboarding finished');
   };
-
-  // TODO: Log in button in onboarding
 
   return (
     <View

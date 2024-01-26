@@ -5,6 +5,11 @@ export const en = {
     back: 'Back',
     logOut: 'Log Out', // @demo remove-current-line
   },
+  onboard: {
+    lang: 'What language do you want to use for Yakka?',
+    getStarted: 'Get started',
+    haveAnAccount: 'I already have an account',
+  },
   welcomeScreen: {
     postscript:
       "psst  — This probably isn't what your app looks like. (Unless your designer handed you these screens, and in that case, ship it!)",
