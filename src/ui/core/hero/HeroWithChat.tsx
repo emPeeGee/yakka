@@ -1,14 +1,32 @@
 import { useState } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
+import { translate } from '@/core/i18n';
 import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-import { EnhancedText } from '../EnhancedText';
+import { EnhancedText, TextProps } from '../EnhancedText';
 
-export const HeroWithChat = () => {
+type HeroWithChatProps = {
+  text?: TextProps['text'];
+  tx?: TextProps['tx'];
+  txOptions?: TextProps['txOptions'];
+  chatPosition?: 'right' | 'top';
+};
+
+export const HeroWithChat = ({
+  tx,
+  text,
+  txOptions,
+  chatPosition = 'right',
+}: HeroWithChatProps) => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const styles = getStyles(theme);
+
+  const i18nText = tx && translate(tx, txOptions);
+  const textChat = i18nText || text;
+
+  const isChatRight = chatPosition === 'right';
 
   const [currentIndicatorLayout, setCurrentIndicatorLayout] = useState<{
     width: number;
@@ -17,11 +35,15 @@ export const HeroWithChat = () => {
 
   return (
     <View>
-      <View style={[gStyles.centerRow]}>
+      <View style={[isChatRight ? gStyles.centerRow : gStyles.centerColumn]}>
         <View style={[gStyles.centerRow]}>
           <Image
-            source={require('../../../assets/hero/heroWithChat.png')}
-            style={{ width: 170, height: 170, transform: [{ scale: 1.3 }, { translateY: 16 }] }}
+            source={require('../../../assets/hero/heroToL.png')}
+            style={{
+              width: 170,
+              height: 170,
+              transform: [{ scale: 1.3 }, { translateY: isChatRight ? 16 : 8 }],
+            }}
           />
         </View>
         <View
@@ -35,27 +57,49 @@ export const HeroWithChat = () => {
           <View
             style={[
               styles.triangle,
-              styles.outerShape,
+              isChatRight ? styles.rightOuterShape : styles.topOuterShape,
               {
-                top: currentIndicatorLayout
-                  ? currentIndicatorLayout?.height / 2 - OUTER_TRIANGLE.width / 2
-                  : 0,
+                ...(isChatRight
+                  ? {
+                      top: currentIndicatorLayout
+                        ? currentIndicatorLayout?.height / 2 - OUTER_TRIANGLE.width / 2
+                        : 0,
+                    }
+                  : {}),
+              },
+              {
+                ...(!isChatRight
+                  ? {
+                      left: currentIndicatorLayout ? currentIndicatorLayout?.width / 2 - 24 / 2 : 0,
+                    }
+                  : {}),
               },
             ]}
           />
           <View
             style={[
               styles.triangle,
-              styles.innerShape,
+              isChatRight ? styles.rightInnerShape : styles.topInnerShape,
               {
-                top: currentIndicatorLayout
-                  ? currentIndicatorLayout?.height / 2 - INNER_TRIANGLE.width / 2
-                  : 0,
+                ...(isChatRight
+                  ? {
+                      top: currentIndicatorLayout
+                        ? currentIndicatorLayout?.height / 2 - INNER_TRIANGLE.width / 2
+                        : 0,
+                    }
+                  : {}),
+                ...(!isChatRight
+                  ? {
+                      left: currentIndicatorLayout
+                        ? currentIndicatorLayout?.width / 2 - INNER_TRIANGLE.width / 2
+                        : 0,
+                    }
+                  : {}),
               },
             ]}
           />
-          <EnhancedText size="lg" weight="medium" style={{ textAlign: 'center' }}>
-            What language do you want to use for Yakka?
+          <EnhancedText size="sm" weight="medium" style={{ textAlign: 'center' }}>
+            {textChat}
           </EnhancedText>
         </View>
       </View>
@@ -76,11 +120,12 @@ const INNER_TRIANGLE = {
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     chatShape: {
-      width: 180,
+      // width: 180,
       borderWidth: theme.borders.medium,
       borderColor: theme.colors.border,
       borderRadius: theme.borderRadius.lg,
-      padding: theme.spacing.xs,
+      padding: theme.spacing.md,
+      paddingVertical: theme.spacing.xs,
     },
     triangle: {
       position: 'absolute',
@@ -91,18 +136,39 @@ const getStyles = (theme: Theme) =>
       borderLeftColor: 'transparent',
       borderRightColor: 'transparent',
     },
-    outerShape: {
+
+    topOuterShape: {
+      left: '50%',
+      top: -22,
+      borderLeftWidth: OUTER_TRIANGLE.height,
+      borderRightWidth: OUTER_TRIANGLE.height,
+      borderBottomWidth: OUTER_TRIANGLE.width,
+
+      borderBottomColor: theme.colors.border,
+      transform: [{ rotate: '0deg' }],
+    },
+    topInnerShape: {
+      left: '50%',
+      top: -18,
+      borderLeftWidth: INNER_TRIANGLE.height,
+      borderRightWidth: INNER_TRIANGLE.height,
+      borderBottomWidth: INNER_TRIANGLE.width,
+      borderBottomColor: theme.colors.background,
+      transform: [{ rotate: '0deg' }],
+      zIndex: 2,
+    },
+
+    rightOuterShape: {
       left: -24,
       top: '50%',
-      right: 0,
+      // right: 0,
       borderLeftWidth: OUTER_TRIANGLE.height,
       borderRightWidth: OUTER_TRIANGLE.height,
       borderBottomWidth: OUTER_TRIANGLE.width,
       borderBottomColor: theme.colors.border,
       transform: [{ rotate: '-90deg' }],
     },
-
-    innerShape: {
+    rightInnerShape: {
       left: -18,
       borderLeftWidth: INNER_TRIANGLE.height,
       borderRightWidth: INNER_TRIANGLE.height,

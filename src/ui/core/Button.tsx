@@ -3,17 +3,27 @@ import { StyleSheet } from 'react-native';
 
 import { Theme } from '@/types';
 import { EnhancedPressable } from './EnhancedPressable';
-import { EnhancedText } from './EnhancedText';
+import { EnhancedText, TextProps } from './EnhancedText';
 import { useTheme } from '../theme';
 
 type ButtonProps = {
-  title: string;
+  text?: TextProps['text'];
+  tx?: TextProps['tx'];
+  txOptions?: TextProps['txOptions'];
+  textProps?: TextProps;
   backgroundColor?: string;
-  titleColor?: string;
+  color?: string;
   onPress?: () => void;
 };
 
-export const Button = ({ title, titleColor, backgroundColor, onPress }: ButtonProps) => {
+export const Button = ({
+  tx,
+  text,
+  textProps,
+  color: titleColor,
+  backgroundColor,
+  onPress,
+}: ButtonProps) => {
   const { theme } = useTheme();
   const background = backgroundColor || theme.colors.primary;
   const color = titleColor || theme.colors.textPri;
@@ -21,9 +31,13 @@ export const Button = ({ title, titleColor, backgroundColor, onPress }: ButtonPr
 
   return (
     <EnhancedPressable style={[styles.button, { backgroundColor: background }]} onPress={onPress}>
-      <EnhancedText style={[{ color, textAlign: 'center' }]} size="md">
-        {title}
-      </EnhancedText>
+      <EnhancedText
+        style={[{ color, textAlign: 'center', textTransform: 'uppercase' }]}
+        text={text}
+        tx={tx}
+        preset="button"
+        {...textProps}
+      />
     </EnhancedPressable>
   );
 };
