@@ -35,14 +35,14 @@ export const HeroWithChat = ({
 
   return (
     <View>
-      <View style={[isChatRight ? gStyles.centerRow : gStyles.centerColumn]}>
+      <View style={[isChatRight ? gStyles.centerRow : gStyles.centerColumnReverse]}>
         <View style={[gStyles.centerRow]}>
           <Image
-            source={require('../../../assets/hero/heroToL.png')}
+            source={require('../../../assets/hero/heroToR.png')}
             style={{
               width: 170,
               height: 170,
-              transform: [{ scale: 1.3 }, { translateY: isChatRight ? 16 : 8 }],
+              transform: [{ scale: 1.3 }, { translateY: isChatRight ? 16 : 0 }],
             }}
           />
         </View>
@@ -139,29 +139,28 @@ const getStyles = (theme: Theme) =>
 
     topOuterShape: {
       left: '50%',
-      top: -22,
+      bottom: -22,
       borderLeftWidth: OUTER_TRIANGLE.height,
       borderRightWidth: OUTER_TRIANGLE.height,
       borderBottomWidth: OUTER_TRIANGLE.width,
 
       borderBottomColor: theme.colors.border,
-      transform: [{ rotate: '0deg' }],
+      transform: [{ rotate: '180deg' }],
     },
     topInnerShape: {
       left: '50%',
-      top: -18,
+      bottom: -18,
       borderLeftWidth: INNER_TRIANGLE.height,
       borderRightWidth: INNER_TRIANGLE.height,
       borderBottomWidth: INNER_TRIANGLE.width,
       borderBottomColor: theme.colors.background,
-      transform: [{ rotate: '0deg' }],
+      transform: [{ rotate: '180deg' }],
       zIndex: 2,
     },
 
     rightOuterShape: {
       left: -24,
       top: '50%',
-      // right: 0,
       borderLeftWidth: OUTER_TRIANGLE.height,
       borderRightWidth: OUTER_TRIANGLE.height,
       borderBottomWidth: OUTER_TRIANGLE.width,

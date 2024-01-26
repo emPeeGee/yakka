@@ -41,6 +41,12 @@ const getGlobalStyles = (theme: Theme) =>
       justifyContent: 'center',
     },
 
+    centerColumnReverse: {
+      flexDirection: 'column-reverse',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
     centerRowBetween: {
       flexDirection: 'row',
       alignItems: 'center',

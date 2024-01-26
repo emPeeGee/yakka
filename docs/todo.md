@@ -29,6 +29,7 @@
 [x] Refactors typography
 [x] Text field implementation
 [ ] Enhanced radio box
+[ ] Move text to tx
 [x] refactor theme props to be consistent: xxs, xs, sm, md, lg...
 
 ## Medium:
