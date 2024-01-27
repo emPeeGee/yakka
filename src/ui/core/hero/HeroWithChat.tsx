@@ -1,33 +1,40 @@
 import { useState } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, ImageBackground, ImageURISource } from 'react-native';
 
-import { translate } from '@/core/i18n';
 import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { EnhancedText, TextProps } from '../EnhancedText';
+
+type HeroStyle = 'default' | 'vampire';
 
 type HeroWithChatProps = {
   text?: TextProps['text'];
   tx?: TextProps['tx'];
   txOptions?: TextProps['txOptions'];
   chatPosition?: 'right' | 'top';
+  hero?: HeroStyle;
+  withConfetti?: boolean;
 };
+
+const HERO_STYLES: Record<HeroStyle, ImageURISource> = {
+  default: require('../../../assets/hero/heroToR.png'),
+  vampire: require('../../../assets/hero/heroVampire.png'),
+};
+
+// TODO: triangle is too big
 
 export const HeroWithChat = ({
   tx,
   text,
   txOptions,
+  hero = 'default',
   chatPosition = 'right',
+  withConfetti = false,
 }: HeroWithChatProps) => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const styles = getStyles(theme);
-
-  const i18nText = tx && translate(tx, txOptions);
-  const textChat = i18nText || text;
-
   const isChatRight = chatPosition === 'right';
-
   const [currentIndicatorLayout, setCurrentIndicatorLayout] = useState<{
     width: number;
     height: number;
@@ -35,14 +42,25 @@ export const HeroWithChat = ({
 
   return (
     <View>
+      {withConfetti && (
+        <ImageBackground
+          source={require('../../../assets/confetti.png')}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            transform: [{ scale: 1.2 }],
+          }}
+        />
+      )}
       <View style={[isChatRight ? gStyles.centerRow : gStyles.centerColumnReverse]}>
         <View style={[gStyles.centerRow]}>
           <Image
-            source={require('../../../assets/hero/heroToR.png')}
+            source={HERO_STYLES[hero]}
             style={{
               width: 170,
               height: 170,
-              transform: [{ scale: 1.3 }, { translateY: isChatRight ? 16 : 0 }],
+              transform: [{ scale: 1.3 }, { translateY: isChatRight ? 16 : 6 }],
             }}
           />
         </View>
@@ -98,9 +116,14 @@ export const HeroWithChat = ({
               },
             ]}
           />
-          <EnhancedText size="sm" weight="medium" style={{ textAlign: 'center' }}>
-            {textChat}
-          </EnhancedText>
+          <EnhancedText
+            text={text}
+            tx={tx}
+            txOptions={txOptions}
+            size="sm"
+            weight="medium"
+            style={{ textAlign: 'center' }}
+          />
         </View>
       </View>
     </View>
@@ -126,6 +149,7 @@ const getStyles = (theme: Theme) =>
       borderRadius: theme.borderRadius.lg,
       padding: theme.spacing.md,
       paddingVertical: theme.spacing.xs,
+      backgroundColor: theme.colors.background,
     },
     triangle: {
       position: 'absolute',

@@ -24,8 +24,8 @@ export const OnboardGetStartedScreen = () => {
         },
       ]}>
       <View style={[gStyles.fullWidthFromStart, { justifyContent: 'space-evenly' }]}>
-        {/* TODO: missing image here */}
-        <HeroWithChat text="Hi there. I'm Yakka!" chatPosition="top" />
+        {/* TODO: tx */}
+        <HeroWithChat text="Hi there. I'm Yakka!" chatPosition="top" hero="vampire" withConfetti />
 
         <EnhancedText
           size="xxxl"
