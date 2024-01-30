@@ -14,7 +14,7 @@ export const OnboardNavigator = () => {
   const { theme } = useTheme();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="OnboardLanguage">
       <Stack.Group
         screenOptions={{
           headerShown: true,

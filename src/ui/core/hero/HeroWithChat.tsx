@@ -41,7 +41,7 @@ export const HeroWithChat = ({
   } | null>(null);
 
   return (
-    <View>
+    <View style={styles.container}>
       {withConfetti && (
         <ImageBackground
           source={require('../../../assets/confetti.png')}
@@ -54,7 +54,8 @@ export const HeroWithChat = ({
         />
       )}
       <View style={[isChatRight ? gStyles.centerRow : gStyles.centerColumnReverse]}>
-        <View style={[gStyles.centerRow]}>
+        <View style={[styles.hero, gStyles.centerRow]}>
+          {/* <Image source={require('../../../assets/hero/heroToR.png')} style={styles.heroImage} /> */}
           <Image
             source={HERO_STYLES[hero]}
             style={{
@@ -142,8 +143,22 @@ const INNER_TRIANGLE = {
 
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
+    container: {
+      height: 'auto',
+    },
+    hero: {
+      flexShrink: 1,
+      flexGrow: 1,
+    },
+    heroImage: {
+      width: 140,
+      height: 140,
+      transform: [{ scale: 1.4 }],
+    },
     chatShape: {
-      // width: 180,
+      width: 'auto',
+      flexShrink: 3,
+      flexGrow: 3,
       borderWidth: theme.borders.medium,
       borderColor: theme.colors.border,
       borderRadius: theme.borderRadius.lg,

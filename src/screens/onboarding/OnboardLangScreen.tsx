@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { EnhancedText, HeroWithChat, ChoiceGroup } from '@/ui/core';
+import { EnhancedText, HeroWithChat, ChoiceGroup, HeaderPlaceholder } from '@/ui/core';
 
 export const OnboardLangScreen = () => {
   const [lang, setLang] = useState('en');
 
   return (
-    <View>
+    <View style={{ flex: 1, flexDirection: 'column' }}>
+      <HeaderPlaceholder />
       <HeroWithChat tx="onboard.lang" />
 
       <ChoiceGroup
