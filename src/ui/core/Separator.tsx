@@ -1,13 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { Spacing } from '@/types';
+import { Dimensions } from '@/types';
 import { useTheme } from '@/ui/theme';
 
 type SeparatorProps = {
   height?: number;
   isVertical?: boolean;
-  paddingVertical: Spacing[keyof Spacing] | 0;
+  paddingVertical?: Dimensions[keyof Dimensions] | 0;
 };
 
 export function Separator({ height = 1, isVertical = false, paddingVertical = 0 }: SeparatorProps) {
@@ -18,6 +18,7 @@ export function Separator({ height = 1, isVertical = false, paddingVertical = 0 
       {isVertical ? (
         <View style={{ width: 1, height, backgroundColor: theme.colors.border }}></View>
       ) : (
+        // TODO: new color for border as per mocks ? <View style={{ width: 1, height, backgroundColor: '#F5F5F5' }}></View>
         <View style={{ flex: 1, height, backgroundColor: theme.colors.border }}></View>
       )}
     </View>

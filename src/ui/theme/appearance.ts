@@ -150,7 +150,6 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
       weights: FONT_WEIGHTS,
       presets: FONT_PRESETS,
     },
-    // TODO: naming, XXS, XS, S, M, L, XL, XXL
     spacing: SPACING,
     borderRadius: {
       xs: 4,
@@ -182,6 +181,7 @@ export const getTheme = (colorScheme: ColorSchemeName): Theme => {
         elevation: 8,
       },
     },
+    // TODO: naming, S, M, L
     borders: {
       thin: 1,
       medium: 2,
