@@ -1,8 +1,15 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, View, useWindowDimensions, FlatList, BackHandler } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  useWindowDimensions,
+  FlatList,
+  BackHandler,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
@@ -12,22 +19,34 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { TxKeyPath } from '@/core/i18n';
 import { isLast, isZero } from '@/core/utils';
 import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { BackButton } from '../BackButton';
 import { Button } from '../Button';
-import { EnhancedPressable } from '../EnhancedPressable';
-import { EnhancedText } from '../EnhancedText';
-import { TextField } from '../TextField';
 
 type WizardProps = {
+  // TODO: better type
+  fallbackRoute: string;
   screens: (() => React.JSX.Element)[];
+  screensContainerStyle?: StyleProp<ViewStyle>;
   onFinish: () => void;
+  txButtonLabel?: TxKeyPath;
+  txLastScreenButtonLabel?: TxKeyPath;
 };
 
-export const Wizard = ({ screens, onFinish }: WizardProps) => {
+export const Wizard = ({
+  screens,
+  fallbackRoute,
+  screensContainerStyle,
+  onFinish,
+  txButtonLabel,
+  txLastScreenButtonLabel,
+}: WizardProps) => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const { theme } = useTheme();
+  const { navigate } = useNavigation();
 
   const styles = useMemo(() => getStyles(theme), [theme]);
   const gStyles = useGlobalThemedStyles();
@@ -49,6 +68,12 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
     }
 
     if (isZero(current)) {
+      // fallbackRoute && navigate(fallbackRoute as never);
+      if (fallbackRoute) {
+        navigate(fallbackRoute as never);
+        return true;
+      }
+
       return false;
     }
 
@@ -100,11 +125,12 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
   });
 
   return (
-    <View style={{ flex: 1, paddingVertical: theme.spacing.md }}>
+    <View style={{ flex: 1, paddingTop: theme.spacing.md }}>
       <View style={[gStyles.centerRowBetween, styles.headerContainer]}>
-        <EnhancedPressable onPress={onBackPress}>
+        <BackButton onPress={onBackPress} />
+        {/* <EnhancedPressable onPress={onBackPress}>
           <Ionicons name="ios-chevron-back" size={24} color={theme.colors.primary} />
-        </EnhancedPressable>
+        </EnhancedPressable> */}
         <View style={[{ width: '50%' }]}>
           <View
             style={[
@@ -133,39 +159,10 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
         ref={flatListRef as any}
         data={screens}
         renderItem={({ item: Screen, index }) => (
-          <View key={index} style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
+          <View
+            key={index}
+            style={[styles.itemContainer, screensContainerStyle, { width: SCREEN_WIDTH }]}>
             <Screen />
-
-            <TextField labelTx="welcomeScreen.letsGo" status="error" />
-
-            <TextField
-              label="123"
-              inputWrapperStyle={{ width: '100%' }}
-              // multiline
-              LeftAccessory={props => (
-                <View style={[props.style]}>
-                  <Ionicons color="white" size={26} name="airplane-outline" />
-                </View>
-              )}
-            />
-
-            <TextField
-              label="123"
-              inputWrapperStyle={{ width: '100%' }}
-              // multiline
-              LeftAccessory={props => (
-                <View style={[props.style]}>
-                  <Ionicons color="white" size={26} name="airplane-outline" />
-                </View>
-              )}
-            />
-
-            <EnhancedText tx="common.back" />
-            <EnhancedText tx="common.back" preset="bold" />
-            <EnhancedText tx="common.back" preset="formHelper" />
-            <EnhancedText tx="common.back" preset="formLabel" />
-            <EnhancedText tx="common.back" preset="subheading" />
-            <EnhancedText tx="common.back" preset="heading" />
           </View>
         )}
         horizontal
@@ -179,7 +176,11 @@ export const Wizard = ({ screens, onFinish }: WizardProps) => {
 
       <View style={styles.footerContainer}>
         <Button
-          title={isLastScreen ? 'Finish' : 'Continue'}
+          tx={
+            isLastScreen
+              ? txLastScreenButtonLabel || 'common.finish'
+              : txButtonLabel || 'common.continue'
+          }
           onPress={onNextPress}
           backgroundColor={theme.colors.secondary300}
         />
@@ -195,12 +196,16 @@ const getStyles = (theme: Theme) =>
       backgroundColor: theme.colors.background,
       alignItems: 'center',
       justifyContent: 'space-around',
-      padding: theme.spacing.md,
+      paddingHorizontal: theme.spacing.md,
     },
     headerContainer: {
       paddingHorizontal: theme.spacing.md,
+      paddingVertical: theme.spacing.xxxs,
     },
     footerContainer: {
-      margin: 20,
+      borderTopWidth: 2,
+      borderTopColor: theme.colors.border,
+      paddingVertical: theme.spacing.sm,
+      paddingHorizontal: theme.spacing.sm,
     },
   });

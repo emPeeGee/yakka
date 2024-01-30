@@ -1,14 +1,14 @@
 import { useState, type ComponentType } from 'react';
 import { View } from 'react-native';
 
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { SvgProps } from 'react-native-svg';
 
 import { noop } from '@/core/utils';
-import { ChoiceGroup, EnhancedText, HeroWithChat, Toggle } from '@/ui/core';
+import { ChoiceGroup, EnhancedText, HeroWithChat, TextField, Toggle } from '@/ui/core';
 import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { LearnNavigator } from './LearnNavigator';
@@ -26,7 +26,7 @@ const Vocabulary = () => {
         Login with Facebook
       </FontAwesome.Button>
 
-      <HeroWithChat tx="onboarding.lang" />
+      <HeroWithChat tx="onboard.lang" />
 
       <Toggle
         labelTx="common.logOut"
@@ -68,6 +68,37 @@ const Achievements = () => {
       <FontAwesome.Button name="facebook" backgroundColor="#3b5998" onPress={noop}>
         Login with Facebook
       </FontAwesome.Button>
+
+      <TextField labelTx="welcomeScreen.letsGo" status="error" />
+
+      <TextField
+        label="123"
+        inputWrapperStyle={{ width: '100%' }}
+        // multiline
+        LeftAccessory={props => (
+          <View style={[props.style]}>
+            <Ionicons color="white" size={26} name="airplane-outline" />
+          </View>
+        )}
+      />
+
+      <TextField
+        label="123"
+        inputWrapperStyle={{ width: '100%' }}
+        // multiline
+        LeftAccessory={props => (
+          <View style={[props.style]}>
+            <Ionicons color="white" size={26} name="airplane-outline" />
+          </View>
+        )}
+      />
+
+      <EnhancedText tx="common.back" />
+      <EnhancedText tx="common.back" preset="bold" />
+      <EnhancedText tx="common.back" preset="formHelper" />
+      <EnhancedText tx="common.back" preset="formLabel" />
+      <EnhancedText tx="common.back" preset="subheading" />
+      <EnhancedText tx="common.back" preset="heading" />
     </View>
   );
 };

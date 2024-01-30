@@ -104,6 +104,7 @@ export const LanguageInterrogationScreen = () => {
         },
       ]}>
       <Wizard
+        fallbackRoute="Achievements"
         screens={[View1, View2, View3]}
         onFinish={() => {
           rootLog.info('Wizard on finish');
