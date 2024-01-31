@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, ScrollViewProps, View } from 'react-native';
+import { Platform, ScrollView, ScrollViewProps, View } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -51,32 +51,37 @@ const OnboardKnowAboutScreen = () => {
         <ChoiceGroup
           options={[
             {
-              label: 'TikTok',
+              tx: 'universal.tiktok',
               value: 'tiktok',
               Left: () => <EnhancedText size="md">🦁</EnhancedText>,
             },
             {
-              label: 'Google',
+              tx: 'universal.google',
               value: 'google',
               Left: () => <EnhancedText size="md">🐯</EnhancedText>,
             },
             {
-              label: 'Facebook',
+              tx: 'universal.facebook',
               value: 'facebook',
               Left: () => <EnhancedText size="md">🐧</EnhancedText>,
             },
             {
-              label: 'App Store',
-              value: 'appstore',
+              tx:
+                Platform.OS === 'ios'
+                  ? 'universal.appStore'
+                  : Platform.OS === 'android'
+                    ? 'universal.playMarket'
+                    : 'universal.web',
+              value: 'store',
               Left: () => <EnhancedText size="md">🐺</EnhancedText>,
             },
             {
-              label: 'Recommendation',
+              tx: 'universal.recommendation',
               value: 'recommendation',
               Left: () => <EnhancedText size="md">🦝</EnhancedText>,
             },
             {
-              label: 'Other',
+              tx: 'universal.other',
               value: 'other',
               Left: () => <EnhancedText size="md">🦊</EnhancedText>,
             },
@@ -111,12 +116,12 @@ const OnboardLangScreen = () => {
         <ChoiceGroup
           options={[
             {
-              label: 'English',
+              tx: 'common.english',
               value: 'en',
               Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
             },
             {
-              label: 'Romanian',
+              tx: 'common.romanian',
               value: 'ro',
               Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
             },
@@ -131,45 +136,45 @@ const OnboardLangScreen = () => {
   );
 };
 
-const OnboardHowMuchEngScreen = () => {
-  const [lang, setLang] = useState('en');
-  const { theme } = useTheme();
+// const OnboardHowMuchEngScreen = () => {
+//   const [lang, setLang] = useState('en');
+//   const { theme } = useTheme();
 
-  return (
-    <View style={[{ width: '100%', flex: 1, flexDirection: 'column', gap: theme.spacing.lg }]}>
-      <View
-        style={{
-          width: '100%',
-          paddingHorizontal: theme.spacing.xs,
-        }}>
-        <HeroWithChat tx="onboard.engYouKnow" />
-      </View>
+//   return (
+//     <View style={[{ width: '100%', flex: 1, flexDirection: 'column', gap: theme.spacing.lg }]}>
+//       <View
+//         style={{
+//           width: '100%',
+//           paddingHorizontal: theme.spacing.xs,
+//         }}>
+//         <HeroWithChat tx="onboard.engYouKnow" />
+//       </View>
 
-      <Separator height={theme.borders.medium} />
+//       <Separator height={theme.borders.medium} />
 
-      <EnhancedScrollView>
-        <ChoiceGroup
-          options={[
-            {
-              label: '',
-              value: 'en',
-              Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
-            },
-            {
-              label: 'Romanian',
-              value: 'ro',
-              Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
-            },
-          ]}
-          value={lang}
-          onChange={(value: string): void => {
-            setLang(value);
-          }}
-        />
-      </EnhancedScrollView>
-    </View>
-  );
-};
+//       <EnhancedScrollView>
+//         <ChoiceGroup
+//           options={[
+//             {
+//               label: '',
+//               value: 'en',
+//               Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
+//             },
+//             {
+//               label: 'Romanian',
+//               value: 'ro',
+//               Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
+//             },
+//           ]}
+//           value={lang}
+//           onChange={(value: string): void => {
+//             setLang(value);
+//           }}
+//         />
+//       </EnhancedScrollView>
+//     </View>
+//   );
+// };
 
 export const OnboardQuestionsScreen = () => {
   const insets = useSafeAreaInsets();
@@ -189,7 +194,7 @@ export const OnboardQuestionsScreen = () => {
       <Wizard
         fallbackRoute="OnboardGetStarted"
         screensContainerStyle={{ paddingHorizontal: 0 }}
-        screens={[OnboardKnowAboutScreen, OnboardLangScreen]}
+        screens={[OnboardLangScreen, OnboardKnowAboutScreen]}
         onFinish={() => {
           rootLog.info('Wizard on finish');
         }}

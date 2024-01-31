@@ -6,14 +6,17 @@ import { I18n, TranslateOptions } from 'i18n-js';
 // if English isn't your default language, move Translations to the appropriate language file.
 import { en, Translations } from './en';
 import { ro } from './ro';
-// TODO: ru
+// IDEA: ru
 import { rootLog } from '../logger';
 
 const deviceLanguage =
-  Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale ||
-      NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
-    : NativeModules.I18nManager.localeIdentifier;
+  // NOTE: hardcoded, but web is not the target
+  Platform.OS === 'web'
+    ? 'en_US'
+    : Platform.OS === 'ios'
+      ? NativeModules.SettingsManager.settings.AppleLocale ||
+        NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
+      : NativeModules.I18nManager.localeIdentifier;
 
 // The preferred language is the first element in the array, however, we fallback to en-US, especially for tests.
 const preferredLanguage: { languageTag: string; textDirection: 'ltr' | 'rtl' } = {

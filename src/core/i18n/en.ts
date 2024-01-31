@@ -6,6 +6,8 @@ export const en = {
     logOut: 'Log Out', // @demo remove-current-line
     finish: 'Finish',
     continue: 'Continue',
+    english: 'English',
+    romanian: 'Romanian',
   },
   // Won't change depending on the language
   universal: {
@@ -13,6 +15,10 @@ export const en = {
     facebook: 'Facebook',
     tiktok: 'TikTok',
     playMarket: 'Play Market',
+    appStore: 'App Store',
+    web: 'Web',
+    recommendation: 'Recommendation',
+    other: 'Other',
   },
   onboard: {
     lang: 'What language do you want to use for Yakka?',

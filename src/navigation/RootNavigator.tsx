@@ -8,10 +8,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { rootLog } from '@/core/logger';
 import { useFirstLaunch } from '@/core/providers';
 import { isThemeDark } from '@/core/utils';
-import { OnboardNavigator } from '@/navigation/OnboardNavigator';
 import { Theme } from '@/types';
 import { EnhancedText, Wizard } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
+import { OnboardNavigator } from './OnboardNavigator';
 import { TabNavigator } from './TabNavigator';
 
 const Stack = createNativeStackNavigator();

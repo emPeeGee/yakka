@@ -157,6 +157,12 @@ export const Wizard = ({
 
       <Animated.FlatList
         ref={flatListRef as any}
+        // NOTE: web workaround for the scroll work
+        getItemLayout={(data, index) => ({
+          length: SCREEN_WIDTH,
+          index,
+          offset: SCREEN_WIDTH * index,
+        })}
         data={screens}
         renderItem={({ item: Screen, index }) => (
           <View
