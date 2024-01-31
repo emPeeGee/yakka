@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
+import { TxKeyPath } from '@/core/i18n';
 import { SelectableOption } from '@/types';
 import { EnhancedText } from './EnhancedText';
 import { useGlobalThemedStyles, useTheme } from '../theme';
@@ -10,14 +11,14 @@ import { useGlobalThemedStyles, useTheme } from '../theme';
 type Choice<T> = SelectableOption<T> & { Right?: ComponentType<any>; Left?: ComponentType<any> };
 
 type ChoiceGroupProps<T> = {
-  label?: string;
+  tx?: TxKeyPath;
   options: Choice<T>[];
   value: T;
   onChange: (value: T) => void;
 };
 
 type ChoiceOptionProps<T> = {
-  label: string;
+  tx: TxKeyPath;
   selected: boolean;
   value: T;
   onSelect: (value: T) => void;
@@ -25,7 +26,7 @@ type ChoiceOptionProps<T> = {
   Left?: ComponentType<any>;
 };
 
-function ChoiceOption<T>({ label, value, selected, onSelect, Right, Left }: ChoiceOptionProps<T>) {
+function ChoiceOption<T>({ tx, value, selected, onSelect, Right, Left }: ChoiceOptionProps<T>) {
   const { theme, appColorScheme } = useTheme();
   const gStyles = useGlobalThemedStyles();
 
@@ -53,9 +54,7 @@ function ChoiceOption<T>({ label, value, selected, onSelect, Right, Left }: Choi
           </View>
         )}
 
-        <EnhancedText weight="medium" size="md" style={gStyles.fullWidthFromStart}>
-          {label}
-        </EnhancedText>
+        <EnhancedText tx={tx} weight="medium" size="md" style={gStyles.fullWidthFromStart} />
 
         {Right && (
           <View>
@@ -67,16 +66,16 @@ function ChoiceOption<T>({ label, value, selected, onSelect, Right, Left }: Choi
   );
 }
 
-export function ChoiceGroup<T>({ label, options, value, onChange }: ChoiceGroupProps<T>) {
+export function ChoiceGroup<T>({ tx, options, value, onChange }: ChoiceGroupProps<T>) {
   const { theme } = useTheme();
   return (
     <View>
-      {label && <EnhancedText>{label}</EnhancedText>}
+      {tx && <EnhancedText tx={tx} />}
       <View style={{ gap: theme.spacing.md }}>
         {options.map((option, index) => (
           <ChoiceOption
             key={index}
-            label={option.label}
+            tx={option.tx}
             value={option.value}
             selected={option.value === value}
             onSelect={onChange}

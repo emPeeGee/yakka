@@ -2,7 +2,7 @@ import { AppearanceScreen } from './appearance/AppearanceScreen';
 import { LearnScreen } from './learn/LearnScreen';
 import { OnboardGetStartedScreen } from './onboarding/OnboardGetStartedScreen';
 import { OnboardIntroScreen } from './onboarding/OnboardIntroScreen';
-import { OnboardLangScreen } from './onboarding/OnboardLangScreen';
+import { OnboardQuestionsScreen } from './onboarding/OnboardQuestionsScreen';
 import { ProfileScreen } from './profile/ProfileScreen';
 import { SettingsScreen } from './sandbox/SettingsScreen';
 
@@ -13,5 +13,5 @@ export {
   LearnScreen,
   OnboardIntroScreen,
   OnboardGetStartedScreen,
-  OnboardLangScreen,
+  OnboardQuestionsScreen,
 };

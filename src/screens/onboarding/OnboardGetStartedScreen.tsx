@@ -48,7 +48,7 @@ export const OnboardGetStartedScreen = () => {
         <Button
           tx="onboard.getStarted"
           color={theme.colors.base0}
-          onPress={() => navigate('OnboardLanguage' as never)}
+          onPress={() => navigate('OnboardQuestions' as never)}
         />
         <Button
           tx="onboard.haveAnAccount"
