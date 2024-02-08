@@ -5,13 +5,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BackButton } from '@/ui/core';
 import { OnboardGetStartedScreen } from '../screens/onboarding/OnboardGetStartedScreen';
 import { OnboardIntroScreen } from '../screens/onboarding/OnboardIntroScreen';
+import { OnboardQuestionsDoneScreen } from '../screens/onboarding/OnboardQuestionsDoneScreen';
 import { OnboardQuestionsScreen } from '../screens/onboarding/OnboardQuestionsScreen';
 
 const Stack = createNativeStackNavigator();
 
 export const OnboardNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="OnboardQuestions">
+    <Stack.Navigator initialRouteName="OnboardIntro">
       <Stack.Group
         screenOptions={{
           headerShown: true,
@@ -31,6 +32,11 @@ export const OnboardNavigator = () => {
         <Stack.Screen
           name="OnboardQuestions"
           component={OnboardQuestionsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OnboardQuestionsDone"
+          component={OnboardQuestionsDoneScreen}
           options={{ headerShown: false }}
         />
       </Stack.Group>

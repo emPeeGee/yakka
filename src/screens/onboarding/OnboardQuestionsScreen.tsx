@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Platform, ScrollView, ScrollViewProps, View, Image } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { TxKeyPath } from '@/core/i18n';
 import { rootLog } from '@/core/logger';
 import { Theme } from '@/types';
@@ -307,6 +309,7 @@ const OnboardTimeScreen = (theme: Theme) => (
 
 export const OnboardQuestionsScreen = () => {
   const { theme } = useTheme();
+  const { navigate } = useNavigation();
 
   return (
     <ContainerWithInsets>
@@ -323,7 +326,8 @@ export const OnboardQuestionsScreen = () => {
           () => OnboardTimeScreen(theme),
         ]}
         onFinish={() => {
-          rootLog.info('Wizard on finish');
+          navigate('OnboardQuestionsDone' as never);
+          rootLog.info('OnboardingQuestions onFinish pressed');
         }}
       />
     </ContainerWithInsets>

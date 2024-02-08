@@ -8,6 +8,8 @@ export const en = {
     continue: 'Continue',
     english: 'English',
     romanian: 'Romanian',
+    awesome: 'Awesome!',
+    skip: 'Skip',
   },
   // Won't change depending on the language
   universal: {
@@ -60,6 +62,8 @@ export const en = {
     haveAnAccount: 'I already have an account',
     benefit1: 'Learn English language whenever and wherever you want.',
     greeting1: "Hi there. I'm Yakka!",
+    createProfileDesc: 'Create a profile now so you can save progress or you can skip it.',
+    createProfile: 'Create profile',
   },
 };
 
