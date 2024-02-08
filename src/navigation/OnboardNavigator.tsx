@@ -23,11 +23,15 @@ export const OnboardNavigator = () => {
           headerLeft: props => <BackButton {...props} />,
         }}>
         {/* TODO: route name consistency */}
-        <Stack.Screen name="OnboardIntro" component={OnboardIntroScreen} />
+        <Stack.Screen
+          name="OnboardIntro"
+          component={OnboardIntroScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="OnboardGetStarted"
           component={OnboardGetStartedScreen}
-          options={{ headerLeft: () => null }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="OnboardQuestions"

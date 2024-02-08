@@ -2,6 +2,7 @@ import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { rootLog } from '@/core/logger';
 import { Button, ContainerWithInsets, EnhancedText, HeroWithChat } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
@@ -40,7 +41,11 @@ export const OnboardGetStartedScreen = () => {
           <Button
             tx="onboard.getStarted"
             color={theme.colors.base0}
-            onPress={() => navigate('OnboardQuestions' as never)}
+            onPress={() => {
+              navigate('OnboardQuestions' as never);
+              rootLog.warn('Here is a delay on button press');
+            }}
+            // TODO: I noticed a delay when pressing this button
           />
           <Button
             tx="onboard.haveAnAccount"

@@ -40,6 +40,7 @@
 
 ## Low:
 
+[ ] real emoji in the questions: https://openmoji.org/
 [ ] zig-zag layout in the learn path. https://codepen.io/anon/pen/jwaQEq?editors=1100
 [ ] proper color for tab separator
 [ ] chevron on hover changes color in dark theme. Cannot reproduce on Android. Check ios
