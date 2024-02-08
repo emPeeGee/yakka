@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Platform, ScrollView, ScrollViewProps, View } from 'react-native';
+import { Platform, ScrollView, ScrollViewProps, View, Image } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TxKeyPath } from '@/core/i18n';
 import { rootLog } from '@/core/logger';
+import { Theme } from '@/types';
 import {
   EnhancedText,
   HeroWithChat,
@@ -12,8 +13,9 @@ import {
   HeaderPlaceholder,
   Wizard,
   Separator,
+  Choice,
 } from '@/ui/core';
-import { useTheme } from '@/ui/theme';
+import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 type EnhancedScrollViewProps = {
   children?: React.ReactNode;
@@ -32,7 +34,7 @@ const EnhancedScrollView = ({ children, ...props }: EnhancedScrollViewProps) => 
   );
 };
 
-function Question<T>({ options, txTitle }: { options: any; txTitle: TxKeyPath }) {
+function Question<T>({ options, txTitle }: { options: Choice<T>[]; txTitle: TxKeyPath }) {
   const [answer, setAnswer] = useState<T | null>(null);
   const { theme } = useTheme();
 
@@ -61,117 +63,101 @@ function Question<T>({ options, txTitle }: { options: any; txTitle: TxKeyPath })
   );
 }
 
-const OnboardKnowAboutScreen = () => {
-  const [knowAbout, setKnowAbout] = useState('en');
+const OnboardKnowAboutScreen = () => (
+  <Question
+    txTitle="onboard.knowAbout"
+    options={[
+      {
+        tx: 'universal.tiktok',
+        value: 'tiktok',
+        Left: () => <EnhancedText size="md">🦁</EnhancedText>,
+      },
+      {
+        tx: 'universal.google',
+        value: 'google',
+        Left: () => <EnhancedText size="md">🐯</EnhancedText>,
+      },
+      {
+        tx: 'universal.facebook',
+        value: 'facebook',
+        Left: () => <EnhancedText size="md">🐧</EnhancedText>,
+      },
+      {
+        tx:
+          Platform.OS === 'ios'
+            ? 'universal.appStore'
+            : Platform.OS === 'android'
+              ? 'universal.playMarket'
+              : 'universal.web',
+        value: 'store',
+        Left: () => <EnhancedText size="md">🐺</EnhancedText>,
+      },
+      {
+        tx: 'universal.recommendation',
+        value: 'recommendation',
+        Left: () => <EnhancedText size="md">🦝</EnhancedText>,
+      },
+      {
+        tx: 'universal.other',
+        value: 'other',
+        Left: () => <EnhancedText size="md">🦊</EnhancedText>,
+      },
+    ]}
+  />
+);
+
+const OnboardLangScreen = () => (
+  <Question
+    txTitle="onboard.lang"
+    options={[
+      {
+        tx: 'common.english',
+        value: 'en',
+        Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
+      },
+      {
+        tx: 'common.romanian',
+        value: 'ro',
+        Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
+      },
+    ]}
+  />
+);
+
+const OnboardHowMuchEngScreen = () => (
+  <Question
+    txTitle="onboard.engYouKnow"
+    options={[
+      {
+        tx: 'onboard.engYouKnow1',
+        value: 1,
+        Left: () => <EnhancedText size="md">🪫</EnhancedText>,
+      },
+      {
+        tx: 'onboard.engYouKnow2',
+        value: 2,
+        Left: () => <EnhancedText size="md">🪫</EnhancedText>,
+      },
+      {
+        tx: 'onboard.engYouKnow3',
+        value: 3,
+        Left: () => <EnhancedText size="md">🔋</EnhancedText>,
+      },
+      {
+        tx: 'onboard.engYouKnow4',
+        value: 4,
+        Left: () => <EnhancedText size="md">🔋</EnhancedText>,
+      },
+    ]}
+  />
+);
+
+const OnboardAchieveScreen = () => {
   const { theme } = useTheme();
+  const gStyles = useGlobalThemedStyles();
 
   return (
     <View style={[{ width: '100%', flex: 1, flexDirection: 'column' }]}>
-      <View
-        style={{
-          width: '100%',
-          paddingHorizontal: theme.spacing.xs,
-        }}>
-        <HeroWithChat tx="onboard.knowAbout" />
-      </View>
-
-      <Separator height={theme.borders.medium} />
-
-      <EnhancedScrollView>
-        <ChoiceGroup
-          options={[
-            {
-              tx: 'universal.tiktok',
-              value: 'tiktok',
-              Left: () => <EnhancedText size="md">🦁</EnhancedText>,
-            },
-            {
-              tx: 'universal.google',
-              value: 'google',
-              Left: () => <EnhancedText size="md">🐯</EnhancedText>,
-            },
-            {
-              tx: 'universal.facebook',
-              value: 'facebook',
-              Left: () => <EnhancedText size="md">🐧</EnhancedText>,
-            },
-            {
-              tx:
-                Platform.OS === 'ios'
-                  ? 'universal.appStore'
-                  : Platform.OS === 'android'
-                    ? 'universal.playMarket'
-                    : 'universal.web',
-              value: 'store',
-              Left: () => <EnhancedText size="md">🐺</EnhancedText>,
-            },
-            {
-              tx: 'universal.recommendation',
-              value: 'recommendation',
-              Left: () => <EnhancedText size="md">🦝</EnhancedText>,
-            },
-            {
-              tx: 'universal.other',
-              value: 'other',
-              Left: () => <EnhancedText size="md">🦊</EnhancedText>,
-            },
-          ]}
-          value={knowAbout}
-          onChange={(value: string): void => {
-            setKnowAbout(value);
-          }}
-        />
-      </EnhancedScrollView>
-    </View>
-  );
-};
-
-const OnboardLangScreen = () => {
-  const [lang, setLang] = useState('en');
-  const { theme } = useTheme();
-
-  return (
-    <View style={[{ width: '100%', flex: 1, flexDirection: 'column', gap: theme.spacing.lg }]}>
-      <View
-        style={{
-          width: '100%',
-          paddingHorizontal: theme.spacing.xs,
-        }}>
-        <HeroWithChat tx="onboard.lang" />
-      </View>
-
-      <Separator height={theme.borders.medium} />
-
-      <EnhancedScrollView>
-        <ChoiceGroup
-          options={[
-            {
-              tx: 'common.english',
-              value: 'en',
-              Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
-            },
-            {
-              tx: 'common.romanian',
-              value: 'ro',
-              Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
-            },
-          ]}
-          value={lang}
-          onChange={(value: string): void => {
-            setLang(value);
-          }}
-        />
-      </EnhancedScrollView>
-    </View>
-  );
-};
-
-const OnboardHowMuchEngScreen = () => {
-  const [level, setLevel] = useState(1);
-  const { theme } = useTheme();
-
-  return (
-    <View style={[{ width: '100%', flex: 1, flexDirection: 'column', gap: theme.spacing.lg }]}>
       <View
         style={{
           width: '100%',
@@ -183,41 +169,146 @@ const OnboardHowMuchEngScreen = () => {
       <Separator height={theme.borders.medium} />
 
       <EnhancedScrollView>
-        <ChoiceGroup
-          options={[
+        <View
+          style={[
+            gStyles.centerColumn,
             {
-              tx: 'onboard.engYouKnow1',
-              value: 1,
-              Left: () => <EnhancedText size="md">🪫</EnhancedText>,
+              marginHorizontal: theme.spacing.sm,
+              marginVertical: theme.spacing.xs,
+              paddingVertical: theme.spacing.lg,
+              paddingHorizontal: theme.spacing.xs,
+              gap: theme.spacing.md,
+              borderWidth: theme.borders.medium,
+              borderColor: theme.colors.border,
+              borderRadius: theme.borderRadius.xl,
             },
-            {
-              tx: 'onboard.engYouKnow2',
-              value: 2,
-              Left: () => <EnhancedText size="md">🪫</EnhancedText>,
-            },
-            {
-              tx: 'onboard.engYouKnow3',
-              value: 3,
-              Left: () => <EnhancedText size="md">🔋</EnhancedText>,
-            },
-            {
-              tx: 'onboard.engYouKnow4',
-              value: 4,
-              Left: () => <EnhancedText size="md">🔋</EnhancedText>,
-            },
-          ]}
-          value={level}
-          onChange={(value: number): void => {
-            setLevel(value);
-          }}
-        />
+          ]}>
+          <View style={gStyles.centerRow}>
+            <Image
+              source={require('../../assets/hero/heroToR.png')}
+              style={{
+                width: 100,
+                height: 100,
+              }}
+            />
+            <View style={[gStyles.fullWidthFromStart]}>
+              <EnhancedText tx="onboard.thisIsSpeak1" size="md" />
+              <EnhancedText tx="onboard.thisIsSpeak2" style={{ color: theme.colors.textSec }} />
+            </View>
+          </View>
+
+          <View style={gStyles.centerRow}>
+            <Image
+              source={require('../../assets/hero/heroToR.png')}
+              style={{
+                width: 100,
+                height: 100,
+              }}
+            />
+            <View style={[gStyles.fullWidthFromStart]}>
+              <EnhancedText tx="onboard.thisIsVoc1" size="md" />
+              <EnhancedText tx="onboard.thisIsVoc2" style={{ color: theme.colors.textSec }} />
+            </View>
+          </View>
+
+          <View style={gStyles.centerRow}>
+            <Image
+              source={require('../../assets/hero/heroToR.png')}
+              style={{
+                width: 100,
+                height: 100,
+              }}
+            />
+            <View style={[gStyles.fullWidthFromStart]}>
+              <EnhancedText tx="onboard.thisIsCul1" size="md" />
+              <EnhancedText tx="onboard.thisIsCul2" style={{ color: theme.colors.textSec }} />
+            </View>
+          </View>
+        </View>
       </EnhancedScrollView>
     </View>
   );
 };
 
+const OnboardReasonScreen = () => (
+  <Question
+    txTitle="onboard.why"
+    options={[
+      {
+        tx: 'onboard.why1',
+        value: 'fun',
+        Left: () => <EnhancedText size="md">🤪</EnhancedText>,
+      },
+      {
+        tx: 'onboard.why2',
+        value: 'career',
+        Left: () => <EnhancedText size="md">💼</EnhancedText>,
+      },
+      {
+        tx: 'onboard.why3',
+        value: 'education',
+        Left: () => <EnhancedText size="md">🎓</EnhancedText>,
+      },
+      {
+        tx: 'onboard.why4',
+        value: 'vacation',
+        Left: () => <EnhancedText size="md">🗺</EnhancedText>,
+      },
+      {
+        tx: 'onboard.why5',
+        value: 'other',
+        Left: () => <EnhancedText size="md">🧩</EnhancedText>,
+      },
+    ]}
+  />
+);
+
+const OnboardTimeScreen = (theme: Theme) => (
+  <Question
+    txTitle="onboard.time"
+    options={[
+      {
+        tx: 'onboard.time1',
+        value: 5,
+        Right: () => (
+          <EnhancedText size="md" tx="onboard.time1Att" style={{ color: theme.colors.textSec }} />
+        ),
+      },
+      {
+        tx: 'onboard.time2',
+        value: 10,
+        Right: () => (
+          <EnhancedText size="md" tx="onboard.time2Att" style={{ color: theme.colors.textSec }} />
+        ),
+      },
+      {
+        tx: 'onboard.time3',
+        value: 15,
+        Right: () => (
+          <EnhancedText size="md" tx="onboard.time3Att" style={{ color: theme.colors.textSec }} />
+        ),
+      },
+      {
+        tx: 'onboard.time4',
+        value: 30,
+        Right: () => (
+          <EnhancedText size="md" tx="onboard.time4Att" style={{ color: theme.colors.textSec }} />
+        ),
+      },
+      {
+        tx: 'onboard.time5',
+        value: 60,
+        Right: () => (
+          <EnhancedText size="md" tx="onboard.time5Att" style={{ color: theme.colors.textSec }} />
+        ),
+      },
+    ]}
+  />
+);
+
 export const OnboardQuestionsScreen = () => {
   const insets = useSafeAreaInsets();
+  const { theme } = useTheme();
 
   return (
     <View
@@ -230,7 +321,6 @@ export const OnboardQuestionsScreen = () => {
         paddingRight: insets.right,
       }}>
       <HeaderPlaceholder />
-
       <Wizard
         fallbackRoute="OnboardGetStarted"
         screensContainerStyle={{ paddingHorizontal: 0 }}
@@ -238,23 +328,9 @@ export const OnboardQuestionsScreen = () => {
           OnboardLangScreen,
           OnboardKnowAboutScreen,
           OnboardHowMuchEngScreen,
-          () => (
-            <Question
-              options={[
-                {
-                  tx: 'common.english',
-                  value: 5,
-                  Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
-                },
-                {
-                  tx: 'common.romanian',
-                  value: 10,
-                  Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
-                },
-              ]}
-              txTitle="onboard.time1"
-            />
-          ),
+          OnboardReasonScreen,
+          OnboardAchieveScreen,
+          () => OnboardTimeScreen(theme),
         ]}
         onFinish={() => {
           rootLog.info('Wizard on finish');

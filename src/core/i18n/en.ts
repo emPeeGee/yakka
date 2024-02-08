@@ -43,6 +43,7 @@ export const en = {
     thisIsCul1: 'Cultivate study habits',
     thisIsCul2: 'Smart reminders, fun challenges and more',
 
+    time: 'What will be your target time for studying English?',
     time1: '5 mins / day',
     time1Att: 'Relax',
     time2: '10 mins / day',

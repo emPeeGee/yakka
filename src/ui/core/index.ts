@@ -1,6 +1,6 @@
 import { BackButton } from './BackButton';
 import { Button } from './Button';
-import { ChoiceGroup } from './ChoiceGroup';
+import { ChoiceGroup, Choice } from './ChoiceGroup';
 import { CurvedShape } from './CurvedShape';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
@@ -33,4 +33,4 @@ export {
   ChoiceGroup,
   HeroWithChat,
 };
-export type { SwiperItemType as SwiperDataItem, DataListType };
+export type { SwiperItemType as SwiperDataItem, DataListType, Choice };

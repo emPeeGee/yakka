@@ -8,7 +8,10 @@ import { useGlobalThemedStyles, useTheme } from '../theme';
 
 // TODO: to refactor this code, take a look at toggler
 
-type Choice<T> = SelectableOption<T> & { Right?: ComponentType<any>; Left?: ComponentType<any> };
+export type Choice<T> = SelectableOption<T> & {
+  Right?: ComponentType<any>;
+  Left?: ComponentType<any>;
+};
 
 type ChoiceGroupProps<T> = {
   tx?: TxKeyPath;
