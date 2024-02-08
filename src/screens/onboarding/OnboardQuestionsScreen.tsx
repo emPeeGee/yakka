@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Platform, ScrollView, ScrollViewProps, View, Image } from 'react-native';
 
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
 import { TxKeyPath } from '@/core/i18n';
 import { rootLog } from '@/core/logger';
 import { Theme } from '@/types';
@@ -14,6 +12,7 @@ import {
   Wizard,
   Separator,
   Choice,
+  ContainerWithInsets,
 } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
@@ -307,19 +306,10 @@ const OnboardTimeScreen = (theme: Theme) => (
 );
 
 export const OnboardQuestionsScreen = () => {
-  const insets = useSafeAreaInsets();
   const { theme } = useTheme();
 
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
-      }}>
+    <ContainerWithInsets>
       <HeaderPlaceholder />
       <Wizard
         fallbackRoute="OnboardGetStarted"
@@ -336,6 +326,6 @@ export const OnboardQuestionsScreen = () => {
           rootLog.info('Wizard on finish');
         }}
       />
-    </View>
+    </ContainerWithInsets>
   );
 };

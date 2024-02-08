@@ -1,28 +1,17 @@
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Button, EnhancedText, HeroWithChat } from '@/ui/core';
+import { Button, ContainerWithInsets, EnhancedText, HeroWithChat } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const OnboardGetStartedScreen = () => {
   const { navigate } = useNavigation();
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const insets = useSafeAreaInsets();
 
   return (
-    <View
-      style={[
-        {
-          flex: 1,
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-      ]}>
+    <ContainerWithInsets>
       <View style={{ flex: 1, paddingHorizontal: theme.spacing.md }}>
         <View style={[gStyles.fullWidthFromStart, { justifyContent: 'space-evenly' }]}>
           <HeroWithChat tx="onboard.greeting1" chatPosition="top" hero="vampire" withConfetti />
@@ -60,6 +49,6 @@ export const OnboardGetStartedScreen = () => {
           />
         </View>
       </View>
-    </View>
+    </ContainerWithInsets>
   );
 };

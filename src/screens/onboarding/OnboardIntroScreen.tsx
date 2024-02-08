@@ -1,12 +1,9 @@
-import React, { useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { onboardLog } from '@/core/logger';
-import { Theme } from '@/types';
-import { SwiperDataItem, Swiper } from '@/ui/core';
+import { SwiperDataItem, Swiper, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export const onboardingItems: SwiperDataItem[] = [
@@ -31,10 +28,8 @@ export const onboardingItems: SwiperDataItem[] = [
 ];
 
 export const OnboardIntroScreen = () => {
-  const insets = useSafeAreaInsets();
   const { theme } = useTheme();
   const { navigate } = useNavigation();
-  const styles = useMemo(() => getStyles(theme), [theme]);
   // const { setIsFirstLaunch } = useFirstLaunch();
 
   const onFinish = () => {
@@ -46,25 +41,8 @@ export const OnboardIntroScreen = () => {
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-      ]}>
+    <ContainerWithInsets backgroundColor={theme.colors.background}>
       <Swiper items={onboardingItems} onFinish={onFinish} />
-    </View>
+    </ContainerWithInsets>
   );
 };
-
-const getStyles = (theme: Theme) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-    },
-  });

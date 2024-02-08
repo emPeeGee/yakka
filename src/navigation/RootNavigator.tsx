@@ -1,15 +1,8 @@
-import { useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { rootLog } from '@/core/logger';
 import { useFirstLaunch } from '@/core/providers';
 import { isThemeDark } from '@/core/utils';
-import { Theme } from '@/types';
-import { EnhancedText, Wizard } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { OnboardNavigator } from './OnboardNavigator';
 import { TabNavigator } from './TabNavigator';
@@ -60,66 +53,66 @@ export function RootNavigator() {
   );
 }
 
-const View1 = () => {
-  return (
-    <View>
-      <EnhancedText>1</EnhancedText>
-    </View>
-  );
-};
+// const View1 = () => {
+//   return (
+//     <View>
+//       <EnhancedText>1</EnhancedText>
+//     </View>
+//   );
+// };
 
-const View2 = () => {
-  return (
-    <View>
-      <EnhancedText>2</EnhancedText>
-    </View>
-  );
-};
+// const View2 = () => {
+//   return (
+//     <View>
+//       <EnhancedText>2</EnhancedText>
+//     </View>
+//   );
+// };
 
-const View3 = () => {
-  return (
-    <View>
-      <EnhancedText>3</EnhancedText>
-    </View>
-  );
-};
+// const View3 = () => {
+//   return (
+//     <View>
+//       <EnhancedText>3</EnhancedText>
+//     </View>
+//   );
+// };
 
-export const LanguageInterrogationScreen = () => {
-  const insets = useSafeAreaInsets();
-  const { theme } = useTheme();
-  const styles = useMemo(() => getStyles(theme), [theme]);
-  // const { setIsFirstLaunch } = useFirstLaunch();
+// export const LanguageInterrogationScreen = () => {
+//   const insets = useSafeAreaInsets();
+//   const { theme } = useTheme();
+//   const styles = useMemo(() => getStyles(theme), [theme]);
+//   // const { setIsFirstLaunch } = useFirstLaunch();
 
-  // TODO: Log in button in onboarding
+//   // TODO: Log in button in onboarding
 
-  return (
-    <View
-      style={[
-        styles.container,
-        {
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-      ]}>
-      <Wizard
-        fallbackRoute="Achievements"
-        screens={[View1, View2, View3]}
-        onFinish={() => {
-          rootLog.info('Wizard on finish');
-        }}
-      />
-    </View>
-  );
-};
+//   return (
+//     <View
+//       style={[
+//         styles.container,
+//         {
+//           paddingTop: insets.top,
+//           paddingBottom: insets.bottom,
+//           paddingLeft: insets.left,
+//           paddingRight: insets.right,
+//         },
+//       ]}>
+//       <Wizard
+//         fallbackRoute="Achievements"
+//         screens={[View1, View2, View3]}
+//         onFinish={() => {
+//           rootLog.info('Wizard on finish');
+//         }}
+//       />
+//     </View>
+//   );
+// };
 
-const getStyles = (theme: Theme) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-    },
-  });
+// const getStyles = (theme: Theme) =>
+//   StyleSheet.create({
+//     container: {
+//       flex: 1,
+//       backgroundColor: theme.colors.background,
+//     },
+//   });
 
 // TODO: translations and
