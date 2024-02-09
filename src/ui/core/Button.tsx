@@ -14,6 +14,7 @@ type ButtonProps = {
   backgroundColor?: string;
   color?: string;
   onPress?: () => void;
+  disabled?: boolean;
 };
 
 export const Button = ({
@@ -22,6 +23,7 @@ export const Button = ({
   textProps,
   color: titleColor,
   backgroundColor,
+  disabled = false,
   onPress,
 }: ButtonProps) => {
   const { theme } = useTheme();
@@ -30,9 +32,16 @@ export const Button = ({
   const styles = useMemo(() => getStyles(theme), [theme]);
 
   return (
-    <EnhancedPressable style={[styles.button, { backgroundColor: background }]} onPress={onPress}>
+    <EnhancedPressable
+      style={[
+        styles.button,
+        { backgroundColor: background },
+        disabled ? styles.disabledButton : {},
+      ]}
+      onPress={onPress}
+      disabled={disabled}>
       <EnhancedText
-        style={[{ color, textAlign: 'center', textTransform: 'uppercase' }]}
+        style={[styles.text, { color }, disabled ? styles.disabledText : {}]}
         text={text}
         tx={tx}
         preset="button"
@@ -49,5 +58,15 @@ const getStyles = (theme: Theme) =>
       borderRadius: theme.borderRadius.xl,
       width: '100%',
       paddingVertical: 16,
+    },
+    text: {
+      textAlign: 'center',
+      textTransform: 'uppercase',
+    },
+    disabledButton: {
+      backgroundColor: theme.colors.base40,
+    },
+    disabledText: {
+      color: theme.colors.textDis,
     },
   });
