@@ -1,3 +1,4 @@
+import { VoidCb } from './cb';
 import { SelectableOption, Dimensions } from './common';
 import {
   Theme,
@@ -11,6 +12,7 @@ import {
 } from './theme';
 
 export type {
+  VoidCb,
   Theme,
   Shadow,
   Colors,

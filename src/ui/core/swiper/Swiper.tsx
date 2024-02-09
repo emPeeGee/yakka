@@ -14,7 +14,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { Theme } from '@/types';
+import { Theme, VoidCb } from '@/types';
 import { useTheme } from '@/ui/theme';
 import { SwiperItem } from './Item';
 import { SwiperButton } from './SwiperButton';
@@ -29,7 +29,7 @@ export type SwiperItemType = {
 
 type SwiperProps = {
   items: SwiperItemType[];
-  onFinish: () => void;
+  onFinish: VoidCb;
 };
 
 export const Swiper = ({ items, onFinish }: SwiperProps) => {

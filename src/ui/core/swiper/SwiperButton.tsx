@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons';
 import Animated, { SharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 import { isLast } from '@/core/utils';
-import { Theme } from '@/types';
+import { Theme, VoidCb } from '@/types';
 import { useTheme } from '@/ui/theme';
 import { EnhancedText } from '../EnhancedText';
 
@@ -16,7 +16,7 @@ type SwiperButtonProps = {
   flatListRef: RefObject<FlatList>;
   flatListIndex: SharedValue<number>;
   dataLength: number;
-  onFinish: () => void;
+  onFinish: VoidCb;
 };
 
 export function SwiperButton({

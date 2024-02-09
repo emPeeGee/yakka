@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { Theme } from '@/types';
+import { Theme, VoidCb } from '@/types';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText, TextProps } from './EnhancedText';
 import { useTheme } from '../theme';
@@ -13,7 +13,7 @@ type ButtonProps = {
   textProps?: TextProps;
   backgroundColor?: string;
   color?: string;
-  onPress?: () => void;
+  onPress?: VoidCb;
   disabled?: boolean;
 };
 

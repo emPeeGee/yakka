@@ -3,13 +3,14 @@ import { Pressable, PressableProps, StyleProp, ViewStyle } from 'react-native';
 
 import { useHaptics } from '@/core/providers';
 import { isThemeDark } from '@/core/utils';
+import { VoidCb } from '@/types';
 import { useTheme } from '../theme';
 
 type EnhancedPressableProps = {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
   withoutBackground?: boolean;
-  onPress?: () => void;
+  onPress?: VoidCb;
 } & PressableProps;
 
 export function EnhancedPressable({
