@@ -1,16 +1,21 @@
 import { useState, createContext, useContext, useCallback, useRef } from 'react';
 
-import { rootLog } from '@/core/logger';
 import { noop } from '@/core/utils';
+import { VoidCb } from '@/types';
 
 type ContinueCallbackType = (b: boolean) => void | undefined;
 
 type WizardContextType = {
   isContinueEnabled: boolean;
-  setIsContinueEnabled: (enabled: boolean, callback: ContinueCallbackType) => void;
-  onNextScreen: (() => any)[];
-  setOnNextScreen: any;
-  // setOnNextScreen: (cb: any) => void;
+  setIsContinueEnabled: (enabled: boolean, callback?: ContinueCallbackType) => void;
+  /**
+   * An array of callbacks for each screen. Wizard will call each when that screen is reached.
+   */
+  onNextScreen: VoidCb[];
+  /**
+   * Set a callback which will be called when a specific screen is reached
+   */
+  setOnNextScreen: (cb: VoidCb) => void;
 };
 
 const initialValue: WizardContextType = {
@@ -23,23 +28,25 @@ const initialValue: WizardContextType = {
 const WizardContext = createContext<WizardContextType>(initialValue);
 
 type WizardProviderProps = {
+  enableContinueOnFirstScreen?: boolean;
   children?: React.ReactNode;
 };
 
-export const WizardProvider = ({ children }: WizardProviderProps): React.ReactNode => {
-  const [isContinueEnabled, setContinueEnabled] = useState<boolean>(initialValue.isContinueEnabled);
-  // const [onNextScreen, setOnNextScreen] = useState<any>(() => initialValue.onNextScreen);
+export const WizardProvider = ({
+  children,
+  enableContinueOnFirstScreen,
+}: WizardProviderProps): React.ReactNode => {
+  const onNextScreen = useRef<VoidCb[]>([]);
+  const [isContinueEnabled, setContinueEnabled] = useState<boolean>(
+    enableContinueOnFirstScreen || initialValue.isContinueEnabled,
+  );
 
-  const setIsContinueEnabled = useCallback((enabled: boolean, callback: ContinueCallbackType) => {
+  const setIsContinueEnabled = useCallback((enabled: boolean, callback?: ContinueCallbackType) => {
     setContinueEnabled(() => {
-      callback(enabled);
+      callback?.(enabled);
       return enabled;
     });
   }, []);
-
-  const onNextScreen = useRef<any>([noop]);
-
-  rootLog.info(`isContinueEnabled= ${isContinueEnabled}`);
 
   return (
     <WizardContext.Provider
@@ -47,9 +54,8 @@ export const WizardProvider = ({ children }: WizardProviderProps): React.ReactNo
         isContinueEnabled,
         setIsContinueEnabled,
         onNextScreen: onNextScreen.current,
-        setOnNextScreen: (cb: any) => {
+        setOnNextScreen: (cb: VoidCb) => {
           onNextScreen.current.push(cb);
-          // onNextScreen.current = cb;
         },
       }}>
       {children}

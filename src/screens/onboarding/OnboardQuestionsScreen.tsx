@@ -43,22 +43,9 @@ function Question<T>({ options, txTitle }: { options: Choice<T>[]; txTitle: TxKe
   const { setIsContinueEnabled, setOnNextScreen } = useWizard();
 
   useEffect(() => {
-    rootLog.debug('setOnScreen CALLLLL');
     setOnNextScreen(() => {
-      rootLog.error('callled');
-      setIsContinueEnabled(false, noop);
+      setIsContinueEnabled(false);
     });
-
-    // setOnNextScreen(() => {
-    //   return () => {
-    //     rootLog.error('callled');
-    //     setIsContinueEnabled(false, noop);
-    //   };
-    // });
-
-    return () => {
-      rootLog.error('DONE. question X answered with: ', answer);
-    };
   }, []);
 
   return (
@@ -79,7 +66,7 @@ function Question<T>({ options, txTitle }: { options: Choice<T>[]; txTitle: TxKe
           value={answer}
           onChange={(value): void => {
             setAnswer(value);
-            setIsContinueEnabled(!!value, noop);
+            setIsContinueEnabled(!!value);
           }}
         />
       </EnhancedScrollView>
@@ -182,9 +169,7 @@ const OnboardAchieveScreen = () => {
   const { setIsContinueEnabled, setOnNextScreen } = useWizard();
 
   useEffect(() => {
-    rootLog.debug('setOnScreen CALLLLL');
     setOnNextScreen(() => {
-      rootLog.error('TRUUUUUUUUUUUUUUUUUUUUUe');
       setIsContinueEnabled(true, noop);
     });
   }, []);
