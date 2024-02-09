@@ -19,7 +19,6 @@ import { useTheme } from '@/ui/theme';
 import { SwiperItem } from './Item';
 import { SwiperButton } from './SwiperButton';
 import { Pagination } from './SwiperPagination';
-import { EnhancedText } from '../EnhancedText';
 
 export type SwiperItemType = {
   id: number;
@@ -81,9 +80,6 @@ export const Swiper = ({ items, onFinish }: SwiperProps) => {
           onFinish={onFinish}
         />
       </View>
-      <View style={styles.logInContainer}>
-        <EnhancedText> Already a yakka user? Log in</EnhancedText>
-      </View>
     </View>
   );
 };
@@ -101,10 +97,5 @@ const getStyles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       margin: 20,
-    },
-    logInContainer: {
-      margin: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
     },
   });
