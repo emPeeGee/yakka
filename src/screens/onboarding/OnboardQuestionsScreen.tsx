@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Platform, ScrollView, ScrollViewProps, View, Image } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
 import { TxKeyPath } from '@/core/i18n';
 import { rootLog } from '@/core/logger';
+import { noop } from '@/core/utils';
 import { Theme } from '@/types';
 import {
   EnhancedText,
@@ -15,6 +16,7 @@ import {
   Separator,
   Choice,
   ContainerWithInsets,
+  useWizard,
 } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
@@ -38,6 +40,26 @@ const EnhancedScrollView = ({ children, ...props }: EnhancedScrollViewProps) => 
 function Question<T>({ options, txTitle }: { options: Choice<T>[]; txTitle: TxKeyPath }) {
   const [answer, setAnswer] = useState<T | null>(null);
   const { theme } = useTheme();
+  const { setIsContinueEnabled, setOnNextScreen } = useWizard();
+
+  useEffect(() => {
+    rootLog.debug('setOnScreen CALLLLL');
+    setOnNextScreen(() => {
+      rootLog.error('callled');
+      setIsContinueEnabled(false, noop);
+    });
+
+    // setOnNextScreen(() => {
+    //   return () => {
+    //     rootLog.error('callled');
+    //     setIsContinueEnabled(false, noop);
+    //   };
+    // });
+
+    return () => {
+      rootLog.error('DONE. question X answered with: ', answer);
+    };
+  }, []);
 
   return (
     <View style={[{ width: '100%', flex: 1, flexDirection: 'column' }]}>
@@ -57,6 +79,7 @@ function Question<T>({ options, txTitle }: { options: Choice<T>[]; txTitle: TxKe
           value={answer}
           onChange={(value): void => {
             setAnswer(value);
+            setIsContinueEnabled(!!value, noop);
           }}
         />
       </EnhancedScrollView>
@@ -156,6 +179,15 @@ const OnboardHowMuchEngScreen = () => (
 const OnboardAchieveScreen = () => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
+  const { setIsContinueEnabled, setOnNextScreen } = useWizard();
+
+  useEffect(() => {
+    rootLog.debug('setOnScreen CALLLLL');
+    setOnNextScreen(() => {
+      rootLog.error('TRUUUUUUUUUUUUUUUUUUUUUe');
+      setIsContinueEnabled(true, noop);
+    });
+  }, []);
 
   return (
     <View style={[{ width: '100%', flex: 1, flexDirection: 'column' }]}>

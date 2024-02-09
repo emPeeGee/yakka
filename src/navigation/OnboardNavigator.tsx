@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 export const OnboardNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="OnboardIntro">
+    <Stack.Navigator initialRouteName="OnboardQuestions">
       <Stack.Group
         screenOptions={{
           headerShown: true,

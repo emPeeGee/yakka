@@ -20,9 +20,11 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { TxKeyPath } from '@/core/i18n';
+import { rootLog } from '@/core/logger';
 import { isLast, isZero } from '@/core/utils';
 import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { WizardProvider, useWizard } from './WizardProvider';
 import { BackButton } from '../BackButton';
 import { Button } from '../Button';
 
@@ -36,7 +38,8 @@ type WizardProps = {
   txLastScreenButtonLabel?: TxKeyPath;
 };
 
-export const Wizard = ({
+// TODO: name
+const Wizardd = ({
   screens,
   fallbackRoute,
   screensContainerStyle,
@@ -47,6 +50,8 @@ export const Wizard = ({
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const { theme } = useTheme();
   const { navigate } = useNavigation();
+  const { isContinueEnabled, onNextScreen } = useWizard();
+  rootLog.debug('wizard', isContinueEnabled);
 
   const styles = useMemo(() => getStyles(theme), [theme]);
   const gStyles = useGlobalThemedStyles();
@@ -99,7 +104,8 @@ export const Wizard = ({
     flatListIndex.value = next;
     progressBarIndex.value = withTiming(next);
     flatListRef.current?.scrollToIndex({ index: next });
-  }, []);
+    onNextScreen[current]();
+  }, [onNextScreen]);
 
   // Custom back button behavior
   useFocusEffect(
@@ -189,6 +195,7 @@ export const Wizard = ({
           }
           onPress={onNextPress}
           backgroundColor={theme.colors.secondary300}
+          disabled={!isContinueEnabled}
         />
       </View>
     </View>
@@ -215,3 +222,9 @@ const getStyles = (theme: Theme) =>
       paddingHorizontal: theme.spacing.sm,
     },
   });
+
+export const Wizard = (props: WizardProps) => (
+  <WizardProvider>
+    <Wizardd {...props} />
+  </WizardProvider>
+);

@@ -15,6 +15,7 @@ import { TextField } from './TextField';
 import { Tile } from './Tile';
 import { Toggle } from './Toggle';
 import { Wizard } from './wizard/Wizard';
+import { useWizard } from './wizard/WizardProvider';
 
 export {
   Button,
@@ -29,6 +30,7 @@ export {
   HeaderPlaceholder,
   Tile,
   Wizard,
+  useWizard,
   TextField,
   Toggle,
   ChoiceGroup,
