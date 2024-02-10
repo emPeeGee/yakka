@@ -11,7 +11,7 @@ type HeroWithChatProps = {
   text?: TextProps['text'];
   tx?: TextProps['tx'];
   txOptions?: TextProps['txOptions'];
-  chatPosition?: 'right' | 'top';
+  chatPosition?: 'no-chat' | 'right' | 'top';
   hero?: HeroStyle;
   withConfetti?: boolean;
 };
@@ -29,7 +29,7 @@ export const HeroWithChat = ({
   text,
   txOptions,
   hero = 'default',
-  chatPosition = 'right',
+  chatPosition = 'no-chat',
   withConfetti = false,
 }: HeroWithChatProps) => {
   const { theme } = useTheme();
@@ -66,67 +66,71 @@ export const HeroWithChat = ({
             }}
           />
         </View>
-        <View
-          onLayout={e => {
-            setCurrentIndicatorLayout({
-              height: e.nativeEvent.layout.height,
-              width: e.nativeEvent.layout.width,
-            });
-          }}
-          style={styles.chatShape}>
+        {chatPosition === 'no-chat' && (
           <View
-            style={[
-              styles.triangle,
-              isChatRight ? styles.rightOuterShape : styles.topOuterShape,
-              {
-                ...(isChatRight
-                  ? {
-                      top: currentIndicatorLayout
-                        ? currentIndicatorLayout?.height / 2 - OUTER_TRIANGLE.width / 2
-                        : 0,
-                    }
-                  : {}),
-              },
-              {
-                ...(!isChatRight
-                  ? {
-                      left: currentIndicatorLayout ? currentIndicatorLayout?.width / 2 - 24 / 2 : 0,
-                    }
-                  : {}),
-              },
-            ]}
-          />
-          <View
-            style={[
-              styles.triangle,
-              isChatRight ? styles.rightInnerShape : styles.topInnerShape,
-              {
-                ...(isChatRight
-                  ? {
-                      top: currentIndicatorLayout
-                        ? currentIndicatorLayout?.height / 2 - INNER_TRIANGLE.width / 2
-                        : 0,
-                    }
-                  : {}),
-                ...(!isChatRight
-                  ? {
-                      left: currentIndicatorLayout
-                        ? currentIndicatorLayout?.width / 2 - INNER_TRIANGLE.width / 2
-                        : 0,
-                    }
-                  : {}),
-              },
-            ]}
-          />
-          <EnhancedText
-            text={text}
-            tx={tx}
-            txOptions={txOptions}
-            size="sm"
-            weight="medium"
-            style={{ textAlign: 'center' }}
-          />
-        </View>
+            onLayout={e => {
+              setCurrentIndicatorLayout({
+                height: e.nativeEvent.layout.height,
+                width: e.nativeEvent.layout.width,
+              });
+            }}
+            style={styles.chatShape}>
+            <View
+              style={[
+                styles.triangle,
+                isChatRight ? styles.rightOuterShape : styles.topOuterShape,
+                {
+                  ...(isChatRight
+                    ? {
+                        top: currentIndicatorLayout
+                          ? currentIndicatorLayout?.height / 2 - OUTER_TRIANGLE.width / 2
+                          : 0,
+                      }
+                    : {}),
+                },
+                {
+                  ...(!isChatRight
+                    ? {
+                        left: currentIndicatorLayout
+                          ? currentIndicatorLayout?.width / 2 - 24 / 2
+                          : 0,
+                      }
+                    : {}),
+                },
+              ]}
+            />
+            <View
+              style={[
+                styles.triangle,
+                isChatRight ? styles.rightInnerShape : styles.topInnerShape,
+                {
+                  ...(isChatRight
+                    ? {
+                        top: currentIndicatorLayout
+                          ? currentIndicatorLayout?.height / 2 - INNER_TRIANGLE.width / 2
+                          : 0,
+                      }
+                    : {}),
+                  ...(!isChatRight
+                    ? {
+                        left: currentIndicatorLayout
+                          ? currentIndicatorLayout?.width / 2 - INNER_TRIANGLE.width / 2
+                          : 0,
+                      }
+                    : {}),
+                },
+              ]}
+            />
+            <EnhancedText
+              text={text}
+              tx={tx}
+              txOptions={txOptions}
+              size="sm"
+              weight="medium"
+              style={{ textAlign: 'center' }}
+            />
+          </View>
+        )}
       </View>
     </View>
   );

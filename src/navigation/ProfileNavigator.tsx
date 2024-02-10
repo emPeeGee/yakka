@@ -16,6 +16,7 @@ const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
 export const ProfileNavigator = () => {
   const { theme } = useTheme();
+
   return (
     <Stack.Navigator>
       <Stack.Group

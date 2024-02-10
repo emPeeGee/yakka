@@ -63,7 +63,7 @@ function Question<T>({ options, txTitle, id, index }: QuestionProps<T>) {
           width: '100%',
           paddingHorizontal: theme.spacing.xs,
         }}>
-        <HeroWithChat tx={txTitle} />
+        <HeroWithChat tx={txTitle} chatPosition="right" />
       </View>
 
       <Separator height={theme.borders.medium} />
@@ -189,7 +189,7 @@ const OnboardAchieveScreen = () => {
           width: '100%',
           paddingHorizontal: theme.spacing.xs,
         }}>
-        <HeroWithChat tx="onboard.engYouKnow" />
+        <HeroWithChat tx="onboard.engYouKnow" chatPosition="right" />
       </View>
 
       <Separator height={theme.borders.medium} />

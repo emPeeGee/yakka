@@ -26,7 +26,7 @@ const Vocabulary = () => {
         Login with Facebook
       </FontAwesome.Button>
 
-      <HeroWithChat tx="onboard.lang" />
+      <HeroWithChat tx="onboard.lang" chatPosition="top" />
 
       <Toggle
         labelTx="common.logOut"
