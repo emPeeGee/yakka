@@ -36,7 +36,10 @@ export function RootNavigator() {
         {/* <Stack.Screen name="Onboarding" component={LanguageInterrogationScreen} /> */}
         {/* eslint-disable-next-line no-constant-condition */}
         {true || isFirstLaunch ? (
-          <Stack.Screen name="Onboard" component={OnboardNavigator} />
+          <>
+            <Stack.Screen name="Onboard" component={OnboardNavigator} />
+            <Stack.Screen name="App" component={TabNavigator} />
+          </>
         ) : (
           <Stack.Group>
             {userStatus === 'signOut' ? (

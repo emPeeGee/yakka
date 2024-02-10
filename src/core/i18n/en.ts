@@ -3,7 +3,7 @@ export const en = {
     ok: 'OK!',
     cancel: 'Cancel',
     back: 'Back',
-    logOut: 'Log Out', // @demo remove-current-line
+    logOut: 'Log Out',
     finish: 'Finish',
     continue: 'Continue',
     english: 'English',
@@ -64,6 +64,14 @@ export const en = {
     greeting1: "Hi there. I'm Yakka!",
     createProfileDesc: 'Create a profile now so you can save progress or you can skip it.',
     createProfile: 'Create profile',
+  },
+  auth: {
+    signUp: 'Sign up',
+    contWithoutProf: 'Continue without profile',
+    resetPassword: 'Reset password',
+    login: 'Log in',
+    email: 'Email',
+    password: 'Password',
   },
 };
 

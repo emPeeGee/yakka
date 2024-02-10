@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import { onboardLog } from '@/core/logger';
+import { useFirstLaunch } from '@/core/providers';
 import { SwiperDataItem, Swiper, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -30,14 +31,12 @@ export const onboardingItems: SwiperDataItem[] = [
 export const OnboardIntroScreen = () => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
-  // const { setIsFirstLaunch } = useFirstLaunch();
+  const { setIsFirstLaunch } = useFirstLaunch();
 
   const onFinish = () => {
-    // TODO: how to make it
-    // setIsFirstLaunch(false);
-
-    navigate('OnboardGetStarted' as never);
     onboardLog.info('Onboarding finished');
+    setIsFirstLaunch(false);
+    navigate('OnboardGetStarted' as never);
   };
 
   return (
