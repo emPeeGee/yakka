@@ -1,0 +1,1 @@
+export const ONBOARD_DATA_KEY = 'ONBOARD_DATA_KEY';

@@ -21,9 +21,9 @@ import Animated, {
 
 import { TxKeyPath } from '@/core/i18n';
 import { isLast, isZero } from '@/core/utils';
-import { Theme, VoidCb } from '@/types';
+import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-import { WizardProvider, useWizard } from './WizardProvider';
+import { WizardData, WizardProvider, useWizard } from './WizardProvider';
 import { BackButton } from '../BackButton';
 import { Button } from '../Button';
 
@@ -32,7 +32,7 @@ type WizardProps = {
   fallbackRoute: string;
   screens: (() => React.JSX.Element)[];
   screensContainerStyle?: StyleProp<ViewStyle>;
-  onFinish: VoidCb;
+  onFinish: (data: WizardData) => void;
   txButtonLabel?: TxKeyPath;
   txLastScreenButtonLabel?: TxKeyPath;
 };
@@ -49,7 +49,7 @@ const Wizardd = ({
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const { theme } = useTheme();
   const { navigate } = useNavigation();
-  const { isContinueEnabled, onNextScreen } = useWizard();
+  const { data, isContinueEnabled, onNextScreen } = useWizard();
 
   const styles = useMemo(() => getStyles(theme), [theme]);
   const gStyles = useGlobalThemedStyles();
@@ -95,7 +95,7 @@ const Wizardd = ({
     }
 
     if (isLast(screens.length, current)) {
-      onFinish();
+      onFinish(data);
       return false;
     }
 
@@ -103,7 +103,7 @@ const Wizardd = ({
     progressBarIndex.value = withTiming(next);
     flatListRef.current?.scrollToIndex({ index: next });
     onNextScreen[next]?.();
-  }, []);
+  }, [data]);
 
   // Custom back button behavior
   useFocusEffect(

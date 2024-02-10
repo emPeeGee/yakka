@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Platform, ScrollView, ScrollViewProps, View, Image } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { ONBOARD_DATA_KEY } from '@/core/constants';
 import { TxKeyPath } from '@/core/i18n';
 import { rootLog } from '@/core/logger';
+import { setItem } from '@/core/storage';
 import { noop } from '@/core/utils';
 import { Theme } from '@/types';
 import {
@@ -37,15 +39,21 @@ const EnhancedScrollView = ({ children, ...props }: EnhancedScrollViewProps) => 
   );
 };
 
-function Question<T>({ options, txTitle }: { options: Choice<T>[]; txTitle: TxKeyPath }) {
-  const [answer, setAnswer] = useState<T | null>(null);
+type QuestionProps<T> = { options: Choice<T>[]; txTitle: TxKeyPath; id: string; index: number };
+
+function Question<T>({ options, txTitle, id, index }: QuestionProps<T>) {
   const { theme } = useTheme();
-  const { setIsContinueEnabled, setOnNextScreen } = useWizard();
+  const { data, setData, setIsContinueEnabled, setOnNextScreen } = useWizard();
 
   useEffect(() => {
-    setOnNextScreen(() => {
-      setIsContinueEnabled(false);
+    setOnNextScreen(index, () => {
+      setIsContinueEnabled(!!data[id]);
     });
+  }, [data[id]]);
+
+  const onChangeHandler = useCallback((value: T | null): void => {
+    setData(id, value);
+    setIsContinueEnabled(!!value);
   }, []);
 
   return (
@@ -61,21 +69,36 @@ function Question<T>({ options, txTitle }: { options: Choice<T>[]; txTitle: TxKe
       <Separator height={theme.borders.medium} />
 
       <EnhancedScrollView>
-        <ChoiceGroup
-          options={options}
-          value={answer}
-          onChange={(value): void => {
-            setAnswer(value);
-            setIsContinueEnabled(!!value);
-          }}
-        />
+        <ChoiceGroup options={options} value={data[id]} onChange={onChangeHandler} />
       </EnhancedScrollView>
     </View>
   );
 }
 
+const OnboardLangScreen = () => (
+  <Question
+    index={0}
+    id="lang"
+    txTitle="onboard.lang"
+    options={[
+      {
+        tx: 'common.english',
+        value: 'en',
+        Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
+      },
+      {
+        tx: 'common.romanian',
+        value: 'ro',
+        Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
+      },
+    ]}
+  />
+);
+
 const OnboardKnowAboutScreen = () => (
   <Question
+    index={1}
+    id="howYouKnowAboutUs"
     txTitle="onboard.knowAbout"
     options={[
       {
@@ -117,26 +140,10 @@ const OnboardKnowAboutScreen = () => (
   />
 );
 
-const OnboardLangScreen = () => (
-  <Question
-    txTitle="onboard.lang"
-    options={[
-      {
-        tx: 'common.english',
-        value: 'en',
-        Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
-      },
-      {
-        tx: 'common.romanian',
-        value: 'ro',
-        Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
-      },
-    ]}
-  />
-);
-
 const OnboardHowMuchEngScreen = () => (
   <Question
+    index={2}
+    id="engKnowledge"
     txTitle="onboard.engYouKnow"
     options={[
       {
@@ -167,9 +174,10 @@ const OnboardAchieveScreen = () => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const { setIsContinueEnabled, setOnNextScreen } = useWizard();
+  const INDEX = 4;
 
   useEffect(() => {
-    setOnNextScreen(() => {
+    setOnNextScreen(INDEX, () => {
       setIsContinueEnabled(true, noop);
     });
   }, []);
@@ -250,6 +258,8 @@ const OnboardAchieveScreen = () => {
 
 const OnboardReasonScreen = () => (
   <Question
+    index={3}
+    id="reasonToLearn"
     txTitle="onboard.why"
     options={[
       {
@@ -283,6 +293,8 @@ const OnboardReasonScreen = () => (
 
 const OnboardTimeScreen = (theme: Theme) => (
   <Question
+    index={5}
+    id="timeYouWantToSpend"
     txTitle="onboard.time"
     options={[
       {
@@ -342,9 +354,10 @@ export const OnboardQuestionsScreen = () => {
           OnboardAchieveScreen,
           () => OnboardTimeScreen(theme),
         ]}
-        onFinish={() => {
+        onFinish={wizardData => {
           navigate('OnboardQuestionsDone' as never);
-          rootLog.info('OnboardingQuestions onFinish pressed');
+          rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(wizardData)}`);
+          setItem(ONBOARD_DATA_KEY, wizardData);
         }}
       />
     </ContainerWithInsets>

@@ -5,7 +5,13 @@ import { VoidCb } from '@/types';
 
 type ContinueCallbackType = (b: boolean) => void | undefined;
 
+export interface WizardData {
+  [key: string]: any;
+}
+
 type WizardContextType = {
+  data: WizardData;
+  setData: (key: string, value: any) => void;
   isContinueEnabled: boolean;
   setIsContinueEnabled: (enabled: boolean, callback?: ContinueCallbackType) => void;
   /**
@@ -15,10 +21,12 @@ type WizardContextType = {
   /**
    * Set a callback which will be called when a specific screen is reached
    */
-  setOnNextScreen: (cb: VoidCb) => void;
+  setOnNextScreen: (index: number, cb: VoidCb) => void;
 };
 
 const initialValue: WizardContextType = {
+  data: {},
+  setData: noop,
   isContinueEnabled: false,
   setIsContinueEnabled: noop,
   onNextScreen: [],
@@ -37,6 +45,7 @@ export const WizardProvider = ({
   enableContinueOnFirstScreen,
 }: WizardProviderProps): React.ReactNode => {
   const onNextScreen = useRef<VoidCb[]>([]);
+  const [data, setData] = useState<WizardData>({});
   const [isContinueEnabled, setContinueEnabled] = useState<boolean>(
     enableContinueOnFirstScreen || initialValue.isContinueEnabled,
   );
@@ -51,11 +60,18 @@ export const WizardProvider = ({
   return (
     <WizardContext.Provider
       value={{
+        data,
+        setData: (key: string, value: any) => {
+          setData(prevData => ({
+            ...prevData,
+            [key]: value,
+          }));
+        },
         isContinueEnabled,
         setIsContinueEnabled,
         onNextScreen: onNextScreen.current,
-        setOnNextScreen: (cb: VoidCb) => {
-          onNextScreen.current.push(cb);
+        setOnNextScreen: (index: number, cb: VoidCb) => {
+          onNextScreen.current[index] = cb;
         },
       }}>
       {children}
