@@ -1,5 +1,6 @@
 import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from 'react';
 import {
+  DimensionValue,
   StyleProp,
   StyleSheet,
   TextInput,
@@ -98,6 +99,7 @@ export interface TextFieldProps extends Omit<TextInputProps, 'ref'> {
    * Note: It is a good idea to memoize this.
    */
   LeftAccessory?: ComponentType<TextFieldAccessoryProps>;
+  width?: DimensionValue;
 }
 
 /**
@@ -122,11 +124,12 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     style: inputStyleOverride,
     containerStyle: containerStyleOverride,
     inputWrapperStyle: inputWrapperStyleOverride,
+    width,
     ...textInputProps
   } = props;
 
   const { theme } = useTheme();
-  const styles = getStyles(theme);
+  const styles = getStyles(theme, { width });
   const input = useRef<TextInput>(null);
 
   const disabled = textInputProps.editable === false || status === 'disabled';
@@ -232,7 +235,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   );
 });
 
-const getStyles = (theme: Theme) =>
+const getStyles = (theme: Theme, { width }: { width: DimensionValue }) =>
   StyleSheet.create({
     label: {
       marginBottom: theme.spacing.xs,
@@ -245,10 +248,10 @@ const getStyles = (theme: Theme) =>
       borderColor: theme.colors.border,
       paddingVertical: theme.spacing.xs,
       overflow: 'hidden',
+      width: width || '100%',
     },
     input: {
       flex: 1,
-      width: 'auto',
       alignSelf: 'stretch',
       color: theme.colors.textPri,
       fontSize: 16,

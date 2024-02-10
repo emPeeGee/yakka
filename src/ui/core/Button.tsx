@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { StyleSheet } from 'react-native';
+import { DimensionValue, StyleSheet } from 'react-native';
 
 import { Theme, VoidCb } from '@/types';
 import { EnhancedPressable } from './EnhancedPressable';
@@ -13,6 +13,7 @@ type ButtonProps = {
   textProps?: TextProps;
   backgroundColor?: string;
   color?: string;
+  width?: DimensionValue;
   onPress?: VoidCb;
   disabled?: boolean;
 };
@@ -20,6 +21,7 @@ type ButtonProps = {
 export const Button = ({
   tx,
   text,
+  width = '100%',
   textProps,
   color: titleColor,
   backgroundColor,
@@ -35,7 +37,7 @@ export const Button = ({
     <EnhancedPressable
       style={[
         styles.button,
-        { backgroundColor: background },
+        { backgroundColor: background, width },
         disabled ? styles.disabledButton : {},
       ]}
       onPress={onPress}
