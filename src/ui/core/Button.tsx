@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { ComponentType, useMemo } from 'react';
 import { DimensionValue, StyleSheet } from 'react-native';
 
 import { Theme, VoidCb } from '@/types';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText, TextProps } from './EnhancedText';
-import { useTheme } from '../theme';
+import { useGlobalThemedStyles, useTheme } from '../theme';
 
 type ButtonProps = {
   text?: TextProps['text'];
@@ -16,6 +16,8 @@ type ButtonProps = {
   width?: DimensionValue;
   onPress?: VoidCb;
   disabled?: boolean;
+  Right?: ComponentType<any>;
+  Left?: ComponentType<any>;
 };
 
 export const Button = ({
@@ -27,8 +29,11 @@ export const Button = ({
   backgroundColor,
   disabled = false,
   onPress,
+  Right,
+  Left,
 }: ButtonProps) => {
   const { theme } = useTheme();
+  const gStyles = useGlobalThemedStyles();
   const background = backgroundColor || theme.colors.primary;
   const color = titleColor || theme.colors.textPri;
   const styles = useMemo(() => getStyles(theme), [theme]);
@@ -36,12 +41,14 @@ export const Button = ({
   return (
     <EnhancedPressable
       style={[
+        gStyles.centerRow,
         styles.button,
-        { backgroundColor: background, width },
+        { backgroundColor: background, width, gap: theme.spacing.xs },
         disabled ? styles.disabledButton : {},
       ]}
       onPress={onPress}
       disabled={disabled}>
+      {Left && <Left />}
       <EnhancedText
         style={[styles.text, { color }, disabled ? styles.disabledText : {}]}
         text={text}
@@ -49,6 +56,8 @@ export const Button = ({
         preset="button"
         {...textProps}
       />
+
+      {Right && <Right />}
     </EnhancedPressable>
   );
 };

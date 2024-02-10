@@ -235,7 +235,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   );
 });
 
-const getStyles = (theme: Theme, { width }: { width: DimensionValue }) =>
+const getStyles = (theme: Theme, { width }: { width: DimensionValue | undefined }) =>
   StyleSheet.create({
     label: {
       marginBottom: theme.spacing.xs,
