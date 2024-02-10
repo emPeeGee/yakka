@@ -51,6 +51,10 @@ export const OnboardGetStartedScreen = () => {
             tx="onboard.haveAnAccount"
             backgroundColor={theme.colors.primary100}
             color={theme.colors.primary900}
+            onPress={() => {
+              navigate('Auth' as never, { screen: 'AuthLogin' });
+              rootLog.warn('Here is a delay on button press');
+            }}
           />
         </View>
       </View>

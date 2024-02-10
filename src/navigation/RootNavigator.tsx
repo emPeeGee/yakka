@@ -1,9 +1,16 @@
+import { useState, useEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { ONBOARD_DATA_KEY } from '@/core/constants';
+import { rootLog } from '@/core/logger';
 import { useFirstLaunch } from '@/core/providers';
+import { getItem } from '@/core/storage';
 import { isThemeDark } from '@/core/utils';
 import { useTheme } from '@/ui/theme';
+import { AuthNavigator } from './AuthNavigator';
 import { OnboardNavigator } from './OnboardNavigator';
 import { TabNavigator } from './TabNavigator';
 
@@ -13,6 +20,33 @@ const userStatus: 'signOut' | 'onboarding' | 'signIn' = 'signOut';
 export function RootNavigator() {
   const { isFirstLaunch } = useFirstLaunch();
   const { theme, appColorScheme } = useTheme();
+  const [initialRoute, setInitialRoute] = useState<string | undefined>(undefined);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getItem(ONBOARD_DATA_KEY).then(onboardData => {
+      if (isFirstLaunch || !onboardData) {
+        setInitialRoute('Onboard');
+      } else {
+        setInitialRoute('Auth');
+      }
+      // TODO: remove timeout
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    });
+  });
+
+  if (isLoading && initialRoute) {
+    return (
+      // <ContainerWithInsets>
+      <ActivityIndicator size="large"></ActivityIndicator>
+      // </ContainerWithInsets>
+    );
+  }
+
+  rootLog.info(initialRoute);
 
   return (
     <NavigationContainer
@@ -28,16 +62,17 @@ export function RootNavigator() {
         },
       }}>
       <Stack.Navigator
+        initialRouteName={initialRoute}
         screenOptions={{
           headerShown: false,
           gestureEnabled: false,
           animation: 'none',
         }}>
-        {/* <Stack.Screen name="Onboarding" component={LanguageInterrogationScreen} /> */}
         {/* eslint-disable-next-line no-constant-condition */}
         {true || isFirstLaunch ? (
           <>
             <Stack.Screen name="Onboard" component={OnboardNavigator} />
+            <Stack.Screen name="Auth" component={AuthNavigator} />
             <Stack.Screen name="App" component={TabNavigator} />
           </>
         ) : (
