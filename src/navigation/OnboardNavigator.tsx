@@ -15,8 +15,7 @@ export const OnboardNavigator = () => {
   const { isFirstLaunch } = useFirstLaunch();
 
   return (
-    <Stack.Navigator
-      initialRouteName={isFirstLaunch ? 'OnboardIntro' : ('OnboardGetStarted' as string)}>
+    <Stack.Navigator initialRouteName={isFirstLaunch ? 'OnboardIntro' : 'OnboardGetStarted'}>
       <Stack.Group
         screenOptions={{
           headerShown: true,

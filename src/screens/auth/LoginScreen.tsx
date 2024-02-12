@@ -4,7 +4,6 @@ import { View } from 'react-native';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { rootLog } from '@/core/logger';
 import {
   Button,
   ContainerWithInsets,
@@ -80,7 +79,6 @@ export const LoginScreen = () => {
               color={theme.colors.base0}
               onPress={() => {
                 navigate('' as never);
-                rootLog.warn('Here is a delay on button press');
               }}
             />
           </View>
