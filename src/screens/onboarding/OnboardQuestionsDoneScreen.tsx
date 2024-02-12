@@ -49,6 +49,7 @@ export const OnboardQuestionsDoneScreen = () => {
             tx="common.skip"
             backgroundColor={theme.colors.primary100}
             color={theme.colors.primary900}
+            onPress={() => navigate('AuthLogin' as never)}
           />
         </View>
       </View>
