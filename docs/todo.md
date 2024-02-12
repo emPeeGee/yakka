@@ -37,6 +37,7 @@
 [ ] Animated the start of the current tile.
 [ ] Better docs
 [ ] Russian language support
+[ ] RN navigation. Get rid of `never`
 
 ## Low:
 
