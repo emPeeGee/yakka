@@ -45,14 +45,14 @@ export const SettingsScreen = () => {
       <EnhancedText>Is first time {isFirstTime ? 'yes' : 'no'}</EnhancedText>
 
       <Button
-        title="Clear the storage"
+        tx="temp.clear1"
         onPress={() => {
           removeItem('IS_FIRST_TIME');
         }}
       />
       {/* POC: Speech */}
       <Button
-        title="Sound"
+        tx="temp.sound"
         onPress={() => {
           Speech.speak('Red apple', {
             language: 'en',
