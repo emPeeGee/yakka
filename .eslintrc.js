@@ -82,24 +82,35 @@ module.exports = {
         'plugin:prettier/recommended',
       ],
       rules: {
-        'react/jsx-props-no-spreading': 'off',
-        'react/require-default-props': 'off',
+        'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+
         'prefer-const': 'warn',
-
+        'no-console': 'warn',
         'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': 'error',
 
-        'react/prop-types': 'off',
-        'react/react-in-jsx-scope': 'off',
+        '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/explicit-function-return-type': ['off'],
         '@typescript-eslint/explicit-module-boundary-types': ['off'],
-
         '@typescript-eslint/no-empty-function': ['warn'],
         '@typescript-eslint/no-explicit-any': ['warn'],
-        'no-console': 'warn',
+        '@typescript-eslint/no-use-before-define': [0, 'always'],
 
-        'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+        'react/jsx-props-no-spreading': 'off',
+        'react/require-default-props': 'off',
+        'react/prop-types': 'off',
+        'react/no-array-index-key': 'error',
+        'react/react-in-jsx-scope': 'off',
+        'react/jsx-key': ['error'],
+        'react/no-unescaped-entities': 'error',
+        'react/self-closing-comp': ['error', { component: true, html: true }],
+        'react/jsx-curly-brace-presence': [
+          'error',
+          { props: 'never', children: 'never', propElementValues: 'always' },
+        ],
       },
     },
   ],
 };
+// Add:
+// https://github.com/intellicode/eslint-plugin-react-native
+// react hooks

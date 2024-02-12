@@ -26,6 +26,7 @@ export function RootNavigator() {
 
   useEffect(() => {
     getItem(ONBOARD_DATA_KEY).then(onboardData => {
+      // setInitialRoute('Onboard');
       if (isFirstLaunch || !onboardData) {
         setInitialRoute('Onboard');
       } else {
@@ -41,10 +42,13 @@ export function RootNavigator() {
   if (isLoading && initialRoute) {
     return (
       // <ContainerWithInsets>
-      <ActivityIndicator size="large"></ActivityIndicator>
+      <ActivityIndicator size="large" />
       // </ContainerWithInsets>
     );
   }
+
+  // no {''} -> ""
+  // Always
 
   rootLog.info(initialRoute);
 
@@ -71,7 +75,7 @@ export function RootNavigator() {
         {/* eslint-disable-next-line no-constant-condition */}
         {true || isFirstLaunch ? (
           <>
-            <Stack.Screen name="Onboard" component={OnboardNavigator} />
+            <Stack.Screen name="Onboard" key="123" component={OnboardNavigator} />
             <Stack.Screen name="Auth" component={AuthNavigator} />
             <Stack.Screen name="App" component={TabNavigator} />
           </>

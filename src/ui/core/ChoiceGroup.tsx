@@ -75,9 +75,9 @@ export function ChoiceGroup<T>({ tx, options, value, onChange }: ChoiceGroupProp
     <View>
       {tx && <EnhancedText tx={tx} />}
       <View style={{ gap: theme.spacing.md }}>
-        {options.map((option, index) => (
+        {options.map(option => (
           <ChoiceOption
-            key={index}
+            key={option.tx}
             tx={option.tx}
             value={option.value}
             selected={option.value === value}

@@ -282,7 +282,8 @@ function Checkbox(props: ToggleInputProps) {
           { backgroundColor: onBackgroundColor },
           innerStyleOverride,
           useAnimatedStyle(() => ({ opacity: withTiming(on ? 1 : 0) }), [on]),
-        ]}></Animated.View>
+        ]}
+      />
     </View>
   );
 }

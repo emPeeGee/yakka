@@ -5,6 +5,7 @@ import { EnhancedText } from './EnhancedText';
 import { useTheme } from '../theme';
 
 type RadioButtonProps<T> = {
+  // TODO: replace label with tx
   label: string;
   selected: boolean;
   value: T;
@@ -57,9 +58,9 @@ export function RadioGroup<T>({ label, options, value, onChange }: RadioGroupPro
   return (
     <View>
       <EnhancedText>{label}</EnhancedText>
-      {options.map((option, index) => (
+      {options.map(option => (
         <RadioButton
-          key={index}
+          key={option.label}
           label={option.label}
           value={option.value}
           selected={option.value === value}
