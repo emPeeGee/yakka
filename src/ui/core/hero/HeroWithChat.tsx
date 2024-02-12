@@ -66,7 +66,7 @@ export const HeroWithChat = ({
             }}
           />
         </View>
-        {chatPosition === 'no-chat' && (
+        {chatPosition !== 'no-chat' && (
           <View
             onLayout={e => {
               setCurrentIndicatorLayout({

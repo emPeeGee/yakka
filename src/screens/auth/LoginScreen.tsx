@@ -38,8 +38,8 @@ export const LoginScreen = () => {
       <View style={{ flex: 1, paddingHorizontal: theme.spacing.md }}>
         <View style={[gStyles.fullWidthFromStart]}>
           <View style={{ width: 1, height: 20 }} />
-          {/* // TODO: the background confetti is cutted */}
-          <HeroWithChat chatPosition="top" hero="default" withConfetti />
+          {/* // TODO: the background confetti is cut */}
+          <HeroWithChat chatPosition="no-chat" hero="default" withConfetti />
 
           <EnhancedText
             tx="universal.yakka"
@@ -48,7 +48,7 @@ export const LoginScreen = () => {
             style={{ color: theme.colors.primary700, textAlign: 'center' }}
           />
 
-          <View style={[gStyles.centerColumn, { gap: theme.spacing.md }]}>
+          <View style={[gStyles.centerColumn, { gap: theme.spacing.md, width: '100%' }]}>
             <TextField
               value={email}
               onChangeText={setEmail}
