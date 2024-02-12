@@ -124,7 +124,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     style: inputStyleOverride,
     containerStyle: containerStyleOverride,
     inputWrapperStyle: inputWrapperStyleOverride,
-    width,
+    width = '100%',
     ...textInputProps
   } = props;
 
@@ -138,7 +138,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     ? translate(placeholderTx, placeholderTxOptions)
     : placeholder;
 
-  const containerStyles = [containerStyleOverride];
+  const containerStyles = [containerStyleOverride, { width }];
 
   const labelStyles = [styles.label, labelTextProps?.style];
 
@@ -246,9 +246,9 @@ const getStyles = (theme: Theme, { width }: { width: DimensionValue | undefined 
       borderWidth: theme.borders.medium,
       borderRadius: theme.borderRadius.xl,
       borderColor: theme.colors.border,
-      paddingVertical: theme.spacing.xs,
+      paddingVertical: theme.spacing.xxs,
       overflow: 'hidden',
-      width: width || '100%',
+      width,
     },
     input: {
       flex: 1,
