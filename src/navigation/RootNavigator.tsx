@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -45,11 +45,11 @@ export function RootNavigator() {
     });
   });
 
-  if (isLoading && initialRoute) {
+  if (isLoading && !initialRoute) {
     return (
-      // <ContainerWithInsets>
-      <ActivityIndicator size="large" />
-      // </ContainerWithInsets>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
     );
   }
 
