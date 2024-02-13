@@ -12,7 +12,7 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
   ],
-  plugins: ['react', '@typescript-eslint', 'prettier', 'import'],
+  plugins: ['react', 'react-native', '@typescript-eslint', 'prettier', 'import'],
   parserOptions: {
     ecmaVersion: 'latest',
   },
@@ -78,7 +78,7 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
-        // 'plugin:react-hooks/recommended',
+        'plugin:react-hooks/recommended',
         'plugin:prettier/recommended',
       ],
       rules: {
@@ -107,10 +107,10 @@ module.exports = {
           'error',
           { props: 'never', children: 'never', propElementValues: 'always' },
         ],
+
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
       },
     },
   ],
 };
-// Add:
-// https://github.com/intellicode/eslint-plugin-react-native
-// react hooks
