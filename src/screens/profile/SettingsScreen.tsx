@@ -77,3 +77,5 @@ export const SettingsScreen = () => {
   'com.apple.voice.compact.en-AU.Karen',
   'com.apple.voice.compact.en-IN.Rishi',
 ];
+
+// TODO: I think it will make sense to move the settings in another folder screen because it can include sub screens

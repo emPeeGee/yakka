@@ -3,11 +3,13 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useFirstLaunch } from '@/core/providers';
+import {
+  OnboardGetStartedScreen,
+  OnboardIntroScreen,
+  OnboardQuestionsDoneScreen,
+  OnboardQuestionsScreen,
+} from '@/screens';
 import { BackButton } from '@/ui/core';
-import { OnboardGetStartedScreen } from '../screens/onboarding/OnboardGetStartedScreen';
-import { OnboardIntroScreen } from '../screens/onboarding/OnboardIntroScreen';
-import { OnboardQuestionsDoneScreen } from '../screens/onboarding/OnboardQuestionsDoneScreen';
-import { OnboardQuestionsScreen } from '../screens/onboarding/OnboardQuestionsScreen';
 
 const Stack = createNativeStackNavigator();
 

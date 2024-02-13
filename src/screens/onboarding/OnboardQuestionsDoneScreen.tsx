@@ -49,7 +49,9 @@ export const OnboardQuestionsDoneScreen = () => {
             tx="common.skip"
             backgroundColor={theme.colors.primary100}
             color={theme.colors.primary900}
-            onPress={() => navigate('AuthLogin' as never)}
+            // TODO: check on mobile
+            // onPress={() => navigate('AuthLogin' as never)}
+            onPress={() => navigate('Auth' as never, { screen: 'AuthLogin' })}
           />
         </View>
       </View>

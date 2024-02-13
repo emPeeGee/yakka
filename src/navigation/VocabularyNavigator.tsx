@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { VocStartScreen } from '@/screens/vocabulary';
+import { VocStartScreen } from '@/screens';
 import { BackButton } from '@/ui/core';
 
 const Stack = createNativeStackNavigator();
