@@ -53,9 +53,6 @@ export function RootNavigator() {
     );
   }
 
-  // no {''} -> ""
-  // Always
-
   rootLog.info(initialRoute);
 
   return (
@@ -100,67 +97,3 @@ export function RootNavigator() {
     </NavigationContainer>
   );
 }
-
-// const View1 = () => {
-//   return (
-//     <View>
-//       <EnhancedText>1</EnhancedText>
-//     </View>
-//   );
-// };
-
-// const View2 = () => {
-//   return (
-//     <View>
-//       <EnhancedText>2</EnhancedText>
-//     </View>
-//   );
-// };
-
-// const View3 = () => {
-//   return (
-//     <View>
-//       <EnhancedText>3</EnhancedText>
-//     </View>
-//   );
-// };
-
-// export const LanguageInterrogationScreen = () => {
-//   const insets = useSafeAreaInsets();
-//   const { theme } = useTheme();
-//   const styles = useMemo(() => getStyles(theme), [theme]);
-//   // const { setIsFirstLaunch } = useFirstLaunch();
-
-//   // TODO: Log in button in onboarding
-
-//   return (
-//     <View
-//       style={[
-//         styles.container,
-//         {
-//           paddingTop: insets.top,
-//           paddingBottom: insets.bottom,
-//           paddingLeft: insets.left,
-//           paddingRight: insets.right,
-//         },
-//       ]}>
-//       <Wizard
-//         fallbackRoute="Achievements"
-//         screens={[View1, View2, View3]}
-//         onFinish={() => {
-//           rootLog.info('Wizard on finish');
-//         }}
-//       />
-//     </View>
-//   );
-// };
-
-// const getStyles = (theme: Theme) =>
-//   StyleSheet.create({
-//     container: {
-//       flex: 1,
-//       backgroundColor: theme.colors.background,
-//     },
-//   });
-
-// TODO: translations and
