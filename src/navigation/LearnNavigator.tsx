@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { LearnScreen } from '@/screens';
+import { LearnScreen, LessonScreen } from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -28,6 +28,14 @@ export const LearnNavigator = () => {
         <Stack.Screen
           name="LearnScreen"
           component={LearnScreen}
+          options={{
+            headerShown: false,
+            contentStyle: { paddingHorizontal: null },
+          }}
+        />
+        <Stack.Screen
+          name="LessonScreen"
+          component={LessonScreen}
           options={{
             headerShown: false,
             contentStyle: { paddingHorizontal: null },

@@ -21,9 +21,10 @@ type TileProps = {
   withHero?: boolean;
   heroPos?: 'left' | 'right';
   current?: boolean;
+  onPress?: () => void;
 };
 
-export function Tile({ completed, type, withHero, heroPos, current = false }: TileProps) {
+export function Tile({ completed, type, withHero, heroPos, current = false, onPress }: TileProps) {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const styles = getStyles(theme);
@@ -73,7 +74,7 @@ export function Tile({ completed, type, withHero, heroPos, current = false }: Ti
 
       <View
         style={{ borderWidth: 6, borderRadius: 100, padding: 6, borderColor: theme.colors.border }}>
-        <EnhancedPressable withoutBackground>
+        <EnhancedPressable withoutBackground onPress={onPress}>
           {/* TODO: type pressed should not be wrote explicitely */}
           {({ pressed }: { pressed: boolean }) => (
             <Svg width="104" height="97" viewBox="0 0 104 97" fill="none">

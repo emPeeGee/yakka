@@ -1,10 +1,13 @@
 import { View, ScrollView } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { HeaderPlaceholder, EnhancedText, Tile, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export const LearnScreen = () => {
   const { theme } = useTheme();
+  const { navigate } = useNavigation();
 
   return (
     <ContainerWithInsets>
@@ -31,7 +34,7 @@ export const LearnScreen = () => {
           }}>
           <Tile type="globe" />
           <Tile type="countdown" withHero heroPos="left" />
-          <Tile type="globe" current />
+          <Tile type="globe" current onPress={() => navigate('LessonScreen' as never)} />
           <Tile completed type="globe" />
           <Tile completed type="countdown" withHero heroPos="right" />
           <Tile completed type="globe" />
