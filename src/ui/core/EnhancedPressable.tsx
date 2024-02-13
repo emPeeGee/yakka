@@ -7,7 +7,7 @@ import { VoidCb } from '@/types';
 import { useTheme } from '../theme';
 
 type EnhancedPressableProps = {
-  children: ReactNode;
+  children: (props: { pressed: boolean }) => ReactNode;
   style?: StyleProp<ViewStyle>;
   withoutBackground?: boolean;
   onPress?: VoidCb;
@@ -41,18 +41,25 @@ export function EnhancedPressable({
     onPress?.();
   };
 
+  // NOTE: Function as Child Component
+  const isFacc = typeof children === 'function';
+
   return (
     <Pressable
       style={({ pressed }) => [
-        {
-          opacity: pressed ? (isDark ? 0.4 : 0.2) : 1,
-          backgroundColor: getBackgroundColor(pressed),
-        },
+        isFacc
+          ? {}
+          : {
+              opacity: pressed ? (isDark ? 0.4 : 0.2) : 1,
+              backgroundColor: getBackgroundColor(pressed),
+            },
         style,
       ]}
       onPress={onPressHandle}
       {...props}>
-      {children}
+      {({ pressed }) => {
+        return isFacc ? children({ pressed }) : children;
+      }}
     </Pressable>
   );
 }

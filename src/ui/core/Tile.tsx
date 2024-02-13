@@ -70,21 +70,40 @@ export function Tile({ completed, type, withHero, heroPos, current = false }: Ti
           <View style={styles.triangle} />
         </View>
       )}
-      <EnhancedPressable withoutBackground>
-        <Svg width="104" height="97" viewBox="0 0 104 97" fill="none">
-          <Ellipse cx="51.7919" cy="52.0112" rx="51.7919" ry="44.9887" fill={shadowEllipseColor} />
-          <Ellipse cx="51.7919" cy="44.9887" rx="51.7919" ry="44.9887" fill={mainEllipseColor} />
 
-          <G
-            transform={`translate(${tileWidth / 2}, ${tileHeight / 2})`}
-            x={innerSvgX}
-            y={innerSvgY}>
-            {type === 'countdown' && <TileCountdownIcon />}
-            {type === 'globe' && <TileGlobeIcon />}
-            {type === 'start' && <TileStarIcon />}
-          </G>
-        </Svg>
-      </EnhancedPressable>
+      <View
+        style={{ borderWidth: 6, borderRadius: 100, padding: 6, borderColor: theme.colors.border }}>
+        <EnhancedPressable withoutBackground>
+          {/* TODO: type pressed should not be wrote explicitely */}
+          {({ pressed }: { pressed: boolean }) => (
+            <Svg width="104" height="97" viewBox="0 0 104 97" fill="none">
+              <Ellipse
+                cx="51.7919"
+                cy="52.0112"
+                rx="51.7919"
+                ry="44.9887"
+                fill={shadowEllipseColor}
+              />
+              <Ellipse
+                cx="51.7919"
+                cy={pressed ? '52.0112' : '44.9887'}
+                rx="51.7919"
+                ry="44.9887"
+                fill={mainEllipseColor}
+              />
+
+              <G
+                transform={`translate(${tileWidth / 2}, ${tileHeight / 2})`}
+                x={innerSvgX}
+                y={innerSvgY}>
+                {type === 'countdown' && <TileCountdownIcon />}
+                {type === 'globe' && <TileGlobeIcon />}
+                {type === 'start' && <TileStarIcon />}
+              </G>
+            </Svg>
+          )}
+        </EnhancedPressable>
+      </View>
 
       {withHero && (
         <View
