@@ -1,13 +1,13 @@
 import { View, ScrollView } from 'react-native';
 
-import { HeaderPlaceholder, EnhancedText, Tile } from '@/ui/core';
+import { HeaderPlaceholder, EnhancedText, Tile, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export const LearnScreen = () => {
   const { theme } = useTheme();
 
   return (
-    <View style={{ flex: 1 }}>
+    <ContainerWithInsets>
       <HeaderPlaceholder />
       <View>
         <EnhancedText size="xxl">Hello, Mate</EnhancedText>
@@ -39,6 +39,6 @@ export const LearnScreen = () => {
           <Tile completed type="start" />
         </View>
       </ScrollView>
-    </View>
+    </ContainerWithInsets>
   );
 };

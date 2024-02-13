@@ -31,6 +31,7 @@
 [ ] Enhanced radio box
 [ ] Move text to tx
 [x] refactor theme props to be consistent: xxs, xs, sm, md, lg...
+[ ] Lessons should be grouped. Revise the mock
 
 ## Medium:
 
@@ -38,6 +39,9 @@
 [ ] Better docs
 [ ] Russian language support
 [ ] RN navigation. Get rid of `never`
+[ ] Before going to the lesson, make a confirmation dialog (as duo)
+[ ] Login to save progress.
+[ ] Login to enable access to full content ???
 
 ## Low:
 

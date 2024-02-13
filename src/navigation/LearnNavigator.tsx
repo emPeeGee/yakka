@@ -29,8 +29,7 @@ export const LearnNavigator = () => {
           name="LearnScreen"
           component={LearnScreen}
           options={{
-            headerLeft: undefined,
-            headerTitle: 'Learn',
+            headerShown: false,
             contentStyle: { paddingHorizontal: null },
           }}
         />
