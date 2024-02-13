@@ -1,4 +1,4 @@
-import { useState, type ComponentType } from 'react';
+import { type ComponentType } from 'react';
 import { View } from 'react-native';
 
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
@@ -8,38 +8,12 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { SvgProps } from 'react-native-svg';
 
 import { noop } from '@/core/utils';
-import { EnhancedText, HeroWithChat, TextField, Toggle } from '@/ui/core';
+import { EnhancedText, TextField } from '@/ui/core';
 import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { LearnNavigator } from './LearnNavigator';
 import { ProfileNavigator } from './ProfileNavigator';
-
-const Vocabulary = () => {
-  const [on, setOn] = useState(false);
-
-  return (
-    <View>
-      {/* <HeaderPlaceholder /> */}
-      <EnhancedText>Vocabulary</EnhancedText>
-      <FontAwesome.Button name="facebook" backgroundColor="#3b5998" onPress={noop}>
-        Login with Facebook
-      </FontAwesome.Button>
-
-      <HeroWithChat tx="onboard.lang" chatPosition="top" />
-
-      <Toggle
-        labelTx="common.logOut"
-        labelPosition="right"
-        labelStyle={{ paddingLeft: 10 }}
-        variant="checkbox"
-        value={on}
-        onPress={() => setOn(o => !o)}
-      />
-      <Toggle variant="radio" value={on} onPress={() => setOn(o => !o)} />
-      <Toggle variant="switch" value={on} onPress={() => setOn(o => !o)} />
-    </View>
-  );
-};
+import { VocabularyNavigator } from './VocabularyNavigator';
 
 const Achievements = () => {
   return (
@@ -120,7 +94,7 @@ const tabs: TabType[] = [
   },
   {
     name: 'Vocabulary',
-    component: Vocabulary,
+    component: VocabularyNavigator,
     label: 'Vocabulary',
   },
   {
@@ -147,7 +121,8 @@ export const TabNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="ProfileTab"
+      // NOTE: route name for dev purpose
+      initialRouteName="Vocabulary"
       screenOptions={({ route }) => ({
         tabBarStyle: {
           borderTopWidth: 0,

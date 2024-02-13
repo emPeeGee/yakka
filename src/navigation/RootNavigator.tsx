@@ -26,7 +26,13 @@ export function RootNavigator() {
 
   useEffect(() => {
     getItem(ONBOARD_DATA_KEY).then(onboardData => {
-      // setInitialRoute('Onboard');
+      // TODO: dev purpose
+      setInitialRoute('App');
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+      return;
+
       if (isFirstLaunch || !onboardData) {
         setInitialRoute('Onboard');
       } else {
@@ -75,7 +81,7 @@ export function RootNavigator() {
         {/* eslint-disable-next-line no-constant-condition */}
         {true || isFirstLaunch ? (
           <>
-            <Stack.Screen name="Onboard" key="123" component={OnboardNavigator} />
+            <Stack.Screen name="Onboard" component={OnboardNavigator} />
             <Stack.Screen name="Auth" component={AuthNavigator} />
             <Stack.Screen name="App" component={TabNavigator} />
           </>
