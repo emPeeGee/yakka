@@ -73,6 +73,10 @@ export const en = {
     email: 'Email',
     password: 'Password',
   },
+  temp: {
+    clear1: 'Clear the storage',
+    sound: 'Sound',
+  },
 };
 
 export type Translations = typeof en;
