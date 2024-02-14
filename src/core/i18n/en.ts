@@ -73,6 +73,12 @@ export const en = {
     email: 'Email',
     password: 'Password',
   },
+  voc: {
+    wordOfTheDay: 'Word of the day',
+    seeWordOfTheDay: 'See word of the day',
+    favorites: 'Favorites',
+    search: 'Search',
+  },
   temp: {
     clear1: 'Clear the storage',
     sound: 'Sound',
