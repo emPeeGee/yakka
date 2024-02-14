@@ -1,5 +1,6 @@
 import { BackButton } from './BackButton';
 import { Button } from './Button';
+import { Card } from './Card';
 import { ChoiceGroup, Choice } from './ChoiceGroup';
 import { ContainerWithInsets } from './ContainerWithInsets';
 import { CurvedShape } from './CurvedShape';
@@ -36,5 +37,6 @@ export {
   ChoiceGroup,
   HeroWithChat,
   ContainerWithInsets,
+  Card,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType, Choice };
