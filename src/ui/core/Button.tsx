@@ -1,5 +1,5 @@
 import React, { ComponentType, useMemo } from 'react';
-import { DimensionValue, StyleSheet } from 'react-native';
+import { DimensionValue, StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 import { Theme, VoidCb } from '@/types';
 import { EnhancedPressable } from './EnhancedPressable';
@@ -16,6 +16,8 @@ type ButtonProps = {
   width?: DimensionValue;
   onPress?: VoidCb;
   disabled?: boolean;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   Right?: ComponentType<any>;
   Left?: ComponentType<any>;
 };
@@ -28,6 +30,8 @@ export const Button = ({
   color: titleColor,
   backgroundColor,
   disabled = false,
+  style,
+  textStyle,
   onPress,
   Right,
   Left,
@@ -45,12 +49,13 @@ export const Button = ({
         styles.button,
         { backgroundColor: background, width, gap: theme.spacing.xs },
         disabled ? styles.disabledButton : {},
+        style,
       ]}
       onPress={onPress}
       disabled={disabled}>
       {Left && <Left />}
       <EnhancedText
-        style={[styles.text, { color }, disabled ? styles.disabledText : {}]}
+        style={[styles.text, { color }, disabled ? styles.disabledText : {}, textStyle]}
         text={text}
         tx={tx}
         preset="button"
@@ -65,10 +70,10 @@ export const Button = ({
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     button: {
-      padding: 12,
+      padding: theme.spacing.sm,
       borderRadius: theme.borderRadius.xl,
       width: '100%',
-      paddingVertical: 16,
+      paddingVertical: theme.spacing.md,
     },
     text: {
       textAlign: 'center',
