@@ -1,0 +1,72 @@
+{
+  "mildly": {
+    "word": "mildly",
+    "wordset_id": "99bf947e36",
+    "meanings": [
+      {
+        "id": "06df606cf1",
+        "def": "to a moderate degree",
+        "example": "They were mildly interested initially but became fascinated as the lecture went on.",
+        "speech_part": "adverb"
+      },
+      {
+        "id": "0866c73a14",
+        "def": "in a gentle manner",
+        "speech_part": "adverb",
+        "synonyms": ["gently"]
+      }
+    ]
+  },
+  "momently": {
+    "word": "momently",
+    "wordset_id": "97440b40fb",
+    "meanings": [
+      {
+        "id": "ee316c4622",
+        "def": "at any moment",
+        "example": "The doctor will be with you momently.",
+        "speech_part": "adverb",
+        "synonyms": ["momentarily"]
+      },
+      {
+        "id": "249c3a4a6c",
+        "def": "for an instant or moment",
+        "speech_part": "adverb",
+        "synonyms": ["momentarily"]
+      }
+    ]
+  },
+  "mighty": {
+    "word": "mighty",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "very, typical in the southern states",
+        "example": "That's a mighty fine guitar you've got there.",
+        "speech_part": "adverb",
+        "synonyms": ["mightily", "powerful", "right"],
+        "labels": [
+          {
+            "name": "American",
+            "is_dialect": true
+          },
+          {
+            "name": "US",
+            "is_dialect": true,
+            "parent": {
+              "name": "American",
+              "is_dialect": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "f4134c4aa7",
+        "def": "having or showing great strength or force or intensity",
+        "example": "struck a mighty blow",
+        "speech_part": "adjective"
+      }
+    ]
+  }
+}
