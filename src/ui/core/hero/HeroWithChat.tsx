@@ -5,7 +5,7 @@ import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { EnhancedText, TextProps } from '../EnhancedText';
 
-type HeroStyle = 'default' | 'vampire' | 'flowers';
+type HeroStyle = 'default' | 'vampire' | 'flowers' | 'discovery';
 
 type HeroWithChatProps = {
   text?: TextProps['text'];
@@ -14,16 +14,19 @@ type HeroWithChatProps = {
   chatPosition?: 'no-chat' | 'right' | 'top';
   hero?: HeroStyle;
   withConfetti?: boolean;
+  direction?: 'left' | 'right';
 };
 
 const HERO_STYLES: Record<HeroStyle, ImageURISource> = {
   default: require('../../../assets/hero/heroToR.png'),
   vampire: require('../../../assets/hero/heroVampire.png'),
   flowers: require('../../../assets/hero/heroWithFlowers.png'),
+  discovery: require('../../../assets/hero/heroDiscovery.png'),
 };
 
 // TODO: triangle is too big
 
+// TODO: crop all images and remove scale
 export const HeroWithChat = ({
   tx,
   text,
@@ -31,6 +34,7 @@ export const HeroWithChat = ({
   hero = 'default',
   chatPosition = 'no-chat',
   withConfetti = false,
+  direction = 'right',
 }: HeroWithChatProps) => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
@@ -56,13 +60,16 @@ export const HeroWithChat = ({
       )}
       <View style={[isChatRight ? gStyles.centerRow : gStyles.centerColumnReverse]}>
         <View style={[styles.hero, gStyles.centerRow]}>
-          {/* <Image source={require('../../../assets/hero/heroToR.png')} style={styles.heroImage} /> */}
           <Image
             source={HERO_STYLES[hero]}
             style={{
-              width: 170,
-              height: 170,
-              transform: [{ scale: 1.3 }, { translateY: isChatRight ? 16 : 6 }],
+              width: 50,
+              height: 50,
+              transform: [
+                { scale: 1.3 },
+                { translateY: isChatRight ? 16 : 6 },
+                { scaleX: direction === 'left' ? -1 : 1 },
+              ],
             }}
           />
         </View>
