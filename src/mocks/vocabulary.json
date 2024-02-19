@@ -2,6 +2,7 @@
   "mildly": {
     "word": "mildly",
     "wordset_id": "99bf947e36",
+    "pronunciation": "/ˈmaɪldli/",
     "meanings": [
       {
         "id": "06df606cf1",
@@ -20,6 +21,7 @@
   "momently": {
     "word": "momently",
     "wordset_id": "97440b40fb",
+    "pronunciation": "/ˈmoʊməntli/",
     "meanings": [
       {
         "id": "ee316c4622",
@@ -39,6 +41,7 @@
   "mighty": {
     "word": "mighty",
     "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈmaɪdi/",
     "meanings": [
       {
         "id": "a1911f57d8",

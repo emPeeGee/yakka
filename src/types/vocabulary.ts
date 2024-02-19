@@ -1,6 +1,7 @@
 export type Word = {
   word: string;
   wordset_id: string;
+  pronunciation?: string;
   meanings: WordMeaning[];
 };
 

@@ -35,6 +35,7 @@
 
 ## Medium:
 
+[ ] Crop all images and remove scale
 [ ] Animated the start of the current tile.
 [ ] Better docs
 [ ] Russian language support
@@ -42,6 +43,7 @@
 [ ] Before going to the lesson, make a confirmation dialog (as duo)
 [ ] Login to save progress.
 [ ] Login to enable access to full content ???
+[ ] Tooltip on only iconed buttons
 
 ## Low:
 
