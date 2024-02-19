@@ -1,10 +1,11 @@
 import { useRef } from 'react';
-import { Animated, View } from 'react-native';
+import { Animated, View, StyleSheet } from 'react-native';
 
 import { Word } from '@/types';
 import {
   Button,
   ContainerWithInsets,
+  EnhancedPressable,
   EnhancedText,
   Card,
   HeroWithChat,
@@ -12,13 +13,100 @@ import {
 } from '@/ui/core';
 import { UserCircleIcon, PasswordIcon, BookIcon, HeartIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { CardStackItem, CardStack } from './CardStack';
 import { FlipCard } from './FlipCard';
 import vocabulary from '../../mocks/vocabulary.json';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#f2f2f2',
+  },
+  content: {
+    flex: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  card: {
+    width: 320,
+    height: 470,
+    backgroundColor: '#FE474C',
+    borderRadius: 5,
+    shadowColor: 'rgba(0,0,0,0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.5,
+  },
+  card1: {
+    backgroundColor: '#FE474C',
+  },
+  card2: {
+    backgroundColor: '#FEB12C',
+  },
+  label: {
+    lineHeight: 400,
+    textAlign: 'center',
+    fontSize: 55,
+    fontFamily: 'System',
+    color: '#ffffff',
+    backgroundColor: 'transparent',
+  },
+  footer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    width: 220,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  button: {
+    shadowColor: 'rgba(0,0,0,0.3)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.5,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 0,
+  },
+  orange: {
+    width: 55,
+    height: 55,
+    borderWidth: 6,
+    borderColor: 'rgb(246,190,66)',
+    borderRadius: 55,
+    marginTop: -15,
+  },
+  green: {
+    width: 75,
+    height: 75,
+    backgroundColor: '#fff',
+    borderRadius: 75,
+    borderWidth: 6,
+    borderColor: '#01df8a',
+  },
+  red: {
+    width: 75,
+    height: 75,
+    backgroundColor: '#fff',
+    borderRadius: 75,
+    borderWidth: 6,
+    borderColor: '#fd267d',
+  },
+});
 
 export const VocStartScreen = () => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const cardRef = useRef<any>();
+  const swiperRef = useRef<any>();
 
   return (
     <ContainerWithInsets>
@@ -70,16 +158,76 @@ export const VocStartScreen = () => {
             cardRef.current?._toggleCard();
           }}
         />
+
+        <View style={{ minWidth: 320, minHeight: 470 }}>
+          <CardStack
+            style={[styles.content]}
+            renderNoMoreCards={() => (
+              <EnhancedText style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>
+                No more cards :(
+              </EnhancedText>
+            )}
+            ref={swiper => {
+              swiperRef.current = swiper;
+            }}
+            onSwiped={() => console.log('onSwiped')}
+            onSwipedLeft={() => console.log('onSwipedLeft')}>
+            <CardStackItem style={[styles.card, styles.card1]}>
+              <EnhancedText style={styles.label}>A</EnhancedText>
+            </CardStackItem>
+            <CardStackItem
+              style={[styles.card, styles.card2]}
+              onSwipedLeft={() => alert('left swipe')}>
+              <EnhancedText style={styles.label}>B</EnhancedText>
+            </CardStackItem>
+            <CardStackItem style={[styles.card, styles.card1]}>
+              <EnhancedText style={styles.label}>C</EnhancedText>
+            </CardStackItem>
+            <CardStackItem style={[styles.card, styles.card2]}>
+              <EnhancedText style={styles.label}>D</EnhancedText>
+            </CardStackItem>
+            <CardStackItem style={[styles.card, styles.card1]}>
+              <EnhancedText style={styles.label}>E</EnhancedText>
+            </CardStackItem>
+          </CardStack>
+        </View>
+
+        <View style={styles.footer}>
+          <View style={styles.buttonContainer}>
+            <EnhancedPressable
+              style={[styles.button, styles.red]}
+              onPress={() => {
+                swiperRef.current.swipeLeft();
+              }}>
+              <EnhancedText>to left</EnhancedText>
+            </EnhancedPressable>
+            <EnhancedPressable
+              style={[styles.button, styles.orange]}
+              onPress={() => {
+                swiperRef.current.goBackFromLeft();
+              }}>
+              <EnhancedText>restart</EnhancedText>
+            </EnhancedPressable>
+            <EnhancedPressable
+              style={[styles.button, styles.green]}
+              onPress={() => {
+                swiperRef.current.swipeRight();
+              }}>
+              <EnhancedText>to right</EnhancedText>
+            </EnhancedPressable>
+          </View>
+        </View>
+
         <View>
           <FlipCard flipHorizontal flipVertical={false} ref={cardRef}>
-            <SwipeCard
+            <FlipCardWrapper
               side="front"
               item={vocabulary.mighty as Word}
               isFirst
               renderChoice={() => <EnhancedText text="213" />}
             />
 
-            <SwipeCard
+            <FlipCardWrapper
               side="back"
               item={vocabulary.momently as Word}
               isFirst
@@ -116,7 +264,7 @@ export const VocStartScreen = () => {
   );
 };
 
-export interface SwipeCardProps {
+export interface FlipCardWrapperProps {
   item: Word;
   swipe: Animated.ValueXY;
   isFirst: boolean;
@@ -124,7 +272,13 @@ export interface SwipeCardProps {
   side: 'front' | 'back';
 }
 
-export const SwipeCard = ({ item, swipe, isFirst, renderChoice, side }: SwipeCardProps) => {
+export const FlipCardWrapper = ({
+  item,
+  swipe,
+  isFirst,
+  renderChoice,
+  side,
+}: FlipCardWrapperProps) => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
 
