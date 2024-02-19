@@ -2,6 +2,7 @@ import { AchievementsIcon } from './AchievementsIcon';
 import { BookIcon } from './BookIcon';
 import { EyeIcon } from './EyeIcon';
 import { EyeOffIcon } from './EyeOffIcon';
+import { HeartIcon } from './HeartIcon';
 import { PasswordIcon } from './PasswordIcon';
 import { PathIcon } from './PathIcon';
 import { PersonIcon } from './PersonIcon';
@@ -26,4 +27,5 @@ export {
   UserCircleIcon,
   EyeIcon,
   EyeOffIcon,
+  HeartIcon,
 };

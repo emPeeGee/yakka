@@ -19,7 +19,7 @@ export function Separator({ height = 1, isVertical = false, paddingVertical = 0 
         <View style={{ width: 1, height, backgroundColor: theme.colors.border }} />
       ) : (
         // TODO: new color for border as per mocks ? <View style={{ width: 1, height, backgroundColor: '#F5F5F5' }}></View>
-        <View style={{ flex: 1, height, backgroundColor: theme.colors.border }} />
+        <View style={{ flex: 1, width: '100%', height, backgroundColor: theme.colors.border }} />
       )}
     </View>
   );
