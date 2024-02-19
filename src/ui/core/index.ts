@@ -1,11 +1,13 @@
 import { BackButton } from './BackButton';
 import { Button } from './Button';
 import { Card } from './Card';
+import { CardStack, CardStackItem } from './CardStack';
 import { ChoiceGroup, Choice } from './ChoiceGroup';
 import { ContainerWithInsets } from './ContainerWithInsets';
 import { CurvedShape } from './CurvedShape';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
+import { FlipCard } from './FlipCard';
 import { HeaderPlaceholder } from './HeaderPlaceholder';
 import { HeroWithChat } from './hero/HeroWithChat';
 import { List, DataListType } from './List';
@@ -38,5 +40,8 @@ export {
   HeroWithChat,
   ContainerWithInsets,
   Card,
+  CardStack,
+  CardStackItem,
+  FlipCard,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType, Choice };

@@ -10,11 +10,12 @@ import {
   Card,
   HeroWithChat,
   Separator,
+  CardStackItem,
+  CardStack,
+  FlipCard,
 } from '@/ui/core';
 import { UserCircleIcon, PasswordIcon, BookIcon, HeartIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-import { CardStackItem, CardStack } from './CardStack';
-import { FlipCard } from './FlipCard';
 import vocabulary from '../../mocks/vocabulary.json';
 
 const styles = StyleSheet.create({
