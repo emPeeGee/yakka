@@ -393,7 +393,6 @@ export class CardStack extends Component {
           this.props.style,
           {
             position: 'relative',
-            pointerEvents: 'box-none', // This allows pan gesture to work through this component
             backgroundColor: 'green',
             height: '100%',
           },

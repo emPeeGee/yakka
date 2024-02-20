@@ -25,11 +25,6 @@ import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import vocabulary from '../../mocks/vocabulary.json';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#f2f2f2',
-  },
   content: {
     flex: 5,
     alignItems: 'center',
@@ -38,21 +33,6 @@ const styles = StyleSheet.create({
   card: {
     width: 360,
     height: 600,
-    borderRadius: 5,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.5,
-  },
-  label: {
-    lineHeight: 400,
-    textAlign: 'center',
-    fontSize: 55,
-    fontFamily: 'System',
-    color: '#ffffff',
-    backgroundColor: 'transparent',
   },
   footer: {
     flex: 1,
@@ -65,12 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   button: {
-    shadowColor: 'rgba(0,0,0,0.3)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.5,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
