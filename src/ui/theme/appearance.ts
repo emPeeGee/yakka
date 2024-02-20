@@ -61,6 +61,11 @@ const DARK_COLORS: Colors = {
   error: '#FF4B4C',
   info: '#3870FF',
 
+  mint: '#00C9B1',
+  lilac: '#8E78CF',
+  coral: '#FFA17A',
+  chilly: '#E32227',
+
   // https://uxplanet.org/8-tips-for-dark-theme-design-8dfc2f8f7ab6
   surface: '#424242',
   background: '#303030',
@@ -84,6 +89,11 @@ const LIGHT_COLORS: Colors = {
   warning: '#FFD237',
   error: '#FF4B4C',
   info: '#3870FF',
+
+  mint: '#00C9B1',
+  lilac: '#8E78CF',
+  coral: '#FFA17A',
+  chilly: '#E32227',
 
   surface: '#FFFFFF',
   background: '#FAFAFA',

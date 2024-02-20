@@ -71,6 +71,11 @@ export type Colors = {
   error: string;
   info: string;
   tabColor: string;
+
+  mint: string;
+  lilac: string;
+  coral: string;
+  chilly: string;
 };
 
 export type Theme = {

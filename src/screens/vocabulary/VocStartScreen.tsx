@@ -14,7 +14,13 @@ import {
   CardStack,
   FlipCard,
 } from '@/ui/core';
-import { UserCircleIcon, PasswordIcon, BookIcon, HeartIcon } from '@/ui/icons';
+import {
+  BookIcon,
+  HeartIcon,
+  BookBookmarkIcon,
+  MagnifyingGlassIcon,
+  SpeakerIcon,
+} from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import vocabulary from '../../mocks/vocabulary.json';
 
@@ -30,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   card: {
-    width: 320,
+    width: 360,
     height: 600,
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
@@ -121,7 +127,7 @@ export const VocStartScreen = () => {
               width="auto"
               backgroundColor={theme.colors.secondary500}
               color={theme.colors.primary900}
-              Left={() => UserCircleIcon({ width: 24, height: 24 })}
+              Left={() => BookBookmarkIcon({ width: 24, height: 24 })}
               style={[{ paddingVertical: theme.spacing.xs }]}
               textStyle={{ fontSize: theme.typography.sizes.xs.fontSize, textTransform: 'none' }}
             />
@@ -132,8 +138,8 @@ export const VocStartScreen = () => {
             width="auto"
             backgroundColor={theme.colors.secondary500}
             color={theme.colors.primary900}
-            Left={() => PasswordIcon({ width: 24, height: 24 })}
-            style={[{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xxs }]}
+            Left={() => MagnifyingGlassIcon({ width: 26, height: 26 })}
+            style={[{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }]}
           />
           {/* TODO: Tooltip */}
           <Button
@@ -141,8 +147,8 @@ export const VocStartScreen = () => {
             width="auto"
             backgroundColor={theme.colors.secondary500}
             color={theme.colors.primary900}
-            Left={() => PasswordIcon({ width: 24, height: 24 })}
-            style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xxs }}
+            Left={() => HeartIcon({ width: 26, height: 26, fill: theme.colors.primary900 })}
+            style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
           />
         </View>
 
@@ -336,7 +342,7 @@ export const FlipCardWrapper = ({
                   {item.pronunciation}
                 </EnhancedText>
                 {/* // TODO: Speaker icon */}
-                <HeartIcon width={28} height={28} />
+                <SpeakerIcon width={28} height={28} />
               </View>
               <EnhancedText
                 weight="light"
