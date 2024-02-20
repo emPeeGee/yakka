@@ -54,13 +54,15 @@ export const Button = ({
       onPress={onPress}
       disabled={disabled}>
       {Left && <Left />}
-      <EnhancedText
-        style={[styles.text, { color }, disabled ? styles.disabledText : {}, textStyle]}
-        text={text}
-        tx={tx}
-        preset="button"
-        {...textProps}
-      />
+      {(tx || text) && (
+        <EnhancedText
+          style={[styles.text, { color }, disabled ? styles.disabledText : {}, textStyle]}
+          text={text}
+          tx={tx}
+          preset="button"
+          {...textProps}
+        />
+      )}
 
       {Right && <Right />}
     </EnhancedPressable>
