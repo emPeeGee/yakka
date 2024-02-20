@@ -177,7 +177,8 @@ export class FlipCard extends Component {
           style={{ flex: 1 }}
           testID={this.props.testID}
           activeOpacity={1}
-          onPress={() => {
+          // NOTE: workaround, onPress is triggered by the CardStack when making swipes
+          onLongPress={e => {
             this._toggleCard();
           }}>
           <Animated.View
