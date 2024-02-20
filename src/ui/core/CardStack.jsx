@@ -390,9 +390,10 @@ export class CardStack extends Component {
       <View
         {...this._panResponder.panHandlers}
         style={[
-          { position: 'relative' },
           this.props.style,
           {
+            position: 'relative',
+            pointerEvents: 'box-none', // This allows pan gesture to work through this component
             backgroundColor: 'green',
             height: '100%',
           },
@@ -512,7 +513,16 @@ CardStack.defaultProps = {
   duration: 300,
 };
 
-export const CardStackItem = ({ style, children }) => <View style={style}>{children}</View>;
+export const CardStackItem = ({ style, children }) => (
+  <View
+    style={style}
+    onPress={e => {
+      e.preventDefault();
+      e.stopPropagation();
+    }}>
+    {children}
+  </View>
+);
 
 CardStackItem.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,

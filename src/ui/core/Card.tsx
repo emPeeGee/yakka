@@ -34,7 +34,6 @@ export const Card = ({ children, minHeight = 100, maxHeight, minWidth }: CardPro
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     card: {
-      flex: 1,
       borderRadius: theme.borderRadius.lg,
       borderColor: theme.colors.border,
       borderWidth: theme.borders.medium,

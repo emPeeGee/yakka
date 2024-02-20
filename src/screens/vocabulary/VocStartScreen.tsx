@@ -31,8 +31,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 320,
-    height: 470,
-    backgroundColor: '#FE474C',
+    height: 600,
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
@@ -40,12 +39,6 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.5,
-  },
-  card1: {
-    backgroundColor: '#FE474C',
-  },
-  card2: {
-    backgroundColor: '#FEB12C',
   },
   label: {
     lineHeight: 400,
@@ -153,14 +146,14 @@ export const VocStartScreen = () => {
           />
         </View>
 
-        <Button
+        {/* <Button
           text="Flip"
           onPress={() => {
             cardRef.current?._toggleCard();
           }}
-        />
+        /> */}
 
-        <View style={{ minWidth: 320, minHeight: 470 }}>
+        <View style={{ minWidth: 320, minHeight: 600 }}>
           <CardStack
             style={[styles.content]}
             renderNoMoreCards={() => (
@@ -173,22 +166,56 @@ export const VocStartScreen = () => {
             }}
             onSwiped={() => console.log('onSwiped')}
             onSwipedLeft={() => console.log('onSwipedLeft')}>
-            <CardStackItem style={[styles.card, styles.card1]}>
-              <EnhancedText style={styles.label}>A</EnhancedText>
+            <CardStackItem style={[styles.card]}>
+              <FlipCard flipHorizontal flipVertical={false} ref={cardRef}>
+                <FlipCardWrapper
+                  side="front"
+                  item={vocabulary.mighty as Word}
+                  isFirst
+                  renderChoice={() => <EnhancedText text="213" />}
+                />
+
+                <FlipCardWrapper
+                  side="back"
+                  item={vocabulary.mighty as Word}
+                  isFirst
+                  renderChoice={() => <EnhancedText text="213" />}
+                />
+              </FlipCard>
             </CardStackItem>
-            <CardStackItem
-              style={[styles.card, styles.card2]}
-              onSwipedLeft={() => alert('left swipe')}>
-              <EnhancedText style={styles.label}>B</EnhancedText>
+            <CardStackItem style={[styles.card]} onSwipedLeft={() => alert('left swipe')}>
+              <FlipCard flipHorizontal flipVertical={false} ref={cardRef}>
+                <FlipCardWrapper
+                  side="front"
+                  item={vocabulary.mildly as Word}
+                  isFirst
+                  renderChoice={() => <EnhancedText text="213" />}
+                />
+
+                <FlipCardWrapper
+                  side="back"
+                  item={vocabulary.mildly as Word}
+                  isFirst
+                  renderChoice={() => <EnhancedText text="213" />}
+                />
+              </FlipCard>
             </CardStackItem>
-            <CardStackItem style={[styles.card, styles.card1]}>
-              <EnhancedText style={styles.label}>C</EnhancedText>
-            </CardStackItem>
-            <CardStackItem style={[styles.card, styles.card2]}>
-              <EnhancedText style={styles.label}>D</EnhancedText>
-            </CardStackItem>
-            <CardStackItem style={[styles.card, styles.card1]}>
-              <EnhancedText style={styles.label}>E</EnhancedText>
+            <CardStackItem style={[styles.card]}>
+              <FlipCard flipHorizontal flipVertical={false} ref={cardRef}>
+                <FlipCardWrapper
+                  side="front"
+                  item={vocabulary.momently as Word}
+                  isFirst
+                  renderChoice={() => <EnhancedText text="213" />}
+                />
+
+                <FlipCardWrapper
+                  side="back"
+                  item={vocabulary.momently as Word}
+                  isFirst
+                  renderChoice={() => <EnhancedText text="213" />}
+                />
+              </FlipCard>
             </CardStackItem>
           </CardStack>
         </View>
@@ -218,48 +245,6 @@ export const VocStartScreen = () => {
             </EnhancedPressable>
           </View>
         </View>
-
-        <View>
-          <FlipCard flipHorizontal flipVertical={false} ref={cardRef}>
-            <FlipCardWrapper
-              side="front"
-              item={vocabulary.mighty as Word}
-              isFirst
-              renderChoice={() => <EnhancedText text="213" />}
-            />
-
-            <FlipCardWrapper
-              side="back"
-              item={vocabulary.momently as Word}
-              isFirst
-              renderChoice={() => <EnhancedText text="213" />}
-            />
-          </FlipCard>
-
-          {/* <CardFlip ref={card}>
-            <EnhancedPressable onPress={() => card.current.flip()}>
-              <SwipeCard
-                item={vocabulary.mighty as Word}
-                isFirst
-                renderChoice={() => <EnhancedText text="213" />}
-              />
-            </EnhancedPressable>
-
-            <EnhancedPressable onPress={() => card.current.tip()}>
-              <SwipeCard
-                item={vocabulary.momently as Word}
-                isFirst
-                renderChoice={() => <EnhancedText text="213" />}
-              />
-            </EnhancedPressable>
-          </CardFlip> */}
-
-          {/* <SwipeCard
-              item={vocabulary.mighty as Word}
-              isFirst
-              renderChoice={() => <EnhancedText text="213" />}
-            /> */}
-        </View>
       </View>
     </ContainerWithInsets>
   );
@@ -284,7 +269,7 @@ export const FlipCardWrapper = ({
   const gStyles = useGlobalThemedStyles();
 
   return (
-    <Card minWidth={375} minHeight={500}>
+    <Card>
       <View style={[gStyles.centerColumn, { gap: theme.spacing.lg, height: '100%' }]}>
         {isFirst && renderChoice(swipe)}
 
