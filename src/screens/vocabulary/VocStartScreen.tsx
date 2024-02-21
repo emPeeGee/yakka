@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Animated, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { Word } from '@/types';
 import {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 360,
-    height: 600,
+    height: 560,
   },
   footer: {
     flex: 1,
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
 export const VocStartScreen = () => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const cardRef = useRef<any>();
   const swiperRef = useRef<any>();
 
   return (
@@ -126,14 +125,7 @@ export const VocStartScreen = () => {
           />
         </View>
 
-        {/* <Button
-          text="Flip"
-          onPress={() => {
-            cardRef.current?._toggleCard();
-          }}
-        /> */}
-
-        <View style={{ minWidth: 320, minHeight: 600 }}>
+        <View style={{ minWidth: 320, minHeight: 560 }}>
           <CardStack
             style={[styles.content]}
             renderNoMoreCards={() => (
@@ -147,54 +139,20 @@ export const VocStartScreen = () => {
             onSwiped={() => console.log('onSwiped')}
             onSwipedLeft={() => console.log('onSwipedLeft')}>
             <CardStackItem style={[styles.card]}>
-              <FlipCard flipHorizontal flipVertical={false} ref={cardRef}>
-                <FlipCardWrapper
-                  side="front"
-                  item={vocabulary.mighty as Word}
-                  isFirst
-                  renderChoice={() => <EnhancedText text="213" />}
-                />
-
-                <FlipCardWrapper
-                  side="back"
-                  item={vocabulary.mighty as Word}
-                  isFirst
-                  renderChoice={() => <EnhancedText text="213" />}
-                />
+              <FlipCard flipHorizontal flipVertical={false}>
+                <FlipCardWrapper side="front" item={vocabulary.mighty as Word} />
+                <FlipCardWrapper side="back" item={vocabulary.mighty as Word} />
               </FlipCard>
             </CardStackItem>
             <CardStackItem style={[styles.card]} onSwipedLeft={() => alert('left swipe')}>
-              <FlipCard flipHorizontal flipVertical={false} ref={cardRef}>
-                <FlipCardWrapper
-                  side="front"
-                  item={vocabulary.mildly as Word}
-                  isFirst
-                  renderChoice={() => <EnhancedText text="213" />}
-                />
-
-                <FlipCardWrapper
-                  side="back"
-                  item={vocabulary.mildly as Word}
-                  isFirst
-                  renderChoice={() => <EnhancedText text="213" />}
-                />
+              <FlipCard flipHorizontal flipVertical={false}>
+                <FlipCardWrapper side="front" item={vocabulary.mildly as Word} />
+                <FlipCardWrapper side="back" item={vocabulary.mildly as Word} />
               </FlipCard>
             </CardStackItem>
             <CardStackItem style={[styles.card]}>
-              <FlipCard flipHorizontal flipVertical={false} ref={cardRef}>
-                <FlipCardWrapper
-                  side="front"
-                  item={vocabulary.momently as Word}
-                  isFirst
-                  renderChoice={() => <EnhancedText text="213" />}
-                />
-
-                <FlipCardWrapper
-                  side="back"
-                  item={vocabulary.momently as Word}
-                  isFirst
-                  renderChoice={() => <EnhancedText text="213" />}
-                />
+              <FlipCard flipHorizontal flipVertical={false}>
+                <FlipCardWrapper side="front" item={vocabulary.momently as Word} />
               </FlipCard>
             </CardStackItem>
           </CardStack>
@@ -232,27 +190,16 @@ export const VocStartScreen = () => {
 
 export interface FlipCardWrapperProps {
   item: Word;
-  swipe: Animated.ValueXY;
-  isFirst: boolean;
-  renderChoice: (swipe: any) => React.JSX.Element;
   side: 'front' | 'back';
 }
 
-export const FlipCardWrapper = ({
-  item,
-  swipe,
-  isFirst,
-  renderChoice,
-  side,
-}: FlipCardWrapperProps) => {
+export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
 
   return (
     <Card>
       <View style={[gStyles.centerColumn, { gap: theme.spacing.lg, height: '100%' }]}>
-        {isFirst && renderChoice(swipe)}
-
         <View
           style={[
             gStyles.centerRow,
