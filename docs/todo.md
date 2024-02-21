@@ -28,9 +28,9 @@
 [x] Merge Text and EnhancedText
 [x] Refactors typography
 [x] Text field implementation
-[ ] Enhanced radio box
 [ ] Move text to tx
 [x] refactor theme props to be consistent: xxs, xs, sm, md, lg...
+[ ] Height of the vocabulary card should not be fixed by calculated depending on the screen height
 [ ] Lessons should be grouped. Revise the mock
 
 ## Medium:
@@ -57,3 +57,4 @@
 [ ] animation after onboarding is finished. LowP.
 [ ] Change the pagination animation: worm style https://www.animatereactnative.com/post/react-native-parallax-carousel-%2B-worm-pagination https://github.com/weahforsage/react-native-animated-pagination-dots
 [ ] Tooltip for buttons with only an icon
+[ ] Enhanced radio box

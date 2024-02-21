@@ -9,6 +9,7 @@ import { AppearanceScreen } from './profile/AppearanceScreen';
 import { ProfileScreen } from './profile/ProfileScreen';
 import { SettingsScreen } from './profile/SettingsScreen';
 import { VocStartScreen } from './vocabulary/VocStartScreen';
+import { VocWordOfTheDayScreen } from './vocabulary/VocWordOfTheDayScreen';
 
 export {
   ProfileScreen,
@@ -22,4 +23,5 @@ export {
   OnboardQuestionsDoneScreen,
   LoginScreen,
   VocStartScreen,
+  VocWordOfTheDayScreen,
 };

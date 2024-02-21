@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { Word } from '@/types';
 import {
   Button,
@@ -71,12 +73,14 @@ export const VocStartScreen = () => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const swiperRef = useRef<any>();
+  const { navigate } = useNavigation();
 
   return (
     <ContainerWithInsets>
       <View
         style={[
           {
+            flex: 1,
             width: '100%',
             gap: theme.spacing.md,
             paddingVertical: theme.spacing.md,
@@ -94,6 +98,7 @@ export const VocStartScreen = () => {
               Left={() => BookBookmarkIcon({ width: 24, height: 24 })}
               style={[{ paddingVertical: theme.spacing.xs }]}
               textStyle={{ fontSize: theme.typography.sizes.xs.fontSize, textTransform: 'none' }}
+              onPress={() => navigate('VocWordOfTheDay' as never)}
             />
           </View>
           {/* TODO: Tooltip */}
@@ -115,7 +120,6 @@ export const VocStartScreen = () => {
             style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
           />
         </View>
-
         <View style={{ minWidth: 320, minHeight: 560 }}>
           <CardStack
             style={[styles.content]}
@@ -140,7 +144,6 @@ export const VocStartScreen = () => {
             </CardStackItem>
           </CardStack>
         </View>
-
         <View style={styles.footer}>
           <View style={styles.buttonContainer}>
             <EnhancedPressable
