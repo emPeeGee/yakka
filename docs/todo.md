@@ -44,7 +44,6 @@
 [ ] Before going to the lesson, make a confirmation dialog (as duo)
 [ ] Login to save progress.
 [ ] Login to enable access to full content ???
-[ ] Tooltip on only iconed buttons
 
 ## Low:
 
@@ -57,3 +56,4 @@
 [ ] Better radio box
 [ ] animation after onboarding is finished. LowP.
 [ ] Change the pagination animation: worm style https://www.animatereactnative.com/post/react-native-parallax-carousel-%2B-worm-pagination https://github.com/weahforsage/react-native-animated-pagination-dots
+[ ] Tooltip for buttons with only an icon

@@ -7,7 +7,7 @@ import { VoidCb } from '@/types';
 import { useTheme } from '../theme';
 
 type EnhancedPressableProps = {
-  children: (props: { pressed: boolean }) => ReactNode | ReactNode;
+  children: ((props: { pressed: boolean }) => ReactNode) | ReactNode;
   style?: StyleProp<ViewStyle>;
   withoutBackground?: boolean;
   onPress?: VoidCb;
