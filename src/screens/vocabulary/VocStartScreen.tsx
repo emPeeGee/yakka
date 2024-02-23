@@ -16,6 +16,7 @@ import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { useVocabularyStore } from './vocabularyState';
 import { WordCard } from './WordCard';
 
+// TODO: to be deleted
 const styles = StyleSheet.create({
   content: {
     flex: 5,
@@ -37,7 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   button: {
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 0,
@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
   green: {
     width: 75,
     height: 75,
-    backgroundColor: '#fff',
     borderRadius: 75,
     borderWidth: 6,
     borderColor: '#01df8a',
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
   red: {
     width: 75,
     height: 75,
-    backgroundColor: '#fff',
     borderRadius: 75,
     borderWidth: 6,
     borderColor: '#fd267d',
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
 });
 
 export const VocStartScreen = () => {
-  const { theme } = useTheme();
+  const { theme, appColorScheme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const swiperRef = useRef<any>();
   const { navigate } = useNavigation();
@@ -89,7 +87,9 @@ export const VocStartScreen = () => {
             gap: theme.spacing.md,
             paddingVertical: theme.spacing.md,
             paddingHorizontal: theme.spacing.md,
-            backgroundColor: theme.colors.primary100,
+            backgroundColor:
+              appColorScheme === 'dark' ? theme.colors.background : theme.colors.primary800,
+            // backgroundColor: theme.colors.primary100,
           },
           gStyles.centerColumn,
         ]}>
@@ -154,21 +154,21 @@ export const VocStartScreen = () => {
         <View style={styles.footer}>
           <View style={styles.buttonContainer}>
             <EnhancedPressable
-              style={[styles.button, styles.red]}
+              style={[styles.button, styles.red, { backgroundColor: theme.colors.background }]}
               onPress={() => {
                 swiperRef.current.swipeLeft();
               }}>
               <EnhancedText>to left</EnhancedText>
             </EnhancedPressable>
             <EnhancedPressable
-              style={[styles.button, styles.orange]}
+              style={[styles.button, styles.orange, { backgroundColor: theme.colors.background }]}
               onPress={() => {
                 swiperRef.current.goBackFromLeft();
               }}>
               <EnhancedText>restart</EnhancedText>
             </EnhancedPressable>
             <EnhancedPressable
-              style={[styles.button, styles.green]}
+              style={[styles.button, styles.green, { backgroundColor: theme.colors.background }]}
               onPress={() => {
                 swiperRef.current.swipeRight();
               }}>

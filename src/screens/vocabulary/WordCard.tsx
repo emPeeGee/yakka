@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { View } from 'react-native';
 
 import { Word } from '@/types';
@@ -24,7 +25,8 @@ interface FlipCardWrapperProps {
 }
 
 const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
-  const { theme } = useTheme();
+  const { theme, appColorScheme } = useTheme();
+  const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
   const gStyles = useGlobalThemedStyles();
 
   return (
@@ -34,7 +36,7 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
           style={[
             gStyles.centerRow,
             {
-              backgroundColor: theme.colors.base40,
+              backgroundColor: isDark ? theme.colors.base80 : theme.colors.base40,
               borderRadius: theme.borderRadius.xl,
               padding: theme.spacing.sm,
               gap: theme.spacing.xs,
@@ -64,7 +66,7 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                 {
                   width: 240,
                   height: 240,
-                  backgroundColor: theme.colors.primary100,
+                  backgroundColor: isDark ? theme.colors.primary800 : theme.colors.primary100,
                   borderRadius: theme.borderRadius.xl,
                   transform: [{ rotate: '45deg' }],
                 },
@@ -88,7 +90,7 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                   {
                     paddingHorizontal: theme.spacing.sm,
                     paddingVertical: theme.spacing.xs,
-                    backgroundColor: theme.colors.primary100,
+                    backgroundColor: isDark ? theme.colors.primary800 : theme.colors.primary100,
                     borderRadius: theme.borderRadius.lg,
                     gap: theme.spacing.xs,
                   },
@@ -120,7 +122,7 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                 style={{
                   ...theme.typography.sizes.sm,
                   fontStyle: 'normal',
-                  color: theme.colors.primary900,
+                  color: isDark ? theme.colors.primary100 : theme.colors.primary900,
                 }}>
                 {item.meanings[0].example}
               </EnhancedText>
