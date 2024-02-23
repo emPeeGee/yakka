@@ -1,105 +1,83 @@
-import React, { useRef } from 'react';
-import { Animated, ScrollView, StyleSheet } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Animated, ScrollView } from 'react-native';
 
-import { ContainerWithInsets, EnhancedText } from '@/ui/core';
+import { Choice, ChoiceGroup, ContainerWithInsets } from '@/ui/core';
+import { useTheme } from '@/ui/theme';
 import { DynamicHeader } from './DynamicHeader';
+import { EmojiComponent } from './Emoji';
 
-export const DATA = [
+export const CATEGORIES: Choice<number>[] = [
   {
-    id: 1,
-    title: 'Modern JS: A curated collection',
+    value: 1,
+    tx: 'voc.allWords',
+    Left: () => <EmojiComponent emoji="🍓" />,
   },
   {
-    id: 2,
-    title: 'JavaScript notes for professionals',
+    value: 2,
+    tx: 'voc.animals',
+    Left: () => <EmojiComponent emoji="🦔" />,
   },
   {
-    id: 3,
-    title: 'JavaScript: The Good Parts',
+    value: 3,
+    tx: 'voc.colors',
+    Left: () => <EmojiComponent emoji="🌈" />,
   },
   {
-    id: 4,
-    title: 'JavaScript: The right way',
+    value: 4,
+    tx: 'voc.shapes',
+    Left: () => <EmojiComponent emoji="🟦" />,
   },
   {
-    id: 5,
-    title: 'Exploring ES6',
+    value: 5,
+    tx: 'voc.actions1',
+    Left: () => <EmojiComponent emoji="🏃" />,
   },
   {
-    id: 6,
-    title: 'JavaScript Enlightenment',
+    value: 6,
+    tx: 'voc.actions2',
+    Left: () => <EmojiComponent emoji="🙋🏻‍♂️" />,
   },
   {
-    id: 7,
-    title: 'You dont know JS',
+    value: 7,
+    tx: 'voc.vegetables',
+    Left: () => <EmojiComponent emoji="🥕" />,
   },
   {
-    id: 8,
-    title: 'Learn JavaScript',
+    value: 8,
+    tx: 'voc.transport',
+    Left: () => <EmojiComponent emoji="🚜" />,
   },
   {
-    id: 9,
-    title: 'JavaScript succintly',
+    value: 9,
+    tx: 'voc.pets',
+    Left: () => <EmojiComponent emoji="🐾" />,
   },
   {
-    id: 10,
-    title: 'Human JavaScript',
-  },
-  {
-    id: 11,
-    title: 'JavaScript design patterns',
-  },
-  {
-    id: 12,
-    title: 'JS50: 50 illustrations in JS',
-  },
-  {
-    id: 13,
-    title: 'Eloqent JavaScript',
-  },
-  {
-    id: 14,
-    title: 'Practical ES6',
-  },
-  {
-    id: 15,
-    title: 'Speaking JavaScript',
+    value: 10,
+    tx: 'voc.weather',
+    Left: () => <EmojiComponent emoji="☀️" />,
   },
 ];
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 10,
-    margin: 0,
-  },
-  scrollText: {
-    fontSize: 19,
-    textAlign: 'center',
-    padding: 20,
-    color: '#000',
-  },
-});
-
 // TODO: word of the day will be provided via network
 export const VocCategoriesScreen = () => {
+  const { theme } = useTheme();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
+  const [category, setCategory] = useState<number>(CATEGORIES[0].value);
 
   return (
     <ContainerWithInsets>
       <DynamicHeader animHeaderValue={scrollOffsetY} />
       <ScrollView
         scrollEventThrottle={16}
+        contentContainerStyle={{
+          paddingHorizontal: theme.spacing.md,
+          paddingVertical: theme.spacing.lg,
+        }}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
           useNativeDriver: true,
         })}>
-        {DATA.map(book => {
-          return (
-            <EnhancedText style={styles.scrollText} key={book.id}>
-              {book.title}
-            </EnhancedText>
-          );
-        })}
+        <ChoiceGroup options={CATEGORIES} value={category} onChange={setCategory} />
       </ScrollView>
     </ContainerWithInsets>
   );
