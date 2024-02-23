@@ -1,61 +1,64 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Animated, ScrollView } from 'react-native';
 
-import { Choice, ChoiceGroup, ContainerWithInsets } from '@/ui/core';
+import { useNavigation } from '@react-navigation/native';
+
+import { WordCategory } from '@/types';
+import { Choice, ChoiceGroup, ContainerWithInsets, Emoji } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { DynamicHeader } from './DynamicHeader';
-import { EmojiComponent } from './Emoji';
+import { useVocabularyStore } from './vocabularyState';
 
-export const CATEGORIES: Choice<number>[] = [
+export const CATEGORIES: Choice<WordCategory>[] = [
   {
-    value: 1,
+    value: 'all',
     tx: 'voc.allWords',
-    Left: () => <EmojiComponent emoji="🍓" />,
+    Left: () => <Emoji emoji="🍓" />,
   },
   {
-    value: 2,
+    value: 'animals1',
     tx: 'voc.animals',
-    Left: () => <EmojiComponent emoji="🦔" />,
+    Left: () => <Emoji emoji="🦔" />,
   },
   {
-    value: 3,
+    value: 'colors1',
     tx: 'voc.colors',
-    Left: () => <EmojiComponent emoji="🌈" />,
+    Left: () => <Emoji emoji="🌈" />,
   },
   {
-    value: 4,
+    value: 'shapes1',
     tx: 'voc.shapes',
-    Left: () => <EmojiComponent emoji="🟦" />,
+    Left: () => <Emoji emoji="🟦" />,
   },
   {
-    value: 5,
+    value: 'actions1',
     tx: 'voc.actions1',
-    Left: () => <EmojiComponent emoji="🏃" />,
+    Left: () => <Emoji emoji="🏃" />,
   },
   {
-    value: 6,
+    value: 'actions2',
     tx: 'voc.actions2',
-    Left: () => <EmojiComponent emoji="🙋🏻‍♂️" />,
+    Left: () => <Emoji emoji="🙋🏻‍♂️" />,
   },
   {
-    value: 7,
+    value: 'vegetables1',
     tx: 'voc.vegetables',
-    Left: () => <EmojiComponent emoji="🥕" />,
+    Left: () => <Emoji emoji="🥕" />,
   },
   {
-    value: 8,
+    value: 'transport1',
     tx: 'voc.transport',
-    Left: () => <EmojiComponent emoji="🚜" />,
+    Left: () => <Emoji emoji="🚜" />,
   },
   {
-    value: 9,
+    value: 'pets1',
     tx: 'voc.pets',
-    Left: () => <EmojiComponent emoji="🐾" />,
+    Left: () => <Emoji emoji="🐾" />,
   },
   {
-    value: 10,
+    value: 'weather1',
     tx: 'voc.weather',
-    Left: () => <EmojiComponent emoji="☀️" />,
+    Left: () => <Emoji emoji="☀️" />,
   },
 ];
 
@@ -63,7 +66,8 @@ export const CATEGORIES: Choice<number>[] = [
 export const VocCategoriesScreen = () => {
   const { theme } = useTheme();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
-  const [category, setCategory] = useState<number>(CATEGORIES[0].value);
+  const { category, setCategory } = useVocabularyStore();
+  const { goBack } = useNavigation();
 
   return (
     <ContainerWithInsets withoutBottom>
@@ -74,7 +78,16 @@ export const VocCategoriesScreen = () => {
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
           useNativeDriver: false, // NOTE: native driver doesn't work on ios (not sure on Android) https://stackoverflow.com/questions/55055873/react-native-animated-with-usenativedriver-reactnative-animated-event-is
         })}>
-        <ChoiceGroup options={CATEGORIES} value={category} onChange={setCategory} />
+        <ChoiceGroup
+          options={CATEGORIES}
+          value={category}
+          onChange={category => {
+            setCategory(category);
+            setTimeout(() => {
+              goBack();
+            });
+          }}
+        />
       </ScrollView>
     </ContainerWithInsets>
   );

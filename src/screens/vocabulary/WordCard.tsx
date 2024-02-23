@@ -41,7 +41,11 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
             },
           ]}>
           <BookIcon width={24} height={24} />
-          <EnhancedText text="All words" weight="bold" style={{ ...theme.typography.sizes.sm }} />
+          <EnhancedText
+            text={item.category}
+            weight="bold"
+            style={{ ...theme.typography.sizes.sm }}
+          />
         </View>
 
         {side === 'front' ? (
@@ -92,7 +96,6 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                 <EnhancedText style={{ ...theme.typography.sizes.md }}>
                   {item.pronunciation}
                 </EnhancedText>
-                {/* // TODO: Speaker icon */}
                 <SpeakerIcon width={28} height={28} />
               </View>
               <EnhancedText

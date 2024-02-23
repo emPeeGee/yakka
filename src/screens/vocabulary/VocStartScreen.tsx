@@ -1,9 +1,8 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { Word } from '@/types';
 import {
   Button,
   ContainerWithInsets,
@@ -14,8 +13,8 @@ import {
 } from '@/ui/core';
 import { HeartIcon, BookBookmarkIcon, MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { useVocabularyStore } from './vocabularyState';
 import { WordCard } from './WordCard';
-import vocabulary from '../../mocks/vocabulary.json';
 
 const styles = StyleSheet.create({
   content: {
@@ -74,6 +73,11 @@ export const VocStartScreen = () => {
   const gStyles = useGlobalThemedStyles();
   const swiperRef = useRef<any>();
   const { navigate } = useNavigation();
+  const { words } = useVocabularyStore();
+
+  useEffect(() => {
+    swiperRef.current.initDeck();
+  }, [words]);
 
   return (
     <ContainerWithInsets>
@@ -134,15 +138,17 @@ export const VocStartScreen = () => {
             }}
             onSwiped={() => console.log('onSwiped')}
             onSwipedLeft={() => console.log('onSwipedLeft')}>
-            <CardStackItem style={[styles.card]}>
-              <WordCard word={vocabulary.mighty as Word} />
-            </CardStackItem>
-            <CardStackItem style={[styles.card]} onSwipedLeft={() => alert('left swipe')}>
+            {words.map(word => (
+              <CardStackItem key={word.word} style={[styles.card]}>
+                <WordCard word={word} />
+              </CardStackItem>
+            ))}
+            {/* <CardStackItem style={[styles.card]} onSwipedLeft={() => alert('left swipe')}>
               <WordCard word={vocabulary.mildly as Word} />
             </CardStackItem>
             <CardStackItem style={[styles.card]}>
               <WordCard word={vocabulary.momently as Word} />
-            </CardStackItem>
+            </CardStackItem> */}
           </CardStack>
         </View>
         <View style={styles.footer}>

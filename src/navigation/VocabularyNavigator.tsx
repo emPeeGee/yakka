@@ -13,8 +13,7 @@ const Stack = createNativeStackNavigator();
 export const VocabularyNavigator = () => {
   const { theme } = useTheme();
   return (
-    <Stack.Navigator initialRouteName="VocCategories">
-      {/* initialRouteName="VocStart"> */}
+    <Stack.Navigator initialRouteName="VocStart">
       <Stack.Group
         screenOptions={{
           headerShown: true,
