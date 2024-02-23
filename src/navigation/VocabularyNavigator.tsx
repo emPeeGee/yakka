@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { translate } from '@/core/i18n';
-import { VocStartScreen, VocWordOfTheDayScreen } from '@/screens';
+import { VocCategoriesScreen, VocStartScreen, VocWordOfTheDayScreen } from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -13,7 +13,8 @@ const Stack = createNativeStackNavigator();
 export const VocabularyNavigator = () => {
   const { theme } = useTheme();
   return (
-    <Stack.Navigator initialRouteName="VocStart">
+    <Stack.Navigator initialRouteName="VocCategories">
+      {/* initialRouteName="VocStart"> */}
       <Stack.Group
         screenOptions={{
           headerShown: true,
@@ -31,6 +32,13 @@ export const VocabularyNavigator = () => {
           options={{
             title: translate('voc.wordOfTheDay'),
             headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="VocCategories"
+          component={VocCategoriesScreen}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Group>

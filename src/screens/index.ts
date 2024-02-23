@@ -8,6 +8,7 @@ import { OnboardQuestionsScreen } from './onboarding/OnboardQuestionsScreen';
 import { AppearanceScreen } from './profile/AppearanceScreen';
 import { ProfileScreen } from './profile/ProfileScreen';
 import { SettingsScreen } from './profile/SettingsScreen';
+import { VocCategoriesScreen } from './vocabulary/VocCategoriesScreen';
 import { VocStartScreen } from './vocabulary/VocStartScreen';
 import { VocWordOfTheDayScreen } from './vocabulary/VocWordOfTheDayScreen';
 
@@ -24,4 +25,5 @@ export {
   LoginScreen,
   VocStartScreen,
   VocWordOfTheDayScreen,
+  VocCategoriesScreen,
 };

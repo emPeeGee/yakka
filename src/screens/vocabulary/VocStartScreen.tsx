@@ -109,6 +109,7 @@ export const VocStartScreen = () => {
             color={theme.colors.primary900}
             Left={() => MagnifyingGlassIcon({ width: 26, height: 26 })}
             style={[{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }]}
+            onPress={() => navigate('VocCategories' as never)}
           />
           {/* TODO: Tooltip */}
           <Button
