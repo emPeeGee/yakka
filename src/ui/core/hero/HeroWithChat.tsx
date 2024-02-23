@@ -5,7 +5,7 @@ import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { EnhancedText, TextProps } from '../EnhancedText';
 
-type HeroStyle = 'default' | 'vampire' | 'flowers' | 'discovery';
+type HeroStyle = 'default' | 'vampire' | 'flowers' | 'discovery' | 'question';
 
 type HeroWithChatProps = {
   text?: TextProps['text'];
@@ -13,6 +13,8 @@ type HeroWithChatProps = {
   txOptions?: TextProps['txOptions'];
   chatPosition?: 'no-chat' | 'right' | 'top';
   hero?: HeroStyle;
+  width?: number;
+  height?: number;
   withConfetti?: boolean;
   direction?: 'left' | 'right';
 };
@@ -22,6 +24,7 @@ const HERO_STYLES: Record<HeroStyle, ImageURISource> = {
   vampire: require('../../../assets/hero/heroVampire.png'),
   flowers: require('../../../assets/hero/heroWithFlowers.png'),
   discovery: require('../../../assets/hero/heroDiscovery.png'),
+  question: require('../../../assets/hero/heroWithQuestion.png'),
 };
 
 // TODO: triangle is too big
@@ -35,6 +38,8 @@ export const HeroWithChat = ({
   chatPosition = 'no-chat',
   withConfetti = false,
   direction = 'right',
+  width = 50,
+  height = 50,
 }: HeroWithChatProps) => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
@@ -63,10 +68,10 @@ export const HeroWithChat = ({
           <Image
             source={HERO_STYLES[hero]}
             style={{
-              width: 50,
-              height: 50,
+              width,
+              height,
               transform: [
-                { scale: 1.3 },
+                // { scale: 1.3 },
                 { translateY: isChatRight ? 16 : 6 },
                 { scaleX: direction === 'left' ? -1 : 1 },
               ],
