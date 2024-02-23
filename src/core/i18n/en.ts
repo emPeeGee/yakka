@@ -78,6 +78,9 @@ export const en = {
     seeWordOfTheDay: 'See word of the day',
     favorites: 'Favorites',
     search: 'Search',
+    searchCategory: 'Search a category...',
+    whichCategory: 'Which category',
+    wouldLearn: 'would you like to learn?',
   },
   temp: {
     clear1: 'Clear the storage',

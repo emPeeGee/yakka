@@ -59,6 +59,12 @@ const getGlobalStyles = (theme: Theme) =>
       justifyContent: 'space-between',
     },
 
+    centerColumnStart: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+    },
+
     fullWidthFromStart: {
       flex: 1,
       flexDirection: 'column',

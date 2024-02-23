@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import { Animated, ScrollView, StyleSheet } from 'react-native';
 
 import { ContainerWithInsets, EnhancedText } from '@/ui/core';
+import { DynamicHeader } from './DynamicHeader';
+
 export const DATA = [
   {
     id: 1,
@@ -85,6 +87,7 @@ export const VocCategoriesScreen = () => {
 
   return (
     <ContainerWithInsets>
+      <DynamicHeader animHeaderValue={scrollOffsetY} />
       <ScrollView
         scrollEventThrottle={16}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
