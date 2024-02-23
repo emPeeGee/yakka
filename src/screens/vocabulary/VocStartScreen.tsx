@@ -84,23 +84,23 @@ export const VocStartScreen = () => {
             width: '100%',
             gap: theme.spacing.md,
             paddingVertical: theme.spacing.md,
+            paddingHorizontal: theme.spacing.md,
             backgroundColor: theme.colors.primary100,
           },
           gStyles.centerColumn,
         ]}>
         <View style={[gStyles.centerRowBetween, { gap: theme.spacing.xs, width: '100%' }]}>
-          <View style={[gStyles.fullWidthFromStart, { width: 'auto' }]}>
-            <Button
-              tx="voc.seeWordOfTheDay"
-              width="auto"
-              backgroundColor={theme.colors.secondary500}
-              color={theme.colors.primary900}
-              Left={() => BookBookmarkIcon({ width: 24, height: 24 })}
-              style={[{ paddingVertical: theme.spacing.xs }]}
-              textStyle={{ fontSize: theme.typography.sizes.xs.fontSize, textTransform: 'none' }}
-              onPress={() => navigate('VocWordOfTheDay' as never)}
-            />
-          </View>
+          <Button
+            tx="voc.seeWordOfTheDay"
+            width="auto"
+            backgroundColor={theme.colors.secondary500}
+            color={theme.colors.primary900}
+            Left={() => BookBookmarkIcon({ width: 24, height: 24 })}
+            style={[{ paddingVertical: theme.spacing.xs }]}
+            textStyle={{ fontSize: theme.typography.sizes.xs.fontSize, textTransform: 'none' }}
+            onPress={() => navigate('VocWordOfTheDay' as never)}
+          />
+          <View style={[gStyles.fullWidthFromStart, { width: 'auto' }]} />
           {/* TODO: Tooltip */}
           <Button
             // tx="voc.search"
