@@ -8,6 +8,11 @@ export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
   const Header_Max_Height = 200;
   const Header_Min_Height = 70;
 
+  const [searchFieldDimensions, setSearchFieldDimensions] = React.useState<{
+    width: number;
+    height: number;
+  }>({ width: 0, height: 0 });
+
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const animateHeaderBackgroundColor = animHeaderValue.interpolate({
@@ -25,6 +30,12 @@ export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
   const animateHeroScale = animHeaderValue.interpolate({
     inputRange: [0, Header_Max_Height - Header_Min_Height],
     outputRange: [2, 1],
+    extrapolate: 'clamp',
+  });
+
+  const animateSearchPosition = animHeaderValue.interpolate({
+    inputRange: [0, Header_Max_Height - Header_Min_Height],
+    outputRange: [-26, 16], // TODO: hardcode is not the option
     extrapolate: 'clamp',
   });
 
@@ -88,7 +99,20 @@ export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
           <HeroWithChat />
         </Animated.View>
       </Animated.View>
-      <TextField placeholderTx="voc.searchCategory" />
+      <Animated.View
+        style={{
+          height: searchFieldDimensions.height,
+          zIndex: 992,
+          transform: [{ translateY: animateSearchPosition }],
+        }}>
+        <TextField
+          onLayout={event => {
+            const { width, height } = event.nativeEvent.layout;
+            setSearchFieldDimensions({ width, height });
+          }}
+          placeholderTx="voc.searchCategory"
+        />
+      </Animated.View>
     </View>
   );
 }
