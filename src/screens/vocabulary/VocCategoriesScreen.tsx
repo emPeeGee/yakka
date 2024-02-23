@@ -66,16 +66,13 @@ export const VocCategoriesScreen = () => {
   const [category, setCategory] = useState<number>(CATEGORIES[0].value);
 
   return (
-    <ContainerWithInsets>
+    <ContainerWithInsets withoutBottom>
       <DynamicHeader animHeaderValue={scrollOffsetY} />
       <ScrollView
         scrollEventThrottle={16}
-        contentContainerStyle={{
-          paddingHorizontal: theme.spacing.md,
-          paddingVertical: theme.spacing.lg,
-        }}
+        contentContainerStyle={{ padding: theme.spacing.md }}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
-          useNativeDriver: true,
+          useNativeDriver: false, // NOTE: native driver doesn't work on ios (not sure on Android) https://stackoverflow.com/questions/55055873/react-native-animated-with-usenativedriver-reactnative-animated-event-is
         })}>
         <ChoiceGroup options={CATEGORIES} value={category} onChange={setCategory} />
       </ScrollView>

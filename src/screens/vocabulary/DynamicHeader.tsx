@@ -2,40 +2,24 @@ import * as React from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 
 import { BackButton, EnhancedText, HeroWithChat, TextField } from '@/ui/core';
+import { MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
+const HEADER_MAX_HEIGHT = 200;
+const HEADER_MIN_HEIGHT = 90;
+
 export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
-  const Header_Max_Height = 200;
-  const Header_Min_Height = 70;
-
-  const [searchFieldDimensions, setSearchFieldDimensions] = React.useState<{
-    width: number;
-    height: number;
-  }>({ width: 0, height: 0 });
-
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const animateHeaderBackgroundColor = animHeaderValue.interpolate({
-    inputRange: [0, Header_Max_Height - Header_Min_Height],
+    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
     outputRange: [theme.colors.primary700, theme.colors.primary500],
     extrapolate: 'clamp',
   });
 
   const animateHeaderHeight = animHeaderValue.interpolate({
-    inputRange: [0, Header_Max_Height - Header_Min_Height],
-    outputRange: [Header_Max_Height, Header_Min_Height],
-    extrapolate: 'clamp',
-  });
-
-  const animateHeroScale = animHeaderValue.interpolate({
-    inputRange: [0, Header_Max_Height - Header_Min_Height],
-    outputRange: [2, 1],
-    extrapolate: 'clamp',
-  });
-
-  const animateSearchPosition = animHeaderValue.interpolate({
-    inputRange: [0, Header_Max_Height - Header_Min_Height],
-    outputRange: [-26, 16], // TODO: hardcode is not the option
+    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+    outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
     extrapolate: 'clamp',
   });
 
@@ -46,6 +30,7 @@ export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
         style={[
           styles.header,
           {
+            zIndex: 1,
             height: animateHeaderHeight,
             backgroundColor: animateHeaderBackgroundColor,
             width: '100%',
@@ -53,7 +38,7 @@ export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
         ]}>
         <View
           style={[
-            { width: '100%', paddingHorizontal: theme.spacing.md },
+            { width: '100%', flex: 1, paddingHorizontal: theme.spacing.md },
             gStyles.centerRowBetween,
           ]}>
           <BackButton />
@@ -62,15 +47,14 @@ export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
             style={[
               gStyles.centerColumnStart,
               gStyles.fullWidthFromStart,
-              { marginHorizontal: theme.spacing.md },
+              {
+                flex: 1,
+                marginHorizontal: theme.spacing.md,
+              },
             ]}>
             <EnhancedText
               tx="voc.whichCategory"
-              style={[
-                theme.typography.sizes.xl,
-                gStyles.fullWidthFromStart,
-                { color: theme.colors.base0 },
-              ]}
+              style={[theme.typography.sizes.xl, { color: theme.colors.base0 }]}
             />
             <EnhancedText
               tx="voc.wouldLearn"
@@ -80,39 +64,27 @@ export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
                   lineHeight: theme.typography.sizes.sm.fontSize,
                   color: theme.colors.base0,
                 },
-                gStyles.fullWidthFromStart,
               ]}
             />
           </View>
-        </View>
 
-        <Animated.View
-          style={{
-            position: 'absolute',
-            right: 0,
-            bottom: 0,
-            width: 65,
-            height: 65,
-            transform: [{ scale: animateHeroScale }],
-          }}>
-          {/* TODO: right hero */}
-          <HeroWithChat />
-        </Animated.View>
+          <HeroWithChat hero="question" width={40} height={HEADER_MIN_HEIGHT - 16} />
+        </View>
       </Animated.View>
-      <Animated.View
+      <View
         style={{
-          height: searchFieldDimensions.height,
-          zIndex: 992,
-          transform: [{ translateY: animateSearchPosition }],
+          paddingVertical: theme.spacing.xs,
+          paddingHorizontal: theme.spacing.md,
         }}>
         <TextField
-          onLayout={event => {
-            const { width, height } = event.nativeEvent.layout;
-            setSearchFieldDimensions({ width, height });
-          }}
           placeholderTx="voc.searchCategory"
+          RightAccessory={props => (
+            <View style={[props.style]}>
+              <MagnifyingGlassIcon />
+            </View>
+          )}
         />
-      </Animated.View>
+      </View>
     </View>
   );
 }
