@@ -1,6 +1,92 @@
 {
+  "cat": {
+    "word": "cat",
+    "category": "animals1",
+    "wordset_id": "4a38be0f6b",
+    "meanings": [
+      {
+        "id": "717d3771e1",
+        "def": "feline mammal usually having thick soft fur and no ability to roar: domestic cats",
+        "example": "wildcats",
+        "speech_part": "noun",
+        "synonyms": ["true cat"]
+      },
+      {
+        "id": "20eef03608",
+        "def": "any of several large cats typically able to roar and living in the wild",
+        "speech_part": "noun",
+        "synonyms": ["big cat"]
+      }
+    ],
+    "editors": ["bryanedu", "hcatlin"],
+    "contributors": ["zellerpress", "msingle", "sabreuse"]
+  },
+  "dog": {
+    "word": "dog",
+    "category": "animals1",
+    "wordset_id": "7ba753a75a",
+    "meanings": [
+      {
+        "id": "5d2897305f",
+        "def": "a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times",
+        "speech_part": "noun",
+        "synonyms": ["domestic dog"]
+      }
+    ]
+  },
+  "lion": {
+    "word": "lion",
+    "category": "animals1",
+    "wordset_id": "2eeb4bfb51",
+    "meanings": [
+      {
+        "id": "1da8c3a8df",
+        "def": "large gregarious predatory feline of Africa and India having a tawny coat with a shaggy mane in the male",
+        "speech_part": "noun",
+        "synonyms": ["king of beasts"]
+      },
+      {
+        "id": "07edbfbe26",
+        "def": "a celebrity who is lionized (much sought after)",
+        "speech_part": "noun",
+        "synonyms": ["social lion"]
+      }
+    ]
+  },
+  "tiger": {
+    "word": "tiger",
+    "category": "animals1",
+    "wordset_id": "2aef242c49",
+    "meanings": [
+      {
+        "id": "68c8d0d146",
+        "def": "large feline of forests in most of Asia having a tawny coat with black stripes",
+        "speech_part": "noun"
+      },
+      {
+        "id": "bc251cd1e0",
+        "def": "a fierce or audacious person",
+        "example": "he's a tiger on the tennis court",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "fox": {
+    "word": "fox",
+    "category": "animals1",
+    "wordset_id": "eafc48e22d",
+    "meanings": [
+      {
+        "id": "81ac8d3621",
+        "def": "alert carnivorous mammal with pointed muzzle and ears and a bushy tail",
+        "speech_part": "noun"
+      }
+    ]
+  },
+
   "mildly": {
     "word": "mildly",
+    "category": "all",
     "wordset_id": "99bf947e36",
     "pronunciation": "/ˈmaɪldli/",
     "meanings": [
@@ -20,6 +106,7 @@
   },
   "momently": {
     "word": "momently",
+    "category": "all",
     "wordset_id": "97440b40fb",
     "pronunciation": "/ˈmoʊməntli/",
     "meanings": [
@@ -40,6 +127,7 @@
   },
   "mighty": {
     "word": "mighty",
+    "category": "all",
     "wordset_id": "f57bc24277",
     "pronunciation": "/ˈmaɪdi/",
     "meanings": [
@@ -48,27 +136,428 @@
         "def": "very, typical in the southern states",
         "example": "That's a mighty fine guitar you've got there.",
         "speech_part": "adverb",
-        "synonyms": ["mightily", "powerful", "right"],
-        "labels": [
-          {
-            "name": "American",
-            "is_dialect": true
-          },
-          {
-            "name": "US",
-            "is_dialect": true,
-            "parent": {
-              "name": "American",
-              "is_dialect": true
-            }
-          }
-        ]
+        "synonyms": ["mightily", "powerful", "right"]
       },
       {
         "id": "f4134c4aa7",
         "def": "having or showing great strength or force or intensity",
         "example": "struck a mighty blow",
         "speech_part": "adjective"
+      }
+    ]
+  },
+
+  "red": {
+    "word": "red",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/rɛd/",
+    "meanings": [
+      {
+        "id": "f4134c4aa7",
+        "def": "of a color at the end of the spectrum next to orange and opposite violet, as of blood, fire, or rubies",
+        "example": "He was wearing a red shirt.",
+        "speech_part": "adjective"
+      }
+    ]
+  },
+  "blue": {
+    "word": "blue",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/bluː/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "the color of the sky or sea on a sunny day",
+        "example": "She painted the walls blue.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "green": {
+    "word": "green",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ɡriːn/",
+    "meanings": [
+      {
+        "id": "f4134c4aa7",
+        "def": "of a color intermediate between yellow and blue, as of grass or emeralds",
+        "example": "The trees were lush and green.",
+        "speech_part": "adjective"
+      }
+    ]
+  },
+  "yellow": {
+    "word": "yellow",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈjɛloʊ/",
+    "meanings": [
+      {
+        "id": "f4134c4aa7",
+        "def": "of the color between green and orange in the spectrum; colored like ripe lemons or egg yolks",
+        "example": "The sunflowers were a bright yellow.",
+        "speech_part": "adjective"
+      }
+    ]
+  },
+  "black": {
+    "word": "black",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/blæk/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "the darkest color, the result of the absence or complete absorption of light",
+        "example": "She wore a black dress to the funeral.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "white": {
+    "word": "white",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/waɪt/",
+    "meanings": [
+      {
+        "id": "f4134c4aa7",
+        "def": "of the color of milk or fresh snow, due to the reflection of all visible rays of light; the opposite of black",
+        "example": "The bride wore a beautiful white gown.",
+        "speech_part": "adjective"
+      }
+    ]
+  },
+  "gray": {
+    "word": "gray",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ɡreɪ/",
+    "meanings": [
+      {
+        "id": "f4134c4aa7",
+        "def": "of a color intermediate between black and white; dull and nondescript",
+        "example": "The sky was gray and overcast.",
+        "speech_part": "adjective"
+      }
+    ]
+  },
+  "brown": {
+    "word": "brown",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/braʊn/",
+    "meanings": [
+      {
+        "id": "f4134c4aa7",
+        "def": "of the color of dark wood or rich soil; dark or dusky",
+        "example": "The bear had a thick, brown fur coat.",
+        "speech_part": "adjective"
+      }
+    ]
+  },
+  "pink": {
+    "word": "pink",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/pɪŋk/",
+    "meanings": [
+      {
+        "id": "f4134c4aa7",
+        "def": "of a color intermediate between red and white, as of coral or salmon",
+        "example": "The sky turned pink as the sun set.",
+        "speech_part": "adjective"
+      }
+    ]
+  },
+  "purple": {
+    "word": "purple",
+    "category": "colors1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈpɜːrpl/",
+    "meanings": [
+      {
+        "id": "f4134c4aa7",
+        "def": "of a color intermediate between red and blue",
+        "example": "The flowers were a beautiful shade of purple.",
+        "speech_part": "adjective"
+      }
+    ]
+  },
+
+  "scarlet": {
+    "word": "scarlet",
+    "category": "colors2",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈskɑːrlɪt/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a bright red color",
+        "example": "She wore a stunning scarlet dress to the party.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "indigo": {
+    "word": "indigo",
+    "category": "colors2",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈɪndɪɡoʊ/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a deep blue color",
+        "example": "She painted her bedroom walls in indigo.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "emerald": {
+    "word": "emerald",
+    "category": "colors2",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈɛmərəld/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a bright green color",
+        "example": "She adorned herself with emerald earrings.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "saffron": {
+    "word": "saffron",
+    "category": "colors2",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈsæfrən/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a bright yellow color",
+        "example": "She wore a saffron scarf around her neck.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "azure": {
+    "word": "azure",
+    "category": "colors2",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈæʒər/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a bright blue color",
+        "example": "The azure sky stretched endlessly above us.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+
+  "circle": {
+    "word": "circle",
+    "category": "shapes1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈsɜːrkəl/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a round plane figure whose boundary (the circumference) consists of points equidistant from a fixed point (the center)",
+        "example": "She drew a perfect circle on the paper.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "square": {
+    "word": "square",
+    "category": "shapes1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/skwɛər/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a plane figure with four equal straight sides and four right angles",
+        "example": "The tiles on the floor were laid out in a square pattern.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "triangle": {
+    "word": "triangle",
+    "category": "shapes1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈtraɪˌæŋɡəl/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a plane figure with three straight sides and three angles",
+        "example": "She used a triangle to draw the roof of the house.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "rectangle": {
+    "word": "rectangle",
+    "category": "shapes1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈrɛktæŋɡəl/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a plane figure with four straight sides and four right angles, especially one with unequal adjacent sides, in contrast to a square",
+        "example": "The room was shaped like a rectangle.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+  "oval": {
+    "word": "oval",
+    "category": "shapes1",
+    "wordset_id": "f57bc24277",
+    "pronunciation": "/ˈoʊvəl/",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "a figure resembling an egg or an ellipse",
+        "example": "The mirror was framed with an oval shape.",
+        "speech_part": "noun"
+      }
+    ]
+  },
+
+  "run": {
+    "word": "run",
+    "category": "actions1",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to move swiftly on foot",
+        "example": "She likes to run in the park every morning.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+  "jump": {
+    "word": "jump",
+    "category": "actions1",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to spring off the ground or other base by a muscular effort of the legs and feet",
+        "example": "The children love to jump on the trampoline.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+  "sing": {
+    "word": "sing",
+    "category": "actions1",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to produce musical sounds with the voice",
+        "example": "She sings beautifully.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+  "dance": {
+    "word": "dance",
+    "category": "actions1",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to move rhythmically to music, typically following a set sequence of steps",
+        "example": "They danced all night at the party.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+  "climb": {
+    "word": "climb",
+    "category": "actions1",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to ascend, go up, or get to the top of, especially by the use of the hands and feet",
+        "example": "They decided to climb the mountain together.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+
+  "swim": {
+    "word": "swim",
+    "category": "actions2",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to move through water by moving the body or parts of the body",
+        "example": "She learned to swim at a young age.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+  "write": {
+    "word": "write",
+    "category": "actions2",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to form letters or words with a pen or pencil",
+        "example": "He likes to write stories in his free time.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+  "cook": {
+    "word": "cook",
+    "category": "actions2",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to prepare (food, a dish, or a meal) by combining and heating the ingredients",
+        "example": "She enjoys cooking Italian cuisine.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+  "draw": {
+    "word": "draw",
+    "category": "actions2",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to produce a picture or diagram by making lines and marks on paper",
+        "example": "He drew a beautiful landscape.",
+        "speech_part": "verb"
+      }
+    ]
+  },
+  "read": {
+    "word": "read",
+    "category": "actions2",
+    "wordset_id": "f57bc24277",
+    "meanings": [
+      {
+        "id": "a1911f57d8",
+        "def": "to look at and comprehend the meaning of (written or printed matter) by interpreting the characters or symbols of which it is composed",
+        "example": "She loves to read novels in her spare time.",
+        "speech_part": "verb"
       }
     ]
   }

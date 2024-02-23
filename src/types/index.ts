@@ -10,7 +10,7 @@ import {
   TypographyPresets,
   FontSizes,
 } from './theme';
-import { Word, SpeechPart, WordLabel, WordMeaning } from './vocabulary';
+import { Word, WordCategory, SpeechPart, WordLabel, WordMeaning } from './vocabulary';
 
 export type {
   VoidCb,
@@ -25,6 +25,7 @@ export type {
   FontWeights,
   Dimensions,
   Word,
+  WordCategory,
   SpeechPart,
   WordLabel,
   WordMeaning,

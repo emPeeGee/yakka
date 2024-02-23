@@ -1,5 +1,18 @@
+export type WordCategory =
+  | 'all'
+  | 'animals1'
+  | 'colors1'
+  | 'shapes1'
+  | 'actions1'
+  | 'actions2'
+  | 'vegetables1'
+  | 'transport1'
+  | 'pets1'
+  | 'weather1';
+
 export type Word = {
   word: string;
+  category: WordCategory;
   wordset_id: string;
   pronunciation?: string;
   meanings: WordMeaning[];
