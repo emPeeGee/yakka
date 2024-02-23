@@ -22,7 +22,12 @@ export const CATEGORIES: Choice<WordCategory>[] = [
   },
   {
     value: 'colors1',
-    tx: 'voc.colors',
+    tx: 'voc.colors1',
+    Left: () => <Emoji emoji="🌈" />,
+  },
+  {
+    value: 'colors2',
+    tx: 'voc.colors2',
     Left: () => <Emoji emoji="🌈" />,
   },
   {

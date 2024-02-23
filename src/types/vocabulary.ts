@@ -2,6 +2,7 @@ export type WordCategory =
   | 'all'
   | 'animals1'
   | 'colors1'
+  | 'colors2'
   | 'shapes1'
   | 'actions1'
   | 'actions2'
