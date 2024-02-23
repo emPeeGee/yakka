@@ -66,7 +66,7 @@ export const CATEGORIES: Choice<WordCategory>[] = [
 export const VocCategoriesScreen = () => {
   const { theme } = useTheme();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
-  const { category, setCategory } = useVocabularyStore();
+  const { category, typedCategory, setCategory } = useVocabularyStore();
   const { goBack } = useNavigation();
 
   return (
@@ -79,7 +79,7 @@ export const VocCategoriesScreen = () => {
           useNativeDriver: false, // NOTE: native driver doesn't work on ios (not sure on Android) https://stackoverflow.com/questions/55055873/react-native-animated-with-usenativedriver-reactnative-animated-event-is
         })}>
         <ChoiceGroup
-          options={CATEGORIES}
+          options={CATEGORIES.filter(c => c.value.includes(typedCategory.toLowerCase()))}
           value={category}
           onChange={category => {
             setCategory(category);

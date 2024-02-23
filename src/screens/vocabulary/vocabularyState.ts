@@ -7,6 +7,8 @@ const allWords = Object.values(vocabulary) as Word[];
 
 interface VocabularyState {
   words: Word[];
+  typedCategory: string;
+  setTypedCategory: (category: string) => void;
   category: WordCategory;
   setCategory: (category: WordCategory) => void;
 }
@@ -14,8 +16,15 @@ interface VocabularyState {
 export const useVocabularyStore = create<VocabularyState>()(set => ({
   words: allWords,
   category: 'all',
+  typedCategory: '',
+  setTypedCategory: (category: string) =>
+    set(state => ({
+      ...state,
+      typedCategory: category,
+    })),
   setCategory: category =>
-    set(() => ({
+    set(state => ({
+      ...state,
       category,
       words:
         category === 'all'
