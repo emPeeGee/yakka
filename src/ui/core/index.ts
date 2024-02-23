@@ -5,6 +5,7 @@ import { CardStack, CardStackItem } from './CardStack';
 import { ChoiceGroup, Choice } from './ChoiceGroup';
 import { ContainerWithInsets } from './ContainerWithInsets';
 import { CurvedShape } from './CurvedShape';
+import { Emoji } from './Emoji';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
 import { FlipCard } from './FlipCard';
@@ -43,5 +44,6 @@ export {
   CardStack,
   CardStackItem,
   FlipCard,
+  Emoji,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType, Choice };

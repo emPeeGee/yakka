@@ -5,7 +5,7 @@ interface EmojiProps {
   emojiName?: string; // name of the emoji
 }
 
-export const EmojiComponent: React.FC<EmojiProps> = ({ emoji, emojiName }) => {
+export const Emoji: React.FC<EmojiProps> = ({ emoji, emojiName }) => {
   // If emojiName is provided, convert it to Unicode
   const emojiUnicode = emojiName && !emoji ? getEmojiUnicode(emojiName) : emoji;
 

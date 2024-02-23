@@ -19,6 +19,7 @@ import {
   Choice,
   ContainerWithInsets,
   useWizard,
+  Emoji,
 } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
@@ -84,12 +85,12 @@ const OnboardLangScreen = () => (
       {
         tx: 'common.english',
         value: 'en',
-        Left: () => <EnhancedText size="md">🇬🇧</EnhancedText>,
+        Left: () => <Emoji emoji="🇬🇧" />,
       },
       {
         tx: 'common.romanian',
         value: 'ro',
-        Left: () => <EnhancedText size="md">🇷🇴</EnhancedText>,
+        Left: () => <Emoji emoji="🇷🇴" />,
       },
     ]}
   />
@@ -104,17 +105,17 @@ const OnboardKnowAboutScreen = () => (
       {
         tx: 'universal.tiktok',
         value: 'tiktok',
-        Left: () => <EnhancedText size="md">🦁</EnhancedText>,
+        Left: () => <Emoji emoji="🦁" />,
       },
       {
         tx: 'universal.google',
         value: 'google',
-        Left: () => <EnhancedText size="md">🐯</EnhancedText>,
+        Left: () => <Emoji emoji="🐯" />,
       },
       {
         tx: 'universal.facebook',
         value: 'facebook',
-        Left: () => <EnhancedText size="md">🐧</EnhancedText>,
+        Left: () => <Emoji emoji="🐧" />,
       },
       {
         tx:
@@ -124,17 +125,17 @@ const OnboardKnowAboutScreen = () => (
               ? 'universal.playMarket'
               : 'universal.web',
         value: 'store',
-        Left: () => <EnhancedText size="md">🐺</EnhancedText>,
+        Left: () => <Emoji emoji="🐺" />,
       },
       {
         tx: 'universal.recommendation',
         value: 'recommendation',
-        Left: () => <EnhancedText size="md">🦝</EnhancedText>,
+        Left: () => <Emoji emoji="🦝" />,
       },
       {
         tx: 'universal.other',
         value: 'other',
-        Left: () => <EnhancedText size="md">🦊</EnhancedText>,
+        Left: () => <Emoji emoji="🦊" />,
       },
     ]}
   />
@@ -149,22 +150,22 @@ const OnboardHowMuchEngScreen = () => (
       {
         tx: 'onboard.engYouKnow1',
         value: 1,
-        Left: () => <EnhancedText size="md">🪫</EnhancedText>,
+        Left: () => <Emoji emoji="🪫" />,
       },
       {
         tx: 'onboard.engYouKnow2',
         value: 2,
-        Left: () => <EnhancedText size="md">🪫</EnhancedText>,
+        Left: () => <Emoji emoji="🪫" />,
       },
       {
         tx: 'onboard.engYouKnow3',
         value: 3,
-        Left: () => <EnhancedText size="md">🔋</EnhancedText>,
+        Left: () => <Emoji emoji="🔋" />,
       },
       {
         tx: 'onboard.engYouKnow4',
         value: 4,
-        Left: () => <EnhancedText size="md">🔋</EnhancedText>,
+        Left: () => <Emoji emoji="🔋" />,
       },
     ]}
   />
@@ -265,27 +266,27 @@ const OnboardReasonScreen = () => (
       {
         tx: 'onboard.why1',
         value: 'fun',
-        Left: () => <EnhancedText size="md">🤪</EnhancedText>,
+        Left: () => <Emoji emoji="🤪" />,
       },
       {
         tx: 'onboard.why2',
         value: 'career',
-        Left: () => <EnhancedText size="md">💼</EnhancedText>,
+        Left: () => <Emoji emoji="💼" />,
       },
       {
         tx: 'onboard.why3',
         value: 'education',
-        Left: () => <EnhancedText size="md">🎓</EnhancedText>,
+        Left: () => <Emoji emoji="🎓" />,
       },
       {
         tx: 'onboard.why4',
         value: 'vacation',
-        Left: () => <EnhancedText size="md">🗺</EnhancedText>,
+        Left: () => <Emoji emoji="🗺" />,
       },
       {
         tx: 'onboard.why5',
         value: 'other',
-        Left: () => <EnhancedText size="md">🧩</EnhancedText>,
+        Left: () => <Emoji emoji="🧩" />,
       },
     ]}
   />
