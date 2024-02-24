@@ -1,7 +1,8 @@
 import { TxKeyPath } from '@/core/i18n';
 
 export type SelectableOption<T> = {
-  tx: TxKeyPath;
+  tx?: TxKeyPath;
+  label?: string;
   value: T;
 };
 

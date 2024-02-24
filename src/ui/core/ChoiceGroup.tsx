@@ -21,7 +21,8 @@ type ChoiceGroupProps<T> = {
 };
 
 type ChoiceOptionProps<T> = {
-  tx: TxKeyPath;
+  tx?: TxKeyPath;
+  label?: string;
   selected: boolean;
   value: T;
   onSelect: (value: T) => void;
@@ -29,7 +30,15 @@ type ChoiceOptionProps<T> = {
   Left?: ComponentType<any>;
 };
 
-function ChoiceOption<T>({ tx, value, selected, onSelect, Right, Left }: ChoiceOptionProps<T>) {
+function ChoiceOption<T>({
+  tx,
+  label,
+  value,
+  selected,
+  onSelect,
+  Right,
+  Left,
+}: ChoiceOptionProps<T>) {
   const { theme, appColorScheme } = useTheme();
   const gStyles = useGlobalThemedStyles();
 
@@ -57,7 +66,13 @@ function ChoiceOption<T>({ tx, value, selected, onSelect, Right, Left }: ChoiceO
           </View>
         )}
 
-        <EnhancedText tx={tx} weight="medium" size="md" style={gStyles.fullWidthFromStart} />
+        <EnhancedText
+          tx={tx}
+          text={label}
+          weight="medium"
+          size="md"
+          style={gStyles.fullWidthFromStart}
+        />
 
         {Right && (
           <View>
@@ -79,6 +94,7 @@ export function ChoiceGroup<T>({ tx, options, value, onChange }: ChoiceGroupProp
           <ChoiceOption
             key={option.tx}
             tx={option.tx}
+            label={option.label}
             value={option.value}
             selected={option.value === value}
             onSelect={onChange}
