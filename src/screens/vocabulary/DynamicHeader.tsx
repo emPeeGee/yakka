@@ -12,7 +12,7 @@ const HEADER_MIN_HEIGHT = 90;
 export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const { setTypedCategory } = useVocabularyStore();
+  const { typedCategory, setTypedCategory } = useVocabularyStore();
   const animateHeaderBackgroundColor = animHeaderValue.interpolate({
     inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
     outputRange: [theme.colors.primary700, theme.colors.primary500],
@@ -79,6 +79,7 @@ export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
           paddingHorizontal: theme.spacing.md,
         }}>
         <TextField
+          value={typedCategory}
           onChangeText={setTypedCategory}
           placeholderTx="voc.searchCategory"
           RightAccessory={props => (
