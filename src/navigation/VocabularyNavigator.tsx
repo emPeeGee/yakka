@@ -4,7 +4,12 @@ import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { translate } from '@/core/i18n';
-import { VocCategoriesScreen, VocStartScreen, VocWordOfTheDayScreen } from '@/screens';
+import {
+  VocCategoriesScreen,
+  VocFavoritesScreen,
+  VocStartScreen,
+  VocWordOfTheDayScreen,
+} from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -38,6 +43,14 @@ export const VocabularyNavigator = () => {
           component={VocCategoriesScreen}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="VocFavorites"
+          component={VocFavoritesScreen}
+          options={{
+            title: translate('voc.favorites'),
+            headerTitleAlign: 'center',
           }}
         />
       </Stack.Group>

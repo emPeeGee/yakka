@@ -33,6 +33,7 @@
 [ ] Height of the vocabulary card should not be fixed by calculated depending on the screen height
 [ ] Lessons should be grouped. Revise the mock
 [ ] Display proper category in card stack instead of the id
+[ ] store favorite words in the storage
 
 ## Medium:
 

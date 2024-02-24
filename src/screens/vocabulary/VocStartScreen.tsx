@@ -122,6 +122,7 @@ export const VocStartScreen = () => {
             color={theme.colors.primary900}
             Left={() => HeartIcon({ width: 26, height: 26, fill: theme.colors.primary900 })}
             style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
+            onPress={() => navigate('VocFavorites' as never)}
           />
         </View>
         <View style={{ minWidth: 320, minHeight: 560 }}>

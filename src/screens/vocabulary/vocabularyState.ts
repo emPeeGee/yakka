@@ -11,6 +11,8 @@ interface VocabularyState {
   setTypedCategory: (category: string) => void;
   category: WordCategory;
   setCategory: (category: WordCategory) => void;
+  favorites: Word[];
+  setFavorites: (action: 'add' | 'delete', word: Word) => void;
 }
 
 export const useVocabularyStore = create<VocabularyState>()(set => ({
@@ -31,6 +33,25 @@ export const useVocabularyStore = create<VocabularyState>()(set => ({
           ? allWords.slice(-5)
           : allWords.filter(word => word.category === category),
     })),
+
+  favorites: [],
+  setFavorites: (action, word) => {
+    switch (action) {
+      case 'add':
+        set(state => ({
+          ...state,
+          favorites: [...state.favorites, word],
+        }));
+        break;
+
+      case 'delete':
+        set(state => ({
+          ...state,
+          favorites: state.favorites.filter(w => w.word !== word.word),
+        }));
+        break;
+    }
+  },
 }));
 
 // TODO: not the best location and file name

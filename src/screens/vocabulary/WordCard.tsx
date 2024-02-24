@@ -21,6 +21,7 @@ import {
 } from '@/ui/core';
 import { BookIcon, SpeakerIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { useVocabularyStore } from './vocabularyState';
 
 interface WordCardProps {
   word: Word;
@@ -45,6 +46,8 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
   const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
   const gStyles = useGlobalThemedStyles();
   const isFavorite = useSharedValue(0);
+  const { setFavorites } = useVocabularyStore();
+
   const outlineStyle = useAnimatedStyle(() => {
     return {
       transform: [
