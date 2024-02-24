@@ -1,9 +1,25 @@
 import { useMemo } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Animated, {
+  useSharedValue,
+  withSpring,
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate,
+} from 'react-native-reanimated';
 
 import { Word } from '@/types';
-import { FlipCard, Card, EnhancedText, Separator, HeroWithChat } from '@/ui/core';
-import { BookIcon, SpeakerIcon, HeartIcon } from '@/ui/icons';
+import {
+  FlipCard,
+  Card,
+  EnhancedText,
+  Separator,
+  HeroWithChat,
+  EnhancedPressable,
+} from '@/ui/core';
+import { BookIcon, SpeakerIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 interface WordCardProps {
@@ -28,6 +44,23 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
   const { theme, appColorScheme } = useTheme();
   const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
   const gStyles = useGlobalThemedStyles();
+  const isFavorite = useSharedValue(0);
+  const outlineStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: interpolate(isFavorite.value, [0, 1], [1, 0], Extrapolate.CLAMP),
+        },
+      ],
+    };
+  });
+
+  const fillStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: isFavorite.value }],
+      opacity: isFavorite.value,
+    };
+  });
 
   return (
     <Card>
@@ -146,9 +179,19 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
             </View>
           </View>
         ) : (
-          <View>
-            <HeartIcon />
-          </View>
+          <EnhancedPressable
+            onPress={() => {
+              isFavorite.value = withSpring(isFavorite.value ? 0 : 1);
+              setFavorites('add', item);
+            }}>
+            <Animated.View style={[StyleSheet.absoluteFillObject, outlineStyle]}>
+              <MaterialCommunityIcons name="heart-outline" size={32} color={theme.colors.chilly} />
+            </Animated.View>
+
+            <Animated.View style={fillStyle}>
+              <MaterialCommunityIcons name="heart" size={32} color={theme.colors.chilly} />
+            </Animated.View>
+          </EnhancedPressable>
         )}
       </View>
     </Card>
