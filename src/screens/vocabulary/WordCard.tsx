@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Speech from 'expo-speech';
 import Animated, {
   useSharedValue,
   withSpring,
@@ -139,7 +140,16 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                 <EnhancedText style={{ ...theme.typography.sizes.md }}>
                   {item.pronunciation}
                 </EnhancedText>
-                <SpeakerIcon width={28} height={28} />
+                <EnhancedPressable
+                  onPress={() => {
+                    Speech.speak(item.word, {
+                      language: 'en',
+                      // TODO: chose voice in the settings
+                      // voice: '',
+                    });
+                  }}>
+                  <SpeakerIcon width={28} height={28} />
+                </EnhancedPressable>
               </View>
               <EnhancedText
                 weight="light"
@@ -190,7 +200,7 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
           <EnhancedPressable
             onPress={() => {
               isFavorite.value = withSpring(isFavorite.value ? 0 : 1);
-              setFavorites('add', item);
+              setFavorites(isFavorite.value ? 'delete' : 'add', item);
             }}>
             <Animated.View style={[StyleSheet.absoluteFillObject, outlineStyle]}>
               <MaterialCommunityIcons name="heart-outline" size={32} color={theme.colors.chilly} />
