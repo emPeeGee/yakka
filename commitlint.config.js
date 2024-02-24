@@ -23,7 +23,8 @@ module.exports = {
       [
         '🎉 init',
         '✨ feat', // Major feat
-        '🌱 feat', // Minor feat
+        '🌱 feat', // Medium feat
+        '🧿 feat', // Minor feat
         '🚧 feat', // WIP feat
         '🐞 fix',
         '📃 docs',
