@@ -92,7 +92,7 @@ export function ChoiceGroup<T>({ tx, options, value, onChange }: ChoiceGroupProp
       <View style={{ gap: theme.spacing.md }}>
         {options.map(option => (
           <ChoiceOption
-            key={option.tx}
+            key={option.tx || option.label}
             tx={option.tx}
             label={option.label}
             value={option.value}
