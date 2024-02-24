@@ -47,11 +47,14 @@ export const VocFavoritesScreen = () => {
                 </EnhancedText>
               ),
             }))}
-          onChange={category => {
-            // setCategory(category);
+          onChange={word => {
             setTimeout(() => {
-              // TODO: navigate to word card
-              navigate('VocWord' as never);
+              navigate(
+                'VocWord' as never,
+                {
+                  word,
+                } as never,
+              );
             });
           }}
         />

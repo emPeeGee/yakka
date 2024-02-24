@@ -9,6 +9,7 @@ import {
   VocFavoritesScreen,
   VocStartScreen,
   VocWordOfTheDayScreen,
+  VocWordScreen,
 } from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
@@ -50,6 +51,14 @@ export const VocabularyNavigator = () => {
           component={VocFavoritesScreen}
           options={{
             title: translate('voc.favorites'),
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="VocWord"
+          component={VocWordScreen}
+          options={{
+            title: translate('voc.word'),
             headerTitleAlign: 'center',
           }}
         />

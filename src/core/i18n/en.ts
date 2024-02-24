@@ -74,6 +74,7 @@ export const en = {
     password: 'Password',
   },
   voc: {
+    word: 'Word',
     wordOfTheDay: 'Word of the day',
     seeWordOfTheDay: 'See word of the day',
     favorites: 'Favorites',

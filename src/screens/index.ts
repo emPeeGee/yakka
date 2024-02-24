@@ -12,7 +12,7 @@ import { VocCategoriesScreen } from './vocabulary/VocCategoriesScreen';
 import { VocFavoritesScreen } from './vocabulary/VocFavoritesScreen';
 import { VocStartScreen } from './vocabulary/VocStartScreen';
 import { VocWordOfTheDayScreen } from './vocabulary/VocWordOfTheDayScreen';
-
+import { VocWordScreen } from './vocabulary/VocWordScreen';
 export {
   ProfileScreen,
   SettingsScreen,
@@ -28,4 +28,5 @@ export {
   VocWordOfTheDayScreen,
   VocCategoriesScreen,
   VocFavoritesScreen,
+  VocWordScreen,
 };

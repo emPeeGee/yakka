@@ -9,6 +9,7 @@ import Animated, {
   interpolate,
   Extrapolate,
 } from 'react-native-reanimated';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Word } from '@/types';
 import {
@@ -41,11 +42,15 @@ interface FlipCardWrapperProps {
   side: 'front' | 'back';
 }
 
-const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
+export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
   const { theme, appColorScheme } = useTheme();
+  const word = useVocabularyStore(
+    useShallow(state => state.favorites.find(w => w.word === item.word)),
+  );
   const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
   const gStyles = useGlobalThemedStyles();
-  const isFavorite = useSharedValue(0);
+  const isFavorite = useSharedValue(word ? 1 : 0);
+
   const { setFavorites } = useVocabularyStore();
 
   const outlineStyle = useAnimatedStyle(() => {
@@ -168,7 +173,7 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
 
         {side === 'front' ? (
           <View style={[gStyles.centerRow, { width: '100%', marginBottom: theme.spacing.md }]}>
-            <View style={{ width: 160 }}>
+            {/* <View style={{ width: 160 }}>
               <EnhancedText
                 text="Powered by Open Source Dictionary"
                 preset="formHelper"
@@ -176,10 +181,10 @@ const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                 numberOfLines={2}
                 style={{ color: theme.colors.textSec, textAlign: 'center' }}
               />
-            </View>
-            <View style={{ position: 'absolute', right: 0 }}>
-              <HeroWithChat hero="discovery" direction="right" />
-            </View>
+            </View> */}
+            {/* <View style={{ position: 'absolute', right: 0 }}> */}
+            <HeroWithChat hero="discovery" direction="right" />
+            {/* </View> */}
           </View>
         ) : (
           <EnhancedPressable

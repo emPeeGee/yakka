@@ -16,7 +16,7 @@ export type Choice<T> = SelectableOption<T> & {
 type ChoiceGroupProps<T> = {
   tx?: TxKeyPath;
   options: Choice<T>[];
-  value: T;
+  value?: T;
   onChange: (value: T) => void;
 };
 
