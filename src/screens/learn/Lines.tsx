@@ -3,11 +3,12 @@ import { StyleSheet, View } from 'react-native';
 
 import { WORD_HEIGHT, NUMBER_OF_LINES } from './Layout';
 
-const Lines = () => {
+export const Lines = () => {
   return (
     <View style={StyleSheet.absoluteFill}>
       {new Array(NUMBER_OF_LINES).fill(0).map((_, index) => (
         <View
+          // eslint-disable-next-line react/no-array-index-key
           key={index * WORD_HEIGHT}
           style={{
             top: index * WORD_HEIGHT - 2,
@@ -20,5 +21,3 @@ const Lines = () => {
     </View>
   );
 };
-
-export default Lines;

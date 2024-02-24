@@ -7,11 +7,11 @@ interface PlaceholderProps {
   offset: Offset;
 }
 
-const Placeholder = ({ offset }: PlaceholderProps) => {
+export const Placeholder = ({ offset }: PlaceholderProps) => {
   return (
     <View
       style={{
-        backgroundColor: '#E6E5E6',
+        backgroundColor: 'yellow',
         position: 'absolute',
         top: offset.originalY.value + MARGIN_TOP + 2,
         left: offset.originalX.value - MARGIN_LEFT + 2,
@@ -22,5 +22,3 @@ const Placeholder = ({ offset }: PlaceholderProps) => {
     />
   );
 };
-
-export default Placeholder;

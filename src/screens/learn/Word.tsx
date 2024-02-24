@@ -6,6 +6,7 @@ import { WORD_HEIGHT } from './Layout';
 const styles = StyleSheet.create({
   root: {
     padding: 4,
+    backgroundColor: 'red',
   },
   container: {
     padding: 8,
@@ -16,7 +17,6 @@ const styles = StyleSheet.create({
     height: WORD_HEIGHT - 8,
   },
   text: {
-    fontFamily: 'Nunito-Regular',
     fontSize: 19,
   },
   shadow: {
@@ -33,7 +33,7 @@ interface WordProps {
   word: string;
 }
 
-const Word = ({ word }: WordProps) => (
+export const Word = ({ word }: WordProps) => (
   <View style={styles.root}>
     <View>
       <View style={styles.container}>
@@ -43,5 +43,3 @@ const Word = ({ word }: WordProps) => (
     </View>
   </View>
 );
-
-export default Word;

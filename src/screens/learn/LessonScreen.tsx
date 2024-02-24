@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { ReactElement, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
@@ -7,9 +8,9 @@ import { useSharedValue, runOnUI, runOnJS } from 'react-native-reanimated';
 import { EnhancedText, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { MARGIN_LEFT } from './Layout';
-import Lines from './Lines';
-import SortableWord from './SortableWord';
-import Word from './Word';
+import { Lines } from './Lines';
+import { SortableWord } from './SortableWord';
+import { Word } from './Word';
 
 const words = [
   { id: 1, word: 'Er' },
@@ -42,7 +43,7 @@ interface WordListProps {
   children: ReactElement<{ id: number }>[];
 }
 
-const WordList = ({ children }: WordListProps) => {
+export const WordList = ({ children }: WordListProps) => {
   const [ready, setReady] = useState(false);
   const offsets = children.map(() => ({
     order: useSharedValue(0),
@@ -59,6 +60,7 @@ const WordList = ({ children }: WordListProps) => {
         {children.map((child, index) => {
           return (
             <View
+              // eslint-disable-next-line react/no-array-index-key
               key={index}
               onLayout={({
                 nativeEvent: {
@@ -89,6 +91,7 @@ const WordList = ({ children }: WordListProps) => {
     <View style={styles.container}>
       <Lines />
       {children.map((child, index) => (
+        // eslint-disable-next-line react/no-array-index-key
         <SortableWord key={index} offsets={offsets} index={index} containerWidth={containerWidth}>
           {child}
         </SortableWord>
@@ -96,8 +99,6 @@ const WordList = ({ children }: WordListProps) => {
     </View>
   );
 };
-
-export default WordList;
 
 export const LessonScreen = () => {
   const { theme } = useTheme();
@@ -114,7 +115,7 @@ export const LessonScreen = () => {
             }}>
             What would you like to learn today?
           </EnhancedText>
-          <View style={{ flex: 1, backgroundColor: 'red' }}>
+          <View style={{ flex: 1, backgroundColor: '#433334' }}>
             <WordList>
               {words.map(word => (
                 <Word key={word.id} {...word} />

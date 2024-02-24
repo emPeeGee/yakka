@@ -22,7 +22,7 @@ import {
   MARGIN_LEFT,
   MARGIN_TOP,
 } from './Layout';
-import Placeholder from './Placeholder';
+import { Placeholder } from './Placeholder';
 
 interface SortableWordProps {
   offsets: Offset[];
@@ -31,7 +31,7 @@ interface SortableWordProps {
   containerWidth: number;
 }
 
-const SortableWord = ({ offsets, index, children, containerWidth }: SortableWordProps) => {
+export const SortableWord = ({ offsets, index, children, containerWidth }: SortableWordProps) => {
   const offset = offsets[index]!;
   const isGestureActive = useSharedValue(false);
   const isAnimating = useSharedValue(false);
@@ -124,5 +124,3 @@ const SortableWord = ({ offsets, index, children, containerWidth }: SortableWord
     </>
   );
 };
-
-export default SortableWord;

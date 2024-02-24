@@ -49,12 +49,7 @@ export const VocFavoritesScreen = () => {
             }))}
           onChange={word => {
             setTimeout(() => {
-              navigate(
-                'VocWord' as never,
-                {
-                  word,
-                } as never,
-              );
+              navigate('VocWord' as never, { word } as never);
             });
           }}
         />
