@@ -8,10 +8,12 @@ import { useIsFirstTime } from '@/core/hooks';
 import { useHaptics } from '@/core/providers';
 import { removeItem } from '@/core/storage';
 import { EnhancedText, Button, List, DataListType, HeaderPlaceholder } from '@/ui/core';
+import { useVocabularyStore } from '../vocabulary/vocabularyState';
 
 export const SettingsScreen = () => {
   const [isFirstTime] = useIsFirstTime();
   const { setHapticsEnabled, isHapticsEnabled } = useHaptics();
+  const { reset } = useVocabularyStore();
 
   const SETTINGS_LIST = useMemo(
     () =>
@@ -48,6 +50,14 @@ export const SettingsScreen = () => {
         tx="temp.clear1"
         onPress={() => {
           removeItem('IS_FIRST_TIME');
+        }}
+      />
+
+      {/*  NOTE: Dev purpose */}
+      <Button
+        text="Clear vocabulary store"
+        onPress={() => {
+          reset();
         }}
       />
       {/* POC: Speech */}

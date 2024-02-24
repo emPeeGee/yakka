@@ -9,20 +9,26 @@ const allWords = Object.values(vocabulary) as Word[];
 
 interface VocabularyState {
   words: Word[];
-  typedCategory: string;
-  setTypedCategory: (category: string) => void;
   category: WordCategory;
-  setCategory: (category: WordCategory) => void;
+  typedCategory: string;
   favorites: Word[];
+  setTypedCategory: (category: string) => void;
+  setCategory: (category: WordCategory) => void;
   setFavorites: (action: 'add' | 'delete', word: Word) => void;
+  reset: () => void;
 }
+
+const initialState: Pick<VocabularyState, 'words' | 'category' | 'favorites' | 'typedCategory'> = {
+  words: allWords,
+  category: 'all',
+  typedCategory: '',
+  favorites: [],
+};
 
 export const useVocabularyStore = create<VocabularyState>()(
   persist<VocabularyState>(
     set => ({
-      words: allWords,
-      category: 'all',
-      typedCategory: '',
+      ...initialState,
       setTypedCategory: (category: string) =>
         set(state => ({
           ...state,
@@ -37,8 +43,6 @@ export const useVocabularyStore = create<VocabularyState>()(
               ? allWords.slice(-5)
               : allWords.filter(word => word.category === category),
         })),
-
-      favorites: [],
       setFavorites: (action, word) => {
         switch (action) {
           case 'add':
@@ -55,6 +59,10 @@ export const useVocabularyStore = create<VocabularyState>()(
             }));
             break;
         }
+      },
+
+      reset: () => {
+        set(initialState);
       },
     }),
     {
