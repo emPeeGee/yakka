@@ -88,8 +88,7 @@ export const VocStartScreen = () => {
             paddingVertical: theme.spacing.md,
             paddingHorizontal: theme.spacing.md,
             backgroundColor:
-              appColorScheme === 'dark' ? theme.colors.background : theme.colors.primary800,
-            // backgroundColor: theme.colors.primary100,
+              appColorScheme === 'dark' ? theme.colors.background : theme.colors.primary100,
           },
           gStyles.centerColumn,
         ]}>
