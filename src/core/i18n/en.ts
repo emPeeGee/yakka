@@ -95,6 +95,11 @@ export const en = {
     pets: 'Pets',
     weather: 'Weather',
   },
+  exp: {
+    '12basicTenses': '12 Basic tenses',
+    verbs: 'Verbs',
+    grammar: 'Grammar',
+  },
   temp: {
     clear1: 'Clear the storage',
     sound: 'Sound',

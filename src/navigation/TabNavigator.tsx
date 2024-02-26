@@ -1,46 +1,16 @@
-import { useEffect, useState, type ComponentType } from 'react';
-import { ScrollView } from 'react-native';
+import { type ComponentType } from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import Markdown from 'react-native-marked';
 import type { SvgProps } from 'react-native-svg';
 
 import { BookIcon, CompassIcon, PathIcon, PersonIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
+import { ExploreNavigator } from './ExploreNavigator';
 import { LearnNavigator } from './LearnNavigator';
 import { ProfileNavigator } from './ProfileNavigator';
 import { VocabularyNavigator } from './VocabularyNavigator';
-
-const ExampleComponent = () => {
-  const [file, setFile] = useState<string>('');
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    fetch(require('../../README.md'))
-      .then(res => res.text())
-      .then(text => setFile(text));
-  }, []);
-
-  return (
-    <Markdown
-      styles={{ h1: { backgroundColor: 'purple' } }}
-      value={file}
-      flatListProps={{
-        initialNumToRender: 8,
-      }}
-    />
-  );
-};
-
-export const ExploreScreen = () => {
-  return (
-    <ScrollView>
-      <ExampleComponent />
-    </ScrollView>
-  );
-};
 
 type TabParamList = {
   Learn: undefined;
@@ -84,7 +54,7 @@ const tabs: TabType[] = [
   },
   {
     name: 'Explore',
-    component: ExploreScreen,
+    component: ExploreNavigator,
     label: 'Explore',
   },
   {
@@ -112,7 +82,6 @@ export const TabNavigator = () => {
         tabBarStyle: {
           borderTopWidth: 0,
           borderTopColor: 'transparent',
-
           elevation: 0,
           shadowColor: '#000',
           shadowOpacity: 0,

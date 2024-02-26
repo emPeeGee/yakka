@@ -1,4 +1,5 @@
 import { LoginScreen } from './auth/LoginScreen';
+import { ExpTopicsScreen } from './explore/ExpTopicsScreen';
 import { LearnScreen } from './learn/LearnScreen';
 import { LessonScreen } from './learn/LessonScreen';
 import { OnboardGetStartedScreen } from './onboarding/OnboardGetStartedScreen';
@@ -32,4 +33,5 @@ export {
   VocCategoriesScreen,
   VocFavoritesScreen,
   VocWordScreen,
+  ExpTopicsScreen,
 };

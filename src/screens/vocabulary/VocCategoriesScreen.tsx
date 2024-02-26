@@ -67,7 +67,6 @@ export const CATEGORIES: Choice<WordCategory>[] = [
   },
 ];
 
-// TODO: word of the day will be provided via network
 export const VocCategoriesScreen = () => {
   const { theme } = useTheme();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
