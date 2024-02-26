@@ -1,8 +1,9 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { AppearanceScreen, ProfileScreen, SettingsScreen } from '@/screens';
+import { AppearanceScreen, ProfileScreen, SettingsScreen, AchievementsScreen } from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -10,6 +11,7 @@ export type ProfileStackParamList = {
   ProfileScreen: undefined;
   SettingsScreen: undefined;
   AppearanceScreen: undefined;
+  AchievementsScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
@@ -26,7 +28,11 @@ export const ProfileNavigator = () => {
           headerTitleAlign: 'center',
           headerBackVisible: false,
           contentStyle: { paddingHorizontal: theme.spacing.md },
-          headerLeft: props => <BackButton {...props} />,
+          headerLeft: props => (
+            <View style={{ marginLeft: theme.spacing.md }}>
+              <BackButton {...props} />
+            </View>
+          ),
         }}>
         <Stack.Screen
           name="ProfileScreen"
@@ -41,6 +47,14 @@ export const ProfileNavigator = () => {
           options={{ headerTitle: 'Settings' }}
           name="SettingsScreen"
           component={SettingsScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: 'Achievements',
+            headerTransparent: false,
+          }}
+          name="AchievementsScreen"
+          component={AchievementsScreen}
         />
         <Stack.Screen
           options={{ headerTitle: 'Appearance' }}

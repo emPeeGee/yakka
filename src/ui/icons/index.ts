@@ -1,6 +1,7 @@
 import { AchievementsIcon } from './AchievementsIcon';
 import { BookBookmarkIcon } from './BookBookmarkIcon';
 import { BookIcon } from './BookIcon';
+import { CompassIcon } from './CompassIcon';
 import { EyeIcon } from './EyeIcon';
 import { EyeOffIcon } from './EyeOffIcon';
 import { HeartIcon } from './HeartIcon';
@@ -17,6 +18,7 @@ import { TrophyIcon } from './TrophyIcon';
 import { UserCircleIcon } from './UserCircleIcon';
 
 export {
+  CompassIcon,
   BookIcon,
   TrophyIcon,
   PathIcon,

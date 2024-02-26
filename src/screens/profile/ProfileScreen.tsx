@@ -20,7 +20,12 @@ import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 const DASHBOARD_LIST: DataListType[] = [
   { screen: 'SettingsScreen', label: 'Settings', Icon: SettingsIcon, withChevron: true },
-  { screen: 'SettingsScreen', label: 'Achievements', Icon: AchievementsIcon, withChevron: true },
+  {
+    screen: 'AchievementsScreen',
+    label: 'Achievements',
+    Icon: AchievementsIcon,
+    withChevron: true,
+  },
 ];
 
 export const ProfileScreen = () => {

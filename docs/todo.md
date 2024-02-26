@@ -47,6 +47,7 @@
 [ ] Login to save progress.
 [ ] Login to enable access to full content ???
 [ ] No card in vocabulary: lothie animation
+[ ] translate screens titles
 
 ## Low:
 

@@ -1,58 +1,24 @@
 import { type ComponentType } from 'react';
 import { View } from 'react-native';
 
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { SvgProps } from 'react-native-svg';
 
-import { noop } from '@/core/utils';
-import { EnhancedText, TextField } from '@/ui/core';
-import { BookIcon, PathIcon, PersonIcon, TrophyIcon } from '@/ui/icons';
+import { EnhancedText } from '@/ui/core';
+import { BookIcon, CompassIcon, PathIcon, PersonIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { LearnNavigator } from './LearnNavigator';
 import { ProfileNavigator } from './ProfileNavigator';
 import { VocabularyNavigator } from './VocabularyNavigator';
 
-const Achievements = () => {
+export const ExploreScreen = () => {
   return (
     <View>
-      <EnhancedText>Achievements</EnhancedText>
-      <FontAwesome.Button name="facebook" backgroundColor="#3b5998" onPress={noop}>
-        Login with Facebook
-      </FontAwesome.Button>
-
-      <TextField labelTx="temp.sound" status="error" />
-
-      <TextField
-        label="123"
-        inputWrapperStyle={{ width: '100%' }}
-        // multiline
-        LeftAccessory={props => (
-          <View style={[props.style]}>
-            <Ionicons color="white" size={26} name="airplane-outline" />
-          </View>
-        )}
-      />
-
-      <TextField
-        label="123"
-        inputWrapperStyle={{ width: '100%' }}
-        // multiline
-        LeftAccessory={props => (
-          <View style={[props.style]}>
-            <Ionicons color="white" size={26} name="airplane-outline" />
-          </View>
-        )}
-      />
-
-      <EnhancedText tx="common.back" />
-      <EnhancedText tx="common.back" preset="bold" />
-      <EnhancedText tx="common.back" preset="formHelper" />
-      <EnhancedText tx="common.back" preset="formLabel" />
-      <EnhancedText tx="common.back" preset="subheading" />
-      <EnhancedText tx="common.back" preset="heading" />
+      <EnhancedText>Explore</EnhancedText>
+      <EnhancedText>Explore</EnhancedText>
+      <EnhancedText>Explore</EnhancedText>
     </View>
   );
 };
@@ -60,7 +26,7 @@ const Achievements = () => {
 type TabParamList = {
   Learn: undefined;
   Vocabulary: undefined;
-  Achievements: undefined;
+  Explore: undefined;
   ProfileTab: undefined;
 };
 
@@ -77,7 +43,7 @@ type TabIconsType = {
 const tabsIcons: TabIconsType = {
   Learn: (props: SvgProps) => <PathIcon {...props} />,
   Vocabulary: (props: SvgProps) => <BookIcon {...props} />,
-  Achievements: (props: SvgProps) => <TrophyIcon {...props} />,
+  Explore: (props: SvgProps) => <CompassIcon {...props} />,
   ProfileTab: (props: SvgProps) => <PersonIcon {...props} />,
 };
 
@@ -98,9 +64,9 @@ const tabs: TabType[] = [
     label: 'Vocabulary',
   },
   {
-    name: 'Achievements',
-    component: Achievements,
-    label: 'Achievements',
+    name: 'Explore',
+    component: ExploreScreen,
+    label: 'Explore',
   },
   {
     name: 'ProfileTab',
