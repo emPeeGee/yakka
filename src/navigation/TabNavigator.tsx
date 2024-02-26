@@ -1,25 +1,44 @@
-import { type ComponentType } from 'react';
-import { View } from 'react-native';
+import { useEffect, useState, type ComponentType } from 'react';
+import { ScrollView } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Markdown from 'react-native-marked';
 import type { SvgProps } from 'react-native-svg';
 
-import { EnhancedText } from '@/ui/core';
 import { BookIcon, CompassIcon, PathIcon, PersonIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { LearnNavigator } from './LearnNavigator';
 import { ProfileNavigator } from './ProfileNavigator';
 import { VocabularyNavigator } from './VocabularyNavigator';
 
+const ExampleComponent = () => {
+  const [file, setFile] = useState<string>('');
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    fetch(require('../../README.md'))
+      .then(res => res.text())
+      .then(text => setFile(text));
+  }, []);
+
+  return (
+    <Markdown
+      styles={{ h1: { backgroundColor: 'purple' } }}
+      value={file}
+      flatListProps={{
+        initialNumToRender: 8,
+      }}
+    />
+  );
+};
+
 export const ExploreScreen = () => {
   return (
-    <View>
-      <EnhancedText>Explore</EnhancedText>
-      <EnhancedText>Explore</EnhancedText>
-      <EnhancedText>Explore</EnhancedText>
-    </View>
+    <ScrollView>
+      <ExampleComponent />
+    </ScrollView>
   );
 };
 
@@ -88,7 +107,7 @@ export const TabNavigator = () => {
   return (
     <Tab.Navigator
       // NOTE: route name for dev purpose
-      initialRouteName="Vocabulary"
+      initialRouteName="Explore"
       screenOptions={({ route }) => ({
         tabBarStyle: {
           borderTopWidth: 0,
