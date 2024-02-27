@@ -1,33 +1,23 @@
 import React, { useRef } from 'react';
 import { Animated, ScrollView } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
-type ExploreTopics = '12basicTenses' | 'verbs' | 'grammar';
+type ExploreTopics = 'ExpBasicTenses' | 'ExpVerbs' | 'ExpGrammar';
 
-export const CATEGORIES: Choice<ExploreTopics>[] = [
-  {
-    value: '12basicTenses',
-    tx: 'exp.12basicTenses',
-    Left: () => <Emoji emoji="📜" />,
-  },
-  {
-    value: 'verbs',
-    tx: 'exp.verbs',
-    Left: () => <Emoji emoji="🤸" />,
-  },
-  {
-    value: 'grammar',
-    tx: 'exp.grammar',
-    Left: () => <Emoji emoji="📚" />,
-  },
+export const TOPICS: Choice<ExploreTopics>[] = [
+  { value: 'ExpBasicTenses', tx: 'exp.12basicTenses', Left: () => <Emoji emoji="📜" /> },
+  { value: 'ExpGrammar', tx: 'exp.grammar', Left: () => <Emoji emoji="📚" /> },
+  { value: 'ExpVerbs', tx: 'exp.verbs', Left: () => <Emoji emoji="🤸" /> },
 ];
 
 export const ExpTopicsScreen = () => {
   const { theme } = useTheme();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
-  // const { goBack } = useNavigation();
+  const { navigate } = useNavigation();
 
   return (
     <ContainerWithInsets withoutBottom>
@@ -38,13 +28,11 @@ export const ExpTopicsScreen = () => {
           useNativeDriver: false,
         })}>
         <ChoiceGroup
-          options={CATEGORIES}
-          // value={category}
-          onChange={() => {
-            // setCategory(category);
-            // setTimeout(() => {
-            //   goBack();
-            // });
+          options={TOPICS}
+          onChange={topic => {
+            setTimeout(() => {
+              navigate(topic as never);
+            });
           }}
         />
       </ScrollView>
