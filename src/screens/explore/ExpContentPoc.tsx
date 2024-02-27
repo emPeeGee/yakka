@@ -1,27 +1,45 @@
 import { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import { ActivityIndicator, ScrollView } from 'react-native';
 
 import Markdown from 'react-native-marked';
 
-export const ExpContentScreen = () => {
+import { translate } from '@/core/i18n';
+
+export const ExpContentScreen = ({ route, navigation }) => {
   const [file, setFile] = useState<string>('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('route', route);
+    navigation.setOptions({
+      title: translate(route.params.title),
+    });
+
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    fetch(require('../../README.md'))
+    fetch(require('./content/test.md'))
       .then(res => res.text())
-      .then(text => setFile(text));
+      .then(text => {
+        setFile(text);
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      });
   }, []);
 
   return (
     <ScrollView>
-      <Markdown
-        styles={{ h1: { backgroundColor: 'purple' } }}
-        value={file}
-        flatListProps={{
-          initialNumToRender: 8,
-        }}
-      />
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <Markdown
+          styles={{ h1: { backgroundColor: 'purple' } }}
+          value={file}
+          flatListProps={{
+            initialNumToRender: 8,
+          }}
+        />
+      )}
     </ScrollView>
   );
 };

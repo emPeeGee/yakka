@@ -1,5 +1,6 @@
 import { LoginScreen } from './auth/LoginScreen';
 import { ExpBasicTensesScreen } from './explore/ExpBasicTensesScreen';
+import { ExpContentScreen } from './explore/ExpContentPoc';
 import { ExpTopicsScreen } from './explore/ExpTopicsScreen';
 import { LearnScreen } from './learn/LearnScreen';
 import { LessonScreen } from './learn/LessonScreen';
@@ -36,4 +37,5 @@ export {
   VocWordScreen,
   ExpTopicsScreen,
   ExpBasicTensesScreen,
+  ExpContentScreen,
 };
