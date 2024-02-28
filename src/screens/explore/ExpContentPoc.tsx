@@ -4,23 +4,25 @@ import { ActivityIndicator, ScrollView } from 'react-native';
 import Markdown from 'react-native-marked';
 
 import { translate } from '@/core/i18n';
+import { useTheme } from '@/ui/theme';
 
 export const ExpContentScreen = ({ route, navigation }) => {
+  const { theme } = useTheme();
   const [file, setFile] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('route', route);
     navigation.setOptions({
       title: translate(route.params.title),
     });
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    fetch(require('./content/test.md'))
+    fetch(require(`./content/${route.params.content}`))
       .then(res => res.text())
       .then(text => {
         setFile(text);
 
+        // TODO: instead of setTimeout, real time
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -28,7 +30,7 @@ export const ExpContentScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ paddingHorizontal: theme.spacing.md }}>
       {loading ? (
         <ActivityIndicator />
       ) : (

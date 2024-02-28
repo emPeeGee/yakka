@@ -34,6 +34,7 @@
 [ ] Lessons should be grouped. Revise the mock
 [ ] Display proper category in card stack instead of the id
 [ ] store favorite words in the storage
+[ ] content for explore
 
 ## Medium:
 
