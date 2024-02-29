@@ -1,11 +1,10 @@
-import React, { useRef } from 'react';
-import { Animated, ScrollView } from 'react-native';
+import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { TxKeyPath } from '@/core/i18n';
+import { TxKeyPath, translate } from '@/core/i18n';
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji } from '@/ui/core';
-import { useTheme } from '@/ui/theme';
+import { HeaderScrollView } from './Header';
 
 export const TENSES: Choice<{ content: string; title: TxKeyPath }>[] = [
   {
@@ -73,18 +72,11 @@ export const TENSES: Choice<{ content: string; title: TxKeyPath }>[] = [
 ];
 
 export const ExpBasicTensesScreen = () => {
-  const { theme } = useTheme();
-  const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const { navigate } = useNavigation();
 
   return (
     <ContainerWithInsets withoutBottom>
-      <ScrollView
-        scrollEventThrottle={16}
-        contentContainerStyle={{ padding: theme.spacing.md }}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
-          useNativeDriver: false,
-        })}>
+      <HeaderScrollView title={translate('exp.12basicTenses')}>
         <ChoiceGroup
           options={TENSES}
           onChange={({ content, title }) => {
@@ -93,7 +85,7 @@ export const ExpBasicTensesScreen = () => {
             });
           }}
         />
-      </ScrollView>
+      </HeaderScrollView>
     </ContainerWithInsets>
   );
 };
