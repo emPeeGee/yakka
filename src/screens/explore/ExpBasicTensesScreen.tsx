@@ -1,9 +1,11 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
 import { TxKeyPath, translate } from '@/core/i18n';
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji } from '@/ui/core';
+import { useTheme } from '@/ui/theme';
 import { HeaderScrollView } from './Header';
 
 export const TENSES: Choice<{ content: string; title: TxKeyPath }>[] = [
@@ -72,19 +74,22 @@ export const TENSES: Choice<{ content: string; title: TxKeyPath }>[] = [
 ];
 
 export const ExpBasicTensesScreen = () => {
+  const { theme } = useTheme();
   const { navigate } = useNavigation();
 
   return (
     <ContainerWithInsets withoutBottom>
       <HeaderScrollView title={translate('exp.12basicTenses')}>
-        <ChoiceGroup
-          options={TENSES}
-          onChange={({ content, title }) => {
-            setTimeout(() => {
-              navigate('ExpContent' as never, { content, title } as never);
-            });
-          }}
-        />
+        <View style={{ padding: theme.spacing.md }}>
+          <ChoiceGroup
+            options={TENSES}
+            onChange={({ content, title }) => {
+              setTimeout(() => {
+                navigate('ExpContent' as never, { content, title } as never);
+              });
+            }}
+          />
+        </View>
       </HeaderScrollView>
     </ContainerWithInsets>
   );

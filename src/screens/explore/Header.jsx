@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ScrollView, Text, Animated, Dimensions, StyleSheet } from 'react-native';
+import { BackButton } from '@/ui/core';
 
 import { Fade } from './Fade';
 
-const headerHeight = 60;
+const HEADER_HEIGHT = 64;
 
+// TODO: refactor into function and add border bottom
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent' },
   headerContainer: {
-    height: headerHeight,
+    height: HEADER_HEIGHT,
   },
   headerComponentContainer: {
-    height: headerHeight,
+    height: HEADER_HEIGHT,
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
     paddingBottom: 12,
+    paddingHorizontal: 16,
   },
   headline: {
     fontSize: 17,
@@ -26,7 +30,6 @@ const styles = StyleSheet.create({
   title: {
     letterSpacing: 0.011,
     fontWeight: '700',
-    marginLeft: 16,
     color: 'black',
   },
 });
@@ -116,7 +119,10 @@ export class HeaderScrollView extends Component {
         <View style={[styles.headerContainer, headerContainerStyle]}>
           <Fade visible={this.state.isHeaderScrolled} direction={fadeDirection}>
             <View style={[styles.headerComponentContainer, headerComponentContainerStyle]}>
-              <Text style={[styles.headline, headlineStyle]}>{title}</Text>
+              <BackButton />
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <Text style={[styles.headline, headlineStyle]}>{title}</Text>
+              </View>
             </View>
           </Fade>
         </View>
@@ -130,7 +136,9 @@ export class HeaderScrollView extends Component {
           scrollEventThrottle={16}
           contentContainerStyle={scrollContainerStyle}
           {...scrollViewProps}>
-          <View>
+          <View
+            style={{ paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+            <BackButton />
             <Animated.Text
               style={[
                 styles.title,
