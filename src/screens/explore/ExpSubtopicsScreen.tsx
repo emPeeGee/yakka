@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TxKeyPath, translate } from '@/core/i18n';
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
+import { ExploreTopics } from './ExpTopicsScreen';
 import { HeaderScrollView } from './Header';
 
 export const TENSES: Choice<{ content: string; title: TxKeyPath }>[] = [
@@ -73,16 +74,38 @@ export const TENSES: Choice<{ content: string; title: TxKeyPath }>[] = [
   },
 ];
 
-export const ExpBasicTensesScreen = () => {
+export const VERBS: Choice<{ content: string; title: TxKeyPath }>[] = [
+  {
+    value: { content: 'test.md', title: 'exp.irregularVerbs' },
+    tx: 'exp.regularVerbs',
+    Left: () => <Emoji emoji="🔄" />,
+  },
+  {
+    value: { content: './test.md', title: 'exp.regularVerbs' },
+    tx: 'exp.regularVerbs',
+    Left: () => <Emoji emoji="📐‍️" />,
+  },
+];
+const SUBTOPICS = {
+  [ExploreTopics.BasicTenses]: TENSES,
+  [ExploreTopics.Grammar]: [],
+  [ExploreTopics.Verbs]: VERBS,
+};
+
+export const ExpBasicTensesScreen = ({ route }) => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
+  const subtopics = useMemo(
+    () => SUBTOPICS[route.params.topic as ExploreTopics],
+    [route.params.topic],
+  );
 
   return (
     <ContainerWithInsets withoutBottom>
       <HeaderScrollView title={translate('exp.12basicTenses')}>
         <View style={{ padding: theme.spacing.md }}>
           <ChoiceGroup
-            options={TENSES}
+            options={subtopics}
             onChange={({ content, title }) => {
               setTimeout(() => {
                 navigate('ExpContent' as never, { content, title } as never);

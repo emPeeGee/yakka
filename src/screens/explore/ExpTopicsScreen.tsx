@@ -6,12 +6,17 @@ import { useNavigation } from '@react-navigation/native';
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
-type ExploreTopics = 'ExpBasicTenses' | 'ExpVerbs' | 'ExpGrammar';
+// TODO: not the best location
+export enum ExploreTopics {
+  BasicTenses = 'BasicTenses',
+  Verbs = 'Verbs',
+  Grammar = 'Grammar',
+}
 
 export const TOPICS: Choice<ExploreTopics>[] = [
-  { value: 'ExpBasicTenses', tx: 'exp.12basicTenses', Left: () => <Emoji emoji="📜" /> },
-  { value: 'ExpGrammar', tx: 'exp.grammar', Left: () => <Emoji emoji="📚" /> },
-  { value: 'ExpVerbs', tx: 'exp.verbs', Left: () => <Emoji emoji="🤸" /> },
+  { value: ExploreTopics.BasicTenses, tx: 'exp.12basicTenses', Left: () => <Emoji emoji="📜" /> },
+  { value: ExploreTopics.Grammar, tx: 'exp.grammar', Left: () => <Emoji emoji="📚" /> },
+  { value: ExploreTopics.Verbs, tx: 'exp.verbs', Left: () => <Emoji emoji="🤸" /> },
 ];
 
 export const ExpTopicsScreen = () => {
@@ -31,7 +36,7 @@ export const ExpTopicsScreen = () => {
           options={TOPICS}
           onChange={topic => {
             setTimeout(() => {
-              navigate(topic as never);
+              navigate('ExpSubtopics' as never, { topic } as never);
             });
           }}
         />

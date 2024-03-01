@@ -111,6 +111,8 @@ export const en = {
     futureContinuous: 'Future continuous',
     futurePerfect: 'Future perfect',
     futurePerfectContinuous: 'Future perfect continuous',
+    irregularVerbs: 'Irregular verbs',
+    regularVerbs: 'Regular verbs',
   },
   temp: {
     clear1: 'Clear the storage',

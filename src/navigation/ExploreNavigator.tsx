@@ -9,7 +9,7 @@ import { useTheme } from '@/ui/theme';
 
 export type ExploreStackParamList = {
   ExpTopics: undefined;
-  ExpBasicTenses: undefined;
+  ExpSubtopics: undefined;
   ExpContent: undefined;
 };
 
@@ -41,7 +41,7 @@ export const ExploreNavigator = () => {
           }}
         />
         <Stack.Screen
-          name="ExpBasicTenses"
+          name="ExpSubtopics"
           component={ExpBasicTensesScreen}
           options={{
             headerShown: false,
