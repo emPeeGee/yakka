@@ -1,10 +1,12 @@
-import React, { useRef } from 'react';
-import { Animated, ScrollView } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Animated, ScrollView, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { Choice, ChoiceGroup, ContainerWithInsets, Emoji } from '@/ui/core';
+import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, TextField } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
+import { MagnifyingGlassIcon } from '@/ui/icons';
+import { HeaderScrollView } from './Header';
 
 // TODO: not the best location
 export enum ExploreTopics {
@@ -23,15 +25,33 @@ export const ExpTopicsScreen = () => {
   const { theme } = useTheme();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const { navigate } = useNavigation();
+  const [typedTopic, setTypedTopic] = useState('');
 
   return (
     <ContainerWithInsets withoutBottom>
-      <ScrollView
+      <HeaderScrollView title="aaa">
+        {/* <ScrollView
         scrollEventThrottle={16}
         contentContainerStyle={{ padding: theme.spacing.md }}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
           useNativeDriver: false,
-        })}>
+        })}> */}
+        <View
+          style={{
+            paddingVertical: theme.spacing.xs,
+          }}>
+          <TextField
+            value={typedTopic}
+            onChangeText={setTypedTopic}
+            placeholderTx="voc.searchCategory"
+            style={{ paddingVertical: theme.spacing.md }}
+            RightAccessory={props => (
+              <View style={[props.style]}>
+                <MagnifyingGlassIcon />
+              </View>
+            )}
+          />
+        </View>
         <ChoiceGroup
           options={TOPICS}
           onChange={topic => {
@@ -40,7 +60,8 @@ export const ExpTopicsScreen = () => {
             });
           }}
         />
-      </ScrollView>
+        {/* </ScrollView> */}
+      </HeaderScrollView>
     </ContainerWithInsets>
   );
 };
