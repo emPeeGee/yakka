@@ -35,10 +35,19 @@ export const ExpContentScreen = ({ route, navigation }) => {
         <ActivityIndicator />
       ) : (
         <Markdown
+          theme={{
+            colors: {
+              border: theme.colors.border,
+              text: theme.colors.textPri,
+              link: theme.colors.secondary500,
+              code: theme.colors.secondary900,
+            },
+          }}
           styles={{ h1: { backgroundColor: 'purple' } }}
           value={file}
           flatListProps={{
             initialNumToRender: 8,
+            style: { backgroundColor: theme.colors.background },
           }}
         />
       )}

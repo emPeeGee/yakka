@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    paddingBottom: 12,
+    paddingVertical: 12,
     paddingHorizontal: 16,
   },
   headline: {
@@ -134,10 +134,15 @@ export class HeaderScrollView extends Component {
             },
           )}
           scrollEventThrottle={16}
-          contentContainerStyle={scrollContainerStyle}
+          contentContainerStyle={[scrollContainerStyle]}
           {...scrollViewProps}>
           <View
-            style={{ paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+            style={{
+              paddingHorizontal: 16,
+              gap: 16,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             <BackButton />
             <Animated.Text
               style={[
