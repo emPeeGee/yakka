@@ -29,7 +29,7 @@ export const LoginScreen = () => {
   }, []);
 
   const onSkipHandler = useCallback(() => {
-    navigate('App', { screen: 'LearnScreen' });
+    navigate('App', { screen: 'LearnTree' });
   }, []);
 
   return (

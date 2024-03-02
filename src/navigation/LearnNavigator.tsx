@@ -1,19 +1,38 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { rootLog } from '@/core/logger';
 import { LearnScreen, LessonScreen } from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export type LearnStackParamList = {
-  LearnScreen: undefined;
+  LearnTree: undefined;
+  LearnLesson: undefined;
 };
+
+export type LearnStackNavigatorProps = NativeStackScreenProps<LearnStackParamList>;
 
 const Stack = createNativeStackNavigator<LearnStackParamList>();
 
-export const LearnNavigator = () => {
+const tabHiddenRoutes = ['LearnLesson'];
+
+export const LearnNavigator = ({ navigation, route }: LearnStackNavigatorProps) => {
   const { theme } = useTheme();
+
+  useLayoutEffect(() => {
+    const routeName = getFocusedRouteNameFromRoute(route) as string;
+    rootLog.info(`NEW ROUTE NAME ${routeName}`);
+
+    if (tabHiddenRoutes.includes(routeName)) {
+      navigation.setOptions({ tabBarStyle: { display: 'none' } } as any);
+    } else {
+      navigation.setOptions({ tabBarStyle: { display: 'flex' } } as any);
+    }
+  }, [navigation, route]);
+
   return (
     <Stack.Navigator>
       <Stack.Group
@@ -26,7 +45,7 @@ export const LearnNavigator = () => {
           headerLeft: props => <BackButton {...props} />,
         }}>
         <Stack.Screen
-          name="LearnScreen"
+          name="LearnTree"
           component={LearnScreen}
           options={{
             headerShown: false,
@@ -34,7 +53,7 @@ export const LearnNavigator = () => {
           }}
         />
         <Stack.Screen
-          name="LessonScreen"
+          name="LearnLesson"
           component={LessonScreen}
           options={{
             headerShown: false,

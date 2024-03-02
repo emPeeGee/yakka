@@ -34,7 +34,7 @@ export const LearnScreen = () => {
           }}>
           <Tile type="globe" />
           <Tile type="countdown" withHero heroPos="left" />
-          <Tile type="globe" current onPress={() => navigate('LessonScreen' as never)} />
+          <Tile type="globe" current onPress={() => navigate('LearnLesson' as never)} />
           <Tile completed type="globe" />
           <Tile completed type="countdown" withHero heroPos="right" />
           <Tile completed type="globe" />
