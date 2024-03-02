@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { Platform, ScrollView, ScrollViewProps, View, Image } from 'react-native';
+import { Platform, View, Image } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -20,25 +20,9 @@ import {
   ContainerWithInsets,
   useWizard,
   Emoji,
+  EnhancedScrollView,
 } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-
-type EnhancedScrollViewProps = {
-  children?: React.ReactNode;
-} & ScrollViewProps;
-
-const EnhancedScrollView = ({ children, ...props }: EnhancedScrollViewProps) => {
-  const { theme } = useTheme();
-
-  return (
-    <ScrollView
-      style={{ height: '100%', paddingHorizontal: theme.spacing.xs }}
-      contentContainerStyle={{ paddingVertical: theme.spacing.sm }}
-      {...props}>
-      {children}
-    </ScrollView>
-  );
-};
 
 type QuestionProps<T> = { options: Choice<T>[]; txTitle: TxKeyPath; id: string; index: number };
 
