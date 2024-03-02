@@ -7,6 +7,7 @@ import {
   BackHandler,
   StyleProp,
   ViewStyle,
+  Platform,
 } from 'react-native';
 
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -108,8 +109,11 @@ const Wizardd = ({
   // Custom back button behavior
   useFocusEffect(
     useCallback(() => {
-      const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      if (Platform.OS === 'web') {
+        return;
+      }
 
+      const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
       return () => subscription.remove();
     }, []),
   );
