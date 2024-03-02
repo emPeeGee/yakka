@@ -50,7 +50,7 @@ const Wizardd = ({
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const { theme } = useTheme();
   const { navigate } = useNavigation();
-  const { data, isContinueEnabled, onNextScreen } = useWizard();
+  const { data, isContinueEnabled, onNextScreen, goNext } = useWizard();
 
   const styles = useMemo(() => getStyles(theme), [theme]);
   const gStyles = useGlobalThemedStyles();
@@ -105,6 +105,9 @@ const Wizardd = ({
     flatListRef.current?.scrollToIndex({ index: next });
     onNextScreen[next]?.();
   }, [data]);
+
+  // TODO: Experimental
+  goNext.current = onNextPress;
 
   // Custom back button behavior
   useFocusEffect(

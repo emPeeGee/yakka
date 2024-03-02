@@ -22,6 +22,8 @@ type WizardContextType = {
    * Set a callback which will be called when a specific screen is reached
    */
   setOnNextScreen: (index: number, cb: VoidCb) => void;
+  // TODO: Experimental
+  goNext: () => void;
 };
 
 const initialValue: WizardContextType = {
@@ -31,6 +33,7 @@ const initialValue: WizardContextType = {
   setIsContinueEnabled: noop,
   onNextScreen: [],
   setOnNextScreen: noop,
+  goNext: noop,
 };
 
 const WizardContext = createContext<WizardContextType>(initialValue);
@@ -45,6 +48,7 @@ export const WizardProvider = ({
   enableContinueOnFirstScreen,
 }: WizardProviderProps): React.ReactNode => {
   const onNextScreen = useRef<VoidCb[]>([]);
+  const goNext = useRef<VoidCb>(noop);
   const [data, setData] = useState<WizardData>({});
   const [isContinueEnabled, setContinueEnabled] = useState<boolean>(
     enableContinueOnFirstScreen || initialValue.isContinueEnabled,
@@ -73,6 +77,7 @@ export const WizardProvider = ({
         setOnNextScreen: (index: number, cb: VoidCb) => {
           onNextScreen.current[index] = cb;
         },
+        goNext: goNext,
       }}>
       {children}
     </WizardContext.Provider>

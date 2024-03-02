@@ -22,6 +22,7 @@ const tabHiddenRoutes = ['LearnLesson'];
 export const LearnNavigator = ({ navigation, route }: LearnStackNavigatorProps) => {
   const { theme } = useTheme();
 
+  // https://stackoverflow.com/questions/51352081/react-navigation-how-to-hide-tabbar-from-inside-stack-navigation
   useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route) as string;
     rootLog.info(`NEW ROUTE NAME ${routeName}`);
@@ -34,7 +35,8 @@ export const LearnNavigator = ({ navigation, route }: LearnStackNavigatorProps) 
   }, [navigation, route]);
 
   return (
-    <Stack.Navigator>
+    // TODO: replace with LearnTree
+    <Stack.Navigator initialRouteName="LearnLesson">
       <Stack.Group
         screenOptions={{
           headerShown: true,
