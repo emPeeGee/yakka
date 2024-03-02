@@ -73,6 +73,10 @@ export const en = {
     email: 'Email',
     password: 'Password',
   },
+  learn: {
+    whatDoesSentence: 'What does sentence mean?',
+    checkAnswer: 'Check answer',
+  },
   voc: {
     word: 'Word',
     wordOfTheDay: 'Word of the day',

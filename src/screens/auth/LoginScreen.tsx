@@ -30,7 +30,7 @@ export const LoginScreen = () => {
 
   const onSkipHandler = useCallback(() => {
     navigate('App', { screen: 'LearnTree' });
-  }, []);
+  }, [navigate]);
 
   return (
     <ContainerWithInsets>

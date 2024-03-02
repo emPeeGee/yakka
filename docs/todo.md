@@ -35,6 +35,7 @@
 [ ] Display proper category in card stack instead of the id
 [ ] store favorite words in the storage
 [ ] content for explore
+[ ] Lesson: On back/exit, should show a modal with confirmation
 
 ## Medium:
 
