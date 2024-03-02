@@ -11,7 +11,7 @@ export const EnhancedScrollView = ({ children, ...props }: EnhancedScrollViewPro
 
   return (
     <ScrollView
-      style={{ height: '100%', paddingHorizontal: theme.spacing.xs }}
+      style={{ height: '100%' }}
       contentContainerStyle={{ paddingVertical: theme.spacing.sm }}
       {...props}>
       {children}

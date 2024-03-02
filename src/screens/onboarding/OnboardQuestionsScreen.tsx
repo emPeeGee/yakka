@@ -53,7 +53,7 @@ function Question<T>({ options, txTitle, id, index }: QuestionProps<T>) {
 
       <Separator height={theme.borders.medium} />
 
-      <EnhancedScrollView>
+      <EnhancedScrollView contentContainerStyle={{ paddingHorizontal: theme.spacing.md }}>
         <ChoiceGroup options={options} value={data[id]} onChange={onChangeHandler} />
       </EnhancedScrollView>
     </View>
