@@ -15,13 +15,13 @@ import { HeroWithChat } from './hero/HeroWithChat';
 import { List, DataListType } from './List';
 import { RadioGroup } from './RadioGroup';
 import { Separator } from './Separator';
+import { SuccessEffect } from './SuccessEffect';
 import { Swiper, SwiperItemType } from './swiper/Swiper';
 import { TextField } from './TextField';
 import { Tile } from './Tile';
 import { Toggle } from './Toggle';
 import { Wizard } from './wizard/Wizard';
 import { useWizard } from './wizard/WizardProvider';
-
 export {
   Button,
   RadioGroup,
@@ -47,5 +47,6 @@ export {
   FlipCard,
   Emoji,
   EnhancedScrollView,
+  SuccessEffect,
 };
 export type { SwiperItemType as SwiperDataItem, DataListType, Choice };
