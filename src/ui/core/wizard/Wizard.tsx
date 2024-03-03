@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Animated, {
   useAnimatedRef,
@@ -27,6 +28,7 @@ import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { WizardData, WizardProvider, useWizard } from './WizardProvider';
 import { BackButton } from '../BackButton';
 import { Button } from '../Button';
+import { EnhancedPressable } from '../EnhancedPressable';
 import { EnhancedText } from '../EnhancedText';
 import { SuccessEffect } from '../SuccessEffect';
 
@@ -38,6 +40,8 @@ type WizardProps = {
   onFinish: (data: WizardData) => void;
   txButtonLabel?: TxKeyPath;
   txLastScreenButtonLabel?: TxKeyPath;
+  onExit?: () => void;
+  withExit?: boolean;
 };
 
 // TODO: name
@@ -45,15 +49,18 @@ const Wizardd = ({
   screens,
   fallbackRoute,
   screensContainerStyle,
-  onFinish,
   txButtonLabel,
   txLastScreenButtonLabel,
+  onFinish,
+  onExit,
+  withExit = false,
 }: WizardProps) => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const { theme } = useTheme();
   const { navigate } = useNavigation();
   const {
     data,
+    resetData,
     isContinueEnabled,
     onNextScreen,
     nextButtonProps: nextButtonProps,
@@ -93,6 +100,11 @@ const Wizardd = ({
     progressBarIndex.value = withTiming(prev);
     flatListRef.current?.scrollToIndex({ index: prev });
     return true;
+  }, []);
+
+  const onExitHandler = useCallback(() => {
+    resetData();
+    onExit?.();
   }, []);
 
   const onNextPress = useCallback(() => {
@@ -147,7 +159,21 @@ const Wizardd = ({
   return (
     <View style={{ flex: 1, paddingTop: theme.spacing.md }}>
       <View style={[gStyles.centerRowBetween, styles.headerContainer]}>
-        <BackButton onPress={onBackPress} />
+        {withExit ? (
+          <EnhancedPressable
+            onPress={onExitHandler}
+            style={{
+              backgroundColor: theme.colors.background,
+              borderColor: theme.colors.border,
+              borderWidth: 1,
+              padding: theme.spacing.xxs,
+              borderRadius: theme.borderRadius.lg,
+            }}>
+            <Ionicons name="ios-close-outline" size={24} color={theme.colors.primary} />
+          </EnhancedPressable>
+        ) : (
+          <BackButton onPress={onBackPress} />
+        )}
         <View style={[{ width: '50%' }]}>
           <View
             style={[

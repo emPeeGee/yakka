@@ -13,6 +13,7 @@ export interface WizardData {
 type WizardContextType = {
   data: WizardData;
   setData: (key: string, value: any) => void;
+  resetData: () => void;
   isContinueEnabled: boolean;
   setIsContinueEnabled: (enabled: boolean, callback?: ContinueCallbackType) => void;
   /**
@@ -43,6 +44,7 @@ type CallbackFunction = () => void;
 const initialValue: WizardContextType = {
   data: {},
   setData: noop,
+  resetData: noop,
   isContinueEnabled: false,
   setIsContinueEnabled: noop,
   onNextScreen: [],
@@ -93,6 +95,7 @@ export const WizardProvider = ({
             [key]: value,
           }));
         },
+        resetData: () => setData({}),
         isContinueEnabled,
         setIsContinueEnabled,
         onNextScreen: onNextScreen.current,

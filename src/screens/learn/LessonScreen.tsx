@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import * as Speech from 'expo-speech';
+import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue, runOnUI, runOnJS } from 'react-native-reanimated';
 
@@ -19,6 +20,7 @@ import {
   useWizard,
   EnhancedScrollView,
   EnhancedPressable,
+  Button,
 } from '@/ui/core';
 import { SpeakerIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -40,7 +42,7 @@ import { SortableWord } from './SortableWord';
 // ];
 
 const containerWidth = Dimensions.get('window').width - MARGIN_LEFT * 2;
-const styles = StyleSheet.create({
+const wordListStyles = StyleSheet.create({
   container: {
     flex: 1,
     margin: MARGIN_LEFT,
@@ -71,7 +73,7 @@ export const WordList = ({ children }: WordListProps) => {
   }));
   if (!ready) {
     return (
-      <View style={styles.row}>
+      <View style={wordListStyles.row}>
         {children.map((child, index) => {
           return (
             <View
@@ -103,7 +105,7 @@ export const WordList = ({ children }: WordListProps) => {
     );
   }
   return (
-    <View style={styles.container}>
+    <View style={wordListStyles.container}>
       <Lines />
       {children.map((child, index) => (
         // eslint-disable-next-line react/no-array-index-key
@@ -237,24 +239,18 @@ function PickAnswerActivity({ index, activity }: PickAnswerActivityProps) {
           onChange={onChangeHandler}
         />
       </EnhancedScrollView>
-
-      {/* <BottomSheet ref={bottomSheetRef} onChange={handleSheetChanges} index={-1} snapPoints={[300]}>
-        <BottomSheetView style={{ flex: 1 }}>
-          <EnhancedText>Awesome 🎉</EnhancedText>
-          {test && (
-            <View style={{}}>
-              <SuccessEffect isSuccess={false} />
-            </View>
-          )}
-        </BottomSheetView>
-      </BottomSheet> */}
     </View>
   );
 }
 
 export const LessonScreen = () => {
-  // const { theme } = useTheme();
-  const { navigate } = useNavigation();
+  const { theme } = useTheme();
+  const { navigate, dispatch } = useNavigation();
+  const actionSheetRef = useRef<ActionSheetRef>(null);
+
+  const onExitHandler = () => {
+    actionSheetRef.current?.show();
+  };
 
   return (
     <ContainerWithInsets>
@@ -265,25 +261,44 @@ export const LessonScreen = () => {
             txLastScreenButtonLabel="common.finish"
             fallbackRoute="LearnTree"
             screensContainerStyle={{ paddingHorizontal: 0 }}
-            screens={
-              lessonActivities.map(
-                (activity, index) => () => PickAnswerActivity({ activity, index }),
-              )
-              //   [
-              //   () => PickAnswerActivity({ index: 0 }),
-              //   () => (
-              //     <View>
-              //       <EnhancedText>Hello</EnhancedText>
-              //     </View>
-              //   ),
-              // ]}
-            }
+            screens={lessonActivities.map(
+              (activity, index) => () => PickAnswerActivity({ activity, index }),
+            )}
             onFinish={wizardData => {
               navigate('LearnTree' as never);
               rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(wizardData)}`);
               setItem(ONBOARD_DATA_KEY, wizardData);
             }}
+            withExit
+            onExit={onExitHandler}
           />
+
+          <ActionSheet ref={actionSheetRef} snapPoints={[100]}>
+            <View
+              style={{
+                padding: theme.spacing.md,
+                gap: theme.spacing.md,
+                backgroundColor: theme.colors.background,
+              }}>
+              <EnhancedText preset="subheading">Are you sure you want to exit?</EnhancedText>
+              <Button
+                text="Leave"
+                backgroundColor={theme.colors.errorBackground}
+                onPress={() => {
+                  const popAction = StackActions.pop(1);
+                  dispatch(popAction);
+                }}
+              />
+              <Button
+                text="Stay"
+                backgroundColor={theme.colors.primary800}
+                onPress={() => {
+                  actionSheetRef.current?.hide();
+                }}
+              />
+            </View>
+          </ActionSheet>
+
           {/* <WordList>
               {words.map(word => (
                 <Word key={word.id} {...word} />
