@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
 import * as Speech from 'expo-speech';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue, runOnUI, runOnJS } from 'react-native-reanimated';
@@ -18,27 +19,25 @@ import {
   useWizard,
   EnhancedScrollView,
   EnhancedPressable,
-  SuccessEffect,
 } from '@/ui/core';
 import { SpeakerIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { MARGIN_LEFT } from './Layout';
 import { Lines } from './Lines';
 import { SortableWord } from './SortableWord';
-import { Word } from './Word';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+// import { Word } from './Word';
 
-const words = [
-  { id: 1, word: 'Er' },
-  { id: 8, word: 'hungrig' },
-  { id: 2, word: 'isst' },
-  { id: 7, word: 'er' },
-  { id: 6, word: 'weil' },
-  { id: 9, word: 'ist' },
-  { id: 5, word: ',' },
-  { id: 3, word: 'einen' },
-  { id: 4, word: 'Apfel' },
-];
+// const words = [
+//   { id: 1, word: 'Er' },
+//   { id: 8, word: 'hungrig' },
+//   { id: 2, word: 'isst' },
+//   { id: 7, word: 'er' },
+//   { id: 6, word: 'weil' },
+//   { id: 9, word: 'ist' },
+//   { id: 5, word: ',' },
+//   { id: 3, word: 'einen' },
+//   { id: 4, word: 'Apfel' },
+// ];
 
 const containerWidth = Dimensions.get('window').width - MARGIN_LEFT * 2;
 const styles = StyleSheet.create({
@@ -116,76 +115,87 @@ export const WordList = ({ children }: WordListProps) => {
   );
 };
 
-const activityData = {
-  type: 'choose',
-  sentence: 'The boy is reading',
-  answer: 'Baiatul scrie acum',
-  options: [
-    { label: 'Baiatul mananca acum', value: 'Baiatul mananca acum', isCorrect: false },
-    { label: 'Baiatul scrie acum', value: 'Baiatul scrie acum', isCorrect: false },
-    { label: 'Baiatul citeste acum', value: 'Baiatul citeste acum', isCorrect: true },
-  ],
+type ActivityType = 'pickAnswer';
+type PickAnswerActivityType = {
+  type: ActivityType;
+  sentence: string;
+  answer: string;
+  options: { label: string; value: string; isCorrect: boolean }[];
 };
 
-function PickAnswerActivity({ index }: any) {
+const lessonActivities: PickAnswerActivityType[] = [
+  {
+    type: 'pickAnswer',
+    sentence: 'The boy is reading',
+    answer: 'Baiatul citeste acum',
+    options: [
+      { label: 'Baiatul mananca acum', value: 'Baiatul mananca acum', isCorrect: false },
+      { label: 'Baiatul scrie acum', value: 'Baiatul scrie acum', isCorrect: false },
+      { label: 'Baiatul citeste acum', value: 'Baiatul citeste acum', isCorrect: true },
+    ],
+  },
+  {
+    type: 'pickAnswer',
+    sentence: 'An apple',
+    answer: 'Un măr',
+    options: [
+      { label: 'Un măr', value: 'Un măr', isCorrect: true },
+      { label: 'Un băiat', value: 'Un băiat', isCorrect: false },
+      { label: 'O coacăză', value: 'O coacăză', isCorrect: false },
+    ],
+  },
+];
+
+type PickAnswerActivityProps = {
+  index: number;
+  activity: PickAnswerActivityType;
+};
+
+function PickAnswerActivity({ index, activity }: PickAnswerActivityProps) {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const {
-    data,
-    setData,
-    setIsContinueEnabled,
-    setOnNextScreen,
-    updateCallback,
-    updateButtonProps,
-  } = useWizard();
-  const id = 'lang';
-
-  const [test, setTest] = useState(false);
-
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const { data, setData, setIsContinueEnabled, setOnNextScreen, setNextButtonProps } = useWizard();
 
   useEffect(() => {
-    updateCallback(() => {
-      bottomSheetRef.current?.snapToIndex(0);
-      setTest(prev => !prev);
-
-      updateCallback(null);
+    setOnNextScreen(index, () => {
+      console.log(index, 'hello');
+      setIsContinueEnabled(!!data[activity.sentence]);
     });
 
-    updateButtonProps({
+    setNextButtonProps({
       answer: null,
       title: null,
       txButtonLabel: 'learn.checkAnswer',
       callback: () => {
-        bottomSheetRef.current?.snapToIndex(0);
-        setTest(prev => !prev);
-
-        updateButtonProps({
+        setNextButtonProps({
           callback: null,
-          answer: activityData.answer,
-          isCorrect: data[id] === activityData.answer,
+          answer: activity.answer,
+          isCorrect: data[activity.sentence] === activity.answer,
           txButtonLabel: 'common.continue',
           title: 'Amazing',
         });
       },
     });
-  }, [data[id]]);
+
+    return () => {
+      setNextButtonProps({
+        answer: null,
+        title: null,
+        txButtonLabel: 'learn.checkAnswer',
+        callback: null,
+      });
+    };
+  }, [data[activity.sentence]]);
 
   useEffect(() => {
-    setOnNextScreen(index, () => {
-      console.log(index, 'hello');
-      setIsContinueEnabled(!!data[id]);
-    });
-  }, [data[id]]);
-
-  const onChangeHandler = useCallback((value: T | null): void => {
-    setData(id, value);
-    setIsContinueEnabled(!!value);
+    return () => {
+      console.log('bye bye ');
+    };
   }, []);
 
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
+  const onChangeHandler = useCallback((value: string | null): void => {
+    setData(activity.sentence, value);
+    setIsContinueEnabled(!!value);
   }, []);
 
   return (
@@ -204,7 +214,7 @@ function PickAnswerActivity({ index }: any) {
         <View style={gStyles.centerRow}>
           <EnhancedPressable
             onPress={() => {
-              Speech.speak(activityData.sentence, { language: 'en' });
+              Speech.speak(activity.sentence, { language: 'en' });
             }}
             style={{
               backgroundColor: theme.colors.secondary500,
@@ -214,14 +224,18 @@ function PickAnswerActivity({ index }: any) {
             }}>
             <SpeakerIcon color={theme.colors.base0} />
           </EnhancedPressable>
-          <EnhancedText text="The boy is reading" size="lg" />
+          <EnhancedText text={activity.sentence} size="lg" />
         </View>
       </View>
 
       <Separator height={theme.borders.medium} />
 
       <EnhancedScrollView>
-        <ChoiceGroup options={activityData.options} value={data[id]} onChange={onChangeHandler} />
+        <ChoiceGroup
+          options={activity.options}
+          value={data[activity.sentence]}
+          onChange={onChangeHandler}
+        />
       </EnhancedScrollView>
 
       {/* <BottomSheet ref={bottomSheetRef} onChange={handleSheetChanges} index={-1} snapPoints={[300]}>
@@ -239,7 +253,8 @@ function PickAnswerActivity({ index }: any) {
 }
 
 export const LessonScreen = () => {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
+  const { navigate } = useNavigation();
 
   return (
     <ContainerWithInsets>
@@ -247,18 +262,24 @@ export const LessonScreen = () => {
         <View style={{ flex: 1 }}>
           <Wizard
             txButtonLabel="learn.checkAnswer"
+            txLastScreenButtonLabel="common.finish"
             fallbackRoute="LearnTree"
             screensContainerStyle={{ paddingHorizontal: 0 }}
-            screens={[
-              () => PickAnswerActivity({ index: 0 }),
-              () => (
-                <View>
-                  <EnhancedText>Hello</EnhancedText>
-                </View>
-              ),
-            ]}
+            screens={
+              lessonActivities.map(
+                (activity, index) => () => PickAnswerActivity({ activity, index }),
+              )
+              //   [
+              //   () => PickAnswerActivity({ index: 0 }),
+              //   () => (
+              //     <View>
+              //       <EnhancedText>Hello</EnhancedText>
+              //     </View>
+              //   ),
+              // ]}
+            }
             onFinish={wizardData => {
-              // navigate('OnboardQuestionsDone' as never);
+              navigate('LearnTree' as never);
               rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(wizardData)}`);
               setItem(ONBOARD_DATA_KEY, wizardData);
             }}

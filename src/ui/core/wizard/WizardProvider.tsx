@@ -23,13 +23,12 @@ type WizardContextType = {
    * Set a callback which will be called when a specific screen is reached
    */
   setOnNextScreen: (index: number, cb: VoidCb) => void;
-  // TODO: Experimental
-  // TODO: to ve removed
-  myCallback: CallbackFunction;
-  updateCallback: (newCallback: CallbackFunction) => void;
 
-  buttonProps: BtnProps;
-  updateButtonProps: (btnProps: BtnProps) => void;
+  /**
+   * Wizard's next button properties to allow to customize its behavior
+   */
+  nextButtonProps: BtnProps;
+  setNextButtonProps: (btnProps: BtnProps) => void;
 };
 type BtnProps = {
   txButtonLabel?: TxKeyPath | null;
@@ -48,10 +47,8 @@ const initialValue: WizardContextType = {
   setIsContinueEnabled: noop,
   onNextScreen: [],
   setOnNextScreen: noop,
-  myCallback: noop,
-  updateCallback: noop,
-  buttonProps: { callback: noop },
-  updateButtonProps: noop,
+  nextButtonProps: { callback: noop },
+  setNextButtonProps: noop,
 };
 
 const WizardContext = createContext<WizardContextType>(initialValue);
@@ -71,29 +68,12 @@ export const WizardProvider = ({
     enableContinueOnFirstScreen || initialValue.isContinueEnabled,
   );
 
-  const [myCallback, setMyCallback] = useState(() => {
-    return () => {
-      console.log('Initial callback function called!');
-      // Initial logic
-    };
+  const [buttonProps, setButtonProps] = useState(() => {
+    return noop;
   });
 
-  // Function to update the callback function
-  const updateCallback = newCallback => {
-    setMyCallback(() => newCallback);
-  };
-
-  const [btnProps, setBtnProps] = useState(() => {
-    return () => {
-      console.log('Initial callback function called!');
-      // Initial logic
-    };
-  });
-
-  // Function to update the callback function
   const updateButtonProps = (btnProps: BtnProps) => {
-    setBtnProps(() => btnProps);
-    // setMyCallback(() => newCallback);
+    setButtonProps(() => btnProps);
   };
 
   const setIsContinueEnabled = useCallback((enabled: boolean, callback?: ContinueCallbackType) => {
@@ -119,11 +99,8 @@ export const WizardProvider = ({
         setOnNextScreen: (index: number, cb: VoidCb) => {
           onNextScreen.current[index] = cb;
         },
-        myCallback,
-        updateCallback,
-
-        buttonProps: btnProps,
-        updateButtonProps,
+        nextButtonProps: buttonProps,
+        setNextButtonProps: updateButtonProps,
       }}>
       {children}
     </WizardContext.Provider>

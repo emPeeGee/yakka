@@ -52,7 +52,13 @@ const Wizardd = ({
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const { theme } = useTheme();
   const { navigate } = useNavigation();
-  const { data, isContinueEnabled, onNextScreen, myCallback, buttonProps } = useWizard();
+  const {
+    data,
+    isContinueEnabled,
+    onNextScreen,
+    nextButtonProps: nextButtonProps,
+    setNextButtonProps: updateButtonProps,
+  } = useWizard();
 
   const styles = useMemo(() => getStyles(theme), [theme]);
   const gStyles = useGlobalThemedStyles();
@@ -106,6 +112,7 @@ const Wizardd = ({
     progressBarIndex.value = withTiming(next);
     flatListRef.current?.scrollToIndex({ index: next });
     onNextScreen[next]?.();
+    updateButtonProps({});
   }, [data]);
 
   // Custom back button behavior
@@ -134,18 +141,13 @@ const Wizardd = ({
     },
   });
 
-  const isAnswer = buttonProps.answer;
-  const isCorrect = buttonProps.isCorrect;
-
-  console.log('iscore', isCorrect);
+  const isAnswer = nextButtonProps.answer;
+  const isCorrect = nextButtonProps.isCorrect;
 
   return (
     <View style={{ flex: 1, paddingTop: theme.spacing.md }}>
       <View style={[gStyles.centerRowBetween, styles.headerContainer]}>
         <BackButton onPress={onBackPress} />
-        {/* <EnhancedPressable onPress={onBackPress}>
-          <Ionicons name="ios-chevron-back" size={24} color={theme.colors.primary} />
-        </EnhancedPressable> */}
         <View style={[{ width: '50%' }]}>
           <View
             style={[
@@ -202,50 +204,47 @@ const Wizardd = ({
             top: '50%',
             alignSelf: 'center',
           }}>
-          <SuccessEffect isSuccess={isCorrect} />
+          <SuccessEffect isSuccess={isCorrect} duration={700} />
         </View>
       )}
 
       <View style={styles.footerContainer}>
-        {/* <Button
-          tx={
-            isLastScreen
-              ? txLastScreenButtonLabel || 'common.finish'
-              : txButtonLabel || 'common.continue'
-          }
-          onPress={myCallback ? () => myCallback() : () => onNextPress()}
-          backgroundColor={theme.colors.secondary300}
-          disabled={!isContinueEnabled}
-        /> */}
         <View
           style={{
+            borderRadius: theme.borderRadius.lg,
             gap: theme.spacing.sm,
             padding: isAnswer ? theme.spacing.sm : 0,
-            backgroundColor: isAnswer ? (isCorrect ? '#F5FFD8' : '#FFDDD8') : undefined,
+            backgroundColor: isAnswer
+              ? isCorrect
+                ? theme.colors.successBackground
+                : theme.colors.errorBackground
+              : undefined,
           }}>
           {isAnswer && (
-            <EnhancedText
-              preset="subheading"
-              tx={isCorrect ? 'learn.amazing' : 'learn.oopsWrong'}
-            />
-          )}
-          {isAnswer && (
-            <View style={gStyles.centerRowStart}>
-              <EnhancedText tx="learn.answer" style={theme.typography.sizes.md} />
+            <>
               <EnhancedText
-                text=":"
-                style={[theme.typography.sizes.md, { paddingRight: theme.spacing.xxs }]}
+                preset="subheading"
+                tx={isCorrect ? 'learn.amazing' : 'learn.oopsWrong'}
               />
-              <EnhancedText text={buttonProps.answer} style={theme.typography.sizes.md} />
-            </View>
+              <View style={gStyles.centerRowStart}>
+                <EnhancedText tx="learn.answer" style={theme.typography.sizes.md} />
+                <EnhancedText
+                  text=":"
+                  style={[theme.typography.sizes.md, { paddingRight: theme.spacing.xxs }]}
+                />
+                <EnhancedText text={nextButtonProps.answer} style={theme.typography.sizes.md} />
+              </View>
+            </>
           )}
           <Button
             tx={
               isLastScreen
-                ? buttonProps.txButtonLabel || 'common.finish'
-                : buttonProps.txButtonLabel || 'common.continue'
+                ? nextButtonProps.txButtonLabel || txLastScreenButtonLabel || 'common.finish'
+                : nextButtonProps.txButtonLabel || txButtonLabel || 'common.continue'
             }
-            onPress={buttonProps.callback ? () => buttonProps.callback() : () => onNextPress()}
+            onPress={
+              nextButtonProps.callback ? () => nextButtonProps.callback() : () => onNextPress()
+            }
             backgroundColor={
               isAnswer
                 ? isCorrect
