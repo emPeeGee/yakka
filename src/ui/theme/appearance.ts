@@ -57,8 +57,10 @@ const DARK_COLORS: Colors = {
   ...BASE_COLORS,
 
   success: '#99CC29',
+  successBackground: '#547017',
   warning: '#FFD237',
   error: '#FF4B4C',
+  errorBackground: '#b50001',
   info: '#3870FF',
 
   mint: '#00C9B1',
@@ -86,8 +88,10 @@ const LIGHT_COLORS: Colors = {
 
   // Accent Colors
   success: '#99CC29',
+  successBackground: '#F5FFD8',
   warning: '#FFD237',
   error: '#FF4B4C',
+  errorBackground: '#FFDDD8',
   info: '#3870FF',
 
   mint: '#00C9B1',

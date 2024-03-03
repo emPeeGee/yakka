@@ -27,10 +27,6 @@ export type Colors = {
   primary700: string;
   primary800: string;
   primary900: string;
-  // primaryA100: string;
-  // primaryA200: string;
-  // primaryA400: string;
-  // primaryA700: string;
 
   secondary: string;
   secondaryLight: string;
@@ -45,10 +41,6 @@ export type Colors = {
   secondary700: string;
   secondary800: string;
   secondary900: string;
-  // secondaryA100: string;
-  // secondaryA200: string;
-  // secondaryA400: string;
-  // secondaryA700: string;
 
   base100: string;
   base80: string;
@@ -67,8 +59,10 @@ export type Colors = {
 
   // Accent Colors
   success: string;
+  successBackground: string;
   warning: string;
   error: string;
+  errorBackground: string;
   info: string;
   tabColor: string;
 
