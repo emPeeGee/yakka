@@ -167,9 +167,9 @@ export const LearnLessonScreen = () => {
                 gap: theme.spacing.md,
                 backgroundColor: theme.colors.background,
               }}>
-              <EnhancedText preset="subheading">Are you sure you want to exit?</EnhancedText>
+              <EnhancedText preset="subheading" tx="common.leaveSure" />
               <Button
-                text="Leave"
+                tx="common.leave"
                 backgroundColor={theme.colors.errorBackground}
                 onPress={() => {
                   const popAction = StackActions.pop(1);
@@ -177,7 +177,7 @@ export const LearnLessonScreen = () => {
                 }}
               />
               <Button
-                text="Stay"
+                tx="common.stay"
                 backgroundColor={theme.colors.primary800}
                 onPress={() => {
                   actionSheetRef.current?.hide();

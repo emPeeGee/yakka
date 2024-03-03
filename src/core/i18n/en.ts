@@ -10,6 +10,9 @@ export const en = {
     romanian: 'Romanian',
     awesome: 'Awesome!',
     skip: 'Skip',
+    leaveSure: 'Are you sure you want to leave?',
+    leave: 'Leave',
+    stay: 'Stay',
   },
   // Won't change depending on the language
   universal: {
