@@ -65,6 +65,12 @@ const getGlobalStyles = (theme: Theme) =>
       justifyContent: 'center',
     },
 
+    centerRowStart: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+    },
+
     fullWidthFromStart: {
       flex: 1,
       flexDirection: 'column',

@@ -27,6 +27,8 @@ import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { WizardData, WizardProvider, useWizard } from './WizardProvider';
 import { BackButton } from '../BackButton';
 import { Button } from '../Button';
+import { EnhancedText } from '../EnhancedText';
+import { SuccessEffect } from '../SuccessEffect';
 
 type WizardProps = {
   // TODO: better type
@@ -50,7 +52,7 @@ const Wizardd = ({
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const { theme } = useTheme();
   const { navigate } = useNavigation();
-  const { data, isContinueEnabled, onNextScreen, goNext } = useWizard();
+  const { data, isContinueEnabled, onNextScreen, myCallback, buttonProps } = useWizard();
 
   const styles = useMemo(() => getStyles(theme), [theme]);
   const gStyles = useGlobalThemedStyles();
@@ -106,9 +108,6 @@ const Wizardd = ({
     onNextScreen[next]?.();
   }, [data]);
 
-  // TODO: Experimental
-  goNext.current = onNextPress;
-
   // Custom back button behavior
   useFocusEffect(
     useCallback(() => {
@@ -134,6 +133,11 @@ const Wizardd = ({
       x.value = event.contentOffset.x;
     },
   });
+
+  const isAnswer = buttonProps.answer;
+  const isCorrect = buttonProps.isCorrect;
+
+  console.log('iscore', isCorrect);
 
   return (
     <View style={{ flex: 1, paddingTop: theme.spacing.md }}>
@@ -191,17 +195,67 @@ const Wizardd = ({
         scrollEventThrottle={16}
       />
 
+      {isAnswer && typeof isCorrect === 'boolean' && (
+        <View
+          style={{
+            position: 'absolute',
+            top: '50%',
+            alignSelf: 'center',
+          }}>
+          <SuccessEffect isSuccess={isCorrect} />
+        </View>
+      )}
+
       <View style={styles.footerContainer}>
-        <Button
+        {/* <Button
           tx={
             isLastScreen
               ? txLastScreenButtonLabel || 'common.finish'
               : txButtonLabel || 'common.continue'
           }
-          onPress={onNextPress}
+          onPress={myCallback ? () => myCallback() : () => onNextPress()}
           backgroundColor={theme.colors.secondary300}
           disabled={!isContinueEnabled}
-        />
+        /> */}
+        <View
+          style={{
+            gap: theme.spacing.sm,
+            padding: isAnswer ? theme.spacing.sm : 0,
+            backgroundColor: isAnswer ? (isCorrect ? '#F5FFD8' : '#FFDDD8') : undefined,
+          }}>
+          {isAnswer && (
+            <EnhancedText
+              preset="subheading"
+              tx={isCorrect ? 'learn.amazing' : 'learn.oopsWrong'}
+            />
+          )}
+          {isAnswer && (
+            <View style={gStyles.centerRowStart}>
+              <EnhancedText tx="learn.answer" style={theme.typography.sizes.md} />
+              <EnhancedText
+                text=":"
+                style={[theme.typography.sizes.md, { paddingRight: theme.spacing.xxs }]}
+              />
+              <EnhancedText text={buttonProps.answer} style={theme.typography.sizes.md} />
+            </View>
+          )}
+          <Button
+            tx={
+              isLastScreen
+                ? buttonProps.txButtonLabel || 'common.finish'
+                : buttonProps.txButtonLabel || 'common.continue'
+            }
+            onPress={buttonProps.callback ? () => buttonProps.callback() : () => onNextPress()}
+            backgroundColor={
+              isAnswer
+                ? isCorrect
+                  ? theme.colors.success
+                  : theme.colors.error
+                : theme.colors.secondary300
+            }
+            disabled={!isContinueEnabled}
+          />
+        </View>
       </View>
     </View>
   );

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
 import * as Speech from 'expo-speech';
@@ -26,6 +26,7 @@ import { MARGIN_LEFT } from './Layout';
 import { Lines } from './Lines';
 import { SortableWord } from './SortableWord';
 import { Word } from './Word';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 
 const words = [
   { id: 1, word: 'Er' },
@@ -118,6 +119,7 @@ export const WordList = ({ children }: WordListProps) => {
 const activityData = {
   type: 'choose',
   sentence: 'The boy is reading',
+  answer: 'Baiatul scrie acum',
   options: [
     { label: 'Baiatul mananca acum', value: 'Baiatul mananca acum', isCorrect: false },
     { label: 'Baiatul scrie acum', value: 'Baiatul scrie acum', isCorrect: false },
@@ -125,13 +127,49 @@ const activityData = {
   ],
 };
 
-function Question({ index }: any) {
+function PickAnswerActivity({ index }: any) {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const { data, setData, setIsContinueEnabled, setOnNextScreen, goNext } = useWizard();
+  const {
+    data,
+    setData,
+    setIsContinueEnabled,
+    setOnNextScreen,
+    updateCallback,
+    updateButtonProps,
+  } = useWizard();
   const id = 'lang';
 
   const [test, setTest] = useState(false);
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  useEffect(() => {
+    updateCallback(() => {
+      bottomSheetRef.current?.snapToIndex(0);
+      setTest(prev => !prev);
+
+      updateCallback(null);
+    });
+
+    updateButtonProps({
+      answer: null,
+      title: null,
+      txButtonLabel: 'learn.checkAnswer',
+      callback: () => {
+        bottomSheetRef.current?.snapToIndex(0);
+        setTest(prev => !prev);
+
+        updateButtonProps({
+          callback: null,
+          answer: activityData.answer,
+          isCorrect: data[id] === activityData.answer,
+          txButtonLabel: 'common.continue',
+          title: 'Amazing',
+        });
+      },
+    });
+  }, [data[id]]);
 
   useEffect(() => {
     setOnNextScreen(index, () => {
@@ -143,6 +181,11 @@ function Question({ index }: any) {
   const onChangeHandler = useCallback((value: T | null): void => {
     setData(id, value);
     setIsContinueEnabled(!!value);
+  }, []);
+
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
   }, []);
 
   return (
@@ -157,20 +200,6 @@ function Question({ index }: any) {
         <View style={{ alignItems: 'center' }}>
           <EnhancedText tx="learn.whatDoesSentence" size="xl" />
         </View>
-
-        <EnhancedPressable
-          onPress={() => {
-            // goNext.current?.();
-            setTest(prev => !prev);
-          }}
-          style={{
-            backgroundColor: theme.colors.secondary500,
-            padding: theme.spacing.sm,
-            borderRadius: theme.borderRadius.lg,
-            marginRight: theme.spacing.sm,
-          }}>
-          <SpeakerIcon color={theme.colors.base0} />
-        </EnhancedPressable>
 
         <View style={gStyles.centerRow}>
           <EnhancedPressable
@@ -189,13 +218,22 @@ function Question({ index }: any) {
         </View>
       </View>
 
-      {test && <SuccessEffect isSuccess={false} />}
-
       <Separator height={theme.borders.medium} />
 
       <EnhancedScrollView>
         <ChoiceGroup options={activityData.options} value={data[id]} onChange={onChangeHandler} />
       </EnhancedScrollView>
+
+      {/* <BottomSheet ref={bottomSheetRef} onChange={handleSheetChanges} index={-1} snapPoints={[300]}>
+        <BottomSheetView style={{ flex: 1 }}>
+          <EnhancedText>Awesome 🎉</EnhancedText>
+          {test && (
+            <View style={{}}>
+              <SuccessEffect isSuccess={false} />
+            </View>
+          )}
+        </BottomSheetView>
+      </BottomSheet> */}
     </View>
   );
 }
@@ -211,7 +249,14 @@ export const LessonScreen = () => {
             txButtonLabel="learn.checkAnswer"
             fallbackRoute="LearnTree"
             screensContainerStyle={{ paddingHorizontal: 0 }}
-            screens={[() => Question({ index: 0 }), () => Question({ index: 1 })]}
+            screens={[
+              () => PickAnswerActivity({ index: 0 }),
+              () => (
+                <View>
+                  <EnhancedText>Hello</EnhancedText>
+                </View>
+              ),
+            ]}
             onFinish={wizardData => {
               // navigate('OnboardQuestionsDone' as never);
               rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(wizardData)}`);

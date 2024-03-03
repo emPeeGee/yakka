@@ -76,6 +76,9 @@ export const en = {
   learn: {
     whatDoesSentence: 'What does sentence mean?',
     checkAnswer: 'Check answer',
+    answer: 'Answer',
+    amazing: 'Amazing',
+    oopsWrong: 'Oops.. that’s wrong',
   },
   voc: {
     word: 'Word',
