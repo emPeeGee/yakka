@@ -1,5 +1,6 @@
 import { VoidCb } from './cb';
 import { SelectableOption, Dimensions } from './common';
+import { ActivityType, PickAnswerActivityType } from './learn';
 import {
   Theme,
   Shadow,
@@ -29,4 +30,6 @@ export type {
   SpeechPart,
   WordLabel,
   WordMeaning,
+  ActivityType,
+  PickAnswerActivityType,
 };

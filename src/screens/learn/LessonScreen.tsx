@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
 import { StackActions, useNavigation } from '@react-navigation/native';
-import * as Speech from 'expo-speech';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue, runOnUI, runOnJS } from 'react-native-reanimated';
@@ -11,21 +10,12 @@ import { useSharedValue, runOnUI, runOnJS } from 'react-native-reanimated';
 import { ONBOARD_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
 import { setItem } from '@/core/storage';
-import {
-  EnhancedText,
-  ContainerWithInsets,
-  Wizard,
-  ChoiceGroup,
-  Separator,
-  useWizard,
-  EnhancedScrollView,
-  EnhancedPressable,
-  Button,
-} from '@/ui/core';
-import { SpeakerIcon } from '@/ui/icons';
-import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { PickAnswerActivityType } from '@/types';
+import { EnhancedText, ContainerWithInsets, Wizard, Button } from '@/ui/core';
+import { useTheme } from '@/ui/theme';
 import { MARGIN_LEFT } from './Layout';
 import { Lines } from './Lines';
+import { PickAnswerActivity } from './PickAnswer';
 import { SortableWord } from './SortableWord';
 // import { Word } from './Word';
 
@@ -117,14 +107,6 @@ export const WordList = ({ children }: WordListProps) => {
   );
 };
 
-type ActivityType = 'pickAnswer';
-type PickAnswerActivityType = {
-  type: ActivityType;
-  sentence: string;
-  answer: string;
-  options: { label: string; value: string; isCorrect: boolean }[];
-};
-
 const lessonActivities: PickAnswerActivityType[] = [
   {
     type: 'pickAnswer',
@@ -147,101 +129,6 @@ const lessonActivities: PickAnswerActivityType[] = [
     ],
   },
 ];
-
-type PickAnswerActivityProps = {
-  index: number;
-  activity: PickAnswerActivityType;
-};
-
-function PickAnswerActivity({ index, activity }: PickAnswerActivityProps) {
-  const { theme } = useTheme();
-  const gStyles = useGlobalThemedStyles();
-  const { data, setData, setIsContinueEnabled, setOnNextScreen, setNextButtonProps } = useWizard();
-
-  useEffect(() => {
-    setOnNextScreen(index, () => {
-      console.log(index, 'hello');
-      setIsContinueEnabled(!!data[activity.sentence]);
-    });
-
-    setNextButtonProps({
-      answer: null,
-      title: null,
-      txButtonLabel: 'learn.checkAnswer',
-      callback: () => {
-        setNextButtonProps({
-          callback: null,
-          answer: activity.answer,
-          isCorrect: data[activity.sentence] === activity.answer,
-          txButtonLabel: 'common.continue',
-          title: 'Amazing',
-        });
-      },
-    });
-
-    return () => {
-      setNextButtonProps({
-        answer: null,
-        title: null,
-        txButtonLabel: 'learn.checkAnswer',
-        callback: null,
-      });
-    };
-  }, [data[activity.sentence]]);
-
-  useEffect(() => {
-    return () => {
-      console.log('bye bye ');
-    };
-  }, []);
-
-  const onChangeHandler = useCallback((value: string | null): void => {
-    setData(activity.sentence, value);
-    setIsContinueEnabled(!!value);
-  }, []);
-
-  return (
-    <View style={[{ width: '100%', flex: 1, flexDirection: 'column', padding: theme.spacing.md }]}>
-      <View
-        style={{
-          width: '100%',
-          paddingHorizontal: theme.spacing.md,
-          marginBottom: theme.spacing.md,
-          gap: theme.spacing.lg,
-        }}>
-        <View style={{ alignItems: 'center' }}>
-          <EnhancedText tx="learn.whatDoesSentence" size="xl" />
-        </View>
-
-        <View style={gStyles.centerRow}>
-          <EnhancedPressable
-            onPress={() => {
-              Speech.speak(activity.sentence, { language: 'en' });
-            }}
-            style={{
-              backgroundColor: theme.colors.secondary500,
-              padding: theme.spacing.sm,
-              borderRadius: theme.borderRadius.lg,
-              marginRight: theme.spacing.sm,
-            }}>
-            <SpeakerIcon color={theme.colors.base0} />
-          </EnhancedPressable>
-          <EnhancedText text={activity.sentence} size="lg" />
-        </View>
-      </View>
-
-      <Separator height={theme.borders.medium} />
-
-      <EnhancedScrollView>
-        <ChoiceGroup
-          options={activity.options}
-          value={data[activity.sentence]}
-          onChange={onChangeHandler}
-        />
-      </EnhancedScrollView>
-    </View>
-  );
-}
 
 export const LessonScreen = () => {
   const { theme } = useTheme();
