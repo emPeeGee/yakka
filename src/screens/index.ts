@@ -2,8 +2,8 @@ import { LoginScreen } from './auth/LoginScreen';
 import { ExpContentScreen } from './explore/ExpContentPoc';
 import { ExpBasicTensesScreen } from './explore/ExpSubtopicsScreen';
 import { ExpTopicsScreen } from './explore/ExpTopicsScreen';
-import { LearnScreen } from './learn/LearnScreen';
-import { LessonScreen } from './learn/LessonScreen';
+import { LearnLessonScreen } from './learn/LearnLessonScreen';
+import { LearnTreeScreen } from './learn/LearnTreeScreen';
 import { OnboardGetStartedScreen } from './onboarding/OnboardGetStartedScreen';
 import { OnboardIntroScreen } from './onboarding/OnboardIntroScreen';
 import { OnboardQuestionsDoneScreen } from './onboarding/OnboardQuestionsDoneScreen';
@@ -23,8 +23,8 @@ export {
   SettingsScreen,
   AppearanceScreen,
   AchievementsScreen,
-  LearnScreen,
-  LessonScreen,
+  LearnTreeScreen,
+  LearnLessonScreen,
   OnboardGetStartedScreen,
   OnboardIntroScreen,
   OnboardQuestionsScreen,

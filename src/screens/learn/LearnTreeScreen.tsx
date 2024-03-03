@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { HeaderPlaceholder, EnhancedText, Tile, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
-export const LearnScreen = () => {
+export const LearnTreeScreen = () => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
 

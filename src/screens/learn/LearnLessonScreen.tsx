@@ -130,7 +130,7 @@ const lessonActivities: PickAnswerActivityType[] = [
   },
 ];
 
-export const LessonScreen = () => {
+export const LearnLessonScreen = () => {
   const { theme } = useTheme();
   const { navigate, dispatch } = useNavigation();
   const actionSheetRef = useRef<ActionSheetRef>(null);

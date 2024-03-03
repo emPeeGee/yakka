@@ -4,7 +4,7 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { rootLog } from '@/core/logger';
-import { LearnScreen, LessonScreen } from '@/screens';
+import { LearnTreeScreen, LearnLessonScreen } from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -49,7 +49,7 @@ export const LearnNavigator = ({ navigation, route }: LearnStackNavigatorProps) 
         }}>
         <Stack.Screen
           name="LearnTree"
-          component={LearnScreen}
+          component={LearnTreeScreen}
           options={{
             headerShown: false,
             contentStyle: { paddingHorizontal: null },
@@ -57,7 +57,7 @@ export const LearnNavigator = ({ navigation, route }: LearnStackNavigatorProps) 
         />
         <Stack.Screen
           name="LearnLesson"
-          component={LessonScreen}
+          component={LearnLessonScreen}
           options={{
             headerShown: false,
             contentStyle: { paddingHorizontal: null },
