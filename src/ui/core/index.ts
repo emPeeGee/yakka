@@ -11,8 +11,10 @@ import { EnhancedScrollView } from './EnhancedScrollView';
 import { EnhancedText } from './EnhancedText';
 import { FlipCard } from './FlipCard';
 import { HeaderPlaceholder } from './HeaderPlaceholder';
+import { HeroLoading } from './hero/HeroLoading';
 import { HeroWithChat } from './hero/HeroWithChat';
 import { List, DataListType } from './List';
+import { Loader } from './Loader';
 import { RadioGroup } from './RadioGroup';
 import { Separator } from './Separator';
 import { SuccessEffect } from './SuccessEffect';
@@ -22,6 +24,7 @@ import { Tile } from './Tile';
 import { Toggle } from './Toggle';
 import { Wizard } from './wizard/Wizard';
 import { useWizard } from './wizard/WizardProvider';
+
 export {
   Button,
   RadioGroup,
@@ -40,6 +43,7 @@ export {
   Toggle,
   ChoiceGroup,
   HeroWithChat,
+  HeroLoading,
   ContainerWithInsets,
   Card,
   CardStack,
@@ -48,5 +52,7 @@ export {
   Emoji,
   EnhancedScrollView,
   SuccessEffect,
+  Loader,
 };
+
 export type { SwiperItemType as SwiperDataItem, DataListType, Choice };

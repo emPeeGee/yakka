@@ -38,6 +38,7 @@
 [ ] Lesson: On back/exit, should show a modal with confirmation
 [ ] LearnTree: circle should indicate if lesson is passed via color
 [ ] Lesson: sounds on success or fail
+[ ] replace all activity indicator with loader
 
 ## Medium:
 

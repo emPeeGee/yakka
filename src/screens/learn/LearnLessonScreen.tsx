@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { ReactElement, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
 import { StackActions, useNavigation } from '@react-navigation/native';
@@ -11,7 +11,7 @@ import { ONBOARD_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
 import { setItem } from '@/core/storage';
 import { PickAnswerActivityType } from '@/types';
-import { EnhancedText, ContainerWithInsets, Wizard, Button } from '@/ui/core';
+import { EnhancedText, ContainerWithInsets, Wizard, Button, HeroLoading } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { MARGIN_LEFT } from './Layout';
 import { Lines } from './Lines';
@@ -134,6 +134,13 @@ export const LearnLessonScreen = () => {
   const { theme } = useTheme();
   const { navigate, dispatch } = useNavigation();
   const actionSheetRef = useRef<ActionSheetRef>(null);
+  const [isLessonReady, setIsLessonReady] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLessonReady(true);
+    }, 2000);
+  }, []);
 
   const onExitHandler = () => {
     actionSheetRef.current?.show();
@@ -141,58 +148,62 @@ export const LearnLessonScreen = () => {
 
   return (
     <ContainerWithInsets>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <Wizard
-            txButtonLabel="learn.checkAnswer"
-            txLastScreenButtonLabel="common.finish"
-            fallbackRoute="LearnTree"
-            screensContainerStyle={{ paddingHorizontal: 0 }}
-            screens={lessonActivities.map(
-              (activity, index) => () => PickAnswerActivity({ activity, index }),
-            )}
-            onFinish={wizardData => {
-              navigate('LearnTree' as never);
-              rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(wizardData)}`);
-              setItem(ONBOARD_DATA_KEY, wizardData);
-            }}
-            withExit
-            onExit={onExitHandler}
-          />
+      {isLessonReady ? (
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
+            <Wizard
+              txButtonLabel="learn.checkAnswer"
+              txLastScreenButtonLabel="common.finish"
+              fallbackRoute="LearnTree"
+              screensContainerStyle={{ paddingHorizontal: 0 }}
+              screens={lessonActivities.map(
+                (activity, index) => () => PickAnswerActivity({ activity, index }),
+              )}
+              onFinish={wizardData => {
+                navigate('LearnTree' as never);
+                rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(wizardData)}`);
+                setItem(ONBOARD_DATA_KEY, wizardData);
+              }}
+              withExit
+              onExit={onExitHandler}
+            />
 
-          <ActionSheet ref={actionSheetRef} snapPoints={[100]}>
-            <View
-              style={{
-                padding: theme.spacing.md,
-                gap: theme.spacing.md,
-                backgroundColor: theme.colors.background,
-              }}>
-              <EnhancedText preset="subheading" tx="common.leaveSure" />
-              <Button
-                tx="common.leave"
-                backgroundColor={theme.colors.errorBackground}
-                onPress={() => {
-                  const popAction = StackActions.pop(1);
-                  dispatch(popAction);
-                }}
-              />
-              <Button
-                tx="common.stay"
-                backgroundColor={theme.colors.primary800}
-                onPress={() => {
-                  actionSheetRef.current?.hide();
-                }}
-              />
-            </View>
-          </ActionSheet>
+            <ActionSheet ref={actionSheetRef} snapPoints={[100]}>
+              <View
+                style={{
+                  padding: theme.spacing.md,
+                  gap: theme.spacing.md,
+                  backgroundColor: theme.colors.background,
+                }}>
+                <EnhancedText preset="subheading" tx="common.leaveSure" />
+                <Button
+                  tx="common.leave"
+                  backgroundColor={theme.colors.errorBackground}
+                  onPress={() => {
+                    const popAction = StackActions.pop(1);
+                    dispatch(popAction);
+                  }}
+                />
+                <Button
+                  tx="common.stay"
+                  backgroundColor={theme.colors.primary800}
+                  onPress={() => {
+                    actionSheetRef.current?.hide();
+                  }}
+                />
+              </View>
+            </ActionSheet>
 
-          {/* <WordList>
+            {/* <WordList>
               {words.map(word => (
                 <Word key={word.id} {...word} />
               ))}
             </WordList> */}
-        </View>
-      </GestureHandlerRootView>
+          </View>
+        </GestureHandlerRootView>
+      ) : (
+        <HeroLoading />
+      )}
     </ContainerWithInsets>
   );
 };
