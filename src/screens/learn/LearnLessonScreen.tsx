@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
 import { StackActions, useNavigation } from '@react-navigation/native';
@@ -131,10 +131,11 @@ const lessonActivities: PickAnswerActivityType[] = [
 ];
 
 export const LearnLessonScreen = () => {
-  const { theme } = useTheme();
+  const { appColorScheme, theme } = useTheme();
   const { navigate, dispatch } = useNavigation();
   const actionSheetRef = useRef<ActionSheetRef>(null);
   const [isLessonReady, setIsLessonReady] = useState(false);
+  const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -178,7 +179,8 @@ export const LearnLessonScreen = () => {
                 <EnhancedText preset="subheading" tx="common.leaveSure" />
                 <Button
                   tx="common.leave"
-                  backgroundColor={theme.colors.errorBackground}
+                  backgroundColor={isDark ? theme.colors.errorBackground : theme.colors.error}
+                  color={theme.colors.base0}
                   onPress={() => {
                     const popAction = StackActions.pop(1);
                     dispatch(popAction);
@@ -186,7 +188,7 @@ export const LearnLessonScreen = () => {
                 />
                 <Button
                   tx="common.stay"
-                  backgroundColor={theme.colors.primary800}
+                  backgroundColor={isDark ? theme.colors.primary800 : theme.colors.primary100}
                   onPress={() => {
                     actionSheetRef.current?.hide();
                   }}
