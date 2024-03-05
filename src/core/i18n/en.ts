@@ -13,6 +13,12 @@ export const en = {
     leaveSure: 'Are you sure you want to leave?',
     leave: 'Leave',
     stay: 'Stay',
+    loading: 'Loading',
+    noEntriesFound: 'No entries found.',
+    noEntriesFoundDetails: 'There are currently no entries available.',
+    noEntriesYet: 'No items added yet.',
+    noEntiresYetDetails: "You haven't added any items yet. Start by adding some items.",
+    sheep: 'Counting Sheep...',
   },
   // Won't change depending on the language
   universal: {
@@ -82,6 +88,7 @@ export const en = {
     answer: 'Answer',
     amazing: 'Amazing',
     oopsWrong: 'Oops.. that’s wrong',
+    benefit: 'Complete the course faster to get more XP and Balloons',
   },
   voc: {
     word: 'Word',
