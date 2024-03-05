@@ -11,6 +11,7 @@ import { EnhancedScrollView } from './EnhancedScrollView';
 import { EnhancedText } from './EnhancedText';
 import { FlipCard } from './FlipCard';
 import { HeaderPlaceholder } from './HeaderPlaceholder';
+import { HeroEmptyState } from './hero/HeroEmptyState';
 import { HeroLoading } from './hero/HeroLoading';
 import { HeroWithChat } from './hero/HeroWithChat';
 import { List, DataListType } from './List';
@@ -44,6 +45,7 @@ export {
   ChoiceGroup,
   HeroWithChat,
   HeroLoading,
+  HeroEmptyState,
   ContainerWithInsets,
   Card,
   CardStack,

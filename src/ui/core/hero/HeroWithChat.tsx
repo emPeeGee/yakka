@@ -5,7 +5,7 @@ import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { EnhancedText, TextProps } from '../EnhancedText';
 
-type HeroStyle = 'default' | 'vampire' | 'flowers' | 'discovery' | 'question' | 'clock';
+type HeroStyle = 'default' | 'vampire' | 'flowers' | 'discovery' | 'question' | 'clock' | 'tears';
 
 type HeroWithChatProps = {
   text?: TextProps['text'];
@@ -26,6 +26,7 @@ const HERO_STYLES: Record<HeroStyle, ImageURISource> = {
   discovery: require('../../../assets/hero/heroDiscovery.png'),
   question: require('../../../assets/hero/heroWithQuestion.png'),
   clock: require('../../../assets/hero/heroWithClock.png'),
+  tears: require('../../../assets/hero/heroWithTears.png'),
 };
 
 // TODO: triangle is too big
