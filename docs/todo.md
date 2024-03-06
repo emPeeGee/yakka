@@ -51,7 +51,7 @@
 [ ] Before going to the lesson, make a confirmation dialog (as duo)
 [ ] Login to save progress.
 [ ] Login to enable access to full content ???
-[ ] No card in vocabulary: lothie animation
+[x] No card in vocabulary: lottie animation
 [ ] translate screens titles
 
 ## Low:

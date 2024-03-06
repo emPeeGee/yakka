@@ -28,7 +28,7 @@ export const ExpTopicsScreen = () => {
 
   return (
     <ContainerWithInsets>
-      <HeaderScrollView title="aaa">
+      <HeaderScrollView title="exp.learnToday">
         <View
           style={{
             paddingVertical: theme.spacing.xs,
@@ -41,7 +41,7 @@ export const ExpTopicsScreen = () => {
             <TextField
               value={typedTopic}
               onChangeText={setTypedTopic}
-              placeholderTx="voc.searchCategory"
+              placeholderTx="exp.searchTopic"
               style={{ paddingVertical: theme.spacing.md }}
               RightAccessory={props => (
                 <View style={[props.style]}>

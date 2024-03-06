@@ -48,6 +48,7 @@ export class HeaderScrollView extends Component {
     scrollContainerStyle: PropTypes.object,
     fadeDirection: PropTypes.string,
     scrollViewProps: PropTypes.object,
+    withBackButton: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -100,7 +101,10 @@ export class HeaderScrollView extends Component {
       scrollContainerStyle = {},
       fadeDirection,
       scrollViewProps = {},
+      withBackButton = false,
     } = this.props;
+
+    console.log('withback', withBackButton);
 
     const fontSize = titleStyle.fontSize || 34;
     const titleStyles = {
@@ -119,7 +123,7 @@ export class HeaderScrollView extends Component {
         <View style={[styles.headerContainer, headerContainerStyle]}>
           <Fade visible={this.state.isHeaderScrolled} direction={fadeDirection}>
             <View style={[styles.headerComponentContainer, headerComponentContainerStyle]}>
-              <BackButton />
+              {withBackButton && <BackButton />}
               <View style={{ flex: 1, alignItems: 'center' }}>
                 <Text style={[styles.headline, headlineStyle]}>{title}</Text>
               </View>
@@ -143,7 +147,7 @@ export class HeaderScrollView extends Component {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <BackButton />
+            {withBackButton && <BackButton />}
             <Animated.Text
               style={[
                 styles.title,

@@ -102,7 +102,7 @@ export const ExpBasicTensesScreen = ({ route }) => {
 
   return (
     <ContainerWithInsets withoutBottom>
-      <HeaderScrollView title={translate('exp.12basicTenses')}>
+      <HeaderScrollView title={translate('exp.12basicTenses')} withBackButton>
         <View style={{ padding: theme.spacing.md }}>
           <ChoiceGroup
             options={subtopics}
