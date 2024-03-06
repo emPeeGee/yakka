@@ -1,11 +1,16 @@
 import { View } from 'react-native';
 
+import { TxKeyPath } from '@/core/i18n';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { HeroWithChat } from './HeroWithChat';
 import { EnhancedText } from '../EnhancedText';
 import { Loader } from '../Loader';
 
-export const HeroLoading = () => {
+type HeroLoadingProps = {
+  suggestion?: TxKeyPath;
+};
+
+export const HeroLoading = ({ suggestion }: HeroLoadingProps) => {
   const gStyles = useGlobalThemedStyles();
   const { theme } = useTheme();
 
@@ -19,15 +24,17 @@ export const HeroLoading = () => {
         style={[{ color: theme.colors.secondary700 }, theme.typography.sizes.xl]}
       />
       <Loader />
-      <EnhancedText
-        weight="bold"
-        preset="subheading"
-        tx="learn.benefit"
-        style={[
-          { width: '75%', textAlign: 'center', color: theme.colors.textSec },
-          theme.typography.sizes.lg,
-        ]}
-      />
+      {suggestion && (
+        <EnhancedText
+          weight="bold"
+          preset="subheading"
+          tx={suggestion}
+          style={[
+            { width: '75%', textAlign: 'center', color: theme.colors.textSec },
+            theme.typography.sizes.lg,
+          ]}
+        />
+      )}
     </View>
   );
 };

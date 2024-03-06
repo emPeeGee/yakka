@@ -204,7 +204,7 @@ export const LearnLessonScreen = () => {
           </View>
         </GestureHandlerRootView>
       ) : (
-        <HeroLoading />
+        <HeroLoading suggestion="learn.benefit" />
       )}
     </ContainerWithInsets>
   );

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { ActivityIndicator, ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import Markdown from 'react-native-marked';
 
 import { translate } from '@/core/i18n';
+import { HeroLoading } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 const content = `
@@ -51,7 +52,9 @@ export const ExpContentScreen = ({ route, navigation }) => {
   return (
     <ScrollView style={{ paddingHorizontal: theme.spacing.md }}>
       {loading ? (
-        <ActivityIndicator />
+        <View style={{ paddingTop: theme.spacing.xl }}>
+          <HeroLoading />
+        </View>
       ) : (
         <Markdown
           theme={{
