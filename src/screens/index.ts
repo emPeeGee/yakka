@@ -2,6 +2,7 @@ import { LoginScreen } from './auth/LoginScreen';
 import { ExpContentScreen } from './explore/ExpContentScreen';
 import { ExpBasicTensesScreen } from './explore/ExpSubtopicsScreen';
 import { ExpTopicsScreen } from './explore/ExpTopicsScreen';
+import { LearnLessonCompleteScreen } from './learn/LearnLessonCompleteScreen';
 import { LearnLessonScreen } from './learn/LearnLessonScreen';
 import { LearnTreeScreen } from './learn/LearnTreeScreen';
 import { OnboardGetStartedScreen } from './onboarding/OnboardGetStartedScreen';
@@ -25,6 +26,7 @@ export {
   AchievementsScreen,
   LearnTreeScreen,
   LearnLessonScreen,
+  LearnLessonCompleteScreen,
   OnboardGetStartedScreen,
   OnboardIntroScreen,
   OnboardQuestionsScreen,

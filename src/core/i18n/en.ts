@@ -19,6 +19,10 @@ export const en = {
     noEntriesYet: 'No items added yet.',
     noEntiresYetDetails: "You haven't added any items yet. Start by adding some items.",
     sheep: 'Counting Sheep...',
+    totalXp: 'Total XP',
+    accuracy: 'Accuracy',
+    time: 'Time',
+    balloons: 'Balloons',
   },
   // Won't change depending on the language
   universal: {
@@ -89,6 +93,7 @@ export const en = {
     amazing: 'Amazing',
     oopsWrong: 'Oops.. that’s wrong',
     benefit: 'Complete the course faster to get more XP and Balloons',
+    lessonCompleted: 'Lesson completed!',
   },
   voc: {
     word: 'Word',

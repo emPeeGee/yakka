@@ -14,6 +14,7 @@ import { HeaderPlaceholder } from './HeaderPlaceholder';
 import { HeroEmptyState } from './hero/HeroEmptyState';
 import { HeroLoading } from './hero/HeroLoading';
 import { HeroWithChat } from './hero/HeroWithChat';
+import { InfoBox } from './InfoBox';
 import { List, DataListType } from './List';
 import { Loader } from './Loader';
 import { RadioGroup } from './RadioGroup';
@@ -55,6 +56,7 @@ export {
   EnhancedScrollView,
   SuccessEffect,
   Loader,
+  InfoBox,
 };
 
 export type { SwiperItemType as SwiperDataItem, DataListType, Choice, WizardScreenProps };
