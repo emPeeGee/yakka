@@ -1,8 +1,9 @@
 import { ComponentType } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 
 import { TxKeyPath } from '@/core/i18n';
 import { SelectableOption } from '@/types';
+import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
 import { useGlobalThemedStyles, useTheme } from '../theme';
 
@@ -18,11 +19,13 @@ type ChoiceGroupProps<T> = {
   options: Choice<T>[];
   value?: T;
   onChange: (value: T) => void;
+  disabled?: boolean;
 };
 
 type ChoiceOptionProps<T> = {
   tx?: TxKeyPath;
   label?: string;
+  disabled?: boolean;
   selected: boolean;
   value: T;
   onSelect: (value: T) => void;
@@ -38,12 +41,13 @@ function ChoiceOption<T>({
   onSelect,
   Right,
   Left,
+  disabled = false,
 }: ChoiceOptionProps<T>) {
   const { theme, appColorScheme } = useTheme();
   const gStyles = useGlobalThemedStyles();
 
   return (
-    <TouchableOpacity onPress={() => onSelect(value)}>
+    <EnhancedPressable onPress={() => onSelect(value)} disabled={disabled}>
       <View
         style={{
           paddingVertical: theme.spacing.md,
@@ -80,11 +84,17 @@ function ChoiceOption<T>({
           </View>
         )}
       </View>
-    </TouchableOpacity>
+    </EnhancedPressable>
   );
 }
 
-export function ChoiceGroup<T>({ tx, options, value, onChange }: ChoiceGroupProps<T>) {
+export function ChoiceGroup<T>({
+  tx,
+  options,
+  value,
+  onChange,
+  disabled = false,
+}: ChoiceGroupProps<T>) {
   const { theme } = useTheme();
   return (
     <View>
@@ -100,6 +110,7 @@ export function ChoiceGroup<T>({ tx, options, value, onChange }: ChoiceGroupProp
             onSelect={onChange}
             Right={option.Right}
             Left={option.Left}
+            disabled={disabled}
           />
         ))}
       </View>

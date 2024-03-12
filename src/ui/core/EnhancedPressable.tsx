@@ -18,6 +18,7 @@ export function EnhancedPressable({
   style,
   onPress,
   withoutBackground = false,
+  disabled,
   ...props
 }: EnhancedPressableProps) {
   const { theme, appColorScheme } = useTheme();
@@ -46,11 +47,12 @@ export function EnhancedPressable({
 
   return (
     <Pressable
+      disabled={disabled}
       style={({ pressed }) => [
         isFacc
           ? {}
           : {
-              opacity: pressed ? (isDark ? 0.4 : 0.2) : 1,
+              opacity: pressed ? (isDark ? 0.4 : 0.2) : disabled ? 0.5 : 1,
               backgroundColor: getBackgroundColor(pressed),
             },
         style,
