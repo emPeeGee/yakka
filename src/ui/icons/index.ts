@@ -1,10 +1,14 @@
 import { AchievementsIcon } from './AchievementsIcon';
+import { BallonIcon } from './BalloonIcon';
 import { BookBookmarkIcon } from './BookBookmarkIcon';
 import { BookIcon } from './BookIcon';
 import { CompassIcon } from './CompassIcon';
+import { CrosshairIcon } from './CrosshairIcon';
 import { EyeIcon } from './EyeIcon';
 import { EyeOffIcon } from './EyeOffIcon';
 import { HeartIcon } from './HeartIcon';
+import { HourglassIcon } from './HourglassIcon';
+import { LightningIcon } from './LightningIcon';
 import { MagnifyingGlassIcon } from './MagnifyingGlassIcon';
 import { PasswordIcon } from './PasswordIcon';
 import { PathIcon } from './PathIcon';
@@ -36,4 +40,8 @@ export {
   SpeakerIcon,
   MagnifyingGlassIcon,
   BookBookmarkIcon,
+  HourglassIcon,
+  LightningIcon,
+  BallonIcon,
+  CrosshairIcon,
 };
