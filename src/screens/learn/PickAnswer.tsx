@@ -11,6 +11,7 @@ import {
   Separator,
   EnhancedScrollView,
   ChoiceGroup,
+  WizardScreenProps,
 } from '@/ui/core';
 import { SpeakerIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -18,12 +19,14 @@ import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 type PickAnswerActivityProps = {
   index: number;
   activity: PickAnswerActivityType;
-};
+} & WizardScreenProps;
 
-export function PickAnswerActivity({ index, activity }: PickAnswerActivityProps) {
+export function PickAnswerActivity({ index, activity, answered }: PickAnswerActivityProps) {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const { data, setData, setIsContinueEnabled, setOnNextScreen, setNextButtonProps } = useWizard();
+
+  console.log('an', answered);
 
   useEffect(() => {
     setOnNextScreen(index, () => {
@@ -100,6 +103,7 @@ export function PickAnswerActivity({ index, activity }: PickAnswerActivityProps)
 
       <EnhancedScrollView>
         <ChoiceGroup
+          disabled={answered}
           options={activity.options}
           value={data[activity.sentence]}
           onChange={onChangeHandler}

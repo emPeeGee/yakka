@@ -23,7 +23,7 @@ import { Swiper, SwiperItemType } from './swiper/Swiper';
 import { TextField } from './TextField';
 import { Tile } from './Tile';
 import { Toggle } from './Toggle';
-import { Wizard } from './wizard/Wizard';
+import { Wizard, WizardScreenProps } from './wizard/Wizard';
 import { useWizard } from './wizard/WizardProvider';
 
 export {
@@ -57,4 +57,4 @@ export {
   Loader,
 };
 
-export type { SwiperItemType as SwiperDataItem, DataListType, Choice };
+export type { SwiperItemType as SwiperDataItem, DataListType, Choice, WizardScreenProps };

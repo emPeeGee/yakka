@@ -32,10 +32,14 @@ import { EnhancedPressable } from '../EnhancedPressable';
 import { EnhancedText } from '../EnhancedText';
 import { SuccessEffect } from '../SuccessEffect';
 
+export type WizardScreenProps = {
+  answered: boolean;
+};
+
 type WizardProps = {
   // TODO: better type
   fallbackRoute: string;
-  screens: (() => React.JSX.Element)[];
+  screens: ((props: WizardScreenProps) => React.JSX.Element)[];
   screensContainerStyle?: StyleProp<ViewStyle>;
   onFinish: (data: WizardData) => void;
   txButtonLabel?: TxKeyPath;
@@ -161,6 +165,7 @@ const Wizardd = ({
       <View style={[gStyles.centerRowBetween, styles.headerContainer]}>
         {withExit ? (
           <EnhancedPressable
+            disabled={!!isAnswer}
             onPress={onExitHandler}
             style={{
               backgroundColor: theme.colors.background,
@@ -211,7 +216,7 @@ const Wizardd = ({
           <View
             key={index}
             style={[styles.itemContainer, screensContainerStyle, { width: SCREEN_WIDTH }]}>
-            <Screen />
+            <Screen answered={!!isAnswer} />
           </View>
         )}
         horizontal

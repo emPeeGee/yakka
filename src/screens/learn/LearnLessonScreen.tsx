@@ -11,7 +11,14 @@ import { ONBOARD_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
 import { setItem } from '@/core/storage';
 import { PickAnswerActivityType } from '@/types';
-import { EnhancedText, ContainerWithInsets, Wizard, Button, HeroLoading } from '@/ui/core';
+import {
+  EnhancedText,
+  ContainerWithInsets,
+  Wizard,
+  Button,
+  HeroLoading,
+  WizardScreenProps,
+} from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { MARGIN_LEFT } from './Layout';
 import { Lines } from './Lines';
@@ -158,7 +165,8 @@ export const LearnLessonScreen = () => {
               fallbackRoute="LearnTree"
               screensContainerStyle={{ paddingHorizontal: 0 }}
               screens={lessonActivities.map(
-                (activity, index) => () => PickAnswerActivity({ activity, index }),
+                (activity, index) => (wizardProps: WizardScreenProps) =>
+                  PickAnswerActivity({ activity, index, ...wizardProps }),
               )}
               onFinish={wizardData => {
                 navigate('LearnTree' as never);
