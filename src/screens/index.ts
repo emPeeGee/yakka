@@ -1,5 +1,5 @@
 import { LoginScreen } from './auth/LoginScreen';
-import { ExpContentScreen } from './explore/ExpContentPoc';
+import { ExpContentScreen } from './explore/ExpContentScreen';
 import { ExpBasicTensesScreen } from './explore/ExpSubtopicsScreen';
 import { ExpTopicsScreen } from './explore/ExpTopicsScreen';
 import { LearnLessonScreen } from './learn/LearnLessonScreen';

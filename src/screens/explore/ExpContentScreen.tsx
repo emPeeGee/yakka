@@ -7,7 +7,7 @@ import { translate } from '@/core/i18n';
 import { HeroLoading } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
-const content = `
+const contentPOC = `
 # Present Simple tense
 
 ![Present Simple tense](../images/grammar/tense-present-simple.png)
@@ -37,16 +37,20 @@ export const ExpContentScreen = ({ route, navigation }) => {
 
     // TODO: doesn't work
     // fetch(require(`./content/${route.params.content}`))
-    fetch(content)
-      .then(res => res.text())
-      .then(text => {
-        setFile(text);
 
-        // TODO: instead of setTimeout, real time
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      });
+    // fetch(contentPOC)
+    // .then(res => res.text())
+    // .then(text => {
+    //   setFile(text);
+    //   console.log(text);
+
+    // TODO: instead of setTimeout, real time
+    setTimeout(() => {
+      // TODO: workaround for web
+      setFile(contentPOC);
+      setLoading(false);
+    }, 1000);
+    //     });
   }, []);
 
   return (
