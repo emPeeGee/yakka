@@ -18,7 +18,7 @@ export function Word({ containerStyle, textStyle }: WordProps) {
   return (
     <View
       style={[
-        { height: wordHeight, margin: wordGap, marginBottom: wordGap * 2 },
+        { height: wordHeight, marginHorizontal: wordGap, marginBottom: wordGap * 2, marginTop: 0 },
         styles.container,
         containerStyle,
       ]}>
