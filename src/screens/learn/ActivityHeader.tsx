@@ -7,7 +7,13 @@ import { EnhancedText, EnhancedPressable, Separator } from '@/ui/core';
 import { SpeakerIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
-export function ActivityHeader({ activity }: { activity: ActivityUnion }) {
+export function ActivityHeader({
+  activity,
+  noSeparator = false,
+}: {
+  activity: ActivityUnion;
+  noSeparator?: boolean;
+}) {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
 
@@ -41,7 +47,7 @@ export function ActivityHeader({ activity }: { activity: ActivityUnion }) {
         </View>
       </View>
 
-      <Separator height={theme.borders.medium} />
+      {noSeparator === false && <Separator height={theme.borders.medium} />}
     </>
   );
 }
