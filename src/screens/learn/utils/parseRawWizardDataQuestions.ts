@@ -1,5 +1,6 @@
 import { LessonActivity, ParsedLessonAnswers } from '@/types';
 import { WizardData } from '@/ui/core';
+import { compareAnswers } from './compareAnswers';
 
 /**
  * Parse answers and elapsed seconds
@@ -27,7 +28,7 @@ export const parseRawWizardDataQuestion = (
       const originalLesson = lessonActivities.find(
         l => l.activity.sentence === sentence,
       ) as LessonActivity;
-      acc.answers[sentence] = originalLesson.activity.answer === answer;
+      acc.answers[sentence] = compareAnswers(originalLesson.activity.answer, answer);
 
       return acc;
     },
