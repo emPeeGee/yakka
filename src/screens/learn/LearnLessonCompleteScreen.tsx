@@ -1,9 +1,14 @@
 // pass stats here as well
 
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { LESSON_DONE_DATA_KEY } from '@/core/constants';
+import { getItem } from '@/core/storage';
+import { formatSecondsToMinutesSeconds, percentage } from '@/core/utils';
+import { ParsedLessonAnswers, LearningLessonStats } from '@/types';
 import { Button, ContainerWithInsets, EnhancedText, HeroWithChat, InfoBox } from '@/ui/core';
 import { BallonIcon, CrosshairIcon, HourglassIcon, LightningIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -12,6 +17,25 @@ export const LearnLessonCompleteScreen = () => {
   const { navigate } = useNavigation();
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
+  const [lessonStats, setLessonStats] = useState<LearningLessonStats | undefined>();
+
+  useEffect(() => {
+    getItem(LESSON_DONE_DATA_KEY).then((data: ParsedLessonAnswers) => {
+      const rightAnswers = Object.values(data.answers).filter(Boolean).length;
+      const totalAnswers = Object.values(data.answers).length;
+
+      setLessonStats({
+        time: formatSecondsToMinutesSeconds(data.elapsedSeconds),
+        balloons: rightAnswers,
+        experience: rightAnswers * 2,
+        accuracy: percentage(rightAnswers, totalAnswers, true),
+      });
+    });
+  }, []);
+
+  if (!lessonStats) {
+    return null;
+  }
 
   return (
     <ContainerWithInsets>
@@ -41,7 +65,7 @@ export const LearnLessonCompleteScreen = () => {
               Icon={() => <BallonIcon />}
               color={theme.colors.secondary500}
               txTitle="common.balloons"
-              value="24"
+              value={lessonStats?.balloons}
             />
             <View
               style={[
@@ -55,19 +79,19 @@ export const LearnLessonCompleteScreen = () => {
                 Icon={() => <LightningIcon />}
                 color={theme.colors.coral}
                 txTitle="common.totalXp"
-                value="12"
+                value={lessonStats?.experience}
               />
               <InfoBox
                 Icon={() => <HourglassIcon />}
                 color={theme.colors.mint}
                 txTitle="common.time"
-                value="01:34"
+                value={lessonStats?.time}
               />
               <InfoBox
                 Icon={() => <CrosshairIcon />}
                 color={theme.colors.lilac}
                 txTitle="common.accuracy"
-                value="88%"
+                value={lessonStats.accuracy}
               />
             </View>
           </View>

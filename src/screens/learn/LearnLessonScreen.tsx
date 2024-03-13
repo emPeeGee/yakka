@@ -7,7 +7,7 @@ import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue, runOnUI, runOnJS } from 'react-native-reanimated';
 
-import { ONBOARD_DATA_KEY } from '@/core/constants';
+import { LESSON_DONE_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
 import { setItem } from '@/core/storage';
 import { PickAnswerActivityType } from '@/types';
@@ -24,6 +24,7 @@ import { MARGIN_LEFT } from './Layout';
 import { Lines } from './Lines';
 import { PickAnswerActivity } from './PickAnswer';
 import { SortableWord } from './SortableWord';
+import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
 // import { Word } from './Word';
 
 // const words = [
@@ -169,9 +170,10 @@ export const LearnLessonScreen = () => {
                   PickAnswerActivity({ activity, index, ...wizardProps }),
               )}
               onFinish={wizardData => {
-                navigate('LearnTree' as never);
-                rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(wizardData)}`);
-                setItem(ONBOARD_DATA_KEY, wizardData);
+                const answers = parseRawWizardDataQuestion(wizardData, lessonActivities);
+                setItem(LESSON_DONE_DATA_KEY, answers);
+                rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(answers)}`);
+                navigate('LearnLessonComplete' as never);
               }}
               withExit
               onExit={onExitHandler}

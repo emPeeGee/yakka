@@ -1,6 +1,11 @@
 import { VoidCb } from './cb';
 import { SelectableOption, Dimensions } from './common';
-import { ActivityType, PickAnswerActivityType } from './learn';
+import {
+  ActivityType,
+  PickAnswerActivityType,
+  ParsedLessonAnswers,
+  LearningLessonStats,
+} from './learn';
 import {
   Theme,
   Shadow,
@@ -32,4 +37,6 @@ export type {
   WordMeaning,
   ActivityType,
   PickAnswerActivityType,
+  ParsedLessonAnswers,
+  LearningLessonStats,
 };

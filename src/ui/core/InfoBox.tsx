@@ -7,7 +7,7 @@ import { useTheme, useGlobalThemedStyles } from '../theme';
 type InfoBoxProps = {
   color: string;
   txTitle: TxKeyPath;
-  value: string;
+  value: string | number;
   Icon: () => JSX.Element;
 };
 
@@ -45,7 +45,12 @@ export const InfoBox = ({ color, txTitle, value: text, Icon }: InfoBoxProps) => 
           },
         ]}>
         <Icon />
-        <EnhancedText text={text} size="lg" weight="medium" style={{ textAlign: 'center' }} />
+        <EnhancedText
+          text={String(text)}
+          size="lg"
+          weight="medium"
+          style={{ textAlign: 'center' }}
+        />
       </View>
     </View>
   );

@@ -65,7 +65,7 @@ export const WizardProvider = ({
   enableContinueOnFirstScreen,
 }: WizardProviderProps): React.ReactNode => {
   const onNextScreen = useRef<VoidCb[]>([]);
-  const [data, setData] = useState<WizardData>({});
+  const [data, setData] = useState<WizardData>({ time: new Date() });
   const [isContinueEnabled, setContinueEnabled] = useState<boolean>(
     enableContinueOnFirstScreen || initialValue.isContinueEnabled,
   );

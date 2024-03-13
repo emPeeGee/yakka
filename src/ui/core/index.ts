@@ -25,7 +25,7 @@ import { TextField } from './TextField';
 import { Tile } from './Tile';
 import { Toggle } from './Toggle';
 import { Wizard, WizardScreenProps } from './wizard/Wizard';
-import { useWizard } from './wizard/WizardProvider';
+import { useWizard, WizardData } from './wizard/WizardProvider';
 
 export {
   Button,
@@ -59,4 +59,10 @@ export {
   InfoBox,
 };
 
-export type { SwiperItemType as SwiperDataItem, DataListType, Choice, WizardScreenProps };
+export type {
+  SwiperItemType as SwiperDataItem,
+  DataListType,
+  Choice,
+  WizardScreenProps,
+  WizardData,
+};

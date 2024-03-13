@@ -39,6 +39,9 @@
 [ ] LearnTree: circle should indicate if lesson is passed via color
 [ ] Lesson: sounds on success or fail
 [x] replace all activity indicator with loader
+[ ] stats system
+[ ] challenges
+[ ] next lesson and passed ones
 
 ## Medium:
 
