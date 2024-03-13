@@ -15,7 +15,13 @@ export type DragWordsActivityType = {
   options: string[];
 };
 
-export type ActivityType = 'pickAnswer' | 'typeAnswer' | 'dragWords';
+export type MissingWordActivityType = {
+  sentence: string;
+  answer: string;
+  options: { label: string; value: string }[];
+};
+
+export type ActivityType = 'pickAnswer' | 'typeAnswer' | 'dragWords' | 'missingWord';
 export type ActivityUnion = PickAnswerActivityType | TypeAnswerActivityType;
 
 export type LessonActivity = {

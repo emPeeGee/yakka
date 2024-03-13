@@ -94,6 +94,7 @@ export const en = {
     oopsWrong: 'Oops.. that’s wrong',
     benefit: 'Complete the course faster to get more XP and Balloons',
     lessonCompleted: 'Lesson completed!',
+    fillMissingWord: 'Fill in the blanks.',
   },
   voc: {
     word: 'Word',

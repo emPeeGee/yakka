@@ -12,6 +12,7 @@ import { setItem } from '@/core/storage';
 import {
   DragWordsActivityType,
   LessonActivity,
+  MissingWordActivityType,
   PickAnswerActivityType,
   TypeAnswerActivityType,
 } from '@/types';
@@ -25,11 +26,24 @@ import {
 } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { DragWordsActivity } from './DragWordsActivity';
+import { MissingWordActivity } from './MissingWordActivity';
 import { PickAnswerActivity } from './PickAnswer';
 import { TypeAnswerActivity } from './TypeAnswer';
 import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
 
 const lessonActivities: LessonActivity[] = [
+  {
+    type: 'missingWord',
+    activity: {
+      sentence: 'My name @@@ Ken',
+      answer: 'is',
+      options: [
+        { label: 'are', value: 'are' },
+        { label: 'as', value: 'as' },
+        { label: 'is', value: 'is' },
+      ],
+    } as MissingWordActivityType,
+  },
   {
     type: 'dragWords',
     activity: {
@@ -116,6 +130,12 @@ export const LearnLessonScreen = () => {
                     case 'typeAnswer':
                       return TypeAnswerActivity({
                         activity: activity.activity as TypeAnswerActivityType,
+                        index,
+                        ...wizardProps,
+                      });
+                    case 'missingWord':
+                      return MissingWordActivity({
+                        activity: activity.activity as MissingWordActivityType,
                         index,
                         ...wizardProps,
                       });

@@ -18,6 +18,6 @@ const getStyles = (theme: Theme, isDark: boolean) =>
   StyleSheet.create({
     placeholder: {
       backgroundColor: isDark ? theme.colors.surface : theme.colors.base40,
-      borderRadius: 8,
+      borderRadius: theme.borderRadius.md,
     },
   });
