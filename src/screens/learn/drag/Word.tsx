@@ -1,7 +1,8 @@
 import { useContext } from 'react';
-import { View, Text, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 import { Theme } from '@/types';
+import { EnhancedText } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { WordContext } from './WordContext';
 
@@ -22,9 +23,13 @@ export function Word({ containerStyle, textStyle }: WordProps) {
         styles.container,
         containerStyle,
       ]}>
-      <Text style={[styles.text, textStyle]} allowFontScaling={false} numberOfLines={1}>
-        {text}
-      </Text>
+      <EnhancedText
+        style={[styles.text, textStyle]}
+        size="md"
+        text={text}
+        allowFontScaling={false}
+        numberOfLines={1}
+      />
     </View>
   );
 }
@@ -32,15 +37,15 @@ export function Word({ containerStyle, textStyle }: WordProps) {
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      marginTop: 0,
-      backgroundColor: theme.colors.base0,
-      borderColor: theme.colors.border,
-      borderWidth: 2,
-      borderRadius: 8,
       justifyContent: 'center',
-      paddingHorizontal: 10,
+      marginTop: 0,
+      backgroundColor: theme.colors.background,
+      borderColor: theme.colors.border,
+      borderWidth: theme.borders.medium,
+      borderRadius: theme.borderRadius.md,
+      paddingHorizontal: theme.spacing.md,
     },
     text: {
-      fontSize: 16,
+      textAlign: 'center',
     },
   });
