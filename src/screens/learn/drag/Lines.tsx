@@ -1,6 +1,7 @@
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { colors } from './colors';
+import { Theme } from '@/types';
+import { useTheme } from '@/ui/theme';
 
 interface LinesProps {
   numLines: number;
@@ -12,6 +13,8 @@ interface LinesProps {
 }
 
 export function Lines(props: LinesProps) {
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
   const {
     containerHeight,
     containerStyle,
@@ -40,7 +43,8 @@ export function Lines(props: LinesProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  line: { borderBottomWidth: 2, borderBottomColor: colors.grey },
-  firstLine: { borderTopWidth: 2, borderTopColor: colors.grey },
-});
+const getStyles = (theme: Theme) =>
+  StyleSheet.create({
+    line: { borderBottomWidth: 2, borderBottomColor: theme.colors.border },
+    firstLine: { borderTopWidth: 2, borderTopColor: theme.colors.border },
+  });

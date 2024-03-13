@@ -1,18 +1,23 @@
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { colors } from './colors';
+import { Theme } from '@/types';
+import { useTheme } from '@/ui/theme';
 
 interface PlaceholderProps {
   style: StyleProp<ViewStyle>;
 }
 
 export function Placeholder({ style }: PlaceholderProps) {
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
   return <View style={[styles.placeholder, style]} />;
 }
 
-const styles = StyleSheet.create({
-  placeholder: {
-    backgroundColor: colors.grey,
-    borderRadius: 8,
-  },
-});
+const getStyles = (theme: Theme) =>
+  StyleSheet.create({
+    placeholder: {
+      backgroundColor: theme.colors.surface,
+      borderRadius: 8,
+    },
+  });
