@@ -10,7 +10,12 @@ import { useSharedValue, runOnUI, runOnJS } from 'react-native-reanimated';
 import { LESSON_DONE_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
 import { setItem } from '@/core/storage';
-import { LessonActivity, PickAnswerActivityType, TypeAnswerActivityType } from '@/types';
+import {
+  DragWordsActivityType,
+  LessonActivity,
+  PickAnswerActivityType,
+  TypeAnswerActivityType,
+} from '@/types';
 import {
   EnhancedText,
   ContainerWithInsets,
@@ -20,6 +25,7 @@ import {
   WizardScreenProps,
 } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
+import { DragWordsActivity } from './DragWordsActivity';
 import { MARGIN_LEFT } from './Layout';
 import { Lines } from './Lines';
 import { PickAnswerActivity } from './PickAnswer';
@@ -118,6 +124,14 @@ export const WordList = ({ children }: WordListProps) => {
 
 const lessonActivities: LessonActivity[] = [
   {
+    type: 'dragWords',
+    activity: {
+      sentence: 'Ma numesc Ken',
+      answer: 'My name is Ken',
+      options: ['Ken', 'my', 'hello', 'is', 'hello', 'name', 'an', 'a'],
+    } as DragWordsActivityType,
+  },
+  {
     type: 'pickAnswer',
     activity: {
       sentence: 'The boy is reading',
@@ -180,6 +194,12 @@ export const LearnLessonScreen = () => {
               screens={lessonActivities.map(
                 (activity, index) => (wizardProps: WizardScreenProps) => {
                   switch (activity.type) {
+                    case 'dragWords':
+                      return DragWordsActivity({
+                        activity: activity.activity as DragWordsActivityType,
+                        index,
+                        ...wizardProps,
+                      });
                     case 'pickAnswer':
                       return PickAnswerActivity({
                         activity: activity.activity as PickAnswerActivityType,

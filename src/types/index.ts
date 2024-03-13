@@ -6,6 +6,7 @@ import {
   LessonActivity,
   PickAnswerActivityType,
   TypeAnswerActivityType,
+  DragWordsActivityType,
   ParsedLessonAnswers,
   LearningLessonStats,
 } from './learn';
@@ -41,6 +42,7 @@ export type {
   ActivityType,
   PickAnswerActivityType,
   TypeAnswerActivityType,
+  DragWordsActivityType,
   LessonActivity,
   ActivityUnion,
   ParsedLessonAnswers,

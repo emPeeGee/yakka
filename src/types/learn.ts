@@ -9,7 +9,13 @@ export type TypeAnswerActivityType = {
   answer: string;
 };
 
-export type ActivityType = 'pickAnswer' | 'typeAnswer';
+export type DragWordsActivityType = {
+  sentence: string;
+  answer: string;
+  options: string[];
+};
+
+export type ActivityType = 'pickAnswer' | 'typeAnswer' | 'dragWords';
 export type ActivityUnion = PickAnswerActivityType | TypeAnswerActivityType;
 
 export type LessonActivity = {
