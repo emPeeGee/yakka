@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 import { TxKeyPath } from '@/core/i18n';
-import { EnhancedText } from '.';
+import { EnhancedText } from './EnhancedText';
 import { useTheme, useGlobalThemedStyles } from '../theme';
 
 type InfoBoxProps = {
