@@ -58,7 +58,6 @@ export function Pagination<T>({ data, screenWidth, x }: PaginationProps<T>) {
   return (
     <View style={styles.container}>
       {data.map((item, index) => (
-        // eslint-disable-next-line react/no-array-index-key
         <PaginationIndicator key={index} index={index} x={x} screenWidth={screenWidth} />
       ))}
     </View>

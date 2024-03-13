@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/display-name */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, {

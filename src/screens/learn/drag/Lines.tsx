@@ -29,7 +29,6 @@ export function Lines(props: LinesProps) {
     <View style={[{ height: containerHeight }, containerStyle]}>
       {arr.map((_, idx) => (
         <View
-          // eslint-disable-next-line react/no-array-index-key
           key={`line.${idx}`}
           style={[
             { height: lineHeight },

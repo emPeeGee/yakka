@@ -98,7 +98,7 @@ module.exports = {
         'react/jsx-props-no-spreading': 'off',
         'react/require-default-props': 'off',
         'react/prop-types': 'off',
-        'react/no-array-index-key': 'error',
+        'react/no-array-index-key': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/jsx-key': ['error'],
         'react/no-unescaped-entities': 'error',
