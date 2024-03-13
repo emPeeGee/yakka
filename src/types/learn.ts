@@ -1,10 +1,20 @@
-export type ActivityType = 'pickAnswer';
-
 export type PickAnswerActivityType = {
-  type: ActivityType;
   sentence: string;
   answer: string;
   options: { label: string; value: string; isCorrect: boolean }[];
+};
+
+export type TypeAnswerActivityType = {
+  sentence: string;
+  answer: string;
+};
+
+export type ActivityType = 'pickAnswer' | 'typeAnswer';
+export type ActivityUnion = PickAnswerActivityType | TypeAnswerActivityType;
+
+export type LessonActivity = {
+  type: ActivityType;
+  activity: PickAnswerActivityType | TypeAnswerActivityType;
 };
 
 export type ParsedLessonAnswers = { answers: Record<string, boolean>; elapsedSeconds: number };

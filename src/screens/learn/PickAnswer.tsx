@@ -1,20 +1,10 @@
 import { useEffect, useCallback } from 'react';
 import { View } from 'react-native';
 
-import * as Speech from 'expo-speech';
-
 import { PickAnswerActivityType } from '@/types';
-import {
-  useWizard,
-  EnhancedText,
-  EnhancedPressable,
-  Separator,
-  EnhancedScrollView,
-  ChoiceGroup,
-  WizardScreenProps,
-} from '@/ui/core';
-import { SpeakerIcon } from '@/ui/icons';
-import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { useWizard, EnhancedScrollView, ChoiceGroup, WizardScreenProps } from '@/ui/core';
+import { useTheme } from '@/ui/theme';
+import { ActivityHeader } from './ActivityHeader';
 
 type PickAnswerActivityProps = {
   index: number;
@@ -23,10 +13,7 @@ type PickAnswerActivityProps = {
 
 export function PickAnswerActivity({ index, activity, answered }: PickAnswerActivityProps) {
   const { theme } = useTheme();
-  const gStyles = useGlobalThemedStyles();
   const { data, setData, setIsContinueEnabled, setOnNextScreen, setNextButtonProps } = useWizard();
-
-  console.log('an', answered);
 
   useEffect(() => {
     setOnNextScreen(index, () => {
@@ -58,12 +45,6 @@ export function PickAnswerActivity({ index, activity, answered }: PickAnswerActi
     };
   }, [data[activity.sentence]]);
 
-  useEffect(() => {
-    return () => {
-      console.log('bye bye ');
-    };
-  }, []);
-
   const onChangeHandler = useCallback((value: string | null): void => {
     setData(activity.sentence, value);
     setIsContinueEnabled(!!value);
@@ -71,35 +52,7 @@ export function PickAnswerActivity({ index, activity, answered }: PickAnswerActi
 
   return (
     <View style={[{ width: '100%', flex: 1, flexDirection: 'column', padding: theme.spacing.md }]}>
-      <View
-        style={{
-          width: '100%',
-          paddingHorizontal: theme.spacing.md,
-          marginBottom: theme.spacing.md,
-          gap: theme.spacing.lg,
-        }}>
-        <View style={{ alignItems: 'center' }}>
-          <EnhancedText tx="learn.whatDoesSentence" size="xl" />
-        </View>
-
-        <View style={gStyles.centerRow}>
-          <EnhancedPressable
-            onPress={() => {
-              Speech.speak(activity.sentence, { language: 'en' });
-            }}
-            style={{
-              backgroundColor: theme.colors.secondary500,
-              padding: theme.spacing.sm,
-              borderRadius: theme.borderRadius.lg,
-              marginRight: theme.spacing.sm,
-            }}>
-            <SpeakerIcon color={theme.colors.base0} />
-          </EnhancedPressable>
-          <EnhancedText text={activity.sentence} size="lg" />
-        </View>
-      </View>
-
-      <Separator height={theme.borders.medium} />
+      <ActivityHeader activity={activity} />
 
       <EnhancedScrollView>
         <ChoiceGroup

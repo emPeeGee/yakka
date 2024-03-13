@@ -2,7 +2,10 @@ import { VoidCb } from './cb';
 import { SelectableOption, Dimensions } from './common';
 import {
   ActivityType,
+  ActivityUnion,
+  LessonActivity,
   PickAnswerActivityType,
+  TypeAnswerActivityType,
   ParsedLessonAnswers,
   LearningLessonStats,
 } from './learn';
@@ -37,6 +40,9 @@ export type {
   WordMeaning,
   ActivityType,
   PickAnswerActivityType,
+  TypeAnswerActivityType,
+  LessonActivity,
+  ActivityUnion,
   ParsedLessonAnswers,
   LearningLessonStats,
 };
