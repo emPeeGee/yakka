@@ -10,7 +10,7 @@ import { useSharedValue, runOnUI, runOnJS } from 'react-native-reanimated';
 import { LESSON_DONE_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
 import { setItem } from '@/core/storage';
-import { PickAnswerActivityType } from '@/types';
+import { LessonActivity, PickAnswerActivityType, TypeAnswerActivityType } from '@/types';
 import {
   EnhancedText,
   ContainerWithInsets,
@@ -24,6 +24,7 @@ import { MARGIN_LEFT } from './Layout';
 import { Lines } from './Lines';
 import { PickAnswerActivity } from './PickAnswer';
 import { SortableWord } from './SortableWord';
+import { TypeAnswerActivity } from './TypeAnswer';
 import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
 // import { Word } from './Word';
 
@@ -115,26 +116,37 @@ export const WordList = ({ children }: WordListProps) => {
   );
 };
 
-const lessonActivities: PickAnswerActivityType[] = [
+const lessonActivities: LessonActivity[] = [
   {
     type: 'pickAnswer',
-    sentence: 'The boy is reading',
-    answer: 'Baiatul citeste acum',
-    options: [
-      { label: 'Baiatul mananca acum', value: 'Baiatul mananca acum', isCorrect: false },
-      { label: 'Baiatul scrie acum', value: 'Baiatul scrie acum', isCorrect: false },
-      { label: 'Baiatul citeste acum', value: 'Baiatul citeste acum', isCorrect: true },
-    ],
+    activity: {
+      sentence: 'The boy is reading',
+      answer: 'Baiatul citeste acum',
+      options: [
+        { label: 'Baiatul mananca acum', value: 'Baiatul mananca acum', isCorrect: false },
+        { label: 'Baiatul scrie acum', value: 'Baiatul scrie acum', isCorrect: false },
+        { label: 'Baiatul citeste acum', value: 'Baiatul citeste acum', isCorrect: true },
+      ],
+    } as PickAnswerActivityType,
+  },
+  {
+    type: 'typeAnswer',
+    activity: {
+      sentence: 'My name is Ken',
+      answer: 'Numele meu este Ken',
+    } as TypeAnswerActivityType,
   },
   {
     type: 'pickAnswer',
-    sentence: 'An apple',
-    answer: 'Un măr',
-    options: [
-      { label: 'Un măr', value: 'Un măr', isCorrect: true },
-      { label: 'Un băiat', value: 'Un băiat', isCorrect: false },
-      { label: 'O coacăză', value: 'O coacăză', isCorrect: false },
-    ],
+    activity: {
+      sentence: 'An apple',
+      answer: 'Un măr',
+      options: [
+        { label: 'Un măr', value: 'Un măr', isCorrect: true },
+        { label: 'Un băiat', value: 'Un băiat', isCorrect: false },
+        { label: 'O coacăză', value: 'O coacăză', isCorrect: false },
+      ],
+    } as PickAnswerActivityType,
   },
 ];
 
@@ -166,8 +178,22 @@ export const LearnLessonScreen = () => {
               fallbackRoute="LearnTree"
               screensContainerStyle={{ paddingHorizontal: 0 }}
               screens={lessonActivities.map(
-                (activity, index) => (wizardProps: WizardScreenProps) =>
-                  PickAnswerActivity({ activity, index, ...wizardProps }),
+                (activity, index) => (wizardProps: WizardScreenProps) => {
+                  switch (activity.type) {
+                    case 'pickAnswer':
+                      return PickAnswerActivity({
+                        activity: activity.activity as PickAnswerActivityType,
+                        index,
+                        ...wizardProps,
+                      });
+                    case 'typeAnswer':
+                      return TypeAnswerActivity({
+                        activity: activity.activity as TypeAnswerActivityType,
+                        index,
+                        ...wizardProps,
+                      });
+                  }
+                },
               )}
               onFinish={wizardData => {
                 const answers = parseRawWizardDataQuestion(wizardData, lessonActivities);

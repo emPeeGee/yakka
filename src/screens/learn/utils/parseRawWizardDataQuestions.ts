@@ -1,4 +1,4 @@
-import { ParsedLessonAnswers, PickAnswerActivityType } from '@/types';
+import { LessonActivity, ParsedLessonAnswers } from '@/types';
 import { WizardData } from '@/ui/core';
 
 /**
@@ -9,7 +9,7 @@ import { WizardData } from '@/ui/core';
  */
 export const parseRawWizardDataQuestion = (
   wizardData: WizardData,
-  lessonActivities: PickAnswerActivityType[],
+  lessonActivities: LessonActivity[],
 ): ParsedLessonAnswers => {
   const finishDate = new Date();
   const answers = Object.entries(wizardData).reduce<ParsedLessonAnswers>(
@@ -25,9 +25,9 @@ export const parseRawWizardDataQuestion = (
       }
 
       const originalLesson = lessonActivities.find(
-        l => l.sentence === sentence,
-      ) as PickAnswerActivityType;
-      acc.answers[sentence] = originalLesson.answer === answer;
+        l => l.activity.sentence === sentence,
+      ) as LessonActivity;
+      acc.answers[sentence] = originalLesson.activity.answer === answer;
 
       return acc;
     },

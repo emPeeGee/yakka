@@ -34,6 +34,7 @@ import { SuccessEffect } from '../SuccessEffect';
 
 export type WizardScreenProps = {
   answered: boolean;
+  answeredCorrect: boolean;
 };
 
 type WizardProps = {
@@ -216,7 +217,7 @@ const Wizardd = ({
           <View
             key={index}
             style={[styles.itemContainer, screensContainerStyle, { width: SCREEN_WIDTH }]}>
-            <Screen answered={!!isAnswer} />
+            <Screen answered={!!isAnswer} answeredCorrect={!!isCorrect} />
           </View>
         )}
         horizontal
