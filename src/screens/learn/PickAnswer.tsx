@@ -22,7 +22,6 @@ export function PickAnswerActivity({ index, activity, answered }: PickAnswerActi
 
     setNextButtonProps({
       answer: null,
-      title: null,
       txButtonLabel: 'learn.checkAnswer',
       callback: () => {
         setNextButtonProps({
@@ -30,7 +29,6 @@ export function PickAnswerActivity({ index, activity, answered }: PickAnswerActi
           answer: activity.answer,
           isCorrect: data[activity.sentence] === activity.answer,
           txButtonLabel: 'common.continue',
-          title: 'Amazing',
         });
       },
     });
@@ -38,7 +36,6 @@ export function PickAnswerActivity({ index, activity, answered }: PickAnswerActi
     return () => {
       setNextButtonProps({
         answer: null,
-        title: null,
         txButtonLabel: 'learn.checkAnswer',
         callback: null,
       });

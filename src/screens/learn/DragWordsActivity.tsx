@@ -24,7 +24,6 @@ export function DragWordsActivity({ index, activity, answered }: DragWordsActivi
 
     setNextButtonProps({
       answer: null,
-      title: null,
       txButtonLabel: 'learn.checkAnswer',
       callback: () => {
         setNextButtonProps({
@@ -32,7 +31,6 @@ export function DragWordsActivity({ index, activity, answered }: DragWordsActivi
           answer: activity.answer,
           isCorrect: compareAnswers(data[activity.sentence], activity.answer),
           txButtonLabel: 'common.continue',
-          title: 'Amazing',
         });
       },
     });
@@ -40,7 +38,6 @@ export function DragWordsActivity({ index, activity, answered }: DragWordsActivi
     return () => {
       setNextButtonProps({
         answer: null,
-        title: null,
         txButtonLabel: 'learn.checkAnswer',
         callback: null,
       });

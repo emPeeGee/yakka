@@ -33,10 +33,6 @@ type WizardContextType = {
 };
 type BtnProps = {
   txButtonLabel?: TxKeyPath | null;
-  /**
-   * @deprecated
-   */
-  title?: string | null;
   answer?: string | null;
   isCorrect?: boolean | null;
   callback?: CallbackFunction | null;
