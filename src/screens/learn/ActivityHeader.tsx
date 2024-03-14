@@ -14,6 +14,7 @@ type ActivityHeaderProps = {
   txTitle?: TxKeyPath;
   noSeparator?: boolean;
   noSpeaker?: boolean;
+  noSentence?: boolean;
 };
 
 export function ActivityHeader({
@@ -21,6 +22,7 @@ export function ActivityHeader({
   txTitle,
   noSeparator = false,
   noSpeaker = false,
+  noSentence = false,
 }: ActivityHeaderProps) {
   const { theme, appColorScheme } = useTheme();
   const gStyles = useGlobalThemedStyles();
@@ -51,7 +53,7 @@ export function ActivityHeader({
   });
 
   return (
-    <>
+    <View style={{ marginBottom: theme.spacing.md }}>
       <View
         style={{
           width: '100%',
@@ -79,13 +81,15 @@ export function ActivityHeader({
             </EnhancedPressable>
           )}
 
-          <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
-            {sentenceWithPlaceholders}
-          </View>
+          {noSentence === false && (
+            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+              {sentenceWithPlaceholders}
+            </View>
+          )}
         </View>
       </View>
 
       {noSeparator === false && <Separator height={theme.borders.medium} />}
-    </>
+    </View>
   );
 }
