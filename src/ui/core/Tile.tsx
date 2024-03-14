@@ -65,6 +65,18 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
     <View style={[styles.container, gStyles.centerRow]}>
       {current && (
         <View
+          style={{
+            position: 'absolute',
+            width: 104,
+            height: 97,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <AnimatedRing />
+        </View>
+      )}
+      {current && (
+        <View
           onLayout={e => {
             setCurrentIndicatorLayout({
               height: e.nativeEvent.layout.height,
@@ -100,15 +112,6 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
               ? theme.colors.primary700
               : theme.colors.border,
         }}>
-        {current && (
-          <View
-            style={{
-              position: 'absolute',
-              transform: [{ translateX: tileWidth / 2 }, { translateY: tileHeight / 2 }],
-            }}>
-            <AnimatedRing />
-          </View>
-        )}
         <EnhancedPressable withoutBackground onPress={current || completed ? onPress : undefined}>
           {/* TODO: type pressed should not be wrote explicitly */}
           {({ pressed }: { pressed: boolean }) => (
