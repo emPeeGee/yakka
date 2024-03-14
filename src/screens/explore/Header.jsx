@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ScrollView, Text, Animated, Dimensions, StyleSheet } from 'react-native';
-import { BackButton } from '@/ui/core';
-
-import { Fade } from './Fade';
+import { BackButton, Fade } from '@/ui/core';
 
 const HEADER_HEIGHT = 64;
 
