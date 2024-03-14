@@ -49,7 +49,7 @@ export function StartLessonSheet(props: SheetProps<'confirm-sheet'>) {
         <EnhancedText size="xl" weight="medium" text={title} />
         <EnhancedText size="lg" text={description} />
         <Button
-          tx="common.start"
+          tx={isCompleted ? 'common.doAgain' : 'common.start'}
           backgroundColor={isDark ? theme.colors.secondary700 : theme.colors.secondary500}
           onPress={() => {
             SheetManager.hide(sheetId, {
