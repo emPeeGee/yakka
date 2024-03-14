@@ -38,7 +38,7 @@ export const LearnNavigator = ({ navigation, route }: LearnStackNavigatorProps) 
   return (
     // TODO: replace with LearnTree
     // <Stack.Navigator initialRouteName="LearnLesson">
-    <Stack.Navigator initialRouteName="LearnLesson">
+    <Stack.Navigator initialRouteName="LearnTree">
       <Stack.Group
         screenOptions={{
           headerShown: true,

@@ -3,6 +3,7 @@ export const en = {
     ok: 'OK!',
     cancel: 'Cancel',
     back: 'Back',
+    start: 'Start',
     logOut: 'Log Out',
     finish: 'Finish',
     continue: 'Continue',
@@ -95,7 +96,7 @@ export const en = {
     benefit: 'Complete the course faster to get more XP and Balloons',
     lessonCompleted: 'Lesson completed!',
     fillMissingWord: 'Fill in the blanks.',
-    matchPairs: 'Match pairs',
+    matchPairs: 'Tap the matching pairs',
     matchingPairsInfo: `Exercise your matching skills as you uncover pairs of words and match them up. Once you've selected a pair, it's locked in, so make sure to choose carefully! Can you fill the board by matching all the pairs? Let's find out!`,
   },
   voc: {
