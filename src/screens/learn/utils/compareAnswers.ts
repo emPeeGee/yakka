@@ -7,10 +7,12 @@
 export function compareAnswers(str1: string, str2: string) {
   // Remove punctuation marks and spaces outside the strings, and convert to lowercase
   const processedStr1 = str1
+    .normalize('NFD') // Removes diacritics
     .replace(/[^\w\s]/g, '')
     .toLowerCase()
     .trim();
   const processedStr2 = str2
+    .normalize('NFD') // Removes diacritics
     .replace(/[^\w\s]/g, '')
     .toLowerCase()
     .trim();
