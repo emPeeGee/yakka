@@ -3,6 +3,7 @@ import { SelectableOption, Dimensions } from './common';
 import {
   ActivityType,
   ActivityUnion,
+  Lesson,
   LessonActivity,
   PickAnswerActivityType,
   TypeAnswerActivityType,
@@ -50,6 +51,7 @@ export type {
   MatchingPairsActivityType,
   ListeningActivityType,
   LessonActivity,
+  Lesson,
   ActivityUnion,
   ParsedLessonAnswers,
   LearningLessonStats,

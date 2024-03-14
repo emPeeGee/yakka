@@ -11,7 +11,6 @@ import { rootLog } from '@/core/logger';
 import { setItem } from '@/core/storage';
 import {
   DragWordsActivityType,
-  LessonActivity,
   ListeningActivityType,
   MatchingPairsActivityType,
   MissingWordActivityType,
@@ -34,81 +33,6 @@ import { MissingWordActivity } from './MissingWordActivity';
 import { PickAnswerActivity } from './PickAnswer';
 import { TypeAnswerActivity } from './TypeAnswer';
 import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
-
-const lessonActivities: LessonActivity[] = [
-  {
-    type: 'listening',
-    activity: {
-      sentence: 'His name is Andrew',
-      answer: 'Numele lui este Andrew',
-      options: ['Numele lui este Andrew', 'Numele meu este Andrew', 'Numele tau este Andre'],
-    } as ListeningActivityType,
-  },
-  {
-    type: 'matchingPairs',
-    activity: {
-      sentence: 'People',
-      answers: [
-        ['Barbat', 'Man'],
-        // ['Barbati', 'Men'],
-        // ['Baiat', 'Boy'],
-        // ['Fata', 'Girl'],
-        ['Femeie', 'Woman'],
-      ],
-    } as MatchingPairsActivityType,
-  },
-  {
-    type: 'missingWord',
-    activity: {
-      sentence: 'My name @@@ Ken',
-      answer: 'is',
-      options: [
-        { label: 'are', value: 'are' },
-        { label: 'as', value: 'as' },
-        { label: 'is', value: 'is' },
-      ],
-    } as MissingWordActivityType,
-  },
-  {
-    type: 'dragWords',
-    activity: {
-      sentence: 'Ma numesc Ken',
-      answer: 'My name is Ken',
-      options: ['Ken', 'my', 'hello', 'is', 'hello', 'name', 'an', 'a'],
-    } as DragWordsActivityType,
-  },
-  {
-    type: 'pickAnswer',
-    activity: {
-      sentence: 'The boy is reading',
-      answer: 'Baiatul citeste acum',
-      options: [
-        { label: 'Baiatul mananca acum', value: 'Baiatul mananca acum', isCorrect: false },
-        { label: 'Baiatul scrie acum', value: 'Baiatul scrie acum', isCorrect: false },
-        { label: 'Baiatul citeste acum', value: 'Baiatul citeste acum', isCorrect: true },
-      ],
-    } as PickAnswerActivityType,
-  },
-  {
-    type: 'typeAnswer',
-    activity: {
-      sentence: 'My name is Ken',
-      answer: 'Numele meu este Ken',
-    } as TypeAnswerActivityType,
-  },
-  {
-    type: 'pickAnswer',
-    activity: {
-      sentence: 'An apple',
-      answer: 'Un măr',
-      options: [
-        { label: 'Un măr', value: 'Un măr', isCorrect: true },
-        { label: 'Un băiat', value: 'Un băiat', isCorrect: false },
-        { label: 'O coacăză', value: 'O coacăză', isCorrect: false },
-      ],
-    } as PickAnswerActivityType,
-  },
-];
 
 export const LearnLessonScreen = () => {
   const { appColorScheme, theme } = useTheme();

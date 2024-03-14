@@ -77,10 +77,14 @@
 [ ] wizard back gesture android learning mode
 [ ] autokeyboard for typeanswer
 [ ] status bar and bottom bar colors in different themes
+[ ] randomize matching pairs
 
 ## 14.03.24
 
 [x] Matching pairs activity
 [x] Only speaker/listening activity
 [x] Start lesson sheet
-[ ] Stats system
+[ ] Valid tree with current lesson and completed ones and future.
+[ ] Stats system: display in lesson tree
+[ ] Welcome message
+[ ] Header

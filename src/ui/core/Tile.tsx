@@ -4,7 +4,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { Svg, Ellipse, G } from 'react-native-svg';
 
 import { Theme } from '@/types';
-import { TileCountdownIcon, TileGlobeIcon, TileStarIcon } from '@/ui/icons';
+import { TileCountdownIcon, TileGlobeIcon, TileStarIcon, CheckIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
@@ -33,8 +33,16 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
     height: number;
   } | null>(null);
 
-  const mainEllipseColor = completed ? theme.colors.primary400 : theme.colors.secondary;
-  const shadowEllipseColor = completed ? theme.colors.primary700 : theme.colors.secondary800;
+  const mainEllipseColor = current
+    ? theme.colors.secondary500
+    : completed
+      ? theme.colors.primary400
+      : theme.colors.base40;
+  const shadowEllipseColor = current
+    ? theme.colors.secondary500
+    : completed
+      ? theme.colors.primary700
+      : theme.colors.base40;
 
   const tileWidth = 104;
   const tileHeight = 97;
@@ -73,9 +81,14 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
       )}
 
       <View
-        style={{ borderWidth: 6, borderRadius: 100, padding: 6, borderColor: theme.colors.border }}>
-        <EnhancedPressable withoutBackground onPress={onPress}>
-          {/* TODO: type pressed should not be wrote explicitely */}
+        style={{
+          borderWidth: 6,
+          borderRadius: 100,
+          padding: 6,
+          borderColor: completed ? theme.colors.primary700 : theme.colors.border,
+        }}>
+        <EnhancedPressable withoutBackground onPress={current || completed ? onPress : undefined}>
+          {/* TODO: type pressed should not be wrote explicitly */}
           {({ pressed }: { pressed: boolean }) => (
             <Svg width="104" height="97" viewBox="0 0 104 97" fill="none">
               <Ellipse
@@ -87,7 +100,7 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
               />
               <Ellipse
                 cx="51.7919"
-                cy={pressed ? '52.0112' : '44.9887'}
+                cy={(current || completed) && pressed ? '52.0112' : '44.9887'}
                 rx="51.7919"
                 ry="44.9887"
                 fill={mainEllipseColor}
@@ -97,9 +110,15 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
                 transform={`translate(${tileWidth / 2}, ${tileHeight / 2})`}
                 x={innerSvgX}
                 y={innerSvgY}>
-                {type === 'countdown' && <TileCountdownIcon />}
-                {type === 'globe' && <TileGlobeIcon />}
-                {type === 'start' && <TileStarIcon />}
+                {completed ? (
+                  <CheckIcon />
+                ) : (
+                  <>
+                    {type === 'countdown' && <TileCountdownIcon />}
+                    {type === 'globe' && <TileGlobeIcon />}
+                    {type === 'start' && <TileStarIcon />}
+                  </>
+                )}
               </G>
             </Svg>
           )}

@@ -53,6 +53,13 @@ export type LessonActivity = {
   activity: ActivityUnion;
 };
 
+export type Lesson = {
+  id: string;
+  title: string;
+  description: string;
+  lessonsActivities: LessonActivity[];
+};
+
 export type ParsedLessonAnswers = { answers: Record<string, boolean>; elapsedSeconds: number };
 
 export type LearningLessonStats = {
