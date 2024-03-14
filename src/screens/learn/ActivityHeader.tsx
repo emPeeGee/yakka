@@ -5,8 +5,7 @@ import * as Speech from 'expo-speech';
 
 import { TxKeyPath } from '@/core/i18n';
 import { ActivityUnion } from '@/types';
-import { EnhancedText, EnhancedPressable, Separator } from '@/ui/core';
-import { SpeakerIcon } from '@/ui/icons';
+import { EnhancedText, EnhancedPressable, Separator, Emoji } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 type ActivityHeaderProps = {
@@ -14,6 +13,7 @@ type ActivityHeaderProps = {
   txTitle?: TxKeyPath;
   noSeparator?: boolean;
   noSpeaker?: boolean;
+  withSlowSpeaker?: boolean;
   noSentence?: boolean;
 };
 
@@ -23,6 +23,7 @@ export function ActivityHeader({
   noSeparator = false,
   noSpeaker = false,
   noSentence = false,
+  withSlowSpeaker = false,
 }: ActivityHeaderProps) {
   const { theme, appColorScheme } = useTheme();
   const gStyles = useGlobalThemedStyles();
@@ -77,7 +78,22 @@ export function ActivityHeader({
                 borderRadius: theme.borderRadius.lg,
                 marginRight: theme.spacing.sm,
               }}>
-              <SpeakerIcon color={theme.colors.base0} />
+              {/* <SpeakerIcon color={theme.colors.base0} /> */}
+              <Emoji emoji="🔊" emojiStyle={{ fontSize: 26 }} />
+            </EnhancedPressable>
+          )}
+          {withSlowSpeaker && (
+            <EnhancedPressable
+              onPress={() => {
+                Speech.speak(activity.sentence, { language: 'en', rate: 0.1 });
+              }}
+              style={{
+                backgroundColor: theme.colors.secondary500,
+                padding: theme.spacing.sm,
+                borderRadius: theme.borderRadius.lg,
+                marginRight: theme.spacing.sm,
+              }}>
+              <Emoji emoji="🐌" emojiStyle={{ fontSize: 26 }} />
             </EnhancedPressable>
           )}
 

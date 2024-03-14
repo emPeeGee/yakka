@@ -9,6 +9,7 @@ import {
   DragWordsActivityType,
   MissingWordActivityType,
   MatchingPairsActivityType,
+  ListeningActivityType,
   ParsedLessonAnswers,
   LearningLessonStats,
 } from './learn';
@@ -47,6 +48,7 @@ export type {
   DragWordsActivityType,
   MissingWordActivityType,
   MatchingPairsActivityType,
+  ListeningActivityType,
   LessonActivity,
   ActivityUnion,
   ParsedLessonAnswers,

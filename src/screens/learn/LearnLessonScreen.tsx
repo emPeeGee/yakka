@@ -12,6 +12,7 @@ import { setItem } from '@/core/storage';
 import {
   DragWordsActivityType,
   LessonActivity,
+  ListeningActivityType,
   MatchingPairsActivityType,
   MissingWordActivityType,
   PickAnswerActivityType,
@@ -27,6 +28,7 @@ import {
 } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { DragWordsActivity } from './DragWordsActivity';
+import { ListeningActivity } from './ListeningActivity';
 import { MatchingPairsActivity } from './MatchingPairsActivity';
 import { MissingWordActivity } from './MissingWordActivity';
 import { PickAnswerActivity } from './PickAnswer';
@@ -34,6 +36,14 @@ import { TypeAnswerActivity } from './TypeAnswer';
 import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
 
 const lessonActivities: LessonActivity[] = [
+  {
+    type: 'listening',
+    activity: {
+      sentence: 'His name is Andrew',
+      answer: 'Numele lui este Andrew',
+      options: ['Numele lui este Andrew', 'Numele meu este Andrew', 'Numele tau este Andre'],
+    } as ListeningActivityType,
+  },
   {
     type: 'matchingPairs',
     activity: {
@@ -157,6 +167,12 @@ export const LearnLessonScreen = () => {
                     case 'matchingPairs':
                       return MatchingPairsActivity({
                         activity: activity.activity as MatchingPairsActivityType,
+                        index,
+                        ...wizardProps,
+                      });
+                    case 'listening':
+                      return ListeningActivity({
+                        activity: activity.activity as ListeningActivityType,
                         index,
                         ...wizardProps,
                       });

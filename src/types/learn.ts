@@ -24,9 +24,13 @@ export type MissingWordActivityType = {
 export type MatchingPairsActivityType = {
   // sentence will behave as an ID for this activity
   sentence: string;
-  // answer: string;
   answers: string[][];
-  // options: { label: string; value: string; isCorrect: boolean }[];
+};
+
+export type ListeningActivityType = {
+  sentence: string;
+  answer: string;
+  options: string[];
 };
 
 export type ActivityType =
@@ -34,7 +38,8 @@ export type ActivityType =
   | 'typeAnswer'
   | 'dragWords'
   | 'missingWord'
-  | 'matchingPairs';
+  | 'matchingPairs'
+  | 'listening';
 
 export type ActivityUnion =
   | PickAnswerActivityType

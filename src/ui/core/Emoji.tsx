@@ -1,17 +1,18 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, StyleProp, TextStyle } from 'react-native';
 
 interface EmojiProps {
   emoji?: string; // emoji as Unicode character
   emojiName?: string; // name of the emoji
+  emojiStyle?: StyleProp<TextStyle>;
 }
 
-export const Emoji: React.FC<EmojiProps> = ({ emoji, emojiName }) => {
+export const Emoji: React.FC<EmojiProps> = ({ emoji, emojiName, emojiStyle }) => {
   // If emojiName is provided, convert it to Unicode
   const emojiUnicode = emojiName && !emoji ? getEmojiUnicode(emojiName) : emoji;
 
   return (
     <View style={styles.container} role="img" aria-label={emojiUnicode}>
-      <Text style={styles.emoji}>{emojiUnicode}</Text>
+      <Text style={[styles.emoji, emojiStyle]}>{emojiUnicode}</Text>
     </View>
   );
 };
