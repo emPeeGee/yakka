@@ -71,3 +71,9 @@
 [ ] Change the pagination animation: worm style https://www.animatereactnative.com/post/react-native-parallax-carousel-%2B-worm-pagination https://github.com/weahforsage/react-native-animated-pagination-dots
 [ ] Tooltip for buttons with only an icon
 [ ] Enhanced radio box
+
+## 14.03.24
+
+[ ] Matching pairs activity
+[ ] Only speaker/listening activity
+[ ] Stats system

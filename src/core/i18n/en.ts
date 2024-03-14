@@ -91,10 +91,12 @@ export const en = {
     checkAnswer: 'Check answer',
     answer: 'Answer',
     amazing: 'Amazing',
-    oopsWrong: 'Oops.. that’s wrong',
+    oopsWrong: `Oops... That's incorrect`,
     benefit: 'Complete the course faster to get more XP and Balloons',
     lessonCompleted: 'Lesson completed!',
     fillMissingWord: 'Fill in the blanks.',
+    matchPairs: 'Match pairs',
+    matchingPairsInfo: `Exercise your matching skills as you uncover pairs of words and match them up. Once you've selected a pair, it's locked in, so make sure to choose carefully! Can you fill the board by matching all the pairs? Let's find out!`,
   },
   voc: {
     word: 'Word',

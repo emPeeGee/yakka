@@ -12,6 +12,7 @@ import { setItem } from '@/core/storage';
 import {
   DragWordsActivityType,
   LessonActivity,
+  MatchingPairsActivityType,
   MissingWordActivityType,
   PickAnswerActivityType,
   TypeAnswerActivityType,
@@ -26,12 +27,26 @@ import {
 } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { DragWordsActivity } from './DragWordsActivity';
+import { MatchingPairsActivity } from './MatchingPairsActivity';
 import { MissingWordActivity } from './MissingWordActivity';
 import { PickAnswerActivity } from './PickAnswer';
 import { TypeAnswerActivity } from './TypeAnswer';
 import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
 
 const lessonActivities: LessonActivity[] = [
+  {
+    type: 'matchingPairs',
+    activity: {
+      sentence: 'People',
+      answers: [
+        ['Barbat', 'Man'],
+        // ['Barbati', 'Men'],
+        // ['Baiat', 'Boy'],
+        // ['Fata', 'Girl'],
+        ['Femeie', 'Woman'],
+      ],
+    } as MatchingPairsActivityType,
+  },
   {
     type: 'missingWord',
     activity: {
@@ -136,6 +151,12 @@ export const LearnLessonScreen = () => {
                     case 'missingWord':
                       return MissingWordActivity({
                         activity: activity.activity as MissingWordActivityType,
+                        index,
+                        ...wizardProps,
+                      });
+                    case 'matchingPairs':
+                      return MatchingPairsActivity({
+                        activity: activity.activity as MatchingPairsActivityType,
                         index,
                         ...wizardProps,
                       });

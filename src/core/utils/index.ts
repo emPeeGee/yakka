@@ -1,4 +1,4 @@
-import { isLast } from './arrays';
+import { isLast, areArraysEqual } from './arrays';
 import { getContrastColor, isThemeDark, isThemeLight } from './colors';
 import { isBool } from './isBoolean';
 import { noop } from './noop';
@@ -10,6 +10,7 @@ export {
   isThemeDark,
   isThemeLight,
   isLast,
+  areArraysEqual,
   noop,
   isBool,
   isZero,

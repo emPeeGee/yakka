@@ -21,12 +21,31 @@ export type MissingWordActivityType = {
   options: { label: string; value: string }[];
 };
 
-export type ActivityType = 'pickAnswer' | 'typeAnswer' | 'dragWords' | 'missingWord';
-export type ActivityUnion = PickAnswerActivityType | TypeAnswerActivityType;
+export type MatchingPairsActivityType = {
+  // sentence will behave as an ID for this activity
+  sentence: string;
+  // answer: string;
+  answers: string[][];
+  // options: { label: string; value: string; isCorrect: boolean }[];
+};
+
+export type ActivityType =
+  | 'pickAnswer'
+  | 'typeAnswer'
+  | 'dragWords'
+  | 'missingWord'
+  | 'matchingPairs';
+
+export type ActivityUnion =
+  | PickAnswerActivityType
+  | TypeAnswerActivityType
+  | DragWordsActivityType
+  | MissingWordActivityType
+  | MatchingPairsActivityType;
 
 export type LessonActivity = {
   type: ActivityType;
-  activity: PickAnswerActivityType | TypeAnswerActivityType;
+  activity: ActivityUnion;
 };
 
 export type ParsedLessonAnswers = { answers: Record<string, boolean>; elapsedSeconds: number };
