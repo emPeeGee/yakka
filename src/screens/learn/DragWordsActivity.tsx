@@ -1,8 +1,8 @@
 import { useEffect, useCallback, useRef } from 'react';
-import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
 
 import { DragWordsActivityType } from '@/types';
-import { useWizard, WizardScreenProps } from '@/ui/core';
+import { EnhancedScrollView, useWizard, WizardScreenProps } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { ActivityHeader } from './ActivityHeader';
 import { DragDropWords, DragDropWordsRef } from './drag';
@@ -57,7 +57,8 @@ export function DragWordsActivity({ index, activity, answered }: DragWordsActivi
       <ActivityHeader activity={activity} noSeparator />
 
       <SafeAreaView style={styles.container}>
-        <ScrollView>
+        {/* <ScrollView> */}
+        <EnhancedScrollView>
           <View style={styles.dragDropContainer}>
             <DragDropWords
               ref={dragDropWordsRef}
@@ -92,7 +93,8 @@ export function DragWordsActivity({ index, activity, answered }: DragWordsActivi
               // )}
             />
           </View>
-        </ScrollView>
+          {/* </ScrollView> */}
+        </EnhancedScrollView>
       </SafeAreaView>
     </View>
   );
