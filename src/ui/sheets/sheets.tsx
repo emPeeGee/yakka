@@ -13,6 +13,7 @@ declare module 'react-native-actions-sheet' {
       payload: {
         title: string;
         description: string;
+        isCompleted: boolean;
       };
       returnValue: boolean;
     }>;
