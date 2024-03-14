@@ -10,7 +10,7 @@ import { getItem } from '@/core/storage';
 import { formatSecondsToMinutesSeconds, percentage } from '@/core/utils';
 import { ParsedLessonAnswers, LearningLessonStats } from '@/types';
 import { Button, ContainerWithInsets, EnhancedText, HeroWithChat, InfoBox } from '@/ui/core';
-import { BallonIcon, CrosshairIcon, HourglassIcon, LightningIcon } from '@/ui/icons';
+import { BalloonIcon, CrosshairIcon, HourglassIcon, LightningIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const LearnLessonCompleteScreen = () => {
@@ -62,7 +62,7 @@ export const LearnLessonCompleteScreen = () => {
 
           <View style={[gStyles.centerColumn, { gap: theme.spacing.sm }]}>
             <InfoBox
-              Icon={() => <BallonIcon />}
+              Icon={() => <BalloonIcon />}
               color={theme.colors.secondary500}
               txTitle="common.balloons"
               value={lessonStats?.balloons}

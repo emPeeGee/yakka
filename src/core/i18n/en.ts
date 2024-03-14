@@ -89,6 +89,7 @@ export const en = {
     password: 'Password',
   },
   learn: {
+    greeting: 'Hello, {{name}}!',
     whatDoesSentence: 'What does sentence mean?',
     checkAnswer: 'Check answer',
     answer: 'Answer',
@@ -100,6 +101,7 @@ export const en = {
     fillMissingWord: 'Fill in the blanks.',
     matchPairs: 'Tap the matching pairs',
     matchingPairsInfo: `Exercise your matching skills as you uncover pairs of words and match them up. Once you've selected a pair, it's locked in, so make sure to choose carefully! Can you fill the board by matching all the pairs? Let's find out!`,
+    wouldLearn: 'What would you like to learn today?',
   },
   voc: {
     word: 'Word',

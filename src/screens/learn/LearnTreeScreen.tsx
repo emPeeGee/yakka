@@ -4,15 +4,21 @@ import { useNavigation } from '@react-navigation/native';
 import { SheetManager } from 'react-native-actions-sheet';
 
 import { Lesson } from '@/types';
-import { HeaderPlaceholder, EnhancedText, Tile, ContainerWithInsets } from '@/ui/core';
+import { HeaderPlaceholder, Tile, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
+import { LearnHeader } from './LearnHeader';
 import { useLearnStore } from './learnState';
 
 export const LearnTreeScreen = () => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
   const { lessons, completed, current } = useLearnStore();
-  console.log('tree', lessons, completed, current);
+
+  const stats = {
+    balloons: 32,
+    xp: 64,
+    lives: 7,
+  };
 
   // TODO:
   // const completed = ['1', '2'];
@@ -37,39 +43,31 @@ export const LearnTreeScreen = () => {
   return (
     <ContainerWithInsets>
       <HeaderPlaceholder />
-      <View>
-        <EnhancedText size="xxl">Hello, Mate</EnhancedText>
-        <EnhancedText
-          size="xl"
-          style={{
-            color: theme.colors.textSec,
-          }}>
-          What would you like to learn today?
-        </EnhancedText>
-      </View>
 
-      <ScrollView style={{ flex: 1 }}>
-        <View
-          style={{
-            gap: theme.spacing.xl,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flex: 1,
-            flexDirection: 'column',
-          }}>
-          {lessons.map((lesson, index) => (
-            <Tile
-              key={`${lesson.title}-${index}`}
-              type="globe"
-              current={lesson.id === current}
-              onPress={() => lessonPressHandler(lesson)}
-              completed={completed.includes(lesson.id)}
-              withHero={index % 3 === 0}
-              heroPos={index % 6 === 0 ? 'left' : 'right'}
-            />
-          ))}
+      <LearnHeader stats={stats}>
+        <ScrollView style={{ flex: 1 }}>
+          <View
+            style={{
+              gap: theme.spacing.xl,
+              alignItems: 'center',
+              justifyContent: 'center',
+              flex: 1,
+              flexDirection: 'column',
+              paddingVertical: theme.spacing.md,
+            }}>
+            {[...lessons, ...lessons, ...lessons].map((lesson, index) => (
+              <Tile
+                key={`${lesson.title}-${index}`}
+                type="globe"
+                current={lesson.id === current}
+                onPress={() => lessonPressHandler(lesson)}
+                completed={completed.includes(lesson.id)}
+                withHero={index % 3 === 0}
+                heroPos={index % 6 === 0 ? 'left' : 'right'}
+              />
+            ))}
 
-          {/* <Tile type="globe" />
+            {/* <Tile type="globe" />
           <Tile type="countdown" withHero heroPos="left" />
           <Tile type="globe" current onPress={() => lessonPressHandler()} />
           <Tile completed type="globe" />
@@ -81,8 +79,9 @@ export const LearnTreeScreen = () => {
           <Tile completed type="globe" />
           <Tile completed type="globe" withHero heroPos="left" />
           <Tile completed type="start" /> */}
-        </View>
-      </ScrollView>
+          </View>
+        </ScrollView>
+      </LearnHeader>
     </ContainerWithInsets>
   );
 };
