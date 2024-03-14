@@ -5,6 +5,7 @@ import { MissingWordActivityType } from '@/types';
 import { useWizard, EnhancedScrollView, ChoiceGroup, WizardScreenProps } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { ActivityHeader } from './ActivityHeader';
+import { compareAnswers } from './utils/compareAnswers';
 
 type MissingWordActivityProps = {
   index: number;
@@ -27,7 +28,7 @@ export function MissingWordActivity({ index, activity, answered }: MissingWordAc
         setNextButtonProps({
           callback: null,
           answer: activity.answer,
-          isCorrect: data[activity.sentence] === activity.answer,
+          isCorrect: compareAnswers(data[activity.sentence], activity.answer),
           txButtonLabel: 'common.continue',
         });
       },
