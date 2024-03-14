@@ -258,14 +258,16 @@ const Wizardd = ({
                 preset="subheading"
                 tx={isCorrect ? 'learn.amazing' : 'learn.oopsWrong'}
               />
-              <View style={gStyles.centerRowStart}>
-                <EnhancedText tx="learn.answer" style={theme.typography.sizes.md} />
-                <EnhancedText
-                  text=":"
-                  style={[theme.typography.sizes.md, { paddingRight: theme.spacing.xxs }]}
-                />
-                <EnhancedText text={nextButtonProps.answer} style={theme.typography.sizes.md} />
-              </View>
+              {!isCorrect && (
+                <View style={gStyles.centerRowStart}>
+                  <EnhancedText tx="learn.answer" style={theme.typography.sizes.md} />
+                  <EnhancedText
+                    text=":"
+                    style={[theme.typography.sizes.md, { paddingRight: theme.spacing.xxs }]}
+                  />
+                  <EnhancedText text={nextButtonProps.answer} style={theme.typography.sizes.md} />
+                </View>
+              )}
             </>
           )}
           <Button
