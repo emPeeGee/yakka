@@ -30,7 +30,7 @@ export const LearnTreeScreen = () => {
     });
 
     if (canOpen) {
-      navigate('LearnLesson' as never);
+      navigate('LearnLesson' as never, { lessonId: lesson.id });
     }
   };
 

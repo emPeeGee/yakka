@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useShallow } from 'zustand/react/shallow';
 
 import { LESSON_DONE_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
@@ -27,6 +28,7 @@ import {
 } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { DragWordsActivity } from './DragWordsActivity';
+import { useLearnStore } from './learnState';
 import { ListeningActivity } from './ListeningActivity';
 import { MatchingPairsActivity } from './MatchingPairsActivity';
 import { MissingWordActivity } from './MissingWordActivity';
@@ -34,22 +36,32 @@ import { PickAnswerActivity } from './PickAnswer';
 import { TypeAnswerActivity } from './TypeAnswer';
 import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
 
-export const LearnLessonScreen = () => {
+export const LearnLessonScreen = ({ route }: any) => {
   const { appColorScheme, theme } = useTheme();
   const { navigate, dispatch } = useNavigation();
   const actionSheetRef = useRef<ActionSheetRef>(null);
   const [isLessonReady, setIsLessonReady] = useState(false);
   const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
 
+  const lesson = useLearnStore(
+    useShallow(state => state.lessons.find(l => l.id === route?.params?.lessonId)),
+  );
+  const { setCompleted } = useLearnStore();
+
+  // TODO: not really needed
   useEffect(() => {
     setTimeout(() => {
       setIsLessonReady(true);
-    }, 2000);
+    }, 500);
   }, []);
 
   const onExitHandler = () => {
     actionSheetRef.current?.show();
   };
+
+  if (!lesson) {
+    return <EnhancedText>ERRRROOORR</EnhancedText>;
+  }
 
   return (
     <ContainerWithInsets>
@@ -61,7 +73,7 @@ export const LearnLessonScreen = () => {
               txLastScreenButtonLabel="common.finish"
               fallbackRoute="LearnTree"
               screensContainerStyle={{ paddingHorizontal: 0 }}
-              screens={lessonActivities.map(
+              screens={lesson.activities.map(
                 (activity, index) => (wizardProps: WizardScreenProps) => {
                   switch (activity.type) {
                     case 'dragWords':
@@ -104,10 +116,14 @@ export const LearnLessonScreen = () => {
                 },
               )}
               onFinish={wizardData => {
-                const answers = parseRawWizardDataQuestion(wizardData, lessonActivities);
+                const answers = parseRawWizardDataQuestion(wizardData, lesson.activities);
                 setItem(LESSON_DONE_DATA_KEY, answers);
                 rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(answers)}`);
-                navigate('LearnLessonComplete' as never);
+                setCompleted(lesson.id);
+
+                setTimeout(() => {
+                  navigate('LearnLessonComplete' as never);
+                }, 0);
               }}
               withExit
               onExit={onExitHandler}
@@ -139,12 +155,6 @@ export const LearnLessonScreen = () => {
                 />
               </View>
             </ActionSheet>
-
-            {/* <WordList>
-              {words.map(word => (
-                <Word key={word.id} {...word} />
-              ))}
-            </WordList> */}
           </View>
         </GestureHandlerRootView>
       ) : (

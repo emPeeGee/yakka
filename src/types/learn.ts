@@ -57,7 +57,7 @@ export type Lesson = {
   id: string;
   title: string;
   description: string;
-  lessonsActivities: LessonActivity[];
+  activities: LessonActivity[];
 };
 
 export type ParsedLessonAnswers = { answers: Record<string, boolean>; elapsedSeconds: number };
