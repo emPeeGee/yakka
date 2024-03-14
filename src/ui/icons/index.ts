@@ -1,5 +1,5 @@
 import { AchievementsIcon } from './AchievementsIcon';
-import { BallonIcon } from './BalloonIcon';
+import { BalloonIcon } from './BalloonIcon';
 import { BookBookmarkIcon } from './BookBookmarkIcon';
 import { BookIcon } from './BookIcon';
 import { CheckIcon } from './CheckIcon';
@@ -45,7 +45,7 @@ export {
   HourglassIcon,
   InfoIcon,
   LightningIcon,
-  BallonIcon,
+  BalloonIcon,
   CrosshairIcon,
   CheckIcon,
 };

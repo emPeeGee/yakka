@@ -4,7 +4,7 @@ import { Path, Svg, SvgProps } from 'react-native-svg';
 
 import { useTheme } from '@/ui/theme';
 
-export const BallonIcon = (props: SvgProps) => {
+export const BalloonIcon = (props: SvgProps) => {
   const { theme } = useTheme();
 
   return (

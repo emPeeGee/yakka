@@ -9,6 +9,7 @@ import { Emoji } from './Emoji';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedScrollView } from './EnhancedScrollView';
 import { EnhancedText } from './EnhancedText';
+import { Fade } from './Fade';
 import { FlipCard } from './FlipCard';
 import { HeaderPlaceholder } from './HeaderPlaceholder';
 import { HeroEmptyState } from './hero/HeroEmptyState';
@@ -57,6 +58,7 @@ export {
   SuccessEffect,
   Loader,
   InfoBox,
+  Fade,
 };
 
 export type {
