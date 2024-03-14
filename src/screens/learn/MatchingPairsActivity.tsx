@@ -1,11 +1,11 @@
 import { useEffect, useCallback, useState, useMemo } from 'react';
 import { View } from 'react-native';
 
-import { areArraysEqual } from '@/core/utils';
 import { MatchingPairsActivityType } from '@/types';
 import { useWizard, WizardScreenProps, EnhancedPressable, EnhancedText } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { ActivityHeader } from './ActivityHeader';
+import { checkMatchingPairs } from './utils/checkMatchingPairs';
 
 type MatchingPairsActivityProps = {
   index: number;
@@ -30,9 +30,7 @@ export function MatchingPairsActivity({ index, activity, answered }: MatchingPai
         setNextButtonProps({
           callback: null,
           answer: 'It should be different',
-          isCorrect: activity.answers.every(correctPair =>
-            Object.values(data[activity.sentence]).some(pair => areArraysEqual(pair, correctPair)),
-          ),
+          isCorrect: checkMatchingPairs(activity, data[activity.sentence]),
           txButtonLabel: 'common.continue',
         });
       },

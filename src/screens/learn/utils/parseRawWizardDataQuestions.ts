@@ -1,6 +1,6 @@
-import { areArraysEqual } from '@/core/utils';
 import { LessonActivity, MatchingPairsActivityType, ParsedLessonAnswers } from '@/types';
 import { WizardData } from '@/ui/core';
+import { checkMatchingPairs } from './checkMatchingPairs';
 import { compareAnswers } from './compareAnswers';
 
 /**
@@ -29,16 +29,12 @@ export const parseRawWizardDataQuestion = (
       const originalLesson = lessonActivities.find(
         l => l.activity.sentence === sentence,
       ) as LessonActivity;
-      // as MatchingPairsActivityType
-      if (originalLesson.type === 'matchingPairs') {
-        const isMatchingPairsActivityCorrect = (
-          originalLesson.activity as MatchingPairsActivityType
-        ).answers.every(correctPair =>
-          Object.values(answer).some(pair => areArraysEqual(pair as string[], correctPair)),
-        );
-        // todo: extract function and duplication
 
-        acc.answers[sentence] = isMatchingPairsActivityCorrect;
+      if (originalLesson.type === 'matchingPairs') {
+        acc.answers[sentence] = checkMatchingPairs(
+          originalLesson.activity as MatchingPairsActivityType,
+          answer,
+        );
       } else {
         acc.answers[sentence] = compareAnswers(originalLesson.activity.answer, answer);
       }
