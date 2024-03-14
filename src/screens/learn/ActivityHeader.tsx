@@ -25,7 +25,7 @@ export function ActivityHeader({
   noSentence = false,
   withSlowSpeaker = false,
 }: ActivityHeaderProps) {
-  const { theme, appColorScheme } = useTheme();
+  const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
 
   const sentenceParts = activity.sentence.split('@@@');
@@ -44,8 +44,7 @@ export function ActivityHeader({
               borderRadius: theme.borderRadius.md,
               width: 40,
               height: 40,
-              backgroundColor:
-                appColorScheme === 'dark' ? theme.colors.surface : theme.colors.base40,
+              backgroundColor: theme.colors.surface,
             }}
           />
         </Fragment>

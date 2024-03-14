@@ -99,7 +99,7 @@ const LIGHT_COLORS: Colors = {
   coral: '#FFA17A',
   chilly: '#E32227',
 
-  surface: '#FFFFFF',
+  surface: '#CFCFCF',
   background: '#FAFAFA',
   textPri: 'rgba(0, 0, 0, 0.87)',
   textSec: 'rgba(0, 0, 0, 0.54)',

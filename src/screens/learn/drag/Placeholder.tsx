@@ -8,16 +8,16 @@ interface PlaceholderProps {
 }
 
 export function Placeholder({ style }: PlaceholderProps) {
-  const { theme, appColorScheme } = useTheme();
-  const styles = getStyles(theme, appColorScheme === 'dark');
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
 
   return <View style={[styles.placeholder, style]} />;
 }
 
-const getStyles = (theme: Theme, isDark: boolean) =>
+const getStyles = (theme: Theme) =>
   StyleSheet.create({
     placeholder: {
-      backgroundColor: isDark ? theme.colors.surface : theme.colors.base40,
+      backgroundColor: theme.colors.surface,
       borderRadius: theme.borderRadius.md,
     },
   });
