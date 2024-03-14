@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 import { Svg, Ellipse, G } from 'react-native-svg';
 
 import { Theme } from '@/types';
@@ -73,7 +81,7 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
             },
             styles.tooltip,
           ]}>
-          <EnhancedText weight="bold" style={{ color: theme.colors.primary400 }}>
+          <EnhancedText weight="bold" style={{ color: theme.colors.secondary400 }}>
             START
           </EnhancedText>
           <View style={styles.triangle} />
@@ -82,11 +90,25 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
 
       <View
         style={{
+          position: 'relative',
           borderWidth: 6,
           borderRadius: 100,
           padding: 6,
-          borderColor: completed ? theme.colors.primary700 : theme.colors.border,
+          borderColor: current
+            ? theme.colors.secondary700
+            : completed
+              ? theme.colors.primary700
+              : theme.colors.border,
         }}>
+        {current && (
+          <View
+            style={{
+              position: 'absolute',
+              transform: [{ translateX: tileWidth / 2 }, { translateY: tileHeight / 2 }],
+            }}>
+            <AnimatedRing />
+          </View>
+        )}
         <EnhancedPressable withoutBackground onPress={current || completed ? onPress : undefined}>
           {/* TODO: type pressed should not be wrote explicitly */}
           {({ pressed }: { pressed: boolean }) => (
@@ -157,7 +179,7 @@ const getStyles = (theme: Theme) =>
       paddingHorizontal: theme.spacing.md,
       backgroundColor: theme.colors.background,
       borderWidth: theme.borders.thick,
-      borderColor: theme.colors.primary400,
+      borderColor: theme.colors.secondary700,
       borderRadius: theme.borderRadius.lg,
       zIndex: 2,
     },
@@ -172,7 +194,7 @@ const getStyles = (theme: Theme) =>
       borderBottomWidth: 10,
       borderLeftColor: 'transparent',
       borderRightColor: 'transparent',
-      borderBottomColor: theme.colors.primary,
+      borderBottomColor: theme.colors.secondary700,
       transform: [{ rotate: '180deg' }],
     },
 
@@ -180,5 +202,47 @@ const getStyles = (theme: Theme) =>
       position: 'absolute',
       top: 0,
       bottom: 0,
+    },
+  });
+
+const Ring = ({ delay }: { delay: number }) => {
+  const { theme } = useTheme();
+  const styles = getRingStyles(theme);
+  const ring = useSharedValue(0);
+  const style = useAnimatedStyle(() => {
+    return {
+      opacity: 0.8 - ring.value,
+      transform: [{ scale: interpolate(ring.value, [0, 1], [0, 4]) }],
+    };
+  });
+
+  useEffect(() => {
+    ring.value = withDelay(delay, withRepeat(withTiming(1, { duration: 6000 }), -1));
+  }, []);
+
+  return <Animated.View style={[styles.ring, style]} />;
+};
+
+function AnimatedRing() {
+  const gStyles = useGlobalThemedStyles();
+
+  return (
+    <View style={gStyles.centerRow}>
+      <Ring delay={0} />
+      <Ring delay={2000} />
+      <Ring delay={4000} />
+    </View>
+  );
+}
+
+const getRingStyles = (theme: Theme) =>
+  StyleSheet.create({
+    ring: {
+      position: 'absolute',
+      width: 104,
+      height: 97,
+      borderRadius: 50,
+      borderWidth: 10,
+      borderColor: theme.colors.secondary700,
     },
   });

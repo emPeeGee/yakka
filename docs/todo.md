@@ -85,7 +85,9 @@
 [x] Matching pairs activity
 [x] Only speaker/listening activity
 [x] Start lesson sheet
-[ ] Valid tree with current lesson and completed ones and future.
-[ ] Stats system: display in lesson tree
+[x] Valid tree with current lesson and completed ones and future.
 [ ] Welcome message
+[ ] Stats system: display in lesson tree
+[x] current tile expanding ring animation
 [ ] Header
+[ ] content for activities
