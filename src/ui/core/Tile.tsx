@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Animated, {
   interpolate,
@@ -16,11 +16,7 @@ import { TileCountdownIcon, TileGlobeIcon, TileStarIcon, CheckIcon } from '@/ui/
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedText } from './EnhancedText';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const heroToL = require('../../assets/hero/heroToL.png');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const heroToR = require('../../assets/hero/heroToR.png');
+import { HeroWithChat } from './hero/HeroWithChat';
 
 // TODO: Conditional types
 type TileProps = {
@@ -142,14 +138,11 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
             gStyles.centerRow,
             styles.hero,
             {
-              ...(heroPos === 'left' ? { left: 0 } : {}),
-              ...(heroPos === 'right' ? { right: 0 } : {}),
+              ...(heroPos === 'left' ? { left: theme.spacing.md } : {}),
+              ...(heroPos === 'right' ? { right: theme.spacing.md } : {}),
             },
           ]}>
-          <Image
-            source={heroPos === 'right' ? heroToL : heroToR}
-            style={{ width: 140, height: 140 }}
-          />
+          <HeroWithChat width={62} height={75} direction={heroPos === 'right' ? 'left' : 'right'} />
         </View>
       )}
     </View>
