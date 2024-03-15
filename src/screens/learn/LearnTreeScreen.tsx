@@ -46,7 +46,7 @@ export const LearnTreeScreen = () => {
         <ScrollView style={{ flex: 1 }}>
           <View
             style={{
-              gap: theme.spacing.xl,
+              gap: theme.spacing.md,
               alignItems: 'center',
               justifyContent: 'center',
               flex: 1,

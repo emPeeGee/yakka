@@ -165,7 +165,7 @@ const getStyles = (theme: Theme) =>
 
     tooltip2: {
       flex: 1,
-      margin: theme.spacing.sm,
+      marginBottom: theme.spacing.sm,
       alignItems: 'center',
       paddingVertical: theme.spacing.xxxs,
       paddingHorizontal: theme.spacing.xs,
