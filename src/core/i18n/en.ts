@@ -104,6 +104,9 @@ export const en = {
     matchPairs: 'Tap the matching pairs',
     matchingPairsInfo: `Exercise your matching skills as you uncover pairs of words and match them up. Once you've selected a pair, it's locked in, so make sure to choose carefully! Can you fill the board by matching all the pairs? Let's find out!`,
     wouldLearn: 'What would you like to learn today?',
+    noLivesLeftSheet: `Oops! You've run out of lives. Please wait for new lives to regenerate or purchase more to continue playing.`,
+    waitLives: 'Wait for lives',
+    buyLives: 'Buy more lives',
   },
   voc: {
     word: 'Word',

@@ -5,6 +5,8 @@
 ### Tree
 
 1. Start lesson confirmation.
+1. Lives tooltip
+1. No lives no lessons. Sheet information
 
 ### Lesson
 
@@ -23,6 +25,11 @@ Activities:
 1. Exit lesson => Stay or leave.
 1. Start lesson action sheet. With completed info.
 1. Lesson complete with stats.
+
+Done:
+
+1. Stats
+2. Lives tooltip
 
 ### Stats
 

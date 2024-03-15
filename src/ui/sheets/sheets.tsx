@@ -14,6 +14,7 @@ declare module 'react-native-actions-sheet' {
         title: string;
         description: string;
         isCompleted: boolean;
+        lives: number;
       };
       returnValue: boolean;
     }>;

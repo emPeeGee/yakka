@@ -28,6 +28,7 @@ export const LearnTreeScreen = () => {
         title: lesson.title,
         description: lesson.description,
         isCompleted: completed.includes(lesson.id),
+        lives: stats.lives,
         // title: `Form basic sentences`,
         // description: 'Lesson 1',
       },

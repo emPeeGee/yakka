@@ -57,6 +57,7 @@
 [ ] Login to enable access to full content ???
 [x] No card in vocabulary: lottie animation
 [ ] translate screens titles
+[ ] buy lives by payng balloons
 
 ## Low:
 
@@ -94,4 +95,4 @@
 
 [ ] time and accuracy from the lessoncomleted should be send for statistics and records.
 [ ] life regeneration
-[ ] no lives no lessons
+[x] no lives no lessons

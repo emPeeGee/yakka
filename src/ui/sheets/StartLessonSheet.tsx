@@ -8,14 +8,16 @@ import { InfoIcon } from '../icons';
 
 export function StartLessonSheet(props: SheetProps<'confirm-sheet'>) {
   const { sheetId, payload } = props;
-  const { title, description, isCompleted } = payload || {
+  const { title, description, isCompleted, lives } = payload || {
     description: '',
     isCompleted: false,
     title: '',
+    lives: 0,
   };
   const { theme, appColorScheme } = useTheme();
   const isDark = appColorScheme === 'dark';
   const gStyles = useGlobalThemedStyles();
+  const areEnoughLives = lives > 0;
 
   return (
     <ActionSheet
@@ -48,15 +50,50 @@ export function StartLessonSheet(props: SheetProps<'confirm-sheet'>) {
         )}
         <EnhancedText size="xl" weight="medium" text={title} />
         <EnhancedText size="lg" text={description} />
-        <Button
-          tx={isCompleted ? 'common.doAgain' : 'common.start'}
-          backgroundColor={isDark ? theme.colors.secondary700 : theme.colors.secondary500}
-          onPress={() => {
-            SheetManager.hide(sheetId, {
-              payload: true,
-            });
-          }}
-        />
+        {areEnoughLives ? (
+          <Button
+            tx={isCompleted ? 'common.doAgain' : 'common.start'}
+            backgroundColor={isDark ? theme.colors.secondary700 : theme.colors.secondary500}
+            onPress={() => {
+              SheetManager.hide(sheetId, {
+                payload: true,
+              });
+            }}
+          />
+        ) : (
+          <>
+            <View style={[gStyles.startRowStart, { gap: theme.spacing.xs }]}>
+              <View>
+                <InfoIcon color={theme.colors.warning} />
+              </View>
+              <EnhancedText
+                size="md"
+                weight="medium"
+                style={{ color: theme.colors.warning }}
+                tx="learn.noLivesLeftSheet"
+              />
+            </View>
+            <Button
+              tx="learn.waitLives"
+              backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
+              onPress={() => {
+                SheetManager.hide(sheetId, {
+                  payload: false,
+                });
+              }}
+            />
+            <Button
+              tx="learn.buyLives"
+              backgroundColor={isDark ? theme.colors.secondary700 : theme.colors.secondary500}
+              onPress={() => {
+                // TODO: BUY MORE LIVES
+                SheetManager.hide(sheetId, {
+                  payload: false,
+                });
+              }}
+            />
+          </>
+        )}
       </View>
     </ActionSheet>
   );
