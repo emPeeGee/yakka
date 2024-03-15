@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import { Theme, UserStats } from '@/types';
-import { EnhancedText, Fade } from '@/ui/core';
+import { EnhancedText, Fade, Tooltip } from '@/ui/core';
 import { BalloonIcon, LightningIcon, HeartIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 
@@ -115,12 +115,19 @@ export function LearnHeader({
             {stats.experience}
           </EnhancedText>
         </View>
-        <View style={styles.statContainer}>
-          <HeartIcon fill={theme.colors.chilly} />
-          <EnhancedText weight="medium" size="md" style={[styles.headline, headlineStyle]}>
-            {stats.lives}
-          </EnhancedText>
-        </View>
+        <Tooltip
+          overlayColor=""
+          height="auto"
+          backgroundColor={theme.colors.info}
+          pointerColor={theme.colors.info}
+          popover={<EnhancedText style={{ color: theme.colors.base0 }} tx="info.lives" />}>
+          <View style={styles.statContainer}>
+            <HeartIcon fill={theme.colors.chilly} />
+            <EnhancedText weight="medium" size="md" style={[styles.headline, headlineStyle]}>
+              {stats.lives}
+            </EnhancedText>
+          </View>
+        </Tooltip>
       </>
     ),
     [stats],
