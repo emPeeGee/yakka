@@ -50,14 +50,14 @@ const getStyles = (theme: Theme) =>
   });
 
 type LearnHeaderProps = {
-  headlineStyle: StyleProp<TextStyle>;
+  headlineStyle?: StyleProp<TextStyle>;
   children: React.ReactNode;
-  containerStyle: StyleProp<ViewStyle>;
-  headerContainerStyle: StyleProp<ViewStyle>;
-  headerComponentContainerStyle: StyleProp<ViewStyle>;
-  scrollContainerStyle: StyleProp<ViewStyle>;
-  fadeDirection: string;
-  scrollViewProps: ScrollViewProps;
+  containerStyle?: StyleProp<ViewStyle>;
+  headerContainerStyle?: StyleProp<ViewStyle>;
+  headerComponentContainerStyle?: StyleProp<ViewStyle>;
+  scrollContainerStyle?: StyleProp<ViewStyle>;
+  fadeDirection?: string;
+  scrollViewProps?: ScrollViewProps;
   stats: UserStats;
 };
 
