@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -22,6 +22,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { TxKeyPath } from '@/core/i18n';
+import { useSound } from '@/core/providers';
 import { isLast, isZero } from '@/core/utils';
 import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -71,6 +72,7 @@ const Wizardd = ({
     nextButtonProps: nextButtonProps,
     setNextButtonProps: updateButtonProps,
   } = useWizard();
+  const { playSound } = useSound();
 
   const styles = useMemo(() => getStyles(theme), [theme]);
   const gStyles = useGlobalThemedStyles();
@@ -160,6 +162,14 @@ const Wizardd = ({
 
   const isAnswer = nextButtonProps.answer;
   const isCorrect = nextButtonProps.isCorrect;
+
+  useEffect(() => {
+    if (isCorrect === true) {
+      playSound('correct');
+    } else if (isCorrect === false) {
+      playSound('incorrect');
+    }
+  }, [isCorrect]);
 
   return (
     <View style={{ flex: 1, paddingTop: theme.spacing.md }}>

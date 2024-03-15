@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useShallow } from 'zustand/react/shallow';
 
 import { LESSON_DONE_DATA_KEY } from '@/core/constants';
+import { useSound } from '@/core/providers';
 import { getItem } from '@/core/storage';
 import { formatSecondsToMinutesSeconds, percentage } from '@/core/utils';
 import { ParsedLessonAnswers, LearningLessonStats, Lesson } from '@/types';
@@ -24,6 +25,7 @@ export const LearnLessonCompleteScreen = ({ route }: any) => {
   const lesson = useLearnStore(
     useShallow(state => state.lessons.find(l => l.id === route?.params?.lessonId)),
   ) as Lesson;
+  const { playSound } = useSound();
 
   useEffect(() => {
     getItem<ParsedLessonAnswers>(LESSON_DONE_DATA_KEY).then(data => {
@@ -42,6 +44,7 @@ export const LearnLessonCompleteScreen = ({ route }: any) => {
 
       setCompleted(lesson.id, statsAfterTheLesson);
       setLessonStats(statsAfterTheLesson);
+      playSound('lessonSuccess');
     });
   }, []);
 

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { SheetProvider } from 'react-native-actions-sheet';
 
 import { REGENERATE_INTERVAL_MS } from '@/core/constants';
-import { FirstLaunchProvider, HapticsProvider } from '@/core/providers';
+import { FirstLaunchProvider, HapticsProvider, SoundProvider } from '@/core/providers';
 import { RootNavigator } from '@/navigation';
 import { useLearnStore } from '@/screens/learn/learnState';
 
@@ -26,11 +26,13 @@ export function ApplicationConfigurator() {
 
   return (
     <HapticsProvider>
-      <FirstLaunchProvider>
-        <SheetProvider>
-          <RootNavigator />
-        </SheetProvider>
-      </FirstLaunchProvider>
+      <SoundProvider>
+        <FirstLaunchProvider>
+          <SheetProvider>
+            <RootNavigator />
+          </SheetProvider>
+        </FirstLaunchProvider>
+      </SoundProvider>
     </HapticsProvider>
   );
 }
