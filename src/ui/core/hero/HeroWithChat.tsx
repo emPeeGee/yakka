@@ -54,8 +54,8 @@ export const HeroWithChat = ({
 }: HeroWithChatProps) => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const styles = getStyles(theme);
   const isChatRight = chatPosition === 'right';
+  const styles = getStyles(theme, isChatRight);
   const [currentIndicatorLayout, setCurrentIndicatorLayout] = useState<{
     width: number;
     height: number;
@@ -83,7 +83,6 @@ export const HeroWithChat = ({
               height,
               transform: [
                 // { scale: 1.3 },
-                { translateY: isChatRight ? 16 : 6 },
                 { scaleX: direction === 'left' ? -1 : 1 },
               ],
             }}
@@ -169,14 +168,15 @@ const INNER_TRIANGLE = {
   height: 9,
 };
 
-const getStyles = (theme: Theme) =>
+const getStyles = (theme: Theme, isChatRight: boolean) =>
   StyleSheet.create({
     container: {
       height: 'auto',
     },
     hero: {
-      flexShrink: 1,
-      flexGrow: 1,
+      // NOTE: These lines causes too issue on android device
+      // flexShrink: 1,
+      // flexGrow: 1,
     },
     heroImage: {
       width: 140,
@@ -185,8 +185,8 @@ const getStyles = (theme: Theme) =>
     },
     chatShape: {
       width: 'auto',
-      flexShrink: 3,
-      flexGrow: 3,
+      flex: isChatRight ? 1 : undefined,
+      marginLeft: isChatRight ? 22 : 0,
       borderWidth: theme.borders.medium,
       borderColor: theme.colors.border,
       borderRadius: theme.borderRadius.lg,
