@@ -15,7 +15,14 @@ export const OnboardGetStartedScreen = () => {
     <ContainerWithInsets>
       <View style={{ flex: 1, paddingHorizontal: theme.spacing.md }}>
         <View style={[gStyles.fullWidthFromStart, { justifyContent: 'space-evenly' }]}>
-          <HeroWithChat tx="onboard.greeting1" chatPosition="top" hero="vampire" withConfetti />
+          <HeroWithChat
+            tx="onboard.greeting1"
+            chatPosition="top"
+            hero="vampire"
+            withConfetti
+            width={100}
+            height={145}
+          />
 
           <EnhancedText
             tx="universal.yakka"

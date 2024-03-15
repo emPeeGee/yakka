@@ -16,7 +16,14 @@ export const OnboardQuestionsDoneScreen = () => {
     <ContainerWithInsets>
       <View style={{ flex: 1, paddingHorizontal: theme.spacing.md }}>
         <View style={[gStyles.fullWidthFromStart, { justifyContent: 'space-evenly' }]}>
-          <HeroWithChat tx="common.awesome" chatPosition="top" hero="flowers" withConfetti />
+          <HeroWithChat
+            tx="common.awesome"
+            chatPosition="top"
+            hero="flowers"
+            withConfetti
+            width={141}
+            height={156}
+          />
 
           <EnhancedText
             tx="universal.yakka"

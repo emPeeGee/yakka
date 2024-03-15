@@ -47,13 +47,18 @@ function Question<T>({ options, txTitle, id, index }: QuestionProps<T>) {
         style={{
           width: '100%',
           paddingHorizontal: theme.spacing.xs,
+          paddingVertical: theme.spacing.sm,
         }}>
-        <HeroWithChat tx={txTitle} chatPosition="right" />
+        <HeroWithChat width={60} height={73} tx={txTitle} chatPosition="right" />
       </View>
 
       <Separator height={theme.borders.medium} />
 
-      <EnhancedScrollView contentContainerStyle={{ paddingHorizontal: theme.spacing.md }}>
+      <EnhancedScrollView
+        contentContainerStyle={{
+          paddingHorizontal: theme.spacing.md,
+          paddingVertical: theme.spacing.sm,
+        }}>
         <ChoiceGroup options={options} value={data[id]} onChange={onChangeHandler} />
       </EnhancedScrollView>
     </View>
@@ -173,8 +178,9 @@ const OnboardAchieveScreen = () => {
         style={{
           width: '100%',
           paddingHorizontal: theme.spacing.xs,
+          paddingVertical: theme.spacing.sm,
         }}>
-        <HeroWithChat tx="onboard.engYouKnow" chatPosition="right" />
+        <HeroWithChat width={60} height={73} tx="onboard.engYouKnow" chatPosition="right" />
       </View>
 
       <Separator height={theme.borders.medium} />
@@ -185,7 +191,7 @@ const OnboardAchieveScreen = () => {
             gStyles.centerColumn,
             {
               marginHorizontal: theme.spacing.sm,
-              marginVertical: theme.spacing.xs,
+              marginVertical: theme.spacing.xxxs,
               paddingVertical: theme.spacing.lg,
               paddingHorizontal: theme.spacing.xs,
               gap: theme.spacing.md,
@@ -194,12 +200,12 @@ const OnboardAchieveScreen = () => {
               borderRadius: theme.borderRadius.xl,
             },
           ]}>
-          <View style={gStyles.centerRow}>
+          <View style={[gStyles.centerRow, { gap: theme.spacing.md }]}>
             <Image
               source={require('../../assets/hero/heroToR.png')}
               style={{
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 97,
               }}
             />
             <View style={[gStyles.fullWidthFromStart]}>
@@ -208,12 +214,12 @@ const OnboardAchieveScreen = () => {
             </View>
           </View>
 
-          <View style={gStyles.centerRow}>
+          <View style={[gStyles.centerRow, { gap: theme.spacing.md }]}>
             <Image
               source={require('../../assets/hero/heroToR.png')}
               style={{
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 97,
               }}
             />
             <View style={[gStyles.fullWidthFromStart]}>
@@ -222,12 +228,12 @@ const OnboardAchieveScreen = () => {
             </View>
           </View>
 
-          <View style={gStyles.centerRow}>
+          <View style={[gStyles.centerRow, { gap: theme.spacing.md }]}>
             <Image
               source={require('../../assets/hero/heroToR.png')}
               style={{
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 97,
               }}
             />
             <View style={[gStyles.fullWidthFromStart]}>
