@@ -50,17 +50,19 @@ export const LearnTreeScreen = () => {
               flexDirection: 'column',
               paddingVertical: theme.spacing.md,
             }}>
-            {[...lessons, ...lessons, ...lessons].map((lesson, index) => (
-              <Tile
-                key={`${lesson.title}-${index}`}
-                type="globe"
-                current={lesson.id === current}
-                onPress={() => lessonPressHandler(lesson)}
-                completed={completed.includes(lesson.id)}
-                withHero={index % 3 === 0}
-                heroPos={index % 6 === 0 ? 'left' : 'right'}
-              />
-            ))}
+            {lessons.map((lesson, index) => {
+              return (
+                <Tile
+                  key={`${lesson.title}-${index}`}
+                  type="globe"
+                  current={lesson.id === current}
+                  onPress={() => lessonPressHandler(lesson)}
+                  completed={completed.includes(lesson.id)}
+                  withHero={index % 3 === 0}
+                  heroPos={index % 6 === 0 ? 'left' : 'right'}
+                />
+              );
+            })}
 
             {/* <Tile type="globe" />
           <Tile type="countdown" withHero heroPos="left" />

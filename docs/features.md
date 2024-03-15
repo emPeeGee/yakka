@@ -10,7 +10,7 @@ Life regeneration mechanism once in X seconds which works in the background by s
 1. Start lesson confirmation.
 1. Lives tooltip
 1. No lives no lessons. Sheet information
-1. Regeneration indicator - Done and in progress
+1. Regeneration indicator - Done and in progress with tooltip
 
 ### Lesson
 

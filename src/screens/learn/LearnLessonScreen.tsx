@@ -43,7 +43,7 @@ export const LearnLessonScreen = ({ route }: any) => {
   const [isLessonReady, setIsLessonReady] = useState(false);
   const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
 
-  // TODO: this selector is repetead in LearnLessonComplete
+  // TODO: this selector is repeated in LearnLessonComplete
   const lesson = useLearnStore(
     useShallow(state => state.lessons.find(l => l.id === route?.params?.lessonId)),
   );
