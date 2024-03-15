@@ -23,3 +23,11 @@ Activities:
 1. Exit lesson => Stay or leave.
 1. Start lesson action sheet. With completed info.
 1. Lesson complete with stats.
+
+### Stats
+
+After the lesson is done, stats are calculated and displayed and persisted in header.
+
+#### Lives
+
+1. One mistake - 1 life. Negative lives are valid. If user run out of lives during the lesson it won't interrupt anything, user won't be able to proceed to next lesson when negative.

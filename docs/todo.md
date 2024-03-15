@@ -86,8 +86,12 @@
 [x] Only speaker/listening activity
 [x] Start lesson sheet
 [x] Valid tree with current lesson and completed ones and future.
-[ ] Welcome message
-[ ] Stats system: display in lesson tree
+[x] Welcome message
+[x] Stats system: display in lesson tree
 [x] current tile expanding ring animation
-[ ] Header
+[x] Header
 [ ] content for activities
+
+[ ] time and accuracy from the lessoncomleted should be send for statistics and records.
+[ ] life regeneration
+[ ] no lives no lessons

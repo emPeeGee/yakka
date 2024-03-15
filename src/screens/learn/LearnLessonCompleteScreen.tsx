@@ -11,7 +11,7 @@ import { getItem } from '@/core/storage';
 import { formatSecondsToMinutesSeconds, percentage } from '@/core/utils';
 import { ParsedLessonAnswers, LearningLessonStats, Lesson } from '@/types';
 import { Button, ContainerWithInsets, EnhancedText, HeroWithChat, InfoBox } from '@/ui/core';
-import { BalloonIcon, CrosshairIcon, HourglassIcon, LightningIcon } from '@/ui/icons';
+import { BalloonIcon, CrosshairIcon, HeartIcon, HourglassIcon, LightningIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { useLearnStore } from './learnState';
 
@@ -73,12 +73,28 @@ export const LearnLessonCompleteScreen = ({ route }: any) => {
           </View>
 
           <View style={[gStyles.centerColumn, { gap: theme.spacing.sm }]}>
-            <InfoBox
-              Icon={() => <BalloonIcon />}
-              color={theme.colors.secondary500}
-              txTitle="common.balloons"
-              value={lessonStats?.balloons}
-            />
+            <View
+              style={[
+                gStyles.centerRow,
+                {
+                  gap: theme.spacing.sm,
+                  width: '100%',
+                },
+              ]}>
+              <InfoBox
+                Icon={() => <BalloonIcon />}
+                color={theme.colors.secondary500}
+                txTitle="common.balloons"
+                value={lessonStats?.balloons}
+              />
+              <InfoBox
+                Icon={() => <HeartIcon fill={theme.colors.chilly} />}
+                color={theme.colors.chilly}
+                txTitle="common.livesUsed"
+                txInfo="info.lives"
+                value={lessonStats?.livesUsed}
+              />
+            </View>
             <View
               style={[
                 gStyles.centerRow,
