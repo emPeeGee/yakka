@@ -27,6 +27,8 @@ import { Tile } from './Tile';
 import { Toggle } from './Toggle';
 import { Wizard, WizardScreenProps } from './wizard/Wizard';
 import { useWizard, WizardData } from './wizard/WizardProvider';
+// TODO: named export
+import Tooltip from '../Tooltip/Tooltip';
 
 export {
   Button,
@@ -59,6 +61,7 @@ export {
   Loader,
   InfoBox,
   Fade,
+  Tooltip,
 };
 
 export type {
