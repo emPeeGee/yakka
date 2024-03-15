@@ -14,7 +14,8 @@ import {
 import { Theme, UserStats } from '@/types';
 import { EnhancedText, Fade, Tooltip } from '@/ui/core';
 import { BalloonIcon, LightningIcon, HeartIcon } from '@/ui/icons';
-import { useTheme } from '@/ui/theme';
+import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { MAX_LIVES } from './learnState';
 
 const HEADER_HEIGHT = 64;
 
@@ -76,6 +77,7 @@ export function LearnHeader({
   const [headerY, setHeaderY] = useState(0);
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
   const styles = getStyles(theme);
+  const gStyles = useGlobalThemedStyles();
 
   const onLayout = (event: LayoutChangeEvent) => {
     setHeaderHeight(event.nativeEvent.layout.height);
@@ -100,6 +102,7 @@ export function LearnHeader({
 
   const username = 'Mihail';
 
+  const isRegeneratingLives = stats.lives < MAX_LIVES;
   const statsComponent = useMemo(
     () => (
       <>
@@ -115,19 +118,42 @@ export function LearnHeader({
             {stats.experience}
           </EnhancedText>
         </View>
-        <Tooltip
-          overlayColor=""
-          height="auto"
-          backgroundColor={theme.colors.info}
-          pointerColor={theme.colors.info}
-          popover={<EnhancedText style={{ color: theme.colors.base0 }} tx="info.lives" />}>
-          <View style={styles.statContainer}>
-            <HeartIcon fill={theme.colors.chilly} />
-            <EnhancedText weight="medium" size="md" style={[styles.headline, headlineStyle]}>
-              {stats.lives}
-            </EnhancedText>
-          </View>
-        </Tooltip>
+        <View style={[gStyles.centerRow, { gap: theme.spacing.xs }]}>
+          <Tooltip
+            overlayColor=""
+            height="auto"
+            backgroundColor={theme.colors.info}
+            pointerColor={theme.colors.info}
+            popover={
+              <EnhancedText
+                style={{ color: theme.colors.base0 }}
+                tx={isRegeneratingLives ? 'learn.regeneratingInProgress' : 'learn.regeneratingDone'}
+              />
+            }>
+            <View
+              style={{
+                width: 12,
+                height: 12,
+                backgroundColor: isRegeneratingLives ? theme.colors.warning : theme.colors.success,
+                borderRadius: 50,
+              }}
+            />
+          </Tooltip>
+
+          <Tooltip
+            overlayColor=""
+            height="auto"
+            backgroundColor={theme.colors.info}
+            pointerColor={theme.colors.info}
+            popover={<EnhancedText style={{ color: theme.colors.base0 }} tx="info.lives" />}>
+            <View style={styles.statContainer}>
+              <HeartIcon fill={theme.colors.chilly} />
+              <EnhancedText weight="medium" size="md" style={[styles.headline, headlineStyle]}>
+                {stats.lives}
+              </EnhancedText>
+            </View>
+          </Tooltip>
+        </View>
       </>
     ),
     [stats],

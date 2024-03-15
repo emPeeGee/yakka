@@ -39,10 +39,10 @@
 [ ] LearnTree: circle should indicate if lesson is passed via color
 [ ] Lesson: sounds on success or fail
 [x] replace all activity indicator with loader
-[ ] store the lesson stats somewhere and reflect in the tree it.
-[ ] stats system
+[x] store the lesson stats somewhere and reflect in the tree it.
+[x] stats system
 [ ] challenges
-[ ] next lesson and passed ones
+[x] next lesson and passed ones
 
 ## Medium:
 
@@ -93,6 +93,6 @@
 [x] Header
 [ ] content for activities
 
-[ ] time and accuracy from the lessoncomleted should be send for statistics and records.
-[ ] life regeneration
+[ ] time and accuracy from the completed lesson should be send for statistics and records.
+[x] life regeneration
 [x] no lives no lessons

@@ -107,6 +107,8 @@ export const en = {
     noLivesLeftSheet: `Oops! You've run out of lives. Please wait for new lives to regenerate or purchase more to continue playing.`,
     waitLives: 'Wait for lives',
     buyLives: 'Buy more lives',
+    regeneratingInProgress: 'Lives are currently regenerating',
+    regeneratingDone: 'Your lives have finished regenerating',
   },
   voc: {
     word: 'Word',

@@ -2,11 +2,15 @@
 
 ## Learn
 
+After the lesson is done, stats are calculated and displayed and persisted in header.
+Life regeneration mechanism once in X seconds which works in the background by storing last regeneration time.
+
 ### Tree
 
 1. Start lesson confirmation.
 1. Lives tooltip
 1. No lives no lessons. Sheet information
+1. Regeneration indicator - Done and in progress
 
 ### Lesson
 
@@ -32,8 +36,6 @@ Done:
 2. Lives tooltip
 
 ### Stats
-
-After the lesson is done, stats are calculated and displayed and persisted in header.
 
 #### Lives
 
