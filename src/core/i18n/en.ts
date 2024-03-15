@@ -25,6 +25,8 @@ export const en = {
     accuracy: 'Accuracy',
     time: 'Time',
     balloons: 'Balloons',
+    lives: 'Lives',
+    livesUsed: 'Lives used',
   },
   // Won't change depending on the language
   universal: {
@@ -149,6 +151,10 @@ export const en = {
   temp: {
     clear1: 'Clear the storage',
     sound: 'Sound',
+  },
+  info: {
+    lives:
+      "Lives are used to attempt challenges during the lesson. If you run out of lives, you won't be able to attempt any more challenges. However, don't worry! Your current lesson progress won't be interrupted. You can continue with the other lessons once more lives are generated",
   },
 };
 

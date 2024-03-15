@@ -13,6 +13,7 @@ import {
   ListeningActivityType,
   ParsedLessonAnswers,
   LearningLessonStats,
+  UserStats,
 } from './learn';
 import {
   Theme,
@@ -55,4 +56,5 @@ export type {
   ActivityUnion,
   ParsedLessonAnswers,
   LearningLessonStats,
+  UserStats,
 };

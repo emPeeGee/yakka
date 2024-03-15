@@ -43,10 +43,10 @@ export const LearnLessonScreen = ({ route }: any) => {
   const [isLessonReady, setIsLessonReady] = useState(false);
   const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
 
+  // TODO: this selector is repetead in LearnLessonComplete
   const lesson = useLearnStore(
     useShallow(state => state.lessons.find(l => l.id === route?.params?.lessonId)),
   );
-  const { setCompleted } = useLearnStore();
 
   // TODO: not really needed
   useEffect(() => {
@@ -119,10 +119,9 @@ export const LearnLessonScreen = ({ route }: any) => {
                 const answers = parseRawWizardDataQuestion(wizardData, lesson.activities);
                 setItem(LESSON_DONE_DATA_KEY, answers);
                 rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(answers)}`);
-                setCompleted(lesson.id);
 
                 setTimeout(() => {
-                  navigate('LearnLessonComplete' as never);
+                  navigate('LearnLessonComplete' as never, { lessonId: lesson.id });
                 }, 0);
               }}
               withExit

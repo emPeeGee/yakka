@@ -4,13 +4,44 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 import {
   DragWordsActivityType,
+  LearningLessonStats,
   Lesson,
   ListeningActivityType,
   MatchingPairsActivityType,
   MissingWordActivityType,
   PickAnswerActivityType,
   TypeAnswerActivityType,
+  UserStats,
 } from '@/types';
+
+const firstLessonDemo: Lesson = {
+  id: '0',
+  title: 'Introduction to Learning English',
+  description:
+    'Lesson 1. This lesson is designed for Romanian speakers who are beginning to learn English.',
+  activities: [
+    {
+      type: 'listening',
+      activity: {
+        sentence: 'His name is Andrew',
+        answer: 'Numele lui este Andrew',
+        options: ['Numele lui este Andrew', 'Numele meu este Andrew', 'Numele tau este Andre'],
+      } as ListeningActivityType,
+    },
+    {
+      type: 'missingWord',
+      activity: {
+        sentence: 'My name @@@ Ken',
+        answer: 'is',
+        options: [
+          { label: 'are', value: 'are' },
+          { label: 'as', value: 'as' },
+          { label: 'is', value: 'is' },
+        ],
+      } as MissingWordActivityType,
+    },
+  ],
+};
 
 const firstLesson: Lesson = {
   id: '1',
@@ -346,6 +377,7 @@ const basicEnglishLesson: Lesson = {
 };
 
 const lessons: Lesson[] = [
+  firstLessonDemo,
   firstLesson,
   greetingsLesson,
   everydayActivitiesLesson,
@@ -356,15 +388,17 @@ interface LearnState {
   lessons: Lesson[];
   completed: string[];
   current: string;
+  stats: UserStats;
   // setTypedCategory: (category: string) => void;
-  setCompleted: (id: string) => void;
+  setCompleted: (id: string, wonStats: LearningLessonStats) => void;
   reset: () => void;
 }
 
-const initialState: Pick<LearnState, 'lessons' | 'completed' | 'current'> = {
+const initialState: Pick<LearnState, 'lessons' | 'completed' | 'current' | 'stats'> = {
   lessons: lessons,
   completed: [],
   current: lessons.at(0)?.id ?? '',
+  stats: { balloons: 0, experience: 0, lives: 7 },
 };
 
 console.log('at', lessons.at(0)?.id ?? '-1');
@@ -373,7 +407,7 @@ export const useLearnStore = create<LearnState>()(
   persist<LearnState>(
     set => ({
       ...initialState,
-      setCompleted: (id: string) =>
+      setCompleted: (id: string, wonStats: LearningLessonStats) =>
         set(state => {
           const nextLesson = state.lessons.at(state.lessons.findIndex(l => l.id === id) + 1);
 
@@ -383,6 +417,11 @@ export const useLearnStore = create<LearnState>()(
             ...state,
             completed: [...state.completed, id],
             current: nextLesson?.id,
+            stats: {
+              balloons: state.stats.balloons + wonStats.balloons,
+              experience: state.stats.experience + wonStats.experience,
+              lives: state.stats.lives - wonStats.livesUsed,
+            },
           };
         }),
       reset: () => {
@@ -398,9 +437,8 @@ export const useLearnStore = create<LearnState>()(
           lessons: state.lessons,
           completed: state.completed,
           current: state.current,
+          stats: state.stats,
         }) as LearnState,
     },
   ),
 );
-
-// TODO: not the best location and file name

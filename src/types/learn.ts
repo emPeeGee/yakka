@@ -67,4 +67,11 @@ export type LearningLessonStats = {
   balloons: number;
   experience: number;
   accuracy: number | string;
+  livesUsed: number;
+};
+
+export type UserStats = {
+  balloons: number;
+  experience: number;
+  lives: number;
 };

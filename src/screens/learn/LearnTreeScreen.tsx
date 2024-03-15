@@ -2,6 +2,7 @@ import { View, ScrollView } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { SheetManager } from 'react-native-actions-sheet';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Lesson } from '@/types';
 import { HeaderPlaceholder, Tile, ContainerWithInsets } from '@/ui/core';
@@ -14,11 +15,8 @@ export const LearnTreeScreen = () => {
   const { navigate } = useNavigation();
   const { lessons, completed, current } = useLearnStore();
 
-  const stats = {
-    balloons: 32,
-    xp: 64,
-    lives: 7,
-  };
+  const stats = useLearnStore(useShallow(state => state.stats));
+  console.log(stats);
 
   // TODO:
   // const completed = ['1', '2'];

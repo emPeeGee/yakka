@@ -11,7 +11,7 @@ import {
   ScrollViewProps,
 } from 'react-native';
 
-import { Theme } from '@/types';
+import { Theme, UserStats } from '@/types';
 import { EnhancedText, Fade } from '@/ui/core';
 import { BalloonIcon, LightningIcon, HeartIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
@@ -57,7 +57,7 @@ type LearnHeaderProps = {
   scrollContainerStyle: StyleProp<ViewStyle>;
   fadeDirection: string;
   scrollViewProps: ScrollViewProps;
-  stats: { balloons: number; xp: number; lives: number };
+  stats: UserStats;
 };
 
 export function LearnHeader({
@@ -112,7 +112,7 @@ export function LearnHeader({
         <View style={styles.statContainer}>
           <LightningIcon />
           <EnhancedText weight="medium" size="md" style={[styles.headline, headlineStyle]}>
-            {stats.xp}
+            {stats.experience}
           </EnhancedText>
         </View>
         <View style={styles.statContainer}>
