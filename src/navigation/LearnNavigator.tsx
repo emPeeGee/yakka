@@ -18,7 +18,7 @@ export type LearnStackNavigatorProps = NativeStackScreenProps<LearnStackParamLis
 
 const Stack = createNativeStackNavigator<LearnStackParamList>();
 
-const tabHiddenRoutes = ['LearnLesson'];
+const tabHiddenRoutes = ['LearnLesson', 'LearnLessonComplete'];
 
 export const LearnNavigator = ({ navigation, route }: LearnStackNavigatorProps) => {
   const { theme } = useTheme();
