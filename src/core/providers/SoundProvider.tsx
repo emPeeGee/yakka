@@ -69,19 +69,28 @@ export const SoundProvider = ({ children }: SoundProviderProps): React.ReactNode
 
   const play = useCallback(
     async (type: SoundType) => {
-      switch (type) {
-        case 'incorrect':
-          await sounds[0].playAsync();
-          break;
-        case 'correct':
-          await sounds[1].playAsync();
-          break;
-        case 'lessonSuccess':
-          await sounds[2].playAsync();
-          break;
-        case 'lessonFail':
-          await sounds[3].playAsync();
-          break;
+      try {
+        switch (type) {
+          case 'incorrect':
+            await sounds[0].setPositionAsync(0);
+            await sounds[0].playAsync();
+            break;
+          case 'correct':
+            await sounds[1].setPositionAsync(0);
+            await sounds[1].playAsync();
+            break;
+          case 'lessonSuccess':
+            await sounds[2].setPositionAsync(0);
+            await sounds[2].playAsync();
+            break;
+          case 'lessonFail':
+            await sounds[3].setPositionAsync(0);
+            await sounds[3].playAsync();
+            break;
+        }
+      } catch (e) {
+        // TODO: treat
+        console.log(e);
       }
     },
     [sounds],
