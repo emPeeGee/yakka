@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+import { REGENERATE_INTERVAL_S } from '@/core/constants';
 import {
   DragWordsActivityType,
   LearningLessonStats,
@@ -389,16 +390,24 @@ interface LearnState {
   completed: string[];
   current: string;
   stats: UserStats;
+  lastRegeneration: number;
   // setTypedCategory: (category: string) => void;
   setCompleted: (id: string, wonStats: LearningLessonStats) => void;
+  regenerateLife: () => void;
   reset: () => void;
 }
 
-const initialState: Pick<LearnState, 'lessons' | 'completed' | 'current' | 'stats'> = {
+export const MAX_LIVES = 10;
+
+const initialState: Pick<
+  LearnState,
+  'lessons' | 'completed' | 'current' | 'stats' | 'lastRegeneration'
+> = {
   lessons: lessons,
   completed: [],
   current: lessons.at(0)?.id ?? '',
-  stats: { balloons: 0, experience: 0, lives: 7 },
+  stats: { balloons: 0, experience: 0, lives: -4 },
+  lastRegeneration: Date.now(),
 };
 
 console.log('at', lessons.at(0)?.id ?? '-1');
@@ -424,6 +433,49 @@ export const useLearnStore = create<LearnState>()(
             },
           };
         }),
+      regenerateLife: () =>
+        set(state => {
+          if (state.stats.lives >= MAX_LIVES) {
+            return {
+              ...state,
+              lastRegeneration: Date.now(),
+            };
+          }
+
+          const currentDate = Date.now();
+          const startDate = state.lastRegeneration;
+          const timeDiff = (currentDate - startDate) / 1000; //in ms
+          const elapsedSeconds = Math.round(timeDiff);
+
+          // TODO: elapsed seconds in two places
+
+          if (elapsedSeconds > REGENERATE_INTERVAL_S) {
+            // How many intervals we should restore when in background
+            const canFillWith = Math.round(elapsedSeconds / REGENERATE_INTERVAL_S);
+
+            return {
+              ...state,
+              lastRegeneration: Date.now(),
+              stats: {
+                ...state.stats,
+                // Fill all the lives or make calculate diff between current life and canFillWith
+                // eg. -4 + 8 = 4, Min(4, 10) = 4
+                // -4 + 28 = 24, Min(24, 10) = 10
+                lives: Math.min(state.stats.lives + canFillWith, MAX_LIVES),
+              },
+            };
+          }
+
+          return {
+            ...state,
+            lastRegeneration: Date.now(),
+            stats: {
+              ...state.stats,
+              lives: state.stats.lives + 1,
+            },
+          };
+        }),
+
       reset: () => {
         set(initialState);
       },
@@ -438,6 +490,7 @@ export const useLearnStore = create<LearnState>()(
           completed: state.completed,
           current: state.current,
           stats: state.stats,
+          lastRegeneration: state.lastRegeneration,
         }) as LearnState,
     },
   ),

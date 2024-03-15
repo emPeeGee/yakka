@@ -18,10 +18,6 @@ export const LearnTreeScreen = () => {
   const stats = useLearnStore(useShallow(state => state.stats));
   console.log(stats);
 
-  // TODO:
-  // const completed = ['1', '2'];
-  // const current = '3';
-
   const lessonPressHandler = async (lesson: Lesson) => {
     const canOpen = await SheetManager.show('start-lesson-sheet', {
       payload: {
