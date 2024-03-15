@@ -69,7 +69,7 @@ export function ActivityHeader({
           {noSpeaker === false && (
             <EnhancedPressable
               onPress={() => {
-                Speech.speak(activity.sentence, { language: 'en' });
+                Speech.speak(activity.sentence, { language: 'en', rate: 1 });
               }}
               style={{
                 backgroundColor: theme.colors.secondary500,
