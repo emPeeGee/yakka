@@ -33,16 +33,28 @@
 [ ] Height of the vocabulary card should not be fixed by calculated depending on the screen height
 [ ] Lessons should be grouped. Revise the mock
 [ ] Display proper category in card stack instead of the id
-[ ] store favorite words in the storage
+[x] store favorite words in the storage
 [ ] content for explore
-[ ] Lesson: On back/exit, should show a modal with confirmation
-[ ] LearnTree: circle should indicate if lesson is passed via color
-[ ] Lesson: sounds on success or fail
+[x] Lesson: On back/exit, should show a modal with confirmation
+[x] LearnTree: circle should indicate if lesson is passed via color
+[x] Lesson: sounds on success or fail
 [x] replace all activity indicator with loader
 [x] store the lesson stats somewhere and reflect in the tree it.
 [x] stats system
 [ ] challenges
 [x] next lesson and passed ones
+[x] Matching pairs activity
+[x] Only speaker/listening activity
+[x] Start lesson sheet
+[x] Valid tree with current lesson and completed ones and future.
+[x] Welcome message
+[x] Stats system: display in lesson tree
+[x] current tile expanding ring animation
+[x] Header
+[x] life regeneration
+[x] no lives no lessons
+[ ] more lessons
+[ ] lesson failed
 
 ## Medium:
 
@@ -56,6 +68,7 @@
 [ ] Login to save progress.
 [ ] Login to enable access to full content ???
 [x] No card in vocabulary: lottie animation
+[ ] time and accuracy from the completed lesson should be send for statistics and records.
 [ ] translate screens titles
 [ ] buy lives by payng balloons
 
@@ -82,17 +95,3 @@
 [ ] randomize matching pairs
 
 ## 14.03.24
-
-[x] Matching pairs activity
-[x] Only speaker/listening activity
-[x] Start lesson sheet
-[x] Valid tree with current lesson and completed ones and future.
-[x] Welcome message
-[x] Stats system: display in lesson tree
-[x] current tile expanding ring animation
-[x] Header
-[ ] content for activities
-
-[ ] time and accuracy from the completed lesson should be send for statistics and records.
-[x] life regeneration
-[x] no lives no lessons

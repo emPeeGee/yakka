@@ -29,6 +29,7 @@ Activities:
 1. Exit lesson => Stay or leave.
 1. Start lesson action sheet. With completed info.
 1. Lesson complete with stats.
+1. Sound on correct/incorrect/done
 
 Done:
 

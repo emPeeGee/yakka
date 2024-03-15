@@ -5,7 +5,8 @@ import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
 
 import { useIsFirstTime } from '@/core/hooks';
-import { useHaptics } from '@/core/providers';
+import { rootLog } from '@/core/logger';
+import { useHaptics, useSound } from '@/core/providers';
 import { removeItem } from '@/core/storage';
 import { EnhancedText, Button, List, DataListType, HeaderPlaceholder } from '@/ui/core';
 import { useLearnStore } from '../learn/learnState';
@@ -14,6 +15,7 @@ import { useVocabularyStore } from '../vocabulary/vocabularyState';
 export const SettingsScreen = () => {
   const [isFirstTime] = useIsFirstTime();
   const { setHapticsEnabled, isHapticsEnabled } = useHaptics();
+  const { setIsSoundEnabled, isSoundEnabled } = useSound();
   const { reset } = useVocabularyStore();
   const { reset: resetLearn } = useLearnStore();
 
@@ -23,6 +25,15 @@ export const SettingsScreen = () => {
         {
           label: 'Appearance',
           screen: 'AppearanceScreen',
+        },
+        {
+          label: 'Sound effects',
+          checked: isSoundEnabled,
+          callback: (value: boolean) => {
+            setIsSoundEnabled(value, (enabled: boolean) => {
+              rootLog.info('Sound is', enabled);
+            });
+          },
         },
         {
           label: 'Haptics',
@@ -37,7 +48,7 @@ export const SettingsScreen = () => {
           },
         },
       ] as DataListType[],
-    [isHapticsEnabled],
+    [isHapticsEnabled, isSoundEnabled],
   );
 
   return (
