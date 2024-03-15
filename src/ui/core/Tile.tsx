@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 import Animated, {
@@ -36,10 +36,6 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const styles = getStyles(theme);
-  const [currentIndicatorLayout, setCurrentIndicatorLayout] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
 
   const mainEllipseColor = current
     ? theme.colors.secondary500
@@ -62,92 +58,82 @@ export function Tile({ completed, type, withHero, heroPos, current = false, onPr
   const innerSvgY = -innerSvgHeight / 2;
 
   return (
-    <View style={[styles.container, gStyles.centerRow]}>
-      {current && (
+    <View style={[styles.container, gStyles.centerRow, { flexGrow: current ? 1.5 : 1 }]}>
+      <View style={[gStyles.centerColumn]}>
+        {current && (
+          <View style={[styles.tooltip2]}>
+            <EnhancedText
+              tx="common.start"
+              weight="bold"
+              style={{ color: theme.colors.secondary400, textTransform: 'uppercase' }}
+            />
+            <View style={styles.triangle} />
+          </View>
+        )}
         <View
           style={{
-            position: 'absolute',
-            width: 104,
-            height: 97,
-            justifyContent: 'center',
-            alignItems: 'center',
+            position: 'relative',
+            borderWidth: 6,
+            borderRadius: 100,
+            padding: 6,
+            borderColor: current
+              ? theme.colors.secondary700
+              : completed
+                ? theme.colors.primary700
+                : theme.colors.border,
           }}>
-          <AnimatedRing />
-        </View>
-      )}
-      {current && (
-        <View
-          onLayout={e => {
-            setCurrentIndicatorLayout({
-              height: e.nativeEvent.layout.height,
-              width: e.nativeEvent.layout.width,
-            });
-          }}
-          style={[
-            {
-              position: 'absolute',
-              // 10 is the triangle height
-              top: currentIndicatorLayout
-                ? -currentIndicatorLayout.height - (10 - theme.borders.thick)
-                : 0,
-            },
-            styles.tooltip,
-          ]}>
-          <EnhancedText weight="bold" style={{ color: theme.colors.secondary400 }}>
-            START
-          </EnhancedText>
-          <View style={styles.triangle} />
-        </View>
-      )}
-
-      <View
-        style={{
-          position: 'relative',
-          borderWidth: 6,
-          borderRadius: 100,
-          padding: 6,
-          borderColor: current
-            ? theme.colors.secondary700
-            : completed
-              ? theme.colors.primary700
-              : theme.colors.border,
-        }}>
-        <EnhancedPressable withoutBackground onPress={current || completed ? onPress : undefined}>
-          {/* TODO: type pressed should not be wrote explicitly */}
-          {({ pressed }: { pressed: boolean }) => (
-            <Svg width="104" height="97" viewBox="0 0 104 97" fill="none">
-              <Ellipse
-                cx="51.7919"
-                cy="52.0112"
-                rx="51.7919"
-                ry="44.9887"
-                fill={shadowEllipseColor}
-              />
-              <Ellipse
-                cx="51.7919"
-                cy={(current || completed) && pressed ? '52.0112' : '44.9887'}
-                rx="51.7919"
-                ry="44.9887"
-                fill={mainEllipseColor}
-              />
-
-              <G
-                transform={`translate(${tileWidth / 2}, ${tileHeight / 2})`}
-                x={innerSvgX}
-                y={innerSvgY}>
-                {completed ? (
-                  <CheckIcon />
-                ) : (
-                  <>
-                    {type === 'countdown' && <TileCountdownIcon />}
-                    {type === 'globe' && <TileGlobeIcon />}
-                    {type === 'start' && <TileStarIcon />}
-                  </>
+          <EnhancedPressable withoutBackground onPress={current || completed ? onPress : undefined}>
+            {/* TODO: type pressed should not be wrote explicitly */}
+            {({ pressed }: { pressed: boolean }) => (
+              <>
+                {current && (
+                  <View
+                    style={{
+                      zIndex: -1,
+                      position: 'absolute',
+                      width: 104,
+                      height: 97,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <AnimatedRing />
+                  </View>
                 )}
-              </G>
-            </Svg>
-          )}
-        </EnhancedPressable>
+                <Svg width="104" height="97" viewBox="0 0 104 97" fill="none">
+                  <Ellipse
+                    cx="51.7919"
+                    cy="52.0112"
+                    rx="51.7919"
+                    ry="44.9887"
+                    fill={shadowEllipseColor}
+                  />
+                  <Ellipse
+                    cx="51.7919"
+                    cy={(current || completed) && pressed ? '52.0112' : '44.9887'}
+                    rx="51.7919"
+                    ry="44.9887"
+                    fill={mainEllipseColor}
+                  />
+
+                  <G
+                    transform={`translate(${tileWidth / 2}, ${tileHeight / 2})`}
+                    x={innerSvgX}
+                    y={innerSvgY}>
+                    {completed ? (
+                      <CheckIcon />
+                    ) : (
+                      <>
+                        {type === 'countdown' && <TileCountdownIcon />}
+                        {type === 'globe' && <TileGlobeIcon />}
+                        {type === 'start' && <TileStarIcon />}
+                      </>
+                    )}
+                  </G>
+                </Svg>
+              </>
+            )}
+          </EnhancedPressable>
+        </View>
       </View>
 
       {withHero && (
@@ -176,10 +162,13 @@ const getStyles = (theme: Theme) =>
       flex: 1,
       width: '100%',
     },
-    tooltip: {
+
+    tooltip2: {
+      flex: 1,
+      margin: theme.spacing.sm,
       alignItems: 'center',
-      paddingVertical: 2,
-      paddingHorizontal: theme.spacing.md,
+      paddingVertical: theme.spacing.xxxs,
+      paddingHorizontal: theme.spacing.xs,
       backgroundColor: theme.colors.background,
       borderWidth: theme.borders.thick,
       borderColor: theme.colors.secondary700,
