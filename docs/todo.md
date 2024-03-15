@@ -58,6 +58,7 @@
 
 ## Medium:
 
+[ ] move all stores is a separate folder
 [ ] Stack card effect in the vocabulary (right now there is not a visible card at the bottom)
 [ ] Crop all images and remove scale
 [ ] Animated the start of the current tile.

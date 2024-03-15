@@ -32,8 +32,8 @@ import { useLearnStore } from './learnState';
 import { ListeningActivity } from './ListeningActivity';
 import { MatchingPairsActivity } from './MatchingPairsActivity';
 import { MissingWordActivity } from './MissingWordActivity';
-import { PickAnswerActivity } from './PickAnswer';
-import { TypeAnswerActivity } from './TypeAnswer';
+import { PickAnswerActivity } from './PickAnswerActivity';
+import { TypeAnswerActivity } from './TypeAnswerActivity';
 import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
 
 export const LearnLessonScreen = ({ route }: any) => {
