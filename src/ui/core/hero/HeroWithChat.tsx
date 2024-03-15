@@ -70,7 +70,6 @@ export const HeroWithChat = ({
             position: 'absolute',
             width: '100%',
             height: '100%',
-            transform: [{ scale: 1.2 }],
           }}
         />
       )}
