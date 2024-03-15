@@ -9,6 +9,7 @@ import {
   ContainerWithInsets,
   EnhancedPressable,
   EnhancedText,
+  HeaderPlaceholder,
   HeroWithChat,
   TextField,
 } from '@/ui/core';
@@ -17,7 +18,8 @@ import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const LoginScreen = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  const { theme } = useTheme();
+  const { theme, appColorScheme } = useTheme();
+  const isDark = appColorScheme === 'dark';
   const gStyles = useGlobalThemedStyles();
   const [hidePassword, setHidePassword] = useState(true);
 
@@ -35,10 +37,16 @@ export const LoginScreen = () => {
   return (
     <ContainerWithInsets>
       <View style={{ flex: 1, paddingHorizontal: theme.spacing.md }}>
-        <View style={[gStyles.fullWidthFromStart]}>
-          <View style={{ width: 1, height: 20 }} />
+        <View style={[gStyles.fullWidthFromStart, { gap: theme.spacing.md }]}>
+          <HeaderPlaceholder />
           {/* // TODO: the background confetti is cut */}
-          <HeroWithChat chatPosition="no-chat" hero="default" withConfetti />
+          <HeroWithChat
+            chatPosition="no-chat"
+            hero="default"
+            withConfetti
+            width={90}
+            height={109}
+          />
 
           <EnhancedText
             tx="universal.yakka"
@@ -77,6 +85,7 @@ export const LoginScreen = () => {
             <Button
               tx="auth.login"
               color={theme.colors.base0}
+              backgroundColor={theme.colors.secondary500}
               onPress={() => {
                 navigate('' as never);
               }}
@@ -94,22 +103,22 @@ export const LoginScreen = () => {
             <Button
               tx="auth.signUp"
               width="auto"
-              backgroundColor={theme.colors.primary100}
-              color={theme.colors.primary900}
+              backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
+              color={isDark ? theme.colors.primary100 : theme.colors.primary900}
               Left={UserCircleIcon}
             />
             <Button
               tx="auth.resetPassword"
               width="auto"
-              backgroundColor={theme.colors.primary100}
-              color={theme.colors.primary900}
+              backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
+              color={isDark ? theme.colors.primary100 : theme.colors.primary900}
               Left={PasswordIcon}
             />
           </View>
           <Button
             tx="auth.contWithoutProf"
-            backgroundColor={theme.colors.primary100}
-            color={theme.colors.primary900}
+            backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
+            color={isDark ? theme.colors.primary100 : theme.colors.primary900}
             onPress={onSkipHandler}
           />
         </View>
