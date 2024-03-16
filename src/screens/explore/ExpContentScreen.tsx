@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import Markdown from 'react-native-marked';
 
 import { translate } from '@/core/i18n';
-import { HeroLoading } from '@/ui/core';
+import { FocusAwareStatusBar, HeroLoading } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 const contentPOC = `
@@ -55,6 +55,7 @@ export const ExpContentScreen = ({ route, navigation }) => {
 
   return (
     <ScrollView style={{ paddingHorizontal: theme.spacing.md }}>
+      <FocusAwareStatusBar />
       {loading ? (
         <View style={{ paddingTop: theme.spacing.xl }}>
           <HeroLoading />

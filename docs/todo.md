@@ -87,6 +87,7 @@
 [ ] Tooltip for buttons with only an icon
 [ ] Enhanced radio box
 [ ] match pairs activity -> deselect pairs
+[ ] voc categories status bar and background animation color conflict
 
 ## Bugs:
 
@@ -95,4 +96,6 @@
 [ ] status bar and bottom bar colors in different themes
 [ ] randomize matching pairs
 
-## 14.03.24
+## To check
+
+[ ] why do I need container with insest?

@@ -2,6 +2,7 @@ import { View } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { FocusAwareStatusBar } from './FocusAwareStatusBar';
 import { useTheme } from '../theme';
 
 type ContainerWithInsetsProps = {
@@ -33,6 +34,7 @@ export function ContainerWithInsets({
           paddingRight: insets.right,
         },
       ]}>
+      <FocusAwareStatusBar />
       {children}
     </View>
   );

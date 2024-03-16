@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 
 import { COLOR_SCHEME_OPTIONS } from '@/core/constants';
-import { RadioGroup, EnhancedText, HeaderPlaceholder } from '@/ui/core';
+import { RadioGroup, EnhancedText, HeaderPlaceholder, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export const AppearanceScreen = () => {
@@ -10,7 +10,7 @@ export const AppearanceScreen = () => {
   const [selected, setSelected] = useState(userColorScheme);
 
   return (
-    <View>
+    <ContainerWithInsets>
       <HeaderPlaceholder />
 
       <View>
@@ -25,6 +25,6 @@ export const AppearanceScreen = () => {
         />
       </View>
       <EnhancedText>You have selected: {selected}</EnhancedText>
-    </View>
+    </ContainerWithInsets>
   );
 };

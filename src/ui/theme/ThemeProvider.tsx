@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { ColorSchemeName, useColorScheme } from 'react-native';
 
+import * as NavigationBar from 'expo-navigation-bar';
 import { StatusBarStyle } from 'expo-status-bar';
 
 import { rootLog } from '@/core/logger';
@@ -81,6 +82,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         break;
     }
 
+    const newTheme = getTheme(appColorScheme.current);
+    // Color system nav bar as the background color
+    NavigationBar.setBackgroundColorAsync(newTheme.colors.background);
     rootLog.info('User theme changed: ', userColorScheme.current, appColorScheme.current);
   };
 

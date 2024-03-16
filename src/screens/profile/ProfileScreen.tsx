@@ -14,6 +14,7 @@ import {
   CurvedShape,
   EnhancedPressable,
   HeaderPlaceholder,
+  FocusAwareStatusBar,
 } from '@/ui/core';
 import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -50,6 +51,7 @@ export const ProfileScreen = () => {
       <CurvedShape />
       {/* TODO: 42 is hardcoded */}
       <HeaderPlaceholder additionalSpace={42} />
+      <FocusAwareStatusBar />
 
       <View style={[styles.container]}>
         <View style={gStyles.centerRowBetween}>

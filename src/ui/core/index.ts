@@ -11,6 +11,7 @@ import { EnhancedScrollView } from './EnhancedScrollView';
 import { EnhancedText } from './EnhancedText';
 import { Fade } from './Fade';
 import { FlipCard } from './FlipCard';
+import { FocusAwareStatusBar } from './FocusAwareStatusBar';
 import { HeaderPlaceholder } from './HeaderPlaceholder';
 import { HeroEmptyState } from './hero/HeroEmptyState';
 import { HeroLoading } from './hero/HeroLoading';
@@ -62,6 +63,7 @@ export {
   InfoBox,
   Fade,
   Tooltip,
+  FocusAwareStatusBar,
 };
 
 export type {

@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { View } from 'react-native';
 
 import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
@@ -8,7 +7,14 @@ import { useIsFirstTime } from '@/core/hooks';
 import { rootLog } from '@/core/logger';
 import { useHaptics, useSound } from '@/core/providers';
 import { removeItem } from '@/core/storage';
-import { EnhancedText, Button, List, DataListType, HeaderPlaceholder } from '@/ui/core';
+import {
+  EnhancedText,
+  Button,
+  List,
+  DataListType,
+  HeaderPlaceholder,
+  ContainerWithInsets,
+} from '@/ui/core';
 import { useLearnStore } from '../learn/learnState';
 import { useVocabularyStore } from '../vocabulary/vocabularyState';
 
@@ -52,7 +58,7 @@ export const SettingsScreen = () => {
   );
 
   return (
-    <View>
+    <ContainerWithInsets>
       <HeaderPlaceholder />
 
       <List title="Settings" data={SETTINGS_LIST} />
@@ -96,7 +102,7 @@ export const SettingsScreen = () => {
           });
         }}
       />
-    </View>
+    </ContainerWithInsets>
   );
 };
 // TODO: voices

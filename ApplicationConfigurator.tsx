@@ -36,3 +36,5 @@ export function ApplicationConfigurator() {
     </HapticsProvider>
   );
 }
+
+//TODO:  main loading error?color
