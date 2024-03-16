@@ -96,8 +96,6 @@ export const SoundProvider = ({ children }: SoundProviderProps): React.ReactNode
     [sounds],
   );
 
-  rootLog.info('is sound', isSoundEnabled);
-
   const playSound = useCallback(
     (type: SoundType) => {
       return isSoundEnabled ? play(type) : noop();
