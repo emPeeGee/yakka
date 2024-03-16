@@ -47,7 +47,10 @@ function ChoiceOption<T>({
   const gStyles = useGlobalThemedStyles();
 
   return (
-    <EnhancedPressable onPress={() => onSelect(value)} disabled={disabled}>
+    <EnhancedPressable
+      onPress={() => onSelect(value)}
+      disabled={disabled}
+      style={{ borderRadius: theme.borderRadius.xl }}>
       <View
         style={{
           paddingVertical: theme.spacing.md,
