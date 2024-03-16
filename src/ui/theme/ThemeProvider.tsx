@@ -1,8 +1,7 @@
 import React, { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react';
-import { ColorSchemeName, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
 
 import * as NavigationBar from 'expo-navigation-bar';
-import { StatusBarStyle } from 'expo-status-bar';
 
 import { rootLog } from '@/core/logger';
 import { getItem, setItem } from '@/core/storage';
@@ -13,7 +12,6 @@ type ThemeContextType = {
   theme: Theme;
   userColorScheme: UserColorSchemeType;
   appColorScheme: AppColorSchemeType;
-  statusBarScheme: StatusBarStyle;
   setColorScheme: (colorScheme: UserColorSchemeType) => Promise<void>;
 };
 
@@ -95,25 +93,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         userColorScheme: userColorScheme.current,
         appColorScheme: appColorScheme.current,
         setColorScheme,
-        statusBarScheme: getStatusBarScheme(userColorScheme.current, systemColorScheme),
       }}>
       {children}
     </ThemeContext.Provider>
   );
 };
-
-function getStatusBarScheme(
-  userColorScheme: UserColorSchemeType,
-  systemColorScheme: ColorSchemeName,
-): StatusBarStyle {
-  switch (userColorScheme) {
-    case 'light':
-      return 'dark';
-    case 'dark':
-      return 'light';
-    case 'system':
-      return systemColorScheme === 'dark' ? 'light' : 'dark';
-    default:
-      throw new Error('No such color scheme');
-  }
-}
