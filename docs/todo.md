@@ -58,8 +58,8 @@
 
 ## Medium:
 
-[ ] move all stores is a separate folder
-[ ] Stack card effect in the vocabulary (right now there is not a visible card at the bottom)
+[ ] move all state/stores is a separate folder
+[x] Stack card effect in the vocabulary (right now there is not a visible card at the bottom)
 [ ] Crop all images and remove scale
 [ ] Animated the start of the current tile.
 [ ] Better docs
@@ -93,7 +93,7 @@
 
 [ ] wizard back gesture android learning mode
 [ ] autokeyboard for typeanswer
-[ ] status bar and bottom bar colors in different themes
+[x] status bar and bottom bar colors in different themes
 [ ] randomize matching pairs
 
 ## To check

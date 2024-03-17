@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Animated, PanResponder, Dimensions, Text, Platform } from 'react-native';
 import PropTypes from 'prop-types';
+import { Card } from './Card';
 
 const { height, width } = Dimensions.get('window');
 
@@ -372,7 +373,7 @@ export class CardStack extends Component {
   }
 
   render() {
-    const { secondCardZoom, renderNoMoreCards } = this.props;
+    const { theme, secondCardZoom, renderNoMoreCards } = this.props;
     const { drag, dragDistance, cardA, cardB, topCard, sindex } = this.state;
 
     const scale = dragDistance.interpolate({
@@ -393,8 +394,11 @@ export class CardStack extends Component {
           this.props.style,
           {
             position: 'relative',
-            backgroundColor: 'green',
             height: '100%',
+            backgroundColor: theme.colors.surface,
+            borderRadius: theme.borderRadius.lg,
+            borderColor: theme.colors.border,
+            borderWidth: theme.borders.medium,
           },
         ]}>
         {renderNoMoreCards()}

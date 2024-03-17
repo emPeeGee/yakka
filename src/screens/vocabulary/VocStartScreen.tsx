@@ -136,6 +136,7 @@ export const VocStartScreen = () => {
             ref={swiper => {
               swiperRef.current = swiper;
             }}
+            theme={theme}
             onSwiped={() => console.log('onSwiped')}
             onSwipedLeft={() => console.log('onSwipedLeft')}>
             {words.map(word => (
