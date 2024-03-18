@@ -9,6 +9,7 @@ module.exports = async function (env, argv) {
   config.resolve.alias['@/navigation'] = path.resolve('./src/navigation');
   config.resolve.alias['@/types'] = path.resolve('./src/types');
   config.resolve.alias['@/screens'] = path.resolve('./src/screens');
+  config.resolve.alias['@/api'] = path.resolve('./src/api');
 
   return config;
 };
