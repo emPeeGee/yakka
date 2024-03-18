@@ -13,9 +13,15 @@ import Animated, {
 import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '../theme';
 
-export const Loader = () => {
+type LoaderSize = 's' | 'm' | 'lg';
+
+type LoaderProps = {
+  size?: LoaderSize;
+};
+
+export const Loader = ({ size = 'm' }: LoaderProps) => {
   const { theme } = useTheme();
-  const styles = getStyles(theme);
+  const styles = getStyles(theme, size);
   const gStyles = useGlobalThemedStyles();
   const rotation = useSharedValue(0);
 
@@ -42,13 +48,13 @@ export const Loader = () => {
     </View>
   );
 };
-const getStyles = (theme: Theme) =>
+const getStyles = (theme: Theme, size: LoaderSize) =>
   StyleSheet.create({
     spinner: {
-      height: 60,
-      width: 60,
+      height: size === 's' ? 20 : size === 'm' ? 60 : 100,
+      width: size === 's' ? 20 : size === 'm' ? 60 : 100,
       borderRadius: 30,
-      borderWidth: 7,
+      borderWidth: size === 's' ? 4 : 7,
       borderTopColor: theme.colors.secondary100,
       borderRightColor: theme.colors.secondary100,
       borderBottomColor: theme.colors.secondary100,
