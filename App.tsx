@@ -1,5 +1,9 @@
+import { registerRootComponent } from 'expo';
+
 import { ThemeProvider } from '@/ui/theme';
 import { ApplicationConfigurator } from './ApplicationConfigurator';
+
+import '@expo/metro-runtime';
 
 // eslint-disable-next-line import/no-default-export
 export default function App() {
@@ -9,3 +13,5 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+registerRootComponent(App);
