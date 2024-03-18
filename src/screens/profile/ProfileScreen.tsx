@@ -2,8 +2,10 @@ import React, { useMemo } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 import { rootLog } from '@/core/logger';
+import { useAuth } from '@/core/providers';
 import { noop } from '@/core/utils';
 import { Theme } from '@/types';
 import {
@@ -33,13 +35,18 @@ export const ProfileScreen = () => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const gStyles = useGlobalThemedStyles();
+  const { navigate } = useNavigation();
+  const { signOut } = useAuth();
 
   const ACCOUNT_LIST = useMemo(
     () =>
       [
         {
           label: 'Logout account',
-          callback: () => rootLog.warn('LOGOUT was pressed'),
+          callback: async () => {
+            rootLog.warn('LOGOUT was pressed');
+            signOut(() => navigate('Auth', { screen: 'AuthLogin' }));
+          },
           color: theme.colors.error,
         },
       ] as DataListType[],

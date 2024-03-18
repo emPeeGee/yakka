@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ONBOARD_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
-import { useFirstLaunch } from '@/core/providers';
+import { useAuth, useFirstLaunch } from '@/core/providers';
 import { getItem } from '@/core/storage';
 import { isThemeDark } from '@/core/utils';
 import { HeroLoading } from '@/ui/core';
@@ -22,20 +22,24 @@ export function RootNavigator() {
   const { isFirstLaunch } = useFirstLaunch();
   const { theme, appColorScheme } = useTheme();
   const [initialRoute, setInitialRoute] = useState<string | undefined>(undefined);
+  const { user } = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getItem(ONBOARD_DATA_KEY).then(onboardData => {
       // TODO: dev purpose
-      setInitialRoute('App');
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
-      return;
+      // setInitialRoute('App');
+      // setInitialRoute('Auth');
+      // setTimeout(() => {
+      //   setIsLoading(false);
+      // }, 2000);
+      // return;
 
       if (isFirstLaunch || !onboardData) {
         setInitialRoute('Onboard');
+      } else if (user) {
+        setInitialRoute('App');
       } else {
         setInitialRoute('Auth');
       }
@@ -44,7 +48,7 @@ export function RootNavigator() {
         setIsLoading(false);
       }, 2000);
     });
-  });
+  }, []);
 
   if (isLoading && !initialRoute) {
     return (

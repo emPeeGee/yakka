@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { supabase } from '@/api';
 import {
   Button,
   ContainerWithInsets,
@@ -11,6 +12,7 @@ import {
   EnhancedText,
   HeaderPlaceholder,
   HeroWithChat,
+  Loader,
   TextField,
 } from '@/ui/core';
 import { EyeIcon, EyeOffIcon, PasswordIcon, UserCircleIcon } from '@/ui/icons';
@@ -25,6 +27,7 @@ export const LoginScreen = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onEyeHandler = useCallback(() => {
     setHidePassword(prev => !prev);
@@ -33,6 +36,25 @@ export const LoginScreen = () => {
   const onSkipHandler = useCallback(() => {
     navigate('App', { screen: 'LearnTree' });
   }, [navigate]);
+
+  async function signInWithEmail() {
+    setLoading(true);
+    const { error, data } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (error) {
+      Alert.alert(error.message);
+    }
+
+    setLoading(false);
+    console.log('data', data, error?.cause, error?.message, error?.status, error?.name);
+
+    if (data.user) {
+      navigate('App', { screen: 'LearnTree' });
+    }
+  }
 
   return (
     <ContainerWithInsets>
@@ -86,9 +108,9 @@ export const LoginScreen = () => {
               tx="auth.login"
               color={theme.colors.base0}
               backgroundColor={theme.colors.secondary500}
-              onPress={() => {
-                navigate('' as never);
-              }}
+              onPress={signInWithEmail}
+              disabled={loading}
+              Right={() => (loading ? <Loader size="s" /> : undefined)}
             />
           </View>
         </View>

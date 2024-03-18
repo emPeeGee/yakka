@@ -55,6 +55,7 @@
 [x] no lives no lessons
 [ ] more lessons
 [ ] lesson failed
+[ ] remove webpack in favor of metro
 
 ## Medium:
 
