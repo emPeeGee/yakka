@@ -2,9 +2,9 @@ import { View } from 'react-native';
 
 import { TxKeyPath } from '@/core/i18n';
 import { EnhancedText } from './EnhancedText';
+import { Tooltip } from './Tooltip/Tooltip';
 import { InfoIcon } from '../icons';
 import { useTheme, useGlobalThemedStyles } from '../theme';
-import Tooltip from '../Tooltip/Tooltip';
 
 type InfoBoxProps = {
   color: string;

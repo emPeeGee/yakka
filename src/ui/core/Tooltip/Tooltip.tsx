@@ -1,41 +1,38 @@
 import * as React from 'react';
-import { TouchableOpacity, Modal, View, I18nManager } from 'react-native';
-import { ViewPropTypes as RNViewPropTypes } from 'deprecated-react-native-prop-types';
-import PropTypes from 'prop-types';
+import { TouchableOpacity, Modal, View, I18nManager, StyleProp, ViewStyle } from 'react-native';
 
-import Triangle from './Triangle';
-import { ScreenWidth, ScreenHeight, isIOS } from './helpers';
 import getTooltipCoordinate from './getTooltipCoordinate';
-
-const ViewPropTypes = RNViewPropTypes || View.propTypes;
+import { ScreenWidth, ScreenHeight, isIOS } from './helpers';
+import Triangle from './Triangle';
 
 type State = {
-  isVisible: boolean,
-  yOffset: number,
-  xOffset: number,
-  elementWidth: number,
-  elementHeight: number,
+  isVisible: boolean;
+  yOffset: number;
+  xOffset: number;
+  elementWidth: number;
+  elementHeight: number;
 };
 
 type Props = {
-  withPointer: boolean,
-  popover: React.Element,
-  height: number | string,
-  width: number | string,
-  containerStyle: any,
-  pointerColor: string,
-  pointerStyle: {},
-  onClose: () => void,
-  onOpen: () => void,
-  withOverlay: boolean,
-  overlayColor: string,
-  backgroundColor: string,
-  highlightColor: string,
-  toggleWrapperProps: {},
-  actionType: 'press' | 'longPress' | 'none',
+  children: React.ReactNode;
+  withPointer: boolean;
+  popover: React.Element;
+  height: number | string;
+  width: number | string;
+  containerStyle: StyleProp<ViewStyle>;
+  pointerColor: string;
+  pointerStyle: StyleProp<ViewStyle>;
+  onClose: () => void;
+  onOpen: () => void;
+  withOverlay: boolean;
+  overlayColor: string;
+  backgroundColor: string;
+  highlightColor: string;
+  toggleWrapperProps: StyleProp<ViewStyle>;
+  actionType: 'press' | 'longPress' | 'none';
 };
 
-class Tooltip extends React.Component<Props, State> {
+export class Tooltip extends React.Component<Props, State> {
   state = {
     isVisible: false,
     yOffset: 0,
@@ -128,7 +125,7 @@ class Tooltip extends React.Component<Props, State> {
     return { tooltipStyle, pastMiddleLine };
   };
 
-  renderPointer = pastMiddleLine => {
+  renderPointer = (pastMiddleLine: boolean) => {
     const { yOffset, xOffset, elementHeight, elementWidth } = this.state;
     const { backgroundColor, pointerColor, pointerStyle } = this.props;
 
@@ -150,7 +147,8 @@ class Tooltip extends React.Component<Props, State> {
       </View>
     );
   };
-  renderContent = withTooltip => {
+
+  renderContent = (withTooltip: boolean) => {
     const { popover, withPointer, highlightColor, actionType } = this.props;
 
     if (!withTooltip) return this.wrapWithAction(actionType, this.props.children);
@@ -225,24 +223,24 @@ class Tooltip extends React.Component<Props, State> {
   }
 }
 
-Tooltip.propTypes = {
-  children: PropTypes.element,
-  withPointer: PropTypes.bool,
-  popover: PropTypes.element,
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  containerStyle: ViewPropTypes.style,
-  pointerColor: PropTypes.string,
-  pointerStyle: PropTypes.object,
-  onClose: PropTypes.func,
-  onOpen: PropTypes.func,
-  withOverlay: PropTypes.bool,
-  toggleWrapperProps: PropTypes.object,
-  overlayColor: PropTypes.string,
-  backgroundColor: PropTypes.string,
-  highlightColor: PropTypes.string,
-  actionType: PropTypes.oneOf(['press', 'longPress', 'none']),
-};
+// Tooltip.propTypes = {
+//   children: PropTypes.element,
+//   withPointer: PropTypes.bool,
+//   popover: PropTypes.element,
+//   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+//   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+//   containerStyle: ViewPropTypes.style,
+//   pointerColor: PropTypes.string,
+//   pointerStyle: PropTypes.object,
+//   onClose: PropTypes.func,
+//   onOpen: PropTypes.func,
+//   withOverlay: PropTypes.bool,
+//   toggleWrapperProps: PropTypes.object,
+//   overlayColor: PropTypes.string,
+//   backgroundColor: PropTypes.string,
+//   highlightColor: PropTypes.string,
+//   actionType: PropTypes.oneOf(['press', 'longPress', 'none']),
+// };
 
 Tooltip.defaultProps = {
   toggleWrapperProps: {},
@@ -269,5 +267,3 @@ const styles = {
     flex: 1,
   }),
 };
-
-export default Tooltip;
