@@ -26,10 +26,9 @@ import { Swiper, SwiperItemType } from './swiper/Swiper';
 import { TextField } from './TextField';
 import { Tile } from './Tile';
 import { Toggle } from './Toggle';
+import { Tooltip } from './Tooltip/Tooltip';
 import { Wizard, WizardScreenProps } from './wizard/Wizard';
 import { useWizard, WizardData } from './wizard/WizardProvider';
-// TODO: named export
-import Tooltip from '../Tooltip/Tooltip';
 
 export {
   Button,
