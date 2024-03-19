@@ -41,7 +41,7 @@ Activities:
 1. Drag words activity. Speak the sentence.
 1. Listening activity.
 1. Missing word activity.
-1. Match pairs activity.
+1. Match pairs activity. Words are shuffled
 
 1. Progress bar
 1. When correct no answer is shown

@@ -1,5 +1,5 @@
 import { enhancedAlert } from './alert';
-import { isLast, areArraysEqual } from './arrays';
+import { isLast, areArraysEqual, shuffle } from './arrays';
 import { getContrastColor, isThemeDark, isThemeLight } from './colors';
 import { isBool } from './isBoolean';
 import { noop } from './noop';
@@ -25,4 +25,5 @@ export {
   isEmail,
   isNumb,
   recursiveToCamel,
+  shuffle,
 };

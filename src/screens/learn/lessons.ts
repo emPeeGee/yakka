@@ -7,6 +7,19 @@ export const lesson0: Lesson = {
     'Lesson 1. This lesson is designed for Romanian speakers who are beginning to learn English.',
   activities: [
     {
+      type: 'matchingPairs',
+      activity: {
+        sentence: 'People',
+        answers: [
+          ['Barbat', 'Man'],
+          ['Barbati', 'Men'],
+          ['Baiat', 'Boy'],
+          ['Fata', 'Girl'],
+          ['Femeie', 'Woman'],
+        ],
+      } as MatchingPairsActivityType,
+    },
+    {
       type: 'listening',
       activity: {
         sentence: 'His name is Andrew',
