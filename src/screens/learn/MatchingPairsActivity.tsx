@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useState, useMemo } from 'react';
 import { View } from 'react-native';
 
+import { shuffle } from '@/core/utils';
 import { MatchingPairsActivityType } from '@/types';
 import { useWizard, WizardScreenProps, EnhancedPressable, EnhancedText } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
@@ -84,6 +85,8 @@ export function MatchingPairsActivity({ index, activity, answered }: MatchingPai
     [pairs, pairColors],
   );
 
+  const shuffledWords = useMemo(() => shuffle(activity.answers.flat()), []);
+
   return (
     <View style={[{ width: '100%', flex: 1, flexDirection: 'column', padding: theme.spacing.md }]}>
       <ActivityHeader activity={activity} txTitle="learn.matchPairs" noSentence noSpeaker />
@@ -95,7 +98,7 @@ export function MatchingPairsActivity({ index, activity, answered }: MatchingPai
           flexWrap: 'wrap',
           gap: theme.spacing.sm,
         }}>
-        {activity.answers.flat().map(answer => (
+        {shuffledWords.map(answer => (
           <EnhancedPressable
             disabled={answered}
             key={answer}

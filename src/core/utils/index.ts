@@ -1,4 +1,4 @@
-import { isLast, areArraysEqual } from './arrays';
+import { isLast, areArraysEqual, shuffle } from './arrays';
 import { getContrastColor, isThemeDark, isThemeLight } from './colors';
 import { isBool } from './isBoolean';
 import { noop } from './noop';
@@ -16,4 +16,5 @@ export {
   isZero,
   percentage,
   formatSecondsToMinutesSeconds,
+  shuffle,
 };
