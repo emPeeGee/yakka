@@ -30,7 +30,7 @@ export const BackButton = ({ noBorder, onPress, ...props }: BackButtonProps) => 
         padding: theme.spacing.xxs,
         borderRadius: theme.borderRadius.lg,
       }}>
-      <Ionicons name="ios-chevron-back" size={24} color={theme.colors.primary} />
+      <Ionicons name="chevron-back" size={24} color={theme.colors.primary} />
     </EnhancedPressable>
   );
 };
