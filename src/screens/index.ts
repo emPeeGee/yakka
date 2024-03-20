@@ -1,4 +1,6 @@
 import { LoginScreen } from './auth/LoginScreen';
+import { SignUpDoneScreen } from './auth/SignUpDoneScreen';
+import { SignUpScreen } from './auth/SignUpScreen';
 import { ExpContentScreen } from './explore/ExpContentScreen';
 import { ExpBasicTensesScreen } from './explore/ExpSubtopicsScreen';
 import { ExpTopicsScreen } from './explore/ExpTopicsScreen';
@@ -32,6 +34,8 @@ export {
   OnboardQuestionsScreen,
   OnboardQuestionsDoneScreen,
   LoginScreen,
+  SignUpScreen,
+  SignUpDoneScreen,
   VocStartScreen,
   VocWordOfTheDayScreen,
   VocCategoriesScreen,

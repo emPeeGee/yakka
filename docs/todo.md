@@ -73,6 +73,7 @@
 [ ] time and accuracy from the completed lesson should be send for statistics and records.
 [ ] translate screens titles
 [ ] buy lives by payng balloons
+[ ] Make sign up flow with wizard as per mock
 
 ## Low:
 

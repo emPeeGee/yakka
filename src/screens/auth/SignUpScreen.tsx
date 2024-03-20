@@ -5,6 +5,7 @@ import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { supabase } from '@/api';
+import { enhancedAlert } from '@/core/utils';
 import {
   Button,
   ContainerWithInsets,
@@ -15,33 +16,47 @@ import {
   Loader,
   TextField,
 } from '@/ui/core';
-import { EyeIcon, EyeOffIcon, PasswordIcon, UserCircleIcon } from '@/ui/icons';
+import { EyeIcon, EyeOffIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
-export const LoginScreen = () => {
+export const SignUpScreen = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  const { theme, appColorScheme } = useTheme();
-  const isDark = appColorScheme === 'dark';
+  const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const [hidePassword, setHidePassword] = useState(true);
 
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const onEyeHandler = useCallback(() => {
     setHidePassword(prev => !prev);
   }, []);
 
-  const onSkipHandler = useCallback(() => {
-    navigate('App', { screen: 'LearnTree' });
-  }, [navigate]);
-
-  async function signInWithEmail() {
+  async function signUp() {
     setLoading(true);
-    const { error, data } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+
+    if (password !== confirmPassword) {
+      enhancedAlert('Passwords should match');
+      setLoading(false);
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          age: parseInt(age),
+          avatar_url: '1',
+        },
+      },
     });
 
     if (error) {
@@ -49,10 +64,9 @@ export const LoginScreen = () => {
     }
 
     setLoading(false);
-    console.log('data', data, error?.cause, error?.message, error?.status, error?.name);
 
     if (data.user) {
-      navigate('App', { screen: 'LearnTree' });
+      navigate('AuthSignUpDone');
     }
   }
 
@@ -61,7 +75,6 @@ export const LoginScreen = () => {
       <View style={{ flex: 1, paddingHorizontal: theme.spacing.md }}>
         <View style={[gStyles.fullWidthFromStart, { gap: theme.spacing.md }]}>
           <HeaderPlaceholder />
-          {/* // TODO: the background confetti is cut */}
           <HeroWithChat
             chatPosition="no-chat"
             hero="default"
@@ -88,13 +101,46 @@ export const LoginScreen = () => {
               inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
               labelTextProps={{ style: { color: theme.colors.primary700 } }}
             />
+
+            <TextField
+              value={firstName}
+              onChangeText={setFirstName}
+              labelTx="auth.firstName"
+              autoCorrect={false}
+              autoCapitalize="none"
+              textContentType="givenName"
+              inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
+              labelTextProps={{ style: { color: theme.colors.primary700 } }}
+            />
+
+            <TextField
+              value={lastName}
+              onChangeText={setLastName}
+              labelTx="auth.lastName"
+              autoCorrect={false}
+              autoCapitalize="none"
+              textContentType="familyName"
+              inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
+              labelTextProps={{ style: { color: theme.colors.primary700 } }}
+            />
+
+            <TextField
+              value={age}
+              onChangeText={setAge}
+              labelTx="auth.age"
+              autoCorrect={false}
+              autoCapitalize="none"
+              textContentType="telephoneNumber"
+              inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
+              labelTextProps={{ style: { color: theme.colors.primary700 } }}
+            />
+
             <TextField
               value={password}
               onChangeText={setPassword}
               labelTx="auth.password"
               secureTextEntry={hidePassword}
               autoCorrect={false}
-              // returnKeyType="go"
               textContentType="password"
               inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
               labelTextProps={{ style: { color: theme.colors.primary700 } }}
@@ -104,13 +150,17 @@ export const LoginScreen = () => {
                 </EnhancedPressable>
               )}
             />
-            <Button
-              tx="auth.login"
-              color={theme.colors.base0}
-              backgroundColor={theme.colors.secondary500}
-              onPress={signInWithEmail}
-              disabled={loading}
-              Right={() => (loading ? <Loader size="s" /> : undefined)}
+
+            <TextField
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              labelTx="auth.confirmPassword"
+              secureTextEntry={hidePassword}
+              autoCorrect={false}
+              // returnKeyType="go"
+              textContentType="password"
+              inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
+              labelTextProps={{ style: { color: theme.colors.primary700 } }}
             />
           </View>
         </View>
@@ -120,29 +170,13 @@ export const LoginScreen = () => {
             { width: '100%', gap: theme.spacing.md, paddingVertical: theme.spacing.md },
             gStyles.centerColumn,
           ]}>
-          <View
-            style={[gStyles.centerRowBetween, { width: '100%', justifyContent: 'space-evenly' }]}>
-            <Button
-              tx="auth.signUp"
-              width="auto"
-              backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
-              color={isDark ? theme.colors.primary100 : theme.colors.primary900}
-              Left={UserCircleIcon}
-              onPress={() => navigate('AuthSignUp')}
-            />
-            <Button
-              tx="auth.resetPassword"
-              width="auto"
-              backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
-              color={isDark ? theme.colors.primary100 : theme.colors.primary900}
-              Left={PasswordIcon}
-            />
-          </View>
           <Button
-            tx="auth.contWithoutProf"
-            backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
-            color={isDark ? theme.colors.primary100 : theme.colors.primary900}
-            onPress={onSkipHandler}
+            tx="onboard.createProfile"
+            color={theme.colors.base0}
+            backgroundColor={theme.colors.secondary500}
+            onPress={signUp}
+            disabled={loading}
+            Right={() => (loading ? <Loader size="s" /> : undefined)}
           />
         </View>
       </View>

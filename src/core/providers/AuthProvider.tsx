@@ -9,11 +9,13 @@ import { noop } from '../utils';
 
 type AuthContextType = {
   user: User | null;
+  session: Session | null;
   signOut: (callback: VoidFunction) => void;
 };
 
 const initialValue: AuthContextType = {
   user: null,
+  session: null,
   signOut: noop,
 };
 
@@ -52,8 +54,10 @@ export const AuthProvider = ({ children }: AuthProviderProps): React.ReactNode =
     return <Loader />;
   }
 
+  // console.log('session', session);
+
   return (
-    <AuthContext.Provider value={{ user: session?.user ?? null, signOut }}>
+    <AuthContext.Provider value={{ session, user: session?.user ?? null, signOut }}>
       {children}
     </AuthContext.Provider>
   );

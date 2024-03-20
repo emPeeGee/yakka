@@ -27,7 +27,10 @@ export const en = {
     balloons: 'Balloons',
     lives: 'Lives',
     livesUsed: 'Lives used',
+    welcome: 'Welcome',
+    hurray: 'Hurray!',
   },
+
   // Won't change depending on the language
   universal: {
     yakka: 'Yakka',
@@ -89,6 +92,11 @@ export const en = {
     login: 'Log in',
     email: 'Email',
     password: 'Password',
+    confirmPassword: 'Confirm password',
+    lastName: 'Last name',
+    firstName: 'First name',
+    age: 'Age',
+    profileCreated: 'Your profile has been created successfully',
   },
   learn: {
     greeting: 'Hello, {{name}}!',
