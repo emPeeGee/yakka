@@ -105,7 +105,7 @@
 [ ] wizard back gesture android learning mode
 [ ] autokeyboard for typeanswer
 [x] status bar and bottom bar colors in different themes
-[ ] randomize matching pairs
+[x] randomize matching pairs
 [ ] click favorite word => no category
 [ ] after adding new word to like, click favorites
 [ ] word of the day, front and back card have different width and height
