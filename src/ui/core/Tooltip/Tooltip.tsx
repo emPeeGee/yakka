@@ -14,7 +14,7 @@ type State = {
 };
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   withPointer: boolean;
   popover: React.Element;
   height: number | string;
