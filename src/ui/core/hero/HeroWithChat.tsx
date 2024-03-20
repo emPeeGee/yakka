@@ -13,7 +13,8 @@ type HeroStyle =
   | 'question'
   | 'clock'
   | 'tears'
-  | 'magician';
+  | 'magician'
+  | 'watering';
 
 type HeroWithChatProps = {
   text?: TextProps['text'];
@@ -36,6 +37,7 @@ const HERO_STYLES: Record<HeroStyle, ImageURISource> = {
   clock: require('../../../assets/hero/heroWithClock.png'),
   tears: require('../../../assets/hero/heroWithTears.png'),
   magician: require('../../../assets/hero/heroMagician.png'),
+  watering: require('../../../assets/hero/heroWithWateringCan.png'),
 };
 
 // TODO: triangle is too big
