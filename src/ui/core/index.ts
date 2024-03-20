@@ -4,7 +4,6 @@ import { Card } from './Card';
 import { CardStack, CardStackItem } from './CardStack';
 import { ChoiceGroup, Choice } from './ChoiceGroup';
 import { ContainerWithInsets } from './ContainerWithInsets';
-import { CurvedShape } from './CurvedShape';
 import { Emoji } from './Emoji';
 import { EnhancedPressable } from './EnhancedPressable';
 import { EnhancedScrollView } from './EnhancedScrollView';
@@ -39,7 +38,6 @@ export {
   BackButton,
   List,
   Separator,
-  CurvedShape,
   EnhancedPressable,
   HeaderPlaceholder,
   Tile,

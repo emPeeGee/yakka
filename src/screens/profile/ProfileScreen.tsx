@@ -13,7 +13,6 @@ import {
   List,
   DataListType,
   Separator,
-  CurvedShape,
   EnhancedPressable,
   HeaderPlaceholder,
   FocusAwareStatusBar,
@@ -55,9 +54,7 @@ export const ProfileScreen = () => {
 
   return (
     <View>
-      <CurvedShape />
-      {/* TODO: 42 is hardcoded */}
-      <HeaderPlaceholder additionalSpace={42} />
+      <HeaderPlaceholder />
       <FocusAwareStatusBar />
 
       <View style={[styles.container]}>
