@@ -1,4 +1,4 @@
-import { registerRootComponent } from 'expo';
+// import { registerRootComponent } from 'expo';
 
 import { ThemeProvider } from '@/ui/theme';
 import { ApplicationConfigurator } from './ApplicationConfigurator';
@@ -14,4 +14,4 @@ export default function App() {
   );
 }
 
-registerRootComponent(App);
+// registerRootComponent(App);
