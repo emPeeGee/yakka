@@ -35,7 +35,7 @@ export const ProfileScreen = () => {
   const styles = getStyles(theme);
   const gStyles = useGlobalThemedStyles();
   const { navigate } = useNavigation();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   const ACCOUNT_LIST = useMemo(
     () =>
@@ -52,6 +52,43 @@ export const ProfileScreen = () => {
     [theme, rootLog],
   );
 
+  // NOTE: EXample
+  // useEffect(() => {
+  //   if (session) getProfile();
+  // }, [session]);
+
+  // async function getProfile() {
+  //   try {
+  //     setLoading(true);
+  //     if (!session?.user) throw new Error('No user on the session!');
+
+  //     const { data, error, status } = await supabase
+  //       .from('profiles')
+  //       .select(`last_name, first_name, avatar_url, age`)
+  //       .eq('id', session?.user.id)
+  //       .single();
+
+  //     if (error && status !== 406) {
+  //       throw error;
+  //     }
+
+  //     console.log(data, error, status);
+  //     if (data) {
+  //       console.log(data);
+  //       // setUsername(data.username);
+  //       // setWebsite(data.website);
+  //       // setAvatarUrl(data.avatar_url);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     if (error instanceof Error) {
+  //       Alert.alert(error.message);
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
   return (
     <View>
       <HeaderPlaceholder />
@@ -62,7 +99,8 @@ export const ProfileScreen = () => {
           <Image source={require('../../assets/profile.png')} style={styles.profileImg} />
           <View style={[gStyles.fullWidthFromStart, styles.nameContainer]}>
             <EnhancedText style={styles.name} size="md">
-              Mihail Mitrofanov
+              {user?.user_metadata?.first_name || 'Unknown'}
+              {user?.user_metadata?.last_name}
             </EnhancedText>
             <EnhancedText style={styles.grade} size="xxs">
               Newbie
@@ -98,19 +136,6 @@ export const ProfileScreen = () => {
             <View>
               <EnhancedText style={styles.statLabel} size="xxs">
                 Achievements
-              </EnhancedText>
-            </View>
-          </View>
-
-          <Separator isVertical height={24} paddingVertical={0} />
-
-          <View style={gStyles.centerColumnBetween}>
-            <View>
-              <EnhancedText size="md">1</EnhancedText>
-            </View>
-            <View>
-              <EnhancedText style={styles.statLabel} size="xxs">
-                Languages
               </EnhancedText>
             </View>
           </View>
