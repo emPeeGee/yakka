@@ -94,7 +94,7 @@
 [ ] wizard back gesture android learning mode
 [ ] autokeyboard for typeanswer
 [x] status bar and bottom bar colors in different themes
-[ ] randomize matching pairs
+[x] randomize matching pairs
 
 ## To check
 
