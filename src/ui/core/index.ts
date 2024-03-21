@@ -1,5 +1,6 @@
 import { BackButton } from './BackButton';
 import { Button } from './Button';
+import { ButtonToggleGroup } from './ButtonToggleGroup';
 import { Card } from './Card';
 import { CardStack, CardStackItem } from './CardStack';
 import { ChoiceGroup, Choice } from './ChoiceGroup';
@@ -63,6 +64,7 @@ export {
   Tooltip,
   FocusAwareStatusBar,
   FullAccessPrompt,
+  ButtonToggleGroup,
 };
 
 export type {

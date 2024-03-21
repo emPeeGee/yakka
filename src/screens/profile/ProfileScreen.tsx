@@ -16,6 +16,7 @@ import {
   HeaderPlaceholder,
   FocusAwareStatusBar,
   HeroWithChat,
+  ButtonToggleGroup,
 } from '@/ui/core';
 import {
   SettingsIcon,
@@ -26,6 +27,7 @@ import {
   UserCircleIcon,
 } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+// import { ToggleButton } from '@/ui/core/ButtonToggleGroup';
 
 export const ProfileScreen = () => {
   const { theme, isDark } = useTheme();
@@ -100,6 +102,7 @@ export const ProfileScreen = () => {
           </View>
 
           <HeroWithChat direction="left" width={74} height={70} hero="ghost" />
+          {/* <ToggleButton primaryText="12" secondaryText="333" onPress={} /> */}
         </View>
 
         <Separator paddingVertical={theme.spacing.md} />
@@ -170,9 +173,34 @@ export const ProfileScreen = () => {
           )}
         </ScrollView>
 
-        <List txTitle="profile.dashboard" data={DASHBOARD_LIST} />
-        {user && <List txTitle="profile.myAccount" data={ACCOUNT_LIST} />}
+        <View style={gStyles.centerColumnBetween}>
+          <View>
+            <EnhancedText size="md">20</EnhancedText>
+          </View>
+          <View>
+            <EnhancedText style={styles.statLabel} size="xxs">
+              Achievements
+            </EnhancedText>
+          </View>
+        </View>
+
+        <Separator isVertical height={24} paddingVertical={0} />
+
+        <View style={gStyles.centerColumnBetween}>
+          <View>
+            <EnhancedText size="md">1</EnhancedText>
+          </View>
+          <View>
+            <EnhancedText style={styles.statLabel} size="xxs">
+              Languages
+            </EnhancedText>
+          </View>
+        </View>
       </View>
+
+      <ButtonToggleGroup options={['Daily', 'Weekly', 'Monthly']} onOptionChange={noop} />
+      <List txTitle="profile.dashboard" data={DASHBOARD_LIST} />
+      {user && <List txTitle="profile.myAccount" data={ACCOUNT_LIST} />}
     </View>
   );
 };
