@@ -15,9 +15,11 @@ import {
   EnhancedPressable,
   HeaderPlaceholder,
   FocusAwareStatusBar,
+  ButtonToggleGroup,
 } from '@/ui/core';
 import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+// import { ToggleButton } from '@/ui/core/ButtonToggleGroup';
 
 const DASHBOARD_LIST: DataListType[] = [
   { screen: 'SettingsScreen', label: 'Settings', Icon: SettingsIcon, withChevron: true },
@@ -64,6 +66,8 @@ export const ProfileScreen = () => {
               Newbie
             </EnhancedText>
           </View>
+
+          {/* <ToggleButton primaryText="12" secondaryText="333" onPress={} /> */}
 
           {/* TODO: for future to implement */}
           <EnhancedPressable onPress={noop}>
@@ -112,6 +116,7 @@ export const ProfileScreen = () => {
           </View>
         </View>
 
+        <ButtonToggleGroup options={['Daily', 'Weekly', 'Monthly']} onOptionChange={noop} />
         <List title="Dashboard" data={DASHBOARD_LIST} />
         <List title="My account" data={ACCOUNT_LIST} />
       </View>
