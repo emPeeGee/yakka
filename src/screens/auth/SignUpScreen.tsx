@@ -46,6 +46,12 @@ export const SignUpScreen = () => {
       return;
     }
 
+    if (password.length < 6) {
+      enhancedAlert('Password should be at least 6 characters long');
+      setLoading(false);
+      return;
+    }
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
