@@ -47,7 +47,7 @@ export const OnboardQuestionsDoneScreen = () => {
             gStyles.centerColumn,
           ]}>
           <Button
-            tx="onboard.createProfile"
+            tx="common.createProfile"
             color={theme.colors.base0}
             // TODO: right screen
             onPress={() => navigate('' as never)}

@@ -177,7 +177,7 @@ export const SignUpScreen = () => {
             gStyles.centerColumn,
           ]}>
           <Button
-            tx="onboard.createProfile"
+            tx="common.createProfile"
             color={theme.colors.base0}
             backgroundColor={theme.colors.secondary500}
             onPress={signUp}

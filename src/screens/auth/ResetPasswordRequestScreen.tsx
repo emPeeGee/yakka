@@ -30,7 +30,6 @@ export const ResetPasswordRequestScreen = () => {
 
   const resetPassword = async () => {
     const resetPasswordURL = Linking.createURL('/ResetPassword');
-
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: resetPasswordURL,
     });

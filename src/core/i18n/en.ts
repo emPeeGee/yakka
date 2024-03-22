@@ -29,6 +29,7 @@ export const en = {
     livesUsed: 'Lives used',
     welcome: 'Welcome',
     hurray: 'Hurray!',
+    createProfile: 'Create profile',
   },
 
   // Won't change depending on the language

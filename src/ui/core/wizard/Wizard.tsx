@@ -185,7 +185,7 @@ const Wizardd = ({
               padding: theme.spacing.xxs,
               borderRadius: theme.borderRadius.lg,
             }}>
-            <Ionicons name="ios-close-outline" size={24} color={theme.colors.primary} />
+            <Ionicons name="close-outline" size={24} color={theme.colors.primary} />
           </EnhancedPressable>
         ) : (
           <BackButton onPress={onBackPress} />
