@@ -56,6 +56,8 @@
 [ ] more lessons
 [ ] lesson failed
 [ ] remove webpack in favor of metro
+[ ] text inputs keyboard type
+[ ] move all auth request into the use auth
 
 ## Medium:
 

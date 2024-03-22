@@ -1,4 +1,6 @@
 import { LoginScreen } from './auth/LoginScreen';
+import { ResetPasswordRequestScreen } from './auth/ResetPasswordRequestScreen';
+import { ResetPasswordScreen } from './auth/ResetPasswordScreen';
 import { SignUpDoneScreen } from './auth/SignUpDoneScreen';
 import { SignUpScreen } from './auth/SignUpScreen';
 import { ExpContentScreen } from './explore/ExpContentScreen';
@@ -36,6 +38,8 @@ export {
   LoginScreen,
   SignUpScreen,
   SignUpDoneScreen,
+  ResetPasswordRequestScreen,
+  ResetPasswordScreen,
   VocStartScreen,
   VocWordOfTheDayScreen,
   VocCategoriesScreen,

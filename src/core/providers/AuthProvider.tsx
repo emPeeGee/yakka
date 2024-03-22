@@ -7,16 +7,23 @@ import { supabase } from '@/api';
 import { Loader } from '@/ui/core';
 import { noop } from '../utils';
 
+type Tokens = {
+  access_token: string;
+  refresh_token: string;
+};
+
 type AuthContextType = {
   user: User | null;
   session: Session | null;
   signOut: (callback: VoidFunction) => void;
+  loginWithToken: (credentials: Tokens) => Promise<void>;
 };
 
 const initialValue: AuthContextType = {
   user: null,
   session: null,
   signOut: noop,
+  loginWithToken: () => Promise.resolve(),
 };
 
 const AuthContext = createContext<AuthContextType>(initialValue);
@@ -50,14 +57,29 @@ export const AuthProvider = ({ children }: AuthProviderProps): React.ReactNode =
     callback();
   }, []);
 
+  const loginWithToken = useCallback(async ({ access_token, refresh_token }: Tokens) => {
+    const signIn = async () => {
+      await supabase.auth.setSession({
+        access_token,
+        refresh_token,
+      });
+
+      return await supabase.auth.refreshSession();
+    };
+
+    const {
+      data: { session },
+    } = await signIn();
+
+    setSession(session);
+  }, []);
+
   if (isLoading) {
     return <Loader />;
   }
 
-  // console.log('session', session);
-
   return (
-    <AuthContext.Provider value={{ session, user: session?.user ?? null, signOut }}>
+    <AuthContext.Provider value={{ session, user: session?.user ?? null, signOut, loginWithToken }}>
       {children}
     </AuthContext.Provider>
   );

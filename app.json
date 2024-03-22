@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "com.yakka",
     "name": "yakka",
     "slug": "yakka",
     "version": "1.0.0",

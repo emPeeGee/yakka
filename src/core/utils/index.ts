@@ -4,6 +4,7 @@ import { getContrastColor, isThemeDark, isThemeLight } from './colors';
 import { isBool } from './isBoolean';
 import { noop } from './noop';
 import { isZero, percentage } from './numbers';
+import { parseSupabaseUrl } from './supabase';
 import { formatSecondsToMinutesSeconds } from './time';
 
 export {
@@ -18,4 +19,5 @@ export {
   isZero,
   percentage,
   formatSecondsToMinutesSeconds,
+  parseSupabaseUrl,
 };

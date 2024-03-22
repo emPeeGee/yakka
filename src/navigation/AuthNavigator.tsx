@@ -3,7 +3,13 @@ import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { LoginScreen, SignUpDoneScreen, SignUpScreen } from '@/screens';
+import {
+  LoginScreen,
+  ResetPasswordRequestScreen,
+  ResetPasswordScreen,
+  SignUpDoneScreen,
+  SignUpScreen,
+} from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -32,6 +38,16 @@ export const AuthNavigator = () => {
           name="AuthSignUpDone"
           component={SignUpDoneScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AuthResetPasswordRequest"
+          component={ResetPasswordRequestScreen}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="AuthResetPassword"
+          component={ResetPasswordScreen}
+          options={{ headerShown: true }}
         />
       </Stack.Group>
     </Stack.Navigator>
