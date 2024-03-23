@@ -5,6 +5,7 @@ import * as NavigationBar from 'expo-navigation-bar';
 
 import { rootLog } from '@/core/logger';
 import { getItem, setItem } from '@/core/storage';
+import { isThemeDark } from '@/core/utils';
 import { UserColorSchemeType, Theme, AppColorSchemeType } from '@/types';
 import { getTheme } from './appearance';
 
@@ -13,6 +14,7 @@ type ThemeContextType = {
   userColorScheme: UserColorSchemeType;
   appColorScheme: AppColorSchemeType;
   setColorScheme: (colorScheme: UserColorSchemeType) => Promise<void>;
+  isDark: boolean;
 };
 
 const SELECTED_THEME_KEY = 'SELECTED_THEME';
@@ -93,6 +95,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         userColorScheme: userColorScheme.current,
         appColorScheme: appColorScheme.current,
         setColorScheme,
+        isDark: isThemeDark(appColorScheme.current),
       }}>
       {children}
     </ThemeContext.Provider>

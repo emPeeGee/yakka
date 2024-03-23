@@ -14,8 +14,7 @@ export function StartLessonSheet(props: SheetProps<'start-lesson-sheet'>) {
     title: '',
     lives: 0,
   };
-  const { theme, appColorScheme } = useTheme();
-  const isDark = appColorScheme === 'dark';
+  const { theme, isDark } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const areEnoughLives = lives > 0;
 

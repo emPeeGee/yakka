@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBar, StatusBarStyle } from 'react-native';
 
 import { useIsFocused, useRoute } from '@react-navigation/native';
@@ -7,9 +7,8 @@ import { useTheme } from '../theme';
 
 export function FocusAwareStatusBar() {
   const isFocused = useIsFocused();
-  const { theme, appColorScheme } = useTheme();
+  const { theme, isDark } = useTheme();
   const { name } = useRoute();
-  const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
   const [backgroundColor, setBackgroundColor] = useState(theme.colors.background);
   const [barStyle, setBarStyle] = useState<StatusBarStyle>(
     isDark ? 'light-content' : 'light-content',

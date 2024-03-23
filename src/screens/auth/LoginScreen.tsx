@@ -20,8 +20,7 @@ import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const LoginScreen = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  const { theme, appColorScheme } = useTheme();
-  const isDark = appColorScheme === 'dark';
+  const { theme, isDark } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const [hidePassword, setHidePassword] = useState(true);
 

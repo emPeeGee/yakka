@@ -2,7 +2,6 @@ import { ReactNode, useCallback } from 'react';
 import { Pressable, PressableProps, StyleProp, ViewStyle } from 'react-native';
 
 import { useHaptics } from '@/core/providers';
-import { isThemeDark } from '@/core/utils';
 import { VoidCb } from '@/types';
 import { useTheme } from '../theme';
 
@@ -21,8 +20,7 @@ export function EnhancedPressable({
   disabled,
   ...props
 }: EnhancedPressableProps) {
-  const { theme, appColorScheme } = useTheme();
-  const isDark = isThemeDark(appColorScheme);
+  const { theme, isDark } = useTheme();
   const { lightHaptics } = useHaptics();
 
   const getBackgroundColor = useCallback(

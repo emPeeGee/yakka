@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -44,11 +43,10 @@ interface FlipCardWrapperProps {
 }
 
 export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
-  const { theme, appColorScheme } = useTheme();
+  const { theme, isDark } = useTheme();
   const word = useVocabularyStore(
     useShallow(state => state.favorites.find(w => w.word === item.word)),
   );
-  const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
   const gStyles = useGlobalThemedStyles();
   const isFavorite = useSharedValue(word ? 1 : 0);
 

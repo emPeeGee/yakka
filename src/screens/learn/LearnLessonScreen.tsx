@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 
 import { StackActions, useNavigation } from '@react-navigation/native';
@@ -37,11 +37,10 @@ import { TypeAnswerActivity } from './TypeAnswerActivity';
 import { parseRawWizardDataQuestion } from './utils/parseRawWizardDataQuestions';
 
 export const LearnLessonScreen = ({ route }: any) => {
-  const { appColorScheme, theme } = useTheme();
+  const { isDark, theme } = useTheme();
   const { navigate, dispatch } = useNavigation();
   const actionSheetRef = useRef<ActionSheetRef>(null);
   const [isLessonReady, setIsLessonReady] = useState(false);
-  const isDark = useMemo(() => appColorScheme === 'dark', [appColorScheme]);
 
   // TODO: this selector is repeated in LearnLessonComplete
   const lesson = useLearnStore(
