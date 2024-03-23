@@ -55,7 +55,7 @@ export const ProfileScreen = () => {
     () =>
       [
         {
-          label: 'Logout account',
+          tx: 'profile.logOut',
           callback: async () => {
             rootLog.warn('LOGOUT was pressed');
             signOut(() => navigate('Auth', { screen: 'AuthLogin' }));

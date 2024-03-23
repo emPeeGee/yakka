@@ -171,6 +171,10 @@ export const en = {
     settings: 'Settings',
     changePassword: 'Change password',
     achievements: 'Achievements',
+    logOut: 'Log out',
+    soundEffects: 'Sound effects',
+    haptics: 'Haptics',
+    appearance: 'Appearance',
   },
   temp: {
     clear1: 'Clear the storage',

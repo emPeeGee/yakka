@@ -20,12 +20,12 @@ export const SettingsScreen = () => {
     () =>
       [
         {
-          label: 'Appearance',
+          tx: 'profile.appearance',
           screen: 'ProfAppearance',
           withChevron: true,
         },
         {
-          label: 'Sound effects',
+          tx: 'profile.soundEffects',
           checked: isSoundEnabled,
           callback: (value: boolean) => {
             setIsSoundEnabled(value, (enabled: boolean) => {
@@ -34,7 +34,7 @@ export const SettingsScreen = () => {
           },
         },
         {
-          label: 'Haptics',
+          tx: 'profile.haptics',
           checked: isHapticsEnabled,
           callback: (value: boolean) => {
             setHapticsEnabled(value, (enabled: boolean) => {
