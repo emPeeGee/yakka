@@ -1,27 +1,26 @@
 import React, { useMemo } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
-import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import { rootLog } from '@/core/logger';
 import { useAuth } from '@/core/providers';
-import { noop } from '@/core/utils';
 import { Theme } from '@/types';
 import {
+  Button,
   EnhancedText,
   List,
   DataListType,
   Separator,
-  EnhancedPressable,
   HeaderPlaceholder,
   FocusAwareStatusBar,
+  HeroWithChat,
 } from '@/ui/core';
-import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
+import { SettingsIcon, AchievementsIcon, UserGearIcon, ClockIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const ProfileScreen = () => {
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
   const styles = getStyles(theme);
   const gStyles = useGlobalThemedStyles();
   const { navigate } = useNavigation();
@@ -113,15 +112,16 @@ export const ProfileScreen = () => {
             </EnhancedText>
           </View>
 
-          {/* TODO: for future to implement */}
-          <EnhancedPressable onPress={noop}>
-            <FontAwesome5 name="edit" size={22} color={theme.colors.textPri} />
-          </EnhancedPressable>
+          <HeroWithChat direction="left" width={74} height={70} hero="ghost" />
         </View>
 
         <Separator paddingVertical={theme.spacing.md} />
 
-        <View style={[gStyles.centerRowBetween, { marginBottom: theme.spacing.lg }]}>
+        <View
+          style={[
+            gStyles.centerRowBetween,
+            { marginBottom: theme.spacing.lg, justifyContent: 'space-around' },
+          ]}>
           <View style={gStyles.centerColumnBetween}>
             <View>
               <EnhancedText size="md">2+ hours</EnhancedText>
@@ -145,6 +145,29 @@ export const ProfileScreen = () => {
               </EnhancedText>
             </View>
           </View>
+        </View>
+
+        <View
+          style={[
+            gStyles.startRowStart,
+            { width: '100%', gap: theme.spacing.md, marginVertical: theme.spacing.md },
+          ]}>
+          <Button
+            tx="profile.editProfile"
+            width="auto"
+            backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
+            color={isDark ? theme.colors.base0 : theme.colors.primary900}
+            Left={UserGearIcon}
+            onPress={() => navigate('ProfProfileEdit')}
+          />
+          <Button
+            tx="profile.myActivity"
+            width="auto"
+            backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
+            color={isDark ? theme.colors.base0 : theme.colors.primary900}
+            Left={ClockIcon}
+            onPress={() => navigate('ProfActivity')}
+          />
         </View>
 
         <List title="Dashboard" data={DASHBOARD_LIST} />

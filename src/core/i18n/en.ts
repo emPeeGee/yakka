@@ -164,6 +164,10 @@ export const en = {
     searchTopic: 'Search a topic',
     learnToday: 'What would you like to read?',
   },
+  profile: {
+    editProfile: 'Edit profile',
+    myActivity: 'My activity',
+  },
   temp: {
     clear1: 'Clear the storage',
     sound: 'Sound',

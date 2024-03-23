@@ -3,6 +3,7 @@ import { BalloonIcon } from './BalloonIcon';
 import { BookBookmarkIcon } from './BookBookmarkIcon';
 import { BookIcon } from './BookIcon';
 import { CheckIcon } from './CheckIcon';
+import { ClockIcon } from './ClockIcon';
 import { CompassIcon } from './CompassIcon';
 import { CrosshairIcon } from './CrosshairIcon';
 import { EyeIcon } from './EyeIcon';
@@ -22,6 +23,7 @@ import { TileGlobeIcon } from './TileGlobeIcon';
 import { TileStarIcon } from './TileStarIcon';
 import { TrophyIcon } from './TrophyIcon';
 import { UserCircleIcon } from './UserCircleIcon';
+import { UserGearIcon } from './UserGearIcon';
 
 export {
   CompassIcon,
@@ -48,4 +50,6 @@ export {
   BalloonIcon,
   CrosshairIcon,
   CheckIcon,
+  UserGearIcon,
+  ClockIcon,
 };
