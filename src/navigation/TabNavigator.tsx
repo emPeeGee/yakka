@@ -16,7 +16,7 @@ type TabParamList = {
   Learn: undefined;
   Vocabulary: undefined;
   Explore: undefined;
-  ProfileTab: undefined;
+  Profile: undefined;
 };
 
 type TabType = {
@@ -33,7 +33,7 @@ const tabsIcons: TabIconsType = {
   Learn: (props: SvgProps) => <PathIcon {...props} />,
   Vocabulary: (props: SvgProps) => <BookIcon {...props} />,
   Explore: (props: SvgProps) => <CompassIcon {...props} />,
-  ProfileTab: (props: SvgProps) => <PersonIcon {...props} />,
+  Profile: (props: SvgProps) => <PersonIcon {...props} />,
 };
 
 export type TabList<T extends keyof TabParamList> = {
@@ -58,9 +58,9 @@ const tabs: TabType[] = [
     label: 'Explore',
   },
   {
-    name: 'ProfileTab',
+    name: 'Profile',
     component: ProfileNavigator,
-    label: 'ProfileTab',
+    label: 'Profile',
   },
 ];
 

@@ -8,10 +8,10 @@ import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export type ProfileStackParamList = {
-  ProfileScreen: undefined;
-  SettingsScreen: undefined;
-  AppearanceScreen: undefined;
-  AchievementsScreen: undefined;
+  ProfProfile: undefined;
+  ProfSettings: undefined;
+  ProfAppearance: undefined;
+  ProfAchievements: undefined;
 };
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
@@ -35,7 +35,7 @@ export const ProfileNavigator = () => {
           ),
         }}>
         <Stack.Screen
-          name="ProfileScreen"
+          name="ProfProfile"
           component={ProfileScreen}
           options={{
             headerLeft: undefined,
@@ -45,7 +45,7 @@ export const ProfileNavigator = () => {
         />
         <Stack.Screen
           options={{ headerTitle: 'Settings' }}
-          name="SettingsScreen"
+          name="ProfSettings"
           component={SettingsScreen}
         />
         <Stack.Screen
@@ -53,12 +53,12 @@ export const ProfileNavigator = () => {
             headerTitle: 'Achievements',
             headerTransparent: false,
           }}
-          name="AchievementsScreen"
+          name="ProfAchievements"
           component={AchievementsScreen}
         />
         <Stack.Screen
           options={{ headerTitle: 'Appearance' }}
-          name="AppearanceScreen"
+          name="ProfAppearance"
           component={AppearanceScreen}
         />
       </Stack.Group>
