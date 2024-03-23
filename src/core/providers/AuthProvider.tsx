@@ -2,6 +2,7 @@
 import { useState, useEffect, createContext, useContext, useCallback } from 'react';
 
 import { Session, User } from '@supabase/supabase-js';
+import { SheetManager } from 'react-native-actions-sheet';
 
 import { supabase } from '@/api';
 import { Loader } from '@/ui/core';
@@ -17,6 +18,7 @@ type AuthContextType = {
   session: Session | null;
   signOut: (callback: VoidFunction) => void;
   loginWithToken: (credentials: Tokens) => Promise<void>;
+  withAccessControl: (cb1: VoidFunction, cb2: VoidFunction) => () => Promise<void>;
 };
 
 const initialValue: AuthContextType = {
@@ -24,6 +26,7 @@ const initialValue: AuthContextType = {
   session: null,
   signOut: noop,
   loginWithToken: () => Promise.resolve(),
+  withAccessControl: () => () => Promise.resolve(),
 };
 
 const AuthContext = createContext<AuthContextType>(initialValue);
@@ -74,12 +77,31 @@ export const AuthProvider = ({ children }: AuthProviderProps): React.ReactNode =
     setSession(session);
   }, []);
 
+  const withAccessControl = useCallback(
+    (originalFunction: VoidFunction, onCreateProfile: VoidFunction) => {
+      return async () => {
+        if (session?.user) {
+          originalFunction();
+          return;
+        }
+
+        await SheetManager.show('unlock-full-access-sheet', {
+          payload: {
+            onCreateProfile,
+          },
+        });
+      };
+    },
+    [session?.user],
+  );
+
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <AuthContext.Provider value={{ session, user: session?.user ?? null, signOut, loginWithToken }}>
+    <AuthContext.Provider
+      value={{ session, user: session?.user ?? null, signOut, loginWithToken, withAccessControl }}>
       {children}
     </AuthContext.Provider>
   );

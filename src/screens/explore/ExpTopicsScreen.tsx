@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { useAuth } from '@/core/providers';
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, TextField } from '@/ui/core';
 import { MagnifyingGlassIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
@@ -25,6 +26,7 @@ export const ExpTopicsScreen = () => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
   const [typedTopic, setTypedTopic] = useState('');
+  const { withAccessControl } = useAuth();
 
   return (
     <ContainerWithInsets>
@@ -54,7 +56,10 @@ export const ExpTopicsScreen = () => {
             options={TOPICS}
             onChange={topic => {
               setTimeout(() => {
-                navigate('ExpSubtopics' as never, { topic } as never);
+                withAccessControl(
+                  () => navigate('ExpSubtopics' as never, { topic } as never),
+                  () => navigate('Auth', { screen: 'AuthSignUp' }),
+                )();
               });
             }}
           />

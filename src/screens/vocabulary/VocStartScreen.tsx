@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { useAuth } from '@/core/providers';
 import {
   Button,
   ContainerWithInsets,
@@ -72,6 +73,7 @@ export const VocStartScreen = () => {
   const swiperRef = useRef<any>();
   const { navigate } = useNavigation();
   const { words } = useVocabularyStore();
+  const { withAccessControl } = useAuth();
 
   useEffect(() => {
     swiperRef.current.initDeck();
@@ -101,7 +103,10 @@ export const VocStartScreen = () => {
             Left={() => BookBookmarkIcon({ width: 24, height: 24 })}
             style={[{ paddingVertical: theme.spacing.xs }]}
             textStyle={{ fontSize: theme.typography.sizes.xs.fontSize, textTransform: 'none' }}
-            onPress={() => navigate('VocWordOfTheDay' as never)}
+            onPress={withAccessControl(
+              () => navigate('VocWordOfTheDay' as never),
+              () => navigate('Auth', { screen: 'AuthSignUp' }),
+            )}
           />
           <View style={[gStyles.fullWidthFromStart, { width: 'auto' }]} />
           {/* TODO: Tooltip */}
@@ -112,7 +117,10 @@ export const VocStartScreen = () => {
             color={theme.colors.primary900}
             Left={() => MagnifyingGlassIcon({ width: 26, height: 26 })}
             style={[{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }]}
-            onPress={() => navigate('VocCategories' as never)}
+            onPress={withAccessControl(
+              () => navigate('VocCategories' as never),
+              () => navigate('Auth', { screen: 'AuthSignUp' }),
+            )}
           />
           {/* TODO: Tooltip */}
           <Button
@@ -122,7 +130,10 @@ export const VocStartScreen = () => {
             color={theme.colors.primary900}
             Left={() => HeartIcon({ width: 26, height: 26, fill: theme.colors.primary900 })}
             style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
-            onPress={() => navigate('VocFavorites' as never)}
+            onPress={withAccessControl(
+              () => navigate('VocFavorites' as never),
+              () => navigate('Auth', { screen: 'AuthSignUp' }),
+            )}
           />
         </View>
         <View style={{ minWidth: 320, minHeight: 560 }}>

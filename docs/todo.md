@@ -61,6 +61,9 @@
 
 ## Medium:
 
+[ ] Action sheet in the learn tree as well ??? or blurred component ???
+[ ] Check enhanced text, instead of style for size use size prop
+[ ] to many cards in the initial deck
 [ ] move all state/stores is a separate folder
 [x] Stack card effect in the vocabulary (right now there is not a visible card at the bottom)
 [ ] Crop all images and remove scale

@@ -6,7 +6,7 @@ import { Button, EnhancedText } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { InfoIcon } from '../icons';
 
-export function StartLessonSheet(props: SheetProps<'confirm-sheet'>) {
+export function StartLessonSheet(props: SheetProps<'start-lesson-sheet'>) {
   const { sheetId, payload } = props;
   const { title, description, isCompleted, lives } = payload || {
     description: '',
