@@ -9,6 +9,7 @@ import {
   SettingsScreen,
   AchievementsScreen,
   ProfileEditScreen,
+  ProfileChangePasswordScreen,
 } from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
@@ -19,6 +20,7 @@ export type ProfileStackParamList = {
   ProfSettings: undefined;
   ProfAppearance: undefined;
   ProfAchievements: undefined;
+  ProfChangePassword: undefined;
 };
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
@@ -72,6 +74,11 @@ export const ProfileNavigator = () => {
           // options={{ headerTitle: '' }}
           name="ProfProfileEdit"
           component={ProfileEditScreen}
+        />
+        <Stack.Screen
+          // options={{ headerTitle: '' }}
+          name="ProfChangePassword"
+          component={ProfileChangePasswordScreen}
         />
       </Stack.Group>
     </Stack.Navigator>
