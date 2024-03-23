@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { View, Image, StyleSheet, ScrollView } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+import { SheetManager } from 'react-native-actions-sheet';
 
 import { rootLog } from '@/core/logger';
 import { useAuth } from '@/core/providers';
@@ -57,51 +58,18 @@ export const ProfileScreen = () => {
         {
           tx: 'profile.logOut',
           callback: async () => {
+            const confirm = await SheetManager.show('confirmation-sheet');
+            if (confirm) {
+              signOut(() => navigate('Auth', { screen: 'AuthLogin' }));
+            }
+
             rootLog.warn('LOGOUT was pressed');
-            signOut(() => navigate('Auth', { screen: 'AuthLogin' }));
           },
           color: theme.colors.error,
         },
       ] as DataListType[],
     [theme, rootLog],
   );
-
-  // NOTE: EXample
-  // useEffect(() => {
-  //   if (session) getProfile();
-  // }, [session]);
-
-  // async function getProfile() {
-  //   try {
-  //     setLoading(true);
-  //     if (!session?.user) throw new Error('No user on the session!');
-
-  //     const { data,y error, status } = await supabase
-  //       .from('profiles')
-  //       .select(`last_name, first_name, avatar_url, age`)
-  //       .eq('id', session?.user.id)
-  //       .single();
-
-  //     if (error && status !== 406) {
-  //       throw error;
-  //     }
-
-  //     console.log(data, error, status);
-  //     if (data) {
-  //       console.log(data);
-  //       // setUsername(data.username);
-  //       // setWebsite(data.website);
-  //       // setAvatarUrl(data.avatar_url);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     if (error instanceof Error) {
-  //       Alert.alert(error.message);
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
 
   return (
     <View>

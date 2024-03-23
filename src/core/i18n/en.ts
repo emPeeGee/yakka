@@ -31,6 +31,10 @@ export const en = {
     hurray: 'Hurray!',
     createProfile: 'Create profile',
     save: 'Save',
+    yes: 'Yes',
+    no: 'No',
+    confirm: 'Confirm',
+    areYouSure: 'Are you sure you want to do this?',
   },
 
   // Won't change depending on the language
