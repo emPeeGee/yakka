@@ -20,23 +20,29 @@ import {
 import { SettingsIcon, AchievementsIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
-const DASHBOARD_LIST: DataListType[] = [
-  { screen: 'SettingsScreen', label: 'Settings', Icon: SettingsIcon, withChevron: true },
-  {
-    screen: 'AchievementsScreen',
-    label: 'Achievements',
-    Icon: AchievementsIcon,
-    withChevron: true,
-  },
-];
-
 export const ProfileScreen = () => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
   const gStyles = useGlobalThemedStyles();
   const { navigate } = useNavigation();
-  const { signOut, user } = useAuth();
+  const { signOut, user, withAccessControl } = useAuth();
 
+  const DASHBOARD_LIST: DataListType[] = useMemo(
+    () =>
+      [
+        { screen: 'ProfSettings', label: 'Settings', Icon: SettingsIcon, withChevron: true },
+        {
+          callback: withAccessControl(
+            () => navigate('ProfAchivements'),
+            () => navigate('Auth', { screen: 'AuthSignUp' }),
+          ),
+          label: 'Achievements',
+          Icon: AchievementsIcon,
+          withChevron: true,
+        },
+      ] as DataListType[],
+    [withAccessControl],
+  );
   const ACCOUNT_LIST = useMemo(
     () =>
       [
@@ -62,7 +68,7 @@ export const ProfileScreen = () => {
   //     setLoading(true);
   //     if (!session?.user) throw new Error('No user on the session!');
 
-  //     const { data, error, status } = await supabase
+  //     const { data,y error, status } = await supabase
   //       .from('profiles')
   //       .select(`last_name, first_name, avatar_url, age`)
   //       .eq('id', session?.user.id)
