@@ -6,6 +6,7 @@ import { noop } from './noop';
 import { isZero, percentage } from './numbers';
 import { parseSupabaseUrl } from './supabase';
 import { formatSecondsToMinutesSeconds } from './time';
+import { isEmail, isNumb } from './validation';
 
 export {
   enhancedAlert,
@@ -20,4 +21,6 @@ export {
   percentage,
   formatSecondsToMinutesSeconds,
   parseSupabaseUrl,
+  isEmail,
+  isNumb,
 };

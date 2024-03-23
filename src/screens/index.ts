@@ -15,6 +15,7 @@ import { OnboardQuestionsDoneScreen } from './onboarding/OnboardQuestionsDoneScr
 import { OnboardQuestionsScreen } from './onboarding/OnboardQuestionsScreen';
 import { AchievementsScreen } from './profile/AchievementsScreen';
 import { AppearanceScreen } from './profile/AppearanceScreen';
+import { ProfileEditScreen } from './profile/ProfileEditScreen';
 import { ProfileScreen } from './profile/ProfileScreen';
 import { SettingsScreen } from './profile/SettingsScreen';
 import { VocCategoriesScreen } from './vocabulary/VocCategoriesScreen';
@@ -25,6 +26,7 @@ import { VocWordScreen } from './vocabulary/VocWordScreen';
 
 export {
   ProfileScreen,
+  ProfileEditScreen,
   SettingsScreen,
   AppearanceScreen,
   AchievementsScreen,

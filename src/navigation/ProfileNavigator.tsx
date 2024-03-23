@@ -3,12 +3,19 @@ import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { AppearanceScreen, ProfileScreen, SettingsScreen, AchievementsScreen } from '@/screens';
+import {
+  AppearanceScreen,
+  ProfileScreen,
+  SettingsScreen,
+  AchievementsScreen,
+  ProfileEditScreen,
+} from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 export type ProfileStackParamList = {
   ProfProfile: undefined;
+  ProfProfileEdit: undefined;
   ProfSettings: undefined;
   ProfAppearance: undefined;
   ProfAchievements: undefined;
@@ -60,6 +67,11 @@ export const ProfileNavigator = () => {
           options={{ headerTitle: 'Appearance' }}
           name="ProfAppearance"
           component={AppearanceScreen}
+        />
+        <Stack.Screen
+          // options={{ headerTitle: '' }}
+          name="ProfProfileEdit"
+          component={ProfileEditScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

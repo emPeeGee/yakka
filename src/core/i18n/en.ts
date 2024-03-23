@@ -30,6 +30,7 @@ export const en = {
     welcome: 'Welcome',
     hurray: 'Hurray!',
     createProfile: 'Create profile',
+    save: 'Save',
   },
 
   // Won't change depending on the language

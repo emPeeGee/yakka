@@ -113,8 +113,7 @@ export const ProfileScreen = () => {
           <Image source={require('../../assets/profile.png')} style={styles.profileImg} />
           <View style={[gStyles.fullWidthFromStart, styles.nameContainer]}>
             <EnhancedText style={styles.name} size="md">
-              {user?.user_metadata?.first_name || 'Unknown'}
-              {user?.user_metadata?.last_name}
+              {`${user?.user_metadata?.first_name || 'Unknown'} ${user?.user_metadata?.last_name}`}
             </EnhancedText>
             <EnhancedText style={styles.grade} size="xxs">
               Newbie
