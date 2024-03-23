@@ -167,6 +167,9 @@ export const en = {
   profile: {
     editProfile: 'Edit profile',
     myActivity: 'My activity',
+    settings: 'Settings',
+    changePassword: 'Change password',
+    achievements: 'Achievements',
   },
   temp: {
     clear1: 'Clear the storage',

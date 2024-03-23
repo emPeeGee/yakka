@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SvgProps } from 'react-native-svg';
 
+import { TxKeyPath } from '@/core/i18n';
 import { isBool } from '@/core/utils';
 import { Theme } from '@/types';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -13,7 +14,7 @@ import { EnhancedText } from './EnhancedText';
 
 // IDEA: Conditional type
 export type DataListType = {
-  label: string;
+  tx: TxKeyPath;
   Icon?: (props: SvgProps) => React.JSX.Element;
   screen?: string;
   callback?: (...args: unknown[]) => void;
@@ -50,8 +51,8 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
       ListHeaderComponentStyle={styles.listHeaderContainer}
       contentContainerStyle={styles.contentContainer}
       data={data}
-      keyExtractor={item => item.label}
-      renderItem={({ item: { label, screen, Icon, callback, color, withChevron, checked } }) => {
+      keyExtractor={item => item.tx}
+      renderItem={({ item: { tx, screen, Icon, callback, color, withChevron, checked } }) => {
         const onPressHandle = () => {
           if (callback) {
             if (isBool(checked)) {
@@ -76,7 +77,7 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
             {Icon && <Icon />}
 
             <View style={[gStyles.fullWidthFromStart, { paddingLeft: Icon ? 12 : 0 }]}>
-              <EnhancedText style={{ ...(color && { color }) }}>{label}</EnhancedText>
+              <EnhancedText tx={tx} style={{ ...(color && { color }) }} />
             </View>
             {withChevron && (
               <Ionicons name="chevron-forward" color={theme.colors.textPri} size={16} />

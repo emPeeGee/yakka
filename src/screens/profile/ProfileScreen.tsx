@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, ScrollView } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,7 +16,7 @@ import {
   FocusAwareStatusBar,
   HeroWithChat,
 } from '@/ui/core';
-import { SettingsIcon, AchievementsIcon, UserGearIcon, ClockIcon } from '@/ui/icons';
+import { SettingsIcon, AchievementsIcon, UserGearIcon, ClockIcon, PasswordIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const ProfileScreen = () => {
@@ -29,14 +29,23 @@ export const ProfileScreen = () => {
   const DASHBOARD_LIST: DataListType[] = useMemo(
     () =>
       [
-        { screen: 'ProfSettings', label: 'Settings', Icon: SettingsIcon, withChevron: true },
+        { screen: 'ProfSettings', tx: 'profile.settings', Icon: SettingsIcon, withChevron: true },
         {
           callback: withAccessControl(
             () => navigate('ProfAchivements'),
             () => navigate('Auth', { screen: 'AuthSignUp' }),
           ),
-          label: 'Achievements',
+          tx: 'profile.achievements',
           Icon: AchievementsIcon,
+          withChevron: true,
+        },
+        {
+          callback: withAccessControl(
+            () => navigate('ProfAchivements'),
+            () => navigate('Auth', { screen: 'AuthSignUp' }),
+          ),
+          tx: 'profile.myActivity',
+          Icon: ClockIcon,
           withChevron: true,
         },
       ] as DataListType[],
@@ -147,8 +156,9 @@ export const ProfileScreen = () => {
           </View>
         </View>
 
-        <View
-          style={[
+        <ScrollView
+          horizontal
+          contentContainerStyle={[
             gStyles.startRowStart,
             { width: '100%', gap: theme.spacing.md, marginVertical: theme.spacing.md },
           ]}>
@@ -159,16 +169,18 @@ export const ProfileScreen = () => {
             color={isDark ? theme.colors.base0 : theme.colors.primary900}
             Left={UserGearIcon}
             onPress={() => navigate('ProfProfileEdit')}
+            style={{ paddingVertical: theme.spacing.sm }}
           />
           <Button
-            tx="profile.myActivity"
+            tx="profile.changePassword"
             width="auto"
             backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
             color={isDark ? theme.colors.base0 : theme.colors.primary900}
-            Left={ClockIcon}
-            onPress={() => navigate('ProfActivity')}
+            Left={PasswordIcon}
+            onPress={() => navigate('ProfChangePassword')}
+            style={{ paddingVertical: theme.spacing.sm }}
           />
-        </View>
+        </ScrollView>
 
         <List title="Dashboard" data={DASHBOARD_LIST} />
         <List title="My account" data={ACCOUNT_LIST} />
