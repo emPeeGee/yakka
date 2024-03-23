@@ -78,7 +78,11 @@ export const ProfileScreen = () => {
 
       <View style={[styles.container]}>
         <View style={gStyles.centerRowBetween}>
-          <Image source={require('../../assets/profile.png')} style={styles.profileImg} />
+          <Image
+            source={require('../../assets/profile.png')}
+            resizeMode="contain"
+            style={styles.profileImg}
+          />
           <View style={[gStyles.fullWidthFromStart, styles.nameContainer]}>
             <EnhancedText style={styles.name} size="md">
               {`${user?.user_metadata?.first_name || 'Unknown'} ${user?.user_metadata?.last_name}`}
@@ -165,8 +169,8 @@ const getStyles = (theme: Theme) =>
       paddingHorizontal: theme.spacing.xs,
     },
     profileImg: {
-      height: 85,
-      width: 85,
+      height: 70,
+      width: 70,
     },
     name: {
       color: theme.colors.textPri,

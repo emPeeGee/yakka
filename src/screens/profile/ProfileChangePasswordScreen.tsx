@@ -74,6 +74,7 @@ export const ProfileChangePasswordScreen = () => {
           <View style={gStyles.centerColumn}>
             <Image
               source={require('../../assets/profile.png')}
+              resizeMode="contain"
               style={{
                 height: 180,
                 width: 180,
