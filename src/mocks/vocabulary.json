@@ -11,12 +11,6 @@
         "example": "wildcats",
         "speech_part": "noun",
         "synonyms": ["true cat"]
-      },
-      {
-        "id": "20eef03608",
-        "def": "any of several large cats typically able to roar and living in the wild",
-        "speech_part": "noun",
-        "synonyms": ["big cat"]
       }
     ]
   },
@@ -45,12 +39,6 @@
         "def": "large gregarious predatory feline of Africa and India having a tawny coat with a shaggy mane in the male",
         "speech_part": "noun",
         "synonyms": ["king of beasts"]
-      },
-      {
-        "id": "07edbfbe26",
-        "def": "a celebrity who is lionized (much sought after)",
-        "speech_part": "noun",
-        "synonyms": ["social lion"]
       }
     ]
   },
@@ -63,12 +51,6 @@
       {
         "id": "68c8d0d146",
         "def": "large feline of forests in most of Asia having a tawny coat with black stripes",
-        "speech_part": "noun"
-      },
-      {
-        "id": "bc251cd1e0",
-        "def": "a fierce or audacious person",
-        "example": "he's a tiger on the tennis court",
         "speech_part": "noun"
       }
     ]
@@ -98,12 +80,6 @@
         "def": "to a moderate degree",
         "example": "They were mildly interested initially but became fascinated as the lecture went on.",
         "speech_part": "adverb"
-      },
-      {
-        "id": "0866c73a14",
-        "def": "in a gentle manner",
-        "speech_part": "adverb",
-        "synonyms": ["gently"]
       }
     ]
   },
@@ -117,12 +93,6 @@
         "id": "ee316c4622",
         "def": "at any moment",
         "example": "The doctor will be with you momently.",
-        "speech_part": "adverb",
-        "synonyms": ["momentarily"]
-      },
-      {
-        "id": "249c3a4a6c",
-        "def": "for an instant or moment",
         "speech_part": "adverb",
         "synonyms": ["momentarily"]
       }
@@ -140,12 +110,6 @@
         "example": "That's a mighty fine guitar you've got there.",
         "speech_part": "adverb",
         "synonyms": ["mightily", "powerful", "right"]
-      },
-      {
-        "id": "f4134c4aa7",
-        "def": "having or showing great strength or force or intensity",
-        "example": "struck a mighty blow",
-        "speech_part": "adjective"
       }
     ]
   },
