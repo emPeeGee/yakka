@@ -4,8 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { SheetManager } from 'react-native-actions-sheet';
 import { useShallow } from 'zustand/react/shallow';
 
+import { useAuth } from '@/core/providers';
 import { Lesson } from '@/types';
-import { HeaderPlaceholder, Tile, ContainerWithInsets } from '@/ui/core';
+import { HeaderPlaceholder, Tile, ContainerWithInsets, FullAccessPrompt } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { LearnHeader } from './LearnHeader';
 import { useLearnStore } from './learnState';
@@ -16,6 +17,7 @@ export const LearnTreeScreen = () => {
   const { lessons, completed, current } = useLearnStore();
 
   const stats = useLearnStore(useShallow(state => state.stats));
+  const { user } = useAuth();
   console.log(stats);
 
   const lessonPressHandler = async (lesson: Lesson) => {
@@ -35,9 +37,13 @@ export const LearnTreeScreen = () => {
     }
   };
 
+  const shouldPromptLoginForFullAccess = !user && completed.length >= 5;
+
   return (
     <ContainerWithInsets>
       <HeaderPlaceholder />
+
+      {shouldPromptLoginForFullAccess && <FullAccessPrompt />}
 
       <LearnHeader stats={stats}>
         <ScrollView style={{ flex: 1 }}>

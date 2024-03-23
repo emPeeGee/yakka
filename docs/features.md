@@ -1,5 +1,12 @@
 # Features
 
+## Auth
+
+Login.
+Reset password with email
+Continue without profile.
+Login to access all features
+
 ## Learn
 
 After the lesson is done, stats are calculated and displayed and persisted in header.

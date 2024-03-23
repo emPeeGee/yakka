@@ -11,6 +11,7 @@ import { EnhancedText } from './EnhancedText';
 import { Fade } from './Fade';
 import { FlipCard } from './FlipCard';
 import { FocusAwareStatusBar } from './FocusAwareStatusBar';
+import { FullAccessPrompt } from './FullAccesPrompt';
 import { HeaderPlaceholder } from './HeaderPlaceholder';
 import { HeroEmptyState } from './hero/HeroEmptyState';
 import { HeroLoading } from './hero/HeroLoading';
@@ -62,6 +63,7 @@ export {
   Fade,
   Tooltip,
   FocusAwareStatusBar,
+  FullAccessPrompt,
 };
 
 export type {

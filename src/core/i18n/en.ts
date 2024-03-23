@@ -84,7 +84,6 @@ export const en = {
     benefit1: 'Learn English language whenever and wherever you want.',
     greeting1: "Hi there. I'm Yakka!",
     createProfileDesc: 'Create a profile now so you can save progress or you can skip it.',
-    createProfile: 'Create profile',
   },
   auth: {
     signUp: 'Sign up',
@@ -98,6 +97,9 @@ export const en = {
     firstName: 'First name',
     age: 'Age',
     profileCreated: 'Your profile has been created successfully',
+    unlockAccessTitle: 'Unlock full access',
+    unlockAccessDetails:
+      'Want to unlock all features? Simply create an account to access everything the app has to offer',
   },
   learn: {
     greeting: 'Hello, {{name}}!',

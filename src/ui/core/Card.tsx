@@ -14,7 +14,7 @@ type CardProps = {
   maxHeight?: number;
 };
 
-export const Card = ({ children, minHeight = 100, maxHeight, minWidth }: CardProps) => {
+export const Card = ({ children, minHeight = 100, maxHeight, minWidth, style }: CardProps) => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
 
@@ -25,7 +25,7 @@ export const Card = ({ children, minHeight = 100, maxHeight, minWidth }: CardPro
   };
 
   return (
-    <View style={[styles.card, cardStyles]}>
+    <View style={[style, styles.card, cardStyles]}>
       <View style={[styles.container]}>{children}</View>
     </View>
   );
