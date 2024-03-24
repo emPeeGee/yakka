@@ -4,6 +4,7 @@ import { getContrastColor, isThemeDark, isThemeLight } from './colors';
 import { isBool } from './isBoolean';
 import { noop } from './noop';
 import { isZero, percentage } from './numbers';
+import { recursiveToCamel } from './objects';
 import { parseSupabaseUrl } from './supabase';
 import { formatSecondsToMinutesSeconds } from './time';
 import { isEmail, isNumb } from './validation';
@@ -23,4 +24,5 @@ export {
   parseSupabaseUrl,
   isEmail,
   isNumb,
+  recursiveToCamel,
 };

@@ -72,11 +72,17 @@ export const VocStartScreen = () => {
   const gStyles = useGlobalThemedStyles();
   const swiperRef = useRef<any>();
   const { navigate } = useNavigation();
-  const { words } = useVocabularyStore();
-  const { withAccessControl } = useAuth();
+  const { words, init } = useVocabularyStore();
+  const { withAccessControl, user } = useAuth();
 
   useEffect(() => {
-    swiperRef.current.initDeck();
+    init(user);
+  }, [user]);
+
+  useEffect(() => {
+    if (words.length > 0) {
+      swiperRef.current.initDeck();
+    }
   }, [words]);
 
   return (

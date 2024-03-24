@@ -11,6 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useShallow } from 'zustand/react/shallow';
 
+import { useAuth } from '@/core/providers';
 import { Word } from '@/types';
 import {
   FlipCard,
@@ -44,11 +45,12 @@ interface FlipCardWrapperProps {
 
 export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
   const { theme, isDark } = useTheme();
-  const word = useVocabularyStore(
-    useShallow(state => state.favorites.find(w => w.word === item.word)),
+  const favorite = useVocabularyStore(
+    useShallow(state => state.favorites.find(f => f.word_id === item.wordId)),
   );
   const gStyles = useGlobalThemedStyles();
-  const isFavorite = useSharedValue(word ? 1 : 0);
+  const isFavorite = useSharedValue(favorite?.liked ? 1 : 0);
+  const { user } = useAuth();
 
   const { setFavorites } = useVocabularyStore();
 
@@ -115,7 +117,7 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
               <View style={[gStyles.centerColumn, { transform: [{ rotate: '-45deg' }] }]}>
                 <EnhancedText preset="heading">{item.word}</EnhancedText>
                 <EnhancedText preset="formHelper" weight="light" style={{ fontStyle: 'italic' }}>
-                  {item.meanings[0].speech_part}
+                  {item.partOfSpeech}
                 </EnhancedText>
               </View>
             </View>
@@ -156,10 +158,10 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                   fontStyle: 'italic',
                   paddingRight: theme.spacing.xxs,
                 }}>
-                {item.meanings[0].speech_part}
+                {item.partOfSpeech}
                 <EnhancedText>. </EnhancedText>
                 <EnhancedText style={{ ...theme.typography.sizes.sm, fontStyle: 'normal' }}>
-                  {item.meanings[0].def}
+                  {item.definition}
                 </EnhancedText>
               </EnhancedText>
 
@@ -173,7 +175,7 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                   fontStyle: 'normal',
                   color: isDark ? theme.colors.primary100 : theme.colors.primary900,
                 }}>
-                {item.meanings[0].example}
+                {item.example}
               </EnhancedText>
             </View>
           </View>
@@ -198,7 +200,11 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
           <EnhancedPressable
             onPress={() => {
               isFavorite.value = withSpring(isFavorite.value ? 0 : 1);
-              setFavorites(isFavorite.value ? 'delete' : 'add', item);
+              setFavorites(
+                isFavorite.value ? 'delete' : 'add',
+                favorite || { word_id: item.wordId },
+                user,
+              );
             }}>
             <Animated.View style={[StyleSheet.absoluteFillObject, outlineStyle]}>
               <MaterialCommunityIcons name="heart-outline" size={32} color={theme.colors.chilly} />

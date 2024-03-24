@@ -12,11 +12,16 @@ export type WordCategory =
   | 'weather1';
 
 export type Word = {
+  wordId: number;
   word: string;
   category: WordCategory;
-  wordset_id: string;
-  pronunciation?: string;
-  meanings: WordMeaning[];
+  categoryId: null;
+  pronunciation: string;
+  synonyms?: string[];
+  definition: string;
+  example?: null;
+  partOfSpeech: string;
+  createdAt?: string;
 };
 
 export type SpeechPart =

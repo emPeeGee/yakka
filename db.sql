@@ -145,9 +145,9 @@ VALUES (
 CREATE TABLE words_users (
   id SERIAL PRIMARY KEY,
   user_id uuid references auth.users on delete cascade not null,
+  word_id INT REFERENCES words(word_id) NOT NULL 
   liked BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  word_id INT REFERENCES words(word_id) NOT NULL 
 );
 
 alter table words_users

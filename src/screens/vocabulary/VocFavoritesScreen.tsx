@@ -43,13 +43,13 @@ export const VocFavoritesScreen = () => {
           <ChoiceGroup
             options={favorites
               .filter(word => word.word.includes(favoriteInput.toLocaleLowerCase()))
-              .map(word => ({
-                value: word.word,
-                label: word.word,
+              .map(favorite => ({
+                value: favorite.word,
+                label: favorite.word,
                 Right: () => (
                   <EnhancedText
                     style={[{ color: theme.colors.textDis }, theme.typography.sizes.sm]}>
-                    {word.meanings[0].speech_part}
+                    {favorite.part_of_speech}
                   </EnhancedText>
                 ),
               }))}
