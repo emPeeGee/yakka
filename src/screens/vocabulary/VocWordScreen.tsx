@@ -12,7 +12,7 @@ export const VocWordScreen = ({ route }: any) => {
   const { theme } = useTheme();
 
   const word = useVocabularyStore(
-    useShallow(state => state.words.find(w => w.word === route?.params?.word)),
+    useShallow(state => state.favorites.find(w => w.word === route?.params?.word)),
   );
 
   if (!word) {
