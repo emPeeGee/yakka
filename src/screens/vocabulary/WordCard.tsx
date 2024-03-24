@@ -11,6 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useShallow } from 'zustand/react/shallow';
 
+import { TxKeyPath } from '@/core/i18n';
 import { useAuth } from '@/core/providers';
 import { Word } from '@/types';
 import {
@@ -46,7 +47,7 @@ interface FlipCardWrapperProps {
 export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
   const { theme, isDark } = useTheme();
   const favorite = useVocabularyStore(
-    useShallow(state => state.favorites.find(f => f.word_id === item.wordId)),
+    useShallow(state => state.favorites.find(f => f.word_id === item.word_id)),
   );
   const gStyles = useGlobalThemedStyles();
   const isFavorite = useSharedValue(favorite?.liked ? 1 : 0);
@@ -86,7 +87,7 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
           ]}>
           <BookIcon width={24} height={24} />
           <EnhancedText
-            text={item.category}
+            tx={item.word_categories?.category_name as TxKeyPath}
             weight="bold"
             style={{ ...theme.typography.sizes.sm }}
           />
@@ -117,7 +118,7 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
               <View style={[gStyles.centerColumn, { transform: [{ rotate: '-45deg' }] }]}>
                 <EnhancedText preset="heading">{item.word}</EnhancedText>
                 <EnhancedText preset="formHelper" weight="light" style={{ fontStyle: 'italic' }}>
-                  {item.partOfSpeech}
+                  {item.part_of_speech}
                 </EnhancedText>
               </View>
             </View>
@@ -158,7 +159,7 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
                   fontStyle: 'italic',
                   paddingRight: theme.spacing.xxs,
                 }}>
-                {item.partOfSpeech}
+                {item.part_of_speech}
                 <EnhancedText>. </EnhancedText>
                 <EnhancedText style={{ ...theme.typography.sizes.sm, fontStyle: 'normal' }}>
                   {item.definition}
@@ -202,7 +203,7 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
               isFavorite.value = withSpring(isFavorite.value ? 0 : 1);
               setFavorites(
                 isFavorite.value ? 'delete' : 'add',
-                favorite || { word_id: item.wordId },
+                favorite || { word_id: item.word_id },
                 user,
               );
             }}>

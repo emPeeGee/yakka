@@ -4,21 +4,13 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { supabase } from '@/api';
-import { recursiveToCamel } from '@/core/utils';
-import { Word, WordCategory } from '@/types';
+import { Favorite, Word, WordCategory } from '@/types';
 
 // const allWords = Object.values(vocabulary) as Word[];
-type Favorite = {
-  id: number;
-  word_id: number;
-  liked: boolean;
-  word: string;
-  part_of_speech: string;
-};
-
 interface VocabularyState {
   words: Word[];
-  category: WordCategory;
+  category: WordCategory | null;
+  categories: WordCategory[];
   typedCategory: string;
   favorites: Favorite[];
   setTypedCategory: (category: string) => void;
@@ -28,9 +20,13 @@ interface VocabularyState {
   init: (user: User | null) => void;
 }
 
-const initialState: Pick<VocabularyState, 'words' | 'category' | 'favorites' | 'typedCategory'> = {
+const initialState: Pick<
+  VocabularyState,
+  'words' | 'category' | 'categories' | 'favorites' | 'typedCategory'
+> = {
   words: [],
-  category: 'all',
+  category: null,
+  categories: [],
   typedCategory: '',
   favorites: [],
 };
@@ -44,13 +40,20 @@ export const useVocabularyStore = create<VocabularyState>()(
           return;
         }
 
-        const { data: words, error: wordsError } = await supabase.from('words').select('*');
+        const { data: words, error: wordsError } = await supabase
+          .from('words')
+          .select('*,  word_categories:category_id(category_id, category_name)');
+        // .select('*,  word_categories!inner(category_id, category_name)');
         const { data: liked, error: likedError } = await supabase
           .from('words_users')
           .select('id, word_id, liked, words!inner(word, part_of_speech)')
           .eq('user_id', user.id);
 
-        console.log('word', liked, likedError);
+        const { data: categories, error: categoriesError } = await supabase
+          .from('word_categories')
+          .select('*');
+
+        console.log('word', words, categoriesError);
 
         if (wordsError || likedError) {
           return;
@@ -58,12 +61,13 @@ export const useVocabularyStore = create<VocabularyState>()(
 
         set(state => ({
           ...state,
-          words: [...(words?.map(w => recursiveToCamel(w)) as Word[])],
+          words: [...(words?.map(w => ({ ...w })) as Word[])],
+          categories: categories as WordCategory[],
           favorites: liked?.map(l => ({
             id: l.id,
             word_id: l.word_id,
             liked: l.liked,
-            word: l.words.word as string,
+            word: l.words.word,
             part_of_speech: l.words.part_of_speech,
           })),
         }));
@@ -73,15 +77,23 @@ export const useVocabularyStore = create<VocabularyState>()(
           ...state,
           typedCategory: category,
         })),
-      setCategory: category =>
+      setCategory: async category => {
+        const { data: wordsForCategory, error: wordsError } = await supabase
+          .from('words')
+          .select('*,  word_categories:category_id(category_id, category_name)')
+          .eq('category_id', category.category_id);
+
+        if (wordsError) {
+          return;
+        }
+
         set(state => ({
           ...state,
           category,
-          // words:
-          // category === 'all'
-          //   ? allWords.slice(-5)
-          //   : allWords.filter(word => word.category === category),
-        })),
+          words: [...wordsForCategory],
+          // words: category.category_id === 1 ? wordsForCategory.slice(-5) : [...wordsForCategory],
+        }));
+      },
       setFavorites: async (action, favorite, user) => {
         switch (action) {
           case 'add':
