@@ -10,6 +10,8 @@ Continue without profile.
 
 1 .learn, 5 lessons are allowed, 2. voc, can view the deck button are not blocked with action sheet, 3. explore, topics are blocked, 4. profile, achivements are blocked
 Profile edit
+Password change
+logout confirmation
 
 ## Learn
 
@@ -52,3 +54,15 @@ Done:
 #### Lives
 
 1. One mistake - 1 life. Negative lives are valid. If user run out of lives during the lesson it won't interrupt anything, user won't be able to proceed to next lesson when negative.
+
+## Vocabulary
+
+### card deck with swipe and long press
+
+### Word of the day
+
+### Search
+
+### Like word to save
+
+### Find category
