@@ -60,7 +60,7 @@ create policy "Anyone can upload an avatar." on storage.objects
 -- Create the admin role
 CREATE ROLE admin_role;
 
--- drop table words_users;
+-- drop table favorite_words;
 -- drop table words;
 -- drop table explore_users;
 -- drop table explore;
@@ -71,7 +71,7 @@ drop function get_random_words;
 drop function get_daily_word;
 drop type random_word_record;
 drop table daily_words;
-drop table words_users;
+drop table favorite_words;
 drop table words;
 drop table word_categories;
 
@@ -411,7 +411,7 @@ INSERT INTO words (word, category_id, pronunciation, definition, example, part_o
 
 
 -- Vocabulary Table
-CREATE TABLE words_users (
+CREATE TABLE favorite_words (
   id SERIAL PRIMARY KEY,
   user_id uuid references auth.users on delete cascade not null,
   word_id INT REFERENCES words(word_id) NOT NULL,
@@ -419,10 +419,10 @@ CREATE TABLE words_users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-alter table words_users
+alter table favorite_words
   enable row level security;
 
-CREATE POLICY user_access_policy ON words_users
+CREATE POLICY user_access_policy ON favorite_words
     FOR ALL
     TO public
     USING (auth.uid() = user_id);

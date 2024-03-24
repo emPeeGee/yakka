@@ -103,7 +103,4 @@
 [x] status bar and bottom bar colors in different themes
 [ ] randomize matching pairs
 [ ] click favorite word => no category
-
-## To check
-
-[ ] why do I need container with insest?
+[ ] after adding new word to like, click favorites

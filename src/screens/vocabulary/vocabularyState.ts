@@ -45,7 +45,7 @@ export const useVocabularyStore = create<VocabularyState>()(
 
         const { data: words, error: wordsError } = await supabase.rpc('get_random_words');
         const { data: liked, error: likedError } = await supabase
-          .from('words_users')
+          .from('favorite_words')
           .select(
             'id, word_id, liked, words!inner(word, part_of_speech, definition, example, pronunciation)',
           )
@@ -125,7 +125,7 @@ export const useVocabularyStore = create<VocabularyState>()(
 
           case 'delete':
             // eslint-disable-next-line no-case-declarations
-            const { error: deleteError } = await supabase.from('words_users').upsert(
+            const { error: deleteError } = await supabase.from('favorite_words').upsert(
               {
                 id: favorite.id,
                 user_id: user.id,
