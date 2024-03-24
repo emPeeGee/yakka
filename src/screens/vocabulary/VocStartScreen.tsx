@@ -89,7 +89,7 @@ export const VocStartScreen = () => {
 
   return (
     <ContainerWithInsets>
-      {isLoading ? (
+      {isLoading && words.length === 0 ? (
         <View style={[gStyles.centerColumn, { height: '100%' }]}>
           <Loader />
         </View>

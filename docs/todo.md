@@ -61,6 +61,7 @@
 
 ## Medium:
 
+[ ] like a explore lesson
 [ ] Action sheet in the learn tree as well ??? or blurred component ???
 [ ] Check enhanced text, instead of style for size use size prop
 [ ] to many cards in the initial deck
@@ -104,3 +105,4 @@
 [ ] randomize matching pairs
 [ ] click favorite word => no category
 [ ] after adding new word to like, click favorites
+[ ] word of the day, front and back card have different width and height
