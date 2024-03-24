@@ -67,6 +67,10 @@ CREATE ROLE admin_role;
 -- drop table learn_path;
 -- drop table users;
 
+drop function get_random_words;
+drop function get_daily_word;
+drop type random_word_record;
+drop table daily_words;
 drop table words_users;
 drop table words;
 drop table word_categories;
@@ -422,3 +426,71 @@ CREATE POLICY user_access_policy ON words_users
     FOR ALL
     TO public
     USING (auth.uid() = user_id);
+
+
+-- 5 RANDOM WORDS
+-- Define a composite type
+CREATE TYPE random_word_record AS (
+    word_id INT,
+    word VARCHAR(100),
+    category_id INT,
+    pronunciation VARCHAR(100),
+    definition TEXT,
+    example TEXT,
+    part_of_speech VARCHAR(50),
+    synonyms TEXT[],
+    created_at TIMESTAMP,
+    category_name VARCHAR(100)
+);
+
+-- Define the function to return the composite type
+CREATE OR REPLACE FUNCTION get_random_words()
+RETURNS SETOF random_word_record AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT w.*, wc.category_name
+    FROM words w
+    INNER JOIN word_categories wc ON wc.category_id = w.category_id
+    ORDER BY RANDOM()
+    LIMIT 5;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TABLE daily_words (
+    id SERIAL PRIMARY KEY,
+    word_id INT REFERENCES words(word_id) NOT NULL,
+    date_retrieved DATE
+);
+
+CREATE OR REPLACE FUNCTION get_daily_word()
+RETURNS SETOF words AS $$
+DECLARE
+    today_date DATE := CURRENT_DATE;
+BEGIN
+    -- Check if words for today are already retrieved
+    IF EXISTS (
+        SELECT 1 FROM daily_words WHERE date_retrieved = today_date
+    ) THEN
+        -- Words for today are already retrieved, return them
+        RETURN QUERY 
+        SELECT w.* 
+        FROM words w
+        JOIN daily_words dw ON w.word_id = dw.word_id
+        WHERE dw.date_retrieved = today_date;
+    ELSE
+        -- Words for today are not retrieved yet, retrieve them and update daily_words table
+        RETURN QUERY 
+        SELECT * FROM words ORDER BY RANDOM() LIMIT 1;
+
+        -- Update the daily_words table with the retrieved words for today
+        INSERT INTO daily_words (word_id, date_retrieved)
+        SELECT word_id, today_date FROM words ORDER BY RANDOM() LIMIT 1;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+SELECT * FROM get_daily_word();
+
+

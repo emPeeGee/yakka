@@ -13,22 +13,25 @@ interface VocabularyState {
   categories: WordCategory[];
   typedCategory: string;
   favorites: Favorite[];
+  isLoading: boolean;
   setTypedCategory: (category: string) => void;
   setCategory: (category: WordCategory) => void;
   setFavorites: (action: 'add' | 'delete', favorite: Favorite, user: User) => void;
+  setIsLoading: (isLoading: boolean) => void;
   reset: () => void;
   init: (user: User | null) => void;
 }
 
 const initialState: Pick<
   VocabularyState,
-  'words' | 'category' | 'categories' | 'favorites' | 'typedCategory'
+  'words' | 'category' | 'categories' | 'favorites' | 'typedCategory' | 'isLoading'
 > = {
   words: [],
   category: null,
   categories: [],
   typedCategory: '',
   favorites: [],
+  isLoading: true,
 };
 
 export const useVocabularyStore = create<VocabularyState>()(
@@ -40,13 +43,12 @@ export const useVocabularyStore = create<VocabularyState>()(
           return;
         }
 
-        const { data: words, error: wordsError } = await supabase
-          .from('words')
-          .select('*,  word_categories:category_id(category_id, category_name)');
-        // .select('*,  word_categories!inner(category_id, category_name)');
+        const { data: words, error: wordsError } = await supabase.rpc('get_random_words');
         const { data: liked, error: likedError } = await supabase
           .from('words_users')
-          .select('id, word_id, liked, words!inner(word, part_of_speech)')
+          .select(
+            'id, word_id, liked, words!inner(word, part_of_speech, definition, example, pronunciation)',
+          )
           .eq('user_id', user.id);
 
         const { data: categories, error: categoriesError } = await supabase
@@ -61,6 +63,7 @@ export const useVocabularyStore = create<VocabularyState>()(
 
         set(state => ({
           ...state,
+          isLoading: false,
           words: [...(words?.map(w => ({ ...w })) as Word[])],
           categories: categories as WordCategory[],
           favorites: liked?.map(l => ({
@@ -69,6 +72,9 @@ export const useVocabularyStore = create<VocabularyState>()(
             liked: l.liked,
             word: l.words.word,
             part_of_speech: l.words.part_of_speech,
+            definition: l.words.definition,
+            example: l.words.example,
+            pronunciation: l.words.pronunciation,
           })),
         }));
       },
@@ -91,6 +97,7 @@ export const useVocabularyStore = create<VocabularyState>()(
           ...state,
           category,
           words: [...wordsForCategory],
+          isLoading: false,
           // words: category.category_id === 1 ? wordsForCategory.slice(-5) : [...wordsForCategory],
         }));
       },
@@ -139,7 +146,12 @@ export const useVocabularyStore = create<VocabularyState>()(
             break;
         }
       },
-
+      setIsLoading: (isLoading: boolean) => {
+        set(state => ({
+          ...state,
+          isLoading,
+        }));
+      },
       reset: () => {
         set(initialState);
       },
