@@ -7,22 +7,6 @@ import { translate } from '@/core/i18n';
 import { FocusAwareStatusBar, HeroLoading } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
-const contentPOC = `
-# Present Simple tense
-
-![Present Simple tense](../images/grammar/tense-present-simple.png)
-
-The **Present Simple tense** is the most basic tense in English and uses the base form of the verb (except for the verb _be_). The only change from the base is the addition of **s** for third person singular.
-
-## How do we make the Present Simple tense?
-
-There are two basic structures for the Present Simple:
-
-| subject | main verb      |
-| ------- | -------------- |
-| +       | Present simple |
-`;
-
 export const ExpContentScreen = ({ route, navigation }) => {
   const { theme } = useTheme();
   const [file, setFile] = useState<string>('');
@@ -30,27 +14,13 @@ export const ExpContentScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      title: translate(route.params.title),
+      title: translate(route.params.lesson_name),
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-
-    // TODO: doesn't work
-    // fetch(require(`./content/${route.params.content}`))
-
-    // fetch(contentPOC)
-    // .then(res => res.text())
-    // .then(text => {
-    //   setFile(text);
-    //   console.log(text);
-
-    // TODO: instead of setTimeout, real time
     setTimeout(() => {
-      // TODO: workaround for web
-      setFile(contentPOC);
+      setFile(route.params.lesson_content);
       setLoading(false);
     }, 1000);
-    //     });
   }, []);
 
   return (

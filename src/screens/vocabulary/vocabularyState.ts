@@ -6,7 +6,6 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { supabase } from '@/api';
 import { Favorite, Word, WordCategory } from '@/types';
 
-// const allWords = Object.values(vocabulary) as Word[];
 interface VocabularyState {
   words: Word[];
   category: WordCategory | null;

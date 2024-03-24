@@ -1,78 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { supabase } from '@/api';
 import { TxKeyPath, translate } from '@/core/i18n';
-import { Choice, ChoiceGroup, ContainerWithInsets, Emoji } from '@/ui/core';
-import { useTheme } from '@/ui/theme';
-import { ExploreTopics } from './ExpTopicsScreen';
+import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader } from '@/ui/core';
+import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { Explore, useExploreStore } from './exploreState';
 import { HeaderScrollView } from './Header';
-
-export const TENSES: Choice<{ content: string; title: TxKeyPath }>[] = [
-  {
-    value: { content: 'test.md', title: 'exp.presentSimple' },
-    tx: 'exp.presentSimple',
-    Left: () => <Emoji emoji="🙂" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.presentContinuous' },
-    tx: 'exp.presentContinuous',
-    Left: () => <Emoji emoji="🏃‍♂️" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.presentPerfect' },
-    tx: 'exp.presentPerfect',
-    Left: () => <Emoji emoji="🎁" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.presentPerfectContinuous' },
-    tx: 'exp.presentPerfectContinuous',
-    Left: () => <Emoji emoji="🌱" />,
-  },
-
-  {
-    value: { content: './presentSimple.md', title: 'exp.pastSimple' },
-    tx: 'exp.pastSimple',
-    Left: () => <Emoji emoji="🕰️" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.pastContinuous' },
-    tx: 'exp.pastContinuous',
-    Left: () => <Emoji emoji="🚶‍♀️" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.pastPerfect' },
-    tx: 'exp.pastPerfect',
-    Left: () => <Emoji emoji="🚪" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.pastPerfectContinuous' },
-    tx: 'exp.pastPerfectContinuous',
-    Left: () => <Emoji emoji="🛣️" />,
-  },
-
-  {
-    value: { content: './presentSimple.md', title: 'exp.futureSimple' },
-    tx: 'exp.futureSimple',
-    Left: () => <Emoji emoji="🎯" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.futureContinuous' },
-    tx: 'exp.futureContinuous',
-    Left: () => <Emoji emoji="🌧️" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.futurePerfect' },
-    tx: 'exp.futurePerfect',
-    Left: () => <Emoji emoji="🌅" />,
-  },
-  {
-    value: { content: './presentSimple.md', title: 'exp.futurePerfectContinuous' },
-    tx: 'exp.futurePerfectContinuous',
-    Left: () => <Emoji emoji="🏖️" />,
-  },
-];
 
 export const VERBS: Choice<{ content: string; title: TxKeyPath }>[] = [
   {
@@ -86,33 +22,61 @@ export const VERBS: Choice<{ content: string; title: TxKeyPath }>[] = [
     Left: () => <Emoji emoji="📐‍️" />,
   },
 ];
-const SUBTOPICS = {
-  [ExploreTopics.BasicTenses]: TENSES,
-  [ExploreTopics.Grammar]: [],
-  [ExploreTopics.Verbs]: VERBS,
-};
 
 export const ExpBasicTensesScreen = ({ route }) => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
-  const subtopics = useMemo(
-    () => SUBTOPICS[route.params.topic as ExploreTopics],
-    [route.params.topic],
-  );
+  const gStyles = useGlobalThemedStyles();
+  const [subtopics, setSubtopics] = useState<Explore[]>([]);
+
+  const { setIsLoading, isLoading } = useExploreStore();
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const fetchSubtopics = async () => {
+      const { data: subTopics, error: subTopicsError } = await supabase
+        .from('explore')
+        .select('*')
+        .eq('topic_id', route.params.topic.topic_id);
+
+      if (subTopicsError) {
+        return;
+      }
+
+      setSubtopics(subTopics);
+      setIsLoading(false);
+    };
+
+    fetchSubtopics();
+  }, []);
 
   return (
     <ContainerWithInsets withoutBottom>
       <HeaderScrollView title={translate('exp.12basicTenses')} withBackButton>
-        <View style={{ padding: theme.spacing.md }}>
-          <ChoiceGroup
-            options={subtopics}
-            onChange={({ content, title }) => {
-              setTimeout(() => {
-                navigate('ExpContent' as never, { content, title } as never);
-              });
-            }}
-          />
-        </View>
+        {isLoading ? (
+          <View style={[gStyles.centerColumn, { height: '100%' }]}>
+            <Loader />
+          </View>
+        ) : (
+          <View style={{ padding: theme.spacing.md }}>
+            <ChoiceGroup
+              options={subtopics.map(
+                s =>
+                  ({
+                    value: s,
+                    tx: s.lesson_name,
+                    Left: () => <Emoji emoji={s.emoji} />,
+                  }) as Choice<Explore>,
+              )}
+              onChange={({ lesson_content, lesson_name }) => {
+                setTimeout(() => {
+                  navigate('ExpContent' as never, { lesson_content, lesson_name } as never);
+                });
+              }}
+            />
+          </View>
+        )}
       </HeaderScrollView>
     </ContainerWithInsets>
   );

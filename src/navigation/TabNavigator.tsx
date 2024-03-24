@@ -77,7 +77,7 @@ export const TabNavigator = () => {
   return (
     <Tab.Navigator
       // NOTE: route name for dev purpose
-      initialRouteName="Learn"
+      initialRouteName="Explore"
       screenOptions={({ route }) => ({
         tabBarStyle: {
           borderTopWidth: 0,

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '@/core/providers';
-import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, TextField } from '@/ui/core';
+import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader, TextField } from '@/ui/core';
 import { MagnifyingGlassIcon } from '@/ui/icons';
-import { useTheme } from '@/ui/theme';
+import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { Topic, useExploreStore } from './exploreState';
 import { HeaderScrollView } from './Header';
 
 // TODO: not the best location
@@ -24,47 +25,66 @@ export const TOPICS: Choice<ExploreTopics>[] = [
 
 export const ExpTopicsScreen = () => {
   const { theme } = useTheme();
+  const gStyles = useGlobalThemedStyles();
   const { navigate } = useNavigation();
   const [typedTopic, setTypedTopic] = useState('');
-  const { withAccessControl } = useAuth();
+  const { withAccessControl, user } = useAuth();
+  const { init, isLoading, topics } = useExploreStore();
+
+  useEffect(() => {
+    init(user);
+  }, []);
 
   return (
     <ContainerWithInsets>
-      <HeaderScrollView title="exp.learnToday">
-        <View
-          style={{
-            paddingVertical: theme.spacing.xs,
-            paddingHorizontal: theme.spacing.md,
-          }}>
+      {isLoading ? (
+        <View style={[gStyles.centerColumn, { height: '100%' }]}>
+          <Loader />
+        </View>
+      ) : (
+        <HeaderScrollView title="exp.learnToday">
           <View
             style={{
-              paddingVertical: theme.spacing.md,
+              paddingVertical: theme.spacing.xs,
+              paddingHorizontal: theme.spacing.md,
             }}>
-            <TextField
-              value={typedTopic}
-              onChangeText={setTypedTopic}
-              placeholderTx="exp.searchTopic"
-              style={{ paddingVertical: theme.spacing.md }}
-              RightAccessory={props => (
-                <View style={[props.style]}>
-                  <MagnifyingGlassIcon />
-                </View>
+            <View
+              style={{
+                paddingVertical: theme.spacing.md,
+              }}>
+              <TextField
+                value={typedTopic}
+                onChangeText={setTypedTopic}
+                placeholderTx="exp.searchTopic"
+                style={{ paddingVertical: theme.spacing.md }}
+                RightAccessory={props => (
+                  <View style={[props.style]}>
+                    <MagnifyingGlassIcon />
+                  </View>
+                )}
+              />
+            </View>
+            <ChoiceGroup
+              options={topics.map(
+                t =>
+                  ({
+                    value: t,
+                    tx: t.topic_name,
+                    Left: () => <Emoji emoji={t.emoji} />,
+                  }) as Choice<Topic>,
               )}
+              onChange={topic => {
+                setTimeout(() => {
+                  withAccessControl(
+                    () => navigate('ExpSubtopics' as never, { topic } as never),
+                    () => navigate('Auth', { screen: 'AuthSignUp' }),
+                  )();
+                });
+              }}
             />
           </View>
-          <ChoiceGroup
-            options={TOPICS}
-            onChange={topic => {
-              setTimeout(() => {
-                withAccessControl(
-                  () => navigate('ExpSubtopics' as never, { topic } as never),
-                  () => navigate('Auth', { screen: 'AuthSignUp' }),
-                )();
-              });
-            }}
-          />
-        </View>
-      </HeaderScrollView>
+        </HeaderScrollView>
+      )}
     </ContainerWithInsets>
   );
 };
