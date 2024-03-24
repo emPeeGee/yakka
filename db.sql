@@ -90,6 +90,11 @@ CREATE POLICY admin_only_policy ON word_categories
     TO admin_role
     USING (true); -- Allow access for admins
 
+CREATE POLICY read_only_policy ON word_categories
+    FOR SELECT
+    TO public
+    USING (true);  -- Allow SELECT for everyone
+
 INSERT INTO word_categories (category_name, emoji) VALUES
  ('voc.allWords', '🍓'),
  ('voc.animals', '🦔'),
@@ -115,10 +120,6 @@ INSERT INTO word_categories (category_name, emoji) VALUES
  ('voc.jobs', '🎃');
 
 
-CREATE POLICY read_only_policy ON word_categories
-    FOR SELECT
-    TO public
-    USING (true);  -- Allow SELECT for everyone
 
 -- Words Table
 CREATE TABLE words (
@@ -494,3 +495,133 @@ $$ LANGUAGE plpgsql;
 SELECT * FROM get_daily_word();
 
 
+drop table explore_users;
+drop table explore;
+drop table topics;
+-------------------------------------------------------------------
+------------------------TOPICS-------------------------------------
+-------------------------------------------------------------------
+CREATE TABLE topics (
+    topic_id SERIAL PRIMARY KEY,
+    topic_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    emoji TEXT NOT NULL
+);
+
+
+alter table topics
+  enable row level security;
+
+-- Create a policy on the 'words' table to restrict access to admins
+CREATE POLICY admin_only_policy ON topics
+    FOR ALL
+    TO admin_role
+    USING (true); -- Allow access for admins
+
+CREATE POLICY read_only_policy ON topics
+    FOR SELECT
+    TO public
+    USING (true);  -- Allow SELECT for everyone
+
+INSERT INTO topics (topic_name, description, emoji) VALUES
+  ('exp.12basicTenses', 'Introduction to the twelve basic tenses in English grammar.', '📜'),
+  ('exp.grammar', 'Learn about the rules and principles governing language structure.', '📚'),
+  ('exp.verbs', 'Explore the various types and functions of verbs in English.', '🤸');
+
+
+-------------------------------------------------------------------
+----------------- EXPLORE------------------------------------------
+-------------------------------------------------------------------
+
+
+CREATE TABLE explore (
+    explore_id SERIAL PRIMARY KEY,
+    lesson_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    emoji TEXT NOT NULL,
+    lesson_content TEXT NOT NULL, -- Content of the lesson in Markdown 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    topic_id INT REFERENCES topics (topic_id) NOT NULL
+);
+
+
+alter table explore
+  enable row level security;
+
+-- Create a policy on the 'words' table to restrict access to admins
+CREATE POLICY admin_only_policy ON explore
+    FOR ALL
+    TO admin_role
+    USING (true); -- Allow access for admins
+
+CREATE POLICY read_only_policy ON explore
+    FOR SELECT
+    TO public
+    USING (true);  -- Allow SELECT for everyone
+
+
+INSERT INTO explore (lesson_name, emoji, topic_id, lesson_content) VALUES
+('exp.presentSimple', '🙂', 1, ''),
+('exp.presentContinuous', '🏃‍♂️', 1, ''),
+('exp.presentPerfect', '🎁', 1, ''),
+('exp.presentPerfectContinuous', '🌱', 1, ''),
+('exp.pastSimple', '🕰️', 1, ''),
+('exp.pastContinuous', '🚶‍♀️', 1, ),
+('exp.pastPerfect', '🚪', 1, ''),
+('exp.pastPerfectContinuous', '🛣️', 1, ''),
+('exp.futureSimple', '🎯', 1, ''),
+('exp.futureContinuous', '🌧️', 1, ''),
+('exp.futurePerfect', 1,'🌅', ''),
+('exp.futurePerfectContinuous',  '🌅', 1, '');
+
+
+-------------------------------------------------------------------
+----------------- EXPLORE USERS ------------------------------------------
+-------------------------------------------------------------------
+CREATE TABLE explore_users (
+    id SERIAL PRIMARY KEY,
+    explore_id INT REFERENCES explore (explore_id) NOT NULL,
+    user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+    liked BOOLEAN DEFAULT FALSE
+);
+
+
+alter table explore_users
+  enable row level security;
+
+create policy "Explore_users are viewable by users who created them." on explore_users 
+  for select using (auth.uid() = user_id);
+
+
+
+-- -- Learn Path Table
+-- CREATE TABLE learn_path (
+--     lesson_id SERIAL PRIMARY KEY,
+--     lesson_name VARCHAR(100) NOT NULL,
+--     lesson_description TEXT,
+--     experience_earned INT DEFAULT 0,
+--     balloons_earned INT DEFAULT 0,
+--     user_id uuid references auth.users on delete cascade not null,
+--     completed BOOLEAN DEFAULT FALSE,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+
+-- drop table words_users;
+-- drop table words;
+-- drop table explore_users;
+-- drop table explore;
+-- drop table learn_path;
+-- drop table users;
+
+-- Grant SELECT, INSERT, UPDATE, DELETE permissions on explore_users and vocabulary to regular users
+-- GRANT SELECT, INSERT, UPDATE, DELETE ON explore_users TO regular_user_role;
+-- GRANT SELECT, INSERT, UPDATE, DELETE ON words_users TO regular_user_role;
+
+-- -- Only grant SELECT permissions on words and explore to regular users
+-- GRANT SELECT ON words TO regular_user_role;
+-- GRANT SELECT ON explore TO regular_user_role;
+
+-- -- Grant all permissions on words and explore to admin users
+-- GRANT ALL PRIVILEGES ON words TO admin_role;
+-- GRANT ALL PRIVILEGES ON explore TO admin_role;
