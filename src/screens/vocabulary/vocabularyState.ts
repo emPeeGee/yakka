@@ -84,10 +84,17 @@ export const useVocabularyStore = create<VocabularyState>()(
           typedCategory: category,
         })),
       setCategory: async category => {
-        const { data: wordsForCategory, error: wordsError } = await supabase
-          .from('words')
-          .select('*,  word_categories:category_id(category_id, category_name)')
-          .eq('category_id', category.category_id);
+        let query;
+        if (category.category_id === 1) {
+          query = await supabase.rpc('get_random_words');
+        } else {
+          query = supabase
+            .from('words')
+            .select('*,  word_categories:category_id(category_id, category_name)')
+            .eq('category_id', category.category_id);
+        }
+
+        const { data: wordsForCategory, error: wordsError } = await query;
 
         if (wordsError) {
           return;
@@ -105,7 +112,7 @@ export const useVocabularyStore = create<VocabularyState>()(
         switch (action) {
           case 'add':
             // eslint-disable-next-line no-case-declarations
-            const { error: addError } = await supabase.from('words_users').upsert(
+            const { error: addError } = await supabase.from('favorite_words').upsert(
               {
                 id: favorite.id,
                 user_id: user.id,
