@@ -25,7 +25,7 @@ import {
   TypographyPresets,
   FontSizes,
 } from './theme';
-import { Word, WordCategory, SpeechPart, WordLabel, WordMeaning } from './vocabulary';
+import { Word, WordCategory, SpeechPart, Favorite } from './vocabulary';
 
 export type {
   VoidCb,
@@ -42,8 +42,7 @@ export type {
   Word,
   WordCategory,
   SpeechPart,
-  WordLabel,
-  WordMeaning,
+  Favorite,
   ActivityType,
   PickAnswerActivityType,
   TypeAnswerActivityType,

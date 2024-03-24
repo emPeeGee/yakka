@@ -1,27 +1,28 @@
-export type WordCategory =
-  | 'all'
-  | 'animals1'
-  | 'colors1'
-  | 'colors2'
-  | 'shapes1'
-  | 'actions1'
-  | 'actions2'
-  | 'vegetables1'
-  | 'transport1'
-  | 'pets1'
-  | 'weather1';
+export type WordCategory = {
+  category_id: number;
+  category_name: string;
+  emoji: string;
+};
 
 export type Word = {
-  wordId: number;
+  word_id: number;
   word: string;
-  category: WordCategory;
-  categoryId: null;
+  word_categories?: WordCategory | null;
+  category_id: null;
   pronunciation: string;
   synonyms?: string[];
   definition: string;
   example?: null;
-  partOfSpeech: string;
-  createdAt?: string;
+  part_of_speech: string;
+  created_at?: string;
+};
+
+export type Favorite = {
+  id: number;
+  word_id: number;
+  liked: boolean;
+  word: string;
+  part_of_speech: string;
 };
 
 export type SpeechPart =
@@ -33,21 +34,3 @@ export type SpeechPart =
   | 'preposition'
   | 'conjunction'
   | 'interjection';
-
-export type WordMeaning = {
-  id: string;
-  def: string;
-  example?: string;
-  speech_part: SpeechPart;
-  synonyms?: string[];
-  labels?: WordLabel[];
-};
-
-export type WordLabel = {
-  name: string;
-  is_dialect: boolean;
-  parent: {
-    name: string;
-    is_dialect: boolean;
-  };
-};
