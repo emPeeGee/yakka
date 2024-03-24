@@ -102,6 +102,7 @@
 [ ] autokeyboard for typeanswer
 [x] status bar and bottom bar colors in different themes
 [ ] randomize matching pairs
+[ ] click favorite word => no category
 
 ## To check
 

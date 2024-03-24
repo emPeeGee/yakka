@@ -13,7 +13,7 @@ import { useVocabularyStore } from './vocabularyState';
 export const VocCategoriesScreen = () => {
   const { theme } = useTheme();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
-  const { categories, category, typedCategory, setCategory } = useVocabularyStore();
+  const { setIsLoading, categories, category, typedCategory, setCategory } = useVocabularyStore();
   const { goBack } = useNavigation();
 
   return (
@@ -38,6 +38,7 @@ export const VocCategoriesScreen = () => {
             .filter(c => c.label?.includes(typedCategory.toLowerCase()))}
           value={category}
           onChange={category => {
+            setIsLoading(true);
             setCategory(category as WordCategory);
             setTimeout(() => {
               goBack();

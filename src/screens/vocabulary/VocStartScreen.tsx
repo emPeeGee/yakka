@@ -11,6 +11,7 @@ import {
   EnhancedText,
   CardStackItem,
   CardStack,
+  Loader,
 } from '@/ui/core';
 import { HeartIcon, BookBookmarkIcon, MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -72,10 +73,11 @@ export const VocStartScreen = () => {
   const gStyles = useGlobalThemedStyles();
   const swiperRef = useRef<any>();
   const { navigate } = useNavigation();
-  const { words, init } = useVocabularyStore();
+  const { words, init, isLoading, setIsLoading } = useVocabularyStore();
   const { withAccessControl, user } = useAuth();
 
   useEffect(() => {
+    setIsLoading(true);
     init(user);
   }, [user]);
 
@@ -87,114 +89,120 @@ export const VocStartScreen = () => {
 
   return (
     <ContainerWithInsets>
-      <View
-        style={[
-          {
-            flex: 1,
-            width: '100%',
-            gap: theme.spacing.md,
-            paddingVertical: theme.spacing.md,
-            paddingHorizontal: theme.spacing.md,
-            backgroundColor:
-              appColorScheme === 'dark' ? theme.colors.background : theme.colors.primary100,
-          },
-          gStyles.centerColumn,
-        ]}>
-        <View style={[gStyles.centerRowBetween, { gap: theme.spacing.xs, width: '100%' }]}>
-          <Button
-            tx="voc.seeWordOfTheDay"
-            width="auto"
-            backgroundColor={theme.colors.secondary500}
-            color={theme.colors.primary900}
-            Left={() => BookBookmarkIcon({ width: 24, height: 24 })}
-            style={[{ paddingVertical: theme.spacing.xs }]}
-            textStyle={{ fontSize: theme.typography.sizes.xs.fontSize, textTransform: 'none' }}
-            onPress={withAccessControl(
-              () => navigate('VocWordOfTheDay' as never),
-              () => navigate('Auth', { screen: 'AuthSignUp' }),
-            )}
-          />
-          <View style={[gStyles.fullWidthFromStart, { width: 'auto' }]} />
-          {/* TODO: Tooltip */}
-          <Button
-            // tx="voc.search"
-            width="auto"
-            backgroundColor={theme.colors.secondary500}
-            color={theme.colors.primary900}
-            Left={() => MagnifyingGlassIcon({ width: 26, height: 26 })}
-            style={[{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }]}
-            onPress={withAccessControl(
-              () => navigate('VocCategories' as never),
-              () => navigate('Auth', { screen: 'AuthSignUp' }),
-            )}
-          />
-          {/* TODO: Tooltip */}
-          <Button
-            // tx="voc.favorites"
-            width="auto"
-            backgroundColor={theme.colors.secondary500}
-            color={theme.colors.primary900}
-            Left={() => HeartIcon({ width: 26, height: 26, fill: theme.colors.primary900 })}
-            style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
-            onPress={withAccessControl(
-              () => navigate('VocFavorites' as never),
-              () => navigate('Auth', { screen: 'AuthSignUp' }),
-            )}
-          />
+      {isLoading ? (
+        <View style={[gStyles.centerColumn, { height: '100%' }]}>
+          <Loader />
         </View>
-        <View style={{ minWidth: 320, minHeight: 560 }}>
-          <CardStack
-            style={[styles.content]}
-            renderNoMoreCards={() => (
-              <EnhancedText style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>
-                No more cards :(
-              </EnhancedText>
-            )}
-            ref={swiper => {
-              swiperRef.current = swiper;
-            }}
-            theme={theme}
-            onSwiped={() => console.log('onSwiped')}
-            onSwipedLeft={() => console.log('onSwipedLeft')}>
-            {words.map(word => (
-              <CardStackItem key={word.word} style={[styles.card]}>
-                <WordCard word={word} />
-              </CardStackItem>
-            ))}
-            {/* <CardStackItem style={[styles.card]} onSwipedLeft={() => alert('left swipe')}>
+      ) : (
+        <View
+          style={[
+            {
+              flex: 1,
+              width: '100%',
+              gap: theme.spacing.md,
+              paddingVertical: theme.spacing.md,
+              paddingHorizontal: theme.spacing.md,
+              backgroundColor:
+                appColorScheme === 'dark' ? theme.colors.background : theme.colors.primary100,
+            },
+            gStyles.centerColumn,
+          ]}>
+          <View style={[gStyles.centerRowBetween, { gap: theme.spacing.xs, width: '100%' }]}>
+            <Button
+              tx="voc.seeWordOfTheDay"
+              width="auto"
+              backgroundColor={theme.colors.secondary500}
+              color={theme.colors.primary900}
+              Left={() => BookBookmarkIcon({ width: 24, height: 24 })}
+              style={[{ paddingVertical: theme.spacing.xs }]}
+              textStyle={{ fontSize: theme.typography.sizes.xs.fontSize, textTransform: 'none' }}
+              onPress={withAccessControl(
+                () => navigate('VocWordOfTheDay' as never),
+                () => navigate('Auth', { screen: 'AuthSignUp' }),
+              )}
+            />
+            <View style={[gStyles.fullWidthFromStart, { width: 'auto' }]} />
+            {/* TODO: Tooltip */}
+            <Button
+              // tx="voc.search"
+              width="auto"
+              backgroundColor={theme.colors.secondary500}
+              color={theme.colors.primary900}
+              Left={() => MagnifyingGlassIcon({ width: 26, height: 26 })}
+              style={[{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }]}
+              onPress={withAccessControl(
+                () => navigate('VocCategories' as never),
+                () => navigate('Auth', { screen: 'AuthSignUp' }),
+              )}
+            />
+            {/* TODO: Tooltip */}
+            <Button
+              // tx="voc.favorites"
+              width="auto"
+              backgroundColor={theme.colors.secondary500}
+              color={theme.colors.primary900}
+              Left={() => HeartIcon({ width: 26, height: 26, fill: theme.colors.primary900 })}
+              style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
+              onPress={withAccessControl(
+                () => navigate('VocFavorites' as never),
+                () => navigate('Auth', { screen: 'AuthSignUp' }),
+              )}
+            />
+          </View>
+          <View style={{ minWidth: 320, minHeight: 560 }}>
+            <CardStack
+              style={[styles.content]}
+              renderNoMoreCards={() => (
+                <EnhancedText style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>
+                  No more cards :(
+                </EnhancedText>
+              )}
+              ref={swiper => {
+                swiperRef.current = swiper;
+              }}
+              theme={theme}
+              onSwiped={() => console.log('onSwiped')}
+              onSwipedLeft={() => console.log('onSwipedLeft')}>
+              {words.map(word => (
+                <CardStackItem key={word.word} style={[styles.card]}>
+                  <WordCard word={word} />
+                </CardStackItem>
+              ))}
+              {/* <CardStackItem style={[styles.card]} onSwipedLeft={() => alert('left swipe')}>
               <WordCard word={vocabulary.mildly as Word} />
             </CardStackItem>
             <CardStackItem style={[styles.card]}>
               <WordCard word={vocabulary.momently as Word} />
             </CardStackItem> */}
-          </CardStack>
-        </View>
-        <View style={styles.footer}>
-          <View style={styles.buttonContainer}>
-            <EnhancedPressable
-              style={[styles.button, styles.red, { backgroundColor: theme.colors.background }]}
-              onPress={() => {
-                swiperRef.current.swipeLeft();
-              }}>
-              <EnhancedText>to left</EnhancedText>
-            </EnhancedPressable>
-            <EnhancedPressable
-              style={[styles.button, styles.orange, { backgroundColor: theme.colors.background }]}
-              onPress={() => {
-                swiperRef.current.goBackFromLeft();
-              }}>
-              <EnhancedText>restart</EnhancedText>
-            </EnhancedPressable>
-            <EnhancedPressable
-              style={[styles.button, styles.green, { backgroundColor: theme.colors.background }]}
-              onPress={() => {
-                swiperRef.current.swipeRight();
-              }}>
-              <EnhancedText>to right</EnhancedText>
-            </EnhancedPressable>
+            </CardStack>
+          </View>
+          <View style={styles.footer}>
+            <View style={styles.buttonContainer}>
+              <EnhancedPressable
+                style={[styles.button, styles.red, { backgroundColor: theme.colors.background }]}
+                onPress={() => {
+                  swiperRef.current.swipeLeft();
+                }}>
+                <EnhancedText>to left</EnhancedText>
+              </EnhancedPressable>
+              <EnhancedPressable
+                style={[styles.button, styles.orange, { backgroundColor: theme.colors.background }]}
+                onPress={() => {
+                  swiperRef.current.goBackFromLeft();
+                }}>
+                <EnhancedText>restart</EnhancedText>
+              </EnhancedPressable>
+              <EnhancedPressable
+                style={[styles.button, styles.green, { backgroundColor: theme.colors.background }]}
+                onPress={() => {
+                  swiperRef.current.swipeRight();
+                }}>
+                <EnhancedText>to right</EnhancedText>
+              </EnhancedPressable>
+            </View>
           </View>
         </View>
-      </View>
+      )}
     </ContainerWithInsets>
   );
 };
