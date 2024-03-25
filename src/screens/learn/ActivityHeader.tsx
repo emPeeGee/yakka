@@ -97,7 +97,14 @@ export function ActivityHeader({
           )}
 
           {noSentence === false && (
-            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                flex: 1,
+              }}>
               {sentenceWithPlaceholders}
             </View>
           )}
