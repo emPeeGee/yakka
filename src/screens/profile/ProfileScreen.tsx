@@ -133,24 +133,35 @@ export const ProfileScreen = () => {
             gStyles.startRowStart,
             { width: '100%', gap: theme.spacing.md, marginVertical: theme.spacing.md },
           ]}>
-          <Button
-            tx="profile.editProfile"
-            width="auto"
-            backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
-            color={isDark ? theme.colors.base0 : theme.colors.primary900}
-            Left={UserGearIcon}
-            onPress={() => navigate('ProfProfileEdit')}
-            style={{ paddingVertical: theme.spacing.sm }}
-          />
-          <Button
-            tx="profile.changePassword"
-            width="auto"
-            backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
-            color={isDark ? theme.colors.base0 : theme.colors.primary900}
-            Left={PasswordIcon}
-            onPress={() => navigate('ProfChangePassword')}
-            style={{ paddingVertical: theme.spacing.sm }}
-          />
+          {user ? (
+            <>
+              <Button
+                tx="profile.editProfile"
+                width="auto"
+                backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
+                color={isDark ? theme.colors.base0 : theme.colors.primary900}
+                Left={UserGearIcon}
+                onPress={() => navigate('ProfProfileEdit')}
+                style={{ paddingVertical: theme.spacing.sm }}
+              />
+              <Button
+                tx="profile.changePassword"
+                width="auto"
+                backgroundColor={isDark ? theme.colors.primary700 : theme.colors.primary100}
+                color={isDark ? theme.colors.base0 : theme.colors.primary900}
+                Left={PasswordIcon}
+                onPress={() => navigate('ProfChangePassword')}
+                style={{ paddingVertical: theme.spacing.sm }}
+              />
+            </>
+          ) : (
+            <Button
+              tx="common.createProfile"
+              backgroundColor={theme.colors.primary500}
+              Left={UserCircleIcon}
+              onPress={() => navigate('Auth', { screen: 'AuthSignUp' })}
+            />
+          )}
         </ScrollView>
 
         <List title="Dashboard" data={DASHBOARD_LIST} />

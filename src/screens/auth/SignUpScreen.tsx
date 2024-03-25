@@ -16,7 +16,7 @@ import {
   Loader,
   TextField,
 } from '@/ui/core';
-import { EyeIcon, EyeOffIcon } from '@/ui/icons';
+import { EyeIcon, EyeOffIcon, UserCircleIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const SignUpScreen = () => {
@@ -194,6 +194,7 @@ export const SignUpScreen = () => {
             backgroundColor={theme.colors.secondary500}
             onPress={signUp}
             disabled={loading}
+            Left={() => <UserCircleIcon color={theme.colors.secondary100} />}
             Right={() => (loading ? <Loader size="s" /> : undefined)}
           />
         </View>

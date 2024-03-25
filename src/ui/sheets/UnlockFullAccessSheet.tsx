@@ -5,6 +5,7 @@ import ActionSheet, { SheetManager, SheetProps } from 'react-native-actions-shee
 import { noop } from '@/core/utils';
 import { Button, EnhancedText } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
+import { UserCircleIcon } from '../icons';
 
 export function UnlockFullAccessSheet(props: SheetProps<'unlock-full-access-sheet'>) {
   const { sheetId, payload } = props;
@@ -37,6 +38,7 @@ export function UnlockFullAccessSheet(props: SheetProps<'unlock-full-access-shee
         <Button
           tx="common.createProfile"
           backgroundColor={theme.colors.secondary500}
+          Left={() => <UserCircleIcon color={theme.colors.secondary100} />}
           onPress={() => {
             SheetManager.hide(sheetId);
             onCreateProfile();

@@ -7,6 +7,7 @@ import { useTheme } from '@/ui/theme';
 import { Button } from './Button';
 import { Card } from './Card';
 import { EnhancedText } from './EnhancedText';
+import { UserCircleIcon } from '../icons';
 
 export const FullAccessPrompt = () => {
   const { theme, appColorScheme } = useTheme();
@@ -28,6 +29,7 @@ export const FullAccessPrompt = () => {
               <Button
                 tx="common.createProfile"
                 backgroundColor={theme.colors.secondary500}
+                Left={() => <UserCircleIcon color={theme.colors.secondary100} />}
                 onPress={() => navigate('Auth', { screen: 'AuthSignUp' })}
               />
             </View>
