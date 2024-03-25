@@ -1,65 +1,21 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { User } from '@supabase/supabase-js';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+import { supabase } from '@/api';
 import { REGENERATE_INTERVAL_S } from '@/core/constants';
 import { LearningLessonStats, Lesson, UserStats } from '@/types';
-import {
-  lesson0,
-  lesson1,
-  lesson2,
-  lesson3,
-  lesson4,
-  lesson5,
-  lesson6,
-  lesson7,
-  lesson8,
-  lesson9,
-  lesson10,
-  lesson11,
-  lesson12,
-  lesson13,
-  lesson14,
-  lesson15,
-  lesson16,
-  lesson17,
-  lesson18,
-  lesson19,
-  lesson20,
-} from './lessons';
-
-const lessons: Lesson[] = [
-  lesson0,
-  lesson1,
-  lesson2,
-  lesson3,
-  lesson4,
-  lesson5,
-  lesson6,
-  lesson7,
-  lesson8,
-  lesson9,
-  lesson10,
-  lesson11,
-  lesson12,
-  lesson13,
-  lesson14,
-  lesson15,
-  lesson16,
-  lesson17,
-  lesson18,
-  lesson19,
-  lesson20,
-];
 
 interface LearnState {
+  isLoading: boolean;
   lessons: Lesson[];
-  completed: string[];
-  current: string;
+  completed: number[];
+  current: number;
   stats: UserStats;
   lastRegeneration: number;
-  // setTypedCategory: (category: string) => void;
-  setCompleted: (id: string, wonStats: LearningLessonStats) => void;
+  init: (user: User | null) => void;
+  setCompleted: (lesson_id: number, wonStats: LearningLessonStats, user: User) => void;
   regenerateLife: () => void;
   reset: () => void;
 }
@@ -68,38 +24,98 @@ export const MAX_LIVES = 10;
 
 const initialState: Pick<
   LearnState,
-  'lessons' | 'completed' | 'current' | 'stats' | 'lastRegeneration'
+  'isLoading' | 'lessons' | 'completed' | 'current' | 'stats' | 'lastRegeneration'
 > = {
-  lessons: lessons,
+  isLoading: true,
+  lessons: [],
   completed: [],
-  current: lessons.at(0)?.id ?? '',
-  stats: { balloons: 0, experience: 0, lives: MAX_LIVES },
+  current: -1,
+  stats: {
+    balloons: 0,
+    experience: 0,
+    lives: MAX_LIVES,
+    user_id: 0,
+    created_at: '',
+    updated_at: '',
+  },
   lastRegeneration: Date.now(),
 };
-
-console.log('at', lessons.at(0)?.id ?? '-1');
 
 export const useLearnStore = create<LearnState>()(
   persist<LearnState>(
     set => ({
       ...initialState,
-      setCompleted: (id: string, wonStats: LearningLessonStats) =>
-        set(state => {
-          const nextLesson = state.lessons.at(state.lessons.findIndex(l => l.id === id) + 1);
+      init: async (user: User | null) => {
+        if (!user) {
+          return;
+        }
 
-          console.log(nextLesson?.title, nextLesson?.id);
+        const { data: lessons, error: lessonsError } = await supabase
+          .from('lessons')
+          .select('*')
+          .order('lesson_number', { ascending: true });
+        const { data: completedLessons, error: completedLessonsError } = await supabase
+          .from('user_lessons')
+          .select('*, lessons!inner(lesson_number)')
+          .eq('user_id', user.id)
+          .order('lesson_number', { referencedTable: 'lessons', ascending: true });
+        console.log('lessons', lessons, completedLessons);
+
+        console.log('errors', lessonsError, completedLessonsError);
+        console.log('completed', completedLessons?.map(l => l.lessons.lesson_number));
+
+        if (lessonsError || completedLessonsError) {
+          return;
+        }
+
+        const completed = completedLessons?.map(l => l.lessons.lesson_number);
+
+        set(state => ({
+          ...state,
+          isLoading: false,
+          lessons: [...lessons],
+          completed,
+          current: completed.at(-1) + 1, //  lessons.at(0).lesson_number,
+        }));
+      },
+      setCompleted: async (lesson_id: number, wonStats: LearningLessonStats, user: User) => {
+        const { error: completedError } = await supabase.from('user_lessons').upsert(
+          {
+            // TODO: need to pass user_lesson_id when doing the lesson second time, otherwise it will be created twice
+            lesson_id: lesson_id,
+            user_id: user.id,
+            completed: true,
+            completed_at: new Date().toISOString().toLocaleString('en-US'),
+          },
+          { onConflict: 'user_lesson_id' },
+        );
+
+        console.log(completedError);
+
+        if (completedError) {
+          return;
+        }
+
+        set(state => {
+          const passedLesson = state.lessons.at(
+            state.lessons.findIndex(l => l.lesson_id === lesson_id),
+          ) as Lesson;
+          const nextLesson = passedLesson?.lesson_number + 1;
+
+          console.log('passed', passedLesson, nextLesson);
 
           return {
             ...state,
-            completed: [...state.completed, id],
-            current: nextLesson?.id,
+            completed: [...state.completed, passedLesson?.lesson_number],
+            current: nextLesson,
             stats: {
               balloons: state.stats.balloons + wonStats.balloons,
               experience: state.stats.experience + wonStats.experience,
               lives: state.stats.lives - wonStats.livesUsed,
             },
           };
-        }),
+        });
+      },
       regenerateLife: () =>
         set(state => {
           if (state.stats.lives >= MAX_LIVES) {
@@ -151,14 +167,14 @@ export const useLearnStore = create<LearnState>()(
       name: 'learn-storage',
       storage: createJSONStorage(() => AsyncStorage),
       // Store only these fields
-      partialize: state =>
-        ({
-          lessons: state.lessons,
-          completed: state.completed,
-          current: state.current,
-          stats: state.stats,
-          lastRegeneration: state.lastRegeneration,
-        }) as LearnState,
+      // partialize: state =>
+      //   ({
+      //     lessons: state.lessons,
+      //     completed: state.completed,
+      //     current: state.current,
+      //     stats: state.stats,
+      //     lastRegeneration: state.lastRegeneration,
+      //   }) as LearnState,
     },
   ),
 );

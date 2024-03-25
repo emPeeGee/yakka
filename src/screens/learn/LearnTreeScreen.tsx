@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -6,7 +7,13 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { useAuth } from '@/core/providers';
 import { Lesson } from '@/types';
-import { HeaderPlaceholder, Tile, ContainerWithInsets, FullAccessPrompt } from '@/ui/core';
+import {
+  HeaderPlaceholder,
+  Tile,
+  ContainerWithInsets,
+  FullAccessPrompt,
+  HeroLoading,
+} from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { LearnHeader } from './LearnHeader';
 import { useLearnStore } from './learnState';
@@ -14,18 +21,21 @@ import { useLearnStore } from './learnState';
 export const LearnTreeScreen = () => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
-  const { lessons, completed, current } = useLearnStore();
+  const { init, isLoading, lessons, completed, current } = useLearnStore();
 
   const stats = useLearnStore(useShallow(state => state.stats));
   const { user } = useAuth();
-  console.log(stats);
+
+  useEffect(() => {
+    init(user);
+  }, []);
 
   const lessonPressHandler = async (lesson: Lesson) => {
     const canOpen = await SheetManager.show('start-lesson-sheet', {
       payload: {
         title: lesson.title,
         description: lesson.description,
-        isCompleted: completed.includes(lesson.id),
+        isCompleted: completed.includes(lesson.lesson_number),
         lives: stats.lives,
         // title: `Form basic sentences`,
         // description: 'Lesson 1',
@@ -33,9 +43,13 @@ export const LearnTreeScreen = () => {
     });
 
     if (canOpen) {
-      navigate('LearnLesson' as never, { lessonId: lesson.id });
+      navigate('LearnLesson' as never, { lessonId: lesson.lesson_id });
     }
   };
+
+  if (isLoading) {
+    <HeroLoading />;
+  }
 
   const shouldPromptLoginForFullAccess = !user && completed.length >= 5;
 
@@ -46,7 +60,7 @@ export const LearnTreeScreen = () => {
       {shouldPromptLoginForFullAccess && <FullAccessPrompt />}
 
       <LearnHeader stats={stats}>
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ height: '100%' }} contentContainerStyle={{ height: '100%' }}>
           <View
             style={{
               gap: theme.spacing.md,
@@ -61,9 +75,9 @@ export const LearnTreeScreen = () => {
                 <Tile
                   key={`${lesson.title}-${index}`}
                   type="globe"
-                  current={lesson.id === current}
+                  current={lesson.lesson_number === current}
                   onPress={() => lessonPressHandler(lesson)}
-                  completed={completed.includes(lesson.id)}
+                  completed={completed.includes(lesson.lesson_number)}
                   withHero={index % 3 === 0}
                   heroPos={index % 6 === 0 ? 'left' : 'right'}
                 />

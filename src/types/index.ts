@@ -14,7 +14,7 @@ import {
   ListeningActivityType,
   ParsedLessonAnswers,
   LearningLessonStats,
-  UserStats,
+  UserStatistics,
 } from './learn';
 import {
   Theme,
@@ -56,7 +56,7 @@ export type {
   ActivityUnion,
   ParsedLessonAnswers,
   LearningLessonStats,
-  UserStats,
+  UserStatistics as UserStats,
   Explore,
   ExploreTopic,
   ExploreUsers,

@@ -19,6 +19,9 @@ logout confirmation
 
 ## Learn
 
+API integration, to be added ...
+Lesson will be stored on server, stats as well
+
 After the lesson is done, stats are calculated and displayed and persisted in header.
 Life regeneration mechanism once in X seconds which works in the background by storing last regeneration time.
 

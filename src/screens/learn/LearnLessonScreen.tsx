@@ -44,7 +44,7 @@ export const LearnLessonScreen = ({ route }: any) => {
 
   // TODO: this selector is repeated in LearnLessonComplete
   const lesson = useLearnStore(
-    useShallow(state => state.lessons.find(l => l.id === route?.params?.lessonId)),
+    useShallow(state => state.lessons.find(l => l.lesson_id === route?.params?.lessonId)),
   );
 
   // TODO: not really needed
@@ -120,7 +120,7 @@ export const LearnLessonScreen = ({ route }: any) => {
                 rootLog.info(`OnboardingQuestions onFinish ${JSON.stringify(answers)}`);
 
                 setTimeout(() => {
-                  navigate('LearnLessonComplete' as never, { lessonId: lesson.id });
+                  navigate('LearnLessonComplete' as never, { lessonId: lesson.lesson_id });
                 }, 0);
               }}
               withExit

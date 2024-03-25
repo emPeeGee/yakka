@@ -54,10 +54,30 @@ export type LessonActivity = {
 };
 
 export type Lesson = {
-  id: string;
+  lesson_number: number;
+  created_at: string;
+  lesson_id: number;
   title: string;
   description: string;
   activities: LessonActivity[];
+};
+
+export type UserLesson = {
+  user_lesson_id: number;
+  user_id: number;
+  lesson_id: number;
+  completed: boolean;
+  completed_at: string;
+  created_at: string;
+};
+
+export type UserStatistics = {
+  user_id: number;
+  balloons: number;
+  experience: number;
+  lives: number;
+  created_at: string;
+  updated_at: string;
 };
 
 export type ParsedLessonAnswers = { answers: Record<string, boolean>; elapsedSeconds: number };
@@ -68,10 +88,4 @@ export type LearningLessonStats = {
   experience: number;
   accuracy: number | string;
   livesUsed: number;
-};
-
-export type UserStats = {
-  balloons: number;
-  experience: number;
-  lives: number;
 };
