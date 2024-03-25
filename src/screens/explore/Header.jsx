@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ScrollView, Text, Animated, Dimensions, StyleSheet } from 'react-native';
-import { BackButton, Fade } from '@/ui/core';
+import { BackButton, EnhancedText, Fade } from '@/ui/core';
 
 const HEADER_HEIGHT = 64;
 
@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   title: {
     letterSpacing: 0.011,
     fontWeight: '700',
-    color: 'black',
   },
 });
 
@@ -102,43 +101,50 @@ export class HeaderScrollView extends Component {
       withBackButton = false,
     } = this.props;
 
-    console.log('withback', withBackButton);
-
     const fontSize = titleStyle.fontSize || 34;
     const titleStyles = {
       fontSize,
       lineHeight: fontSize * 1.2,
     };
 
-    const animatedFontSize = this.scrollAnimatedValue.interpolate({
-      inputRange: [-height, 0],
-      outputRange: [fontSize * 1.75, fontSize],
+    const opacityHeaderAnimation = this.scrollAnimatedValue.interpolate({
+      inputRange: [
+        0,
+        this.state.headerHeight / 2,
+        this.state.headerHeight / 1.5,
+        this.state.headerHeight,
+      ],
+      outputRange: [0, 0.05, 0.1, 1],
       extrapolate: 'clamp',
     });
 
     return (
       <View style={[styles.container, containerStyle]}>
         <View style={[styles.headerContainer, headerContainerStyle]}>
-          <Fade visible={this.state.isHeaderScrolled} direction={fadeDirection}>
+          {/* <Fade visible={this.state.isHeaderScrolled} direction={fadeDirection}> */}
+          <Animated.View style={{ opacity: opacityHeaderAnimation }}>
             <View style={[styles.headerComponentContainer, headerComponentContainerStyle]}>
               {withBackButton && <BackButton />}
               <View style={{ flex: 1, alignItems: 'center' }}>
-                <Text style={[styles.headline, headlineStyle]}>{title}</Text>
+                <EnhancedText style={[styles.headline, headlineStyle]} tx={title} />
               </View>
             </View>
-          </Fade>
+          </Animated.View>
+          {/* </Fade> */}
         </View>
         <ScrollView
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: this.scrollAnimatedValue } } }],
             {
+              useNativeDriver: false,
               listener: this.handleScroll,
             },
           )}
           scrollEventThrottle={16}
           contentContainerStyle={[scrollContainerStyle]}
           {...scrollViewProps}>
-          <View
+          <Animated.View
+            onLayout={this.onLayout}
             style={{
               paddingHorizontal: 16,
               gap: 16,
@@ -146,19 +152,8 @@ export class HeaderScrollView extends Component {
               alignItems: 'center',
             }}>
             {withBackButton && <BackButton />}
-            <Animated.Text
-              style={[
-                styles.title,
-                titleStyle,
-                titleStyles,
-                {
-                  fontSize: animatedFontSize,
-                },
-              ]}
-              onLayout={this.onLayout}>
-              {title}
-            </Animated.Text>
-          </View>
+            <EnhancedText tx={title} style={[styles.title, titleStyle, titleStyles, ,]} />
+          </Animated.View>
           {children}
         </ScrollView>
       </View>
