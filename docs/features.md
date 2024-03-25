@@ -8,7 +8,11 @@ Continue without profile.
 
 ### Login to access all features
 
-1 .learn, 5 lessons are allowed, 2. voc, can view the deck button are not blocked with action sheet, 3. explore, topics are blocked, 4. profile, achivements are blocked
+1. learn, 5 lessons are allowed
+1. voc, can view the deck button are not blocked with action sheet,
+1. explore, topics are blocked,
+1. profile, achivements are blocked, create profile button in profile screen, no stats
+
 Profile edit
 Password change
 logout confirmation

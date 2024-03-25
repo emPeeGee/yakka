@@ -58,9 +58,11 @@
 [ ] remove webpack in favor of metro
 [ ] text inputs keyboard type
 [ ] move all auth request into the use auth
+[ ] only one header the one from explorer
 
 ## Medium:
 
+[ ] for type activity to mark word as optional, like 'Eu gates seara', 'Gatesc seara', eu optional
 [ ] like a explore lesson
 [ ] Action sheet in the learn tree as well ??? or blurred component ???
 [ ] Check enhanced text, instead of style for size use size prop
@@ -99,6 +101,7 @@
 
 ## Bugs:
 
+[ ] Header(explore) back button is not visible due to opacity but it is clickable. The same for tree header, click lives tooltips
 [ ] wizard back gesture android learning mode
 [ ] autokeyboard for typeanswer
 [x] status bar and bottom bar colors in different themes

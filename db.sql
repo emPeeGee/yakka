@@ -587,7 +587,7 @@ INSERT INTO explore (lesson_name, emoji, topic_id, lesson_content) VALUES
 ('exp.presentPerfect', '🎁', 1, ''),
 ('exp.presentPerfectContinuous', '🌱', 1, ''),
 ('exp.pastSimple', '🕰️', 1, ''),
-('exp.pastContinuous', '🚶‍♀️', 1, ),
+('exp.pastContinuous', '🚶‍♀️', 1, ''),
 ('exp.pastPerfect', '🚪', 1, ''),
 ('exp.pastPerfectContinuous', '🛣️', 1, ''),
 ('exp.futureSimple', '🎯', 1, ''),
