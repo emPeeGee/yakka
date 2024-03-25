@@ -464,10 +464,12 @@ CREATE TABLE daily_words (
     date_retrieved DATE
 );
 
+
 CREATE OR REPLACE FUNCTION get_daily_word()
 RETURNS SETOF words AS $$
 DECLARE
     today_date DATE := CURRENT_DATE;
+    selected_word words%ROWTYPE;
 BEGIN
     -- Check if words for today are already retrieved
     IF EXISTS (
@@ -481,12 +483,14 @@ BEGIN
         WHERE dw.date_retrieved = today_date;
     ELSE
         -- Words for today are not retrieved yet, retrieve them and update daily_words table
-        RETURN QUERY 
-        SELECT * FROM words ORDER BY RANDOM() LIMIT 1;
+        SELECT * FROM words ORDER BY RANDOM() LIMIT 1 INTO selected_word;
 
         -- Update the daily_words table with the retrieved words for today
         INSERT INTO daily_words (word_id, date_retrieved)
-        SELECT word_id, today_date FROM words ORDER BY RANDOM() LIMIT 1;
+        VALUES (selected_word.word_id, today_date);
+        
+        -- Return the selected word
+        RETURN NEXT selected_word;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
@@ -571,8 +575,8 @@ INSERT INTO explore (lesson_name, emoji, topic_id, lesson_content) VALUES
 ('exp.pastPerfectContinuous', '🛣️', 1, ''),
 ('exp.futureSimple', '🎯', 1, ''),
 ('exp.futureContinuous', '🌧️', 1, ''),
-('exp.futurePerfect', 1,'🌅', ''),
-('exp.futurePerfectContinuous',  '🌅', 1, '');
+('exp.futurePerfect', '🌅', 1, ''),
+('exp.futurePerfectContinuous', '🌅', 1, '');
 
 
 -------------------------------------------------------------------
