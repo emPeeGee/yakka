@@ -17,7 +17,14 @@ import {
   FocusAwareStatusBar,
   HeroWithChat,
 } from '@/ui/core';
-import { SettingsIcon, AchievementsIcon, UserGearIcon, ClockIcon, PasswordIcon } from '@/ui/icons';
+import {
+  SettingsIcon,
+  AchievementsIcon,
+  UserGearIcon,
+  ClockIcon,
+  PasswordIcon,
+  UserCircleIcon,
+} from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const ProfileScreen = () => {
@@ -78,18 +85,18 @@ export const ProfileScreen = () => {
 
       <View style={[styles.container]}>
         <View style={gStyles.centerRowBetween}>
-          <Image
-            source={require('../../assets/profile.png')}
-            resizeMode="contain"
-            style={styles.profileImg}
-          />
+          {user && (
+            <Image
+              source={require('../../assets/profile.png')}
+              resizeMode="contain"
+              style={styles.profileImg}
+            />
+          )}
           <View style={[gStyles.fullWidthFromStart, styles.nameContainer]}>
             <EnhancedText style={styles.name} size="md">
               {username}
             </EnhancedText>
-            <EnhancedText style={styles.grade} size="xxs">
-              Newbie
-            </EnhancedText>
+            {user && <EnhancedText tx="profile.rankNewbie" style={styles.grade} size="xxs" />}
           </View>
 
           <HeroWithChat direction="left" width={74} height={70} hero="ghost" />
@@ -97,41 +104,40 @@ export const ProfileScreen = () => {
 
         <Separator paddingVertical={theme.spacing.md} />
 
-        <View
-          style={[
-            gStyles.centerRowBetween,
-            { marginBottom: theme.spacing.lg, justifyContent: 'space-around' },
-          ]}>
-          <View style={gStyles.centerColumnBetween}>
-            <View>
-              <EnhancedText size="md">2+ hours</EnhancedText>
+        {user && (
+          <View
+            style={[
+              gStyles.centerRowBetween,
+              { marginBottom: theme.spacing.lg, justifyContent: 'space-around' },
+            ]}>
+            <View style={gStyles.centerColumnBetween}>
+              <View>
+                <EnhancedText size="md">2+ hours</EnhancedText>
+              </View>
+              <View>
+                <EnhancedText tx="profile.totalLearn" style={styles.statLabel} size="xxs" />
+              </View>
             </View>
-            <View>
-              <EnhancedText style={styles.statLabel} size="xxs">
-                Total learn
-              </EnhancedText>
+
+            <Separator isVertical height={24} paddingVertical={0} />
+
+            <View style={gStyles.centerColumnBetween}>
+              <View>
+                <EnhancedText size="md">20</EnhancedText>
+              </View>
+              <View>
+                <EnhancedText tx="profile.achievements" style={styles.statLabel} size="xxs" />
+              </View>
             </View>
           </View>
-
-          <Separator isVertical height={24} paddingVertical={0} />
-
-          <View style={gStyles.centerColumnBetween}>
-            <View>
-              <EnhancedText size="md">20</EnhancedText>
-            </View>
-            <View>
-              <EnhancedText style={styles.statLabel} size="xxs">
-                Achievements
-              </EnhancedText>
-            </View>
-          </View>
-        </View>
+        )}
 
         <ScrollView
+          scrollEnabled
           horizontal
           contentContainerStyle={[
             gStyles.startRowStart,
-            { width: '100%', gap: theme.spacing.md, marginVertical: theme.spacing.md },
+            { gap: theme.spacing.md, marginVertical: theme.spacing.md },
           ]}>
           {user ? (
             <>
@@ -164,8 +170,8 @@ export const ProfileScreen = () => {
           )}
         </ScrollView>
 
-        <List title="Dashboard" data={DASHBOARD_LIST} />
-        <List title="My account" data={ACCOUNT_LIST} />
+        <List txTitle="profile.dashboard" data={DASHBOARD_LIST} />
+        {user && <List txTitle="profile.myAccount" data={ACCOUNT_LIST} />}
       </View>
     </View>
   );

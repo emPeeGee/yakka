@@ -190,6 +190,10 @@ export const en = {
     soundEffects: 'Sound effects',
     haptics: 'Haptics',
     appearance: 'Appearance',
+    dashboard: 'Dashboard',
+    myAccount: 'My account',
+    rankNewbie: 'Newbie',
+    totalLearn: 'Total learn',
   },
   temp: {
     clear1: 'Clear the storage',
