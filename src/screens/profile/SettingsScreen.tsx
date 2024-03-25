@@ -53,7 +53,7 @@ export const SettingsScreen = () => {
     <ContainerWithInsets>
       <HeaderPlaceholder />
 
-      <List title="Settings" data={SETTINGS_LIST} />
+      <List txTitle="profile.settings" data={SETTINGS_LIST} />
 
       <Button
         tx="temp.clear1"

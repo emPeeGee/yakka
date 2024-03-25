@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Button, ContainerWithInsets, EnhancedText, HeroWithChat } from '@/ui/core';
+import { UserCircleIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 // IDEA: when there is time, animation
@@ -48,6 +49,7 @@ export const OnboardQuestionsDoneScreen = () => {
           ]}>
           <Button
             tx="common.createProfile"
+            Left={() => <UserCircleIcon color={theme.colors.primary100} />}
             color={theme.colors.base0}
             // TODO: right screen
             onPress={() => navigate('' as never)}

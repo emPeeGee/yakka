@@ -24,12 +24,12 @@ export type DataListType = {
 };
 
 type ListProps = {
-  title: string;
+  txTitle: TxKeyPath;
   data: DataListType[];
   bounces?: boolean;
 };
 
-export const List = ({ data, title, bounces = false }: ListProps) => {
+export const List = ({ data, txTitle, bounces = false }: ListProps) => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
   const styles = getStyles(theme);
@@ -43,11 +43,7 @@ export const List = ({ data, title, bounces = false }: ListProps) => {
       alwaysBounceHorizontal={bounces}
       alwaysBounceVertical={bounces}
       overScrollMode={bounces ? 'auto' : 'never'}
-      ListHeaderComponent={() => (
-        <EnhancedText style={styles.listHeader} size="xxs">
-          {title}
-        </EnhancedText>
-      )}
+      ListHeaderComponent={() => <EnhancedText tx={txTitle} style={styles.listHeader} size="xxs" />}
       ListHeaderComponentStyle={styles.listHeaderContainer}
       contentContainerStyle={styles.contentContainer}
       data={data}
