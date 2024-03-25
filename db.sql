@@ -613,19 +613,65 @@ alter table explore_users
 create policy "Explore_users are viewable by users who created them." on explore_users 
   for select using (auth.uid() = user_id);
 
+-- TODO: use everywhere
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+   NEW.updated_at = now(); 
+   RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+-- Create a trigger on the table that calls the update_changetimestamp_column() function whenever an update occurs like so:
+CREATE TRIGGER update_user_lessons_changetimestamp BEFORE UPDATE
+ON user_lessons FOR EACH ROW EXECUTE PROCEDURE 
+update_updated_at_column();
 
 
--- -- Learn Path Table
--- CREATE TABLE learn_path (
---     lesson_id SERIAL PRIMARY KEY,
---     lesson_name VARCHAR(100) NOT NULL,
---     lesson_description TEXT,
---     experience_earned INT DEFAULT 0,
---     balloons_earned INT DEFAULT 0,
---     user_id uuid references auth.users on delete cascade not null,
---     completed BOOLEAN DEFAULT FALSE,
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
+-------------------------------------------------------------------
+------------------------LESSONS------------------------------------
+-------------------------------------------------------------------
+CREATE TABLE lessons (
+    lesson_id SERIAL PRIMARY KEY,
+    lesson_number INT UNIQUE NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    activities JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-------------------------------------------------------------------
+---------------------USER_LESSONS----------------------------------
+-------------------------------------------------------------------
+CREATE TABLE user_lessons (
+    user_lesson_id SERIAL PRIMARY KEY,
+    user_id uuid REFERENCES auth.users(id) NOT NULL,
+    lesson_id INT REFERENCES lessons(lesson_id) NOT NULL,
+    completed BOOLEAN DEFAULT FALSE,
+    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-------------------------------------------------------------------
+-------------------USER_STATISTICS---------------------------------
+-------------------------------------------------------------------
+CREATE TABLE user_statistics (
+    user_id UUID PRIMARY KEY REFERENCES auth.users(id),
+    balloons INT DEFAULT 0,
+    experience INT DEFAULT 0,
+    lives INT DEFAULT 10, -- MAX LIFES
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    -- Add more fields as needed for additional statistics
+    -- For example:
+    -- games_played INT DEFAULT 0,
+    -- highest_score INT DEFAULT 0,
+    -- etc.
+);
+
+
 
 
 -- drop table words_users;
@@ -646,3 +692,728 @@ create policy "Explore_users are viewable by users who created them." on explore
 -- -- Grant all permissions on words and explore to admin users
 -- GRANT ALL PRIVILEGES ON words TO admin_role;
 -- GRANT ALL PRIVILEGES ON explore TO admin_role;
+
+
+-- Insert lesson1
+INSERT INTO lessons (title, lesson_number, description, activities)
+VALUES (
+    'Introduction to Learning English',
+    1,
+    'Lesson 1. This lesson is designed for Romanian speakers who are beginning to learn English.',
+    '[
+  {
+    "type": "listening",
+    "activity": {
+      "sentence": "His name is Andrew",
+      "answer": "Numele lui este Andrew",
+      "options": [
+        "Numele lui este Andrew",
+        "Numele meu este Andrew",
+        "Numele tau este Andre"
+      ]
+    }
+  },
+  {
+    "type": "matchingPairs",
+    "activity": {
+      "sentence": "People",
+      "answers": [
+        [
+          "Barbat",
+          "Man"
+        ],
+        [
+          "Barbati",
+          "Men"
+        ],
+        [
+          "Baiat",
+          "Boy"
+        ],
+        [
+          "Fata",
+          "Girl"
+        ],
+        [
+          "Femeie",
+          "Woman"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "missingWord",
+    "activity": {
+      "sentence": "My name @@@ Ken",
+      "answer": "is",
+      "options": [
+        {
+          "label": "are",
+          "value": "are"
+        },
+        {
+          "label": "as",
+          "value": "as"
+        },
+        {
+          "label": "is",
+          "value": "is"
+        }
+      ]
+    }
+  },
+  {
+    "type": "dragWords",
+    "activity": {
+      "sentence": "Ma numesc Ken",
+      "answer": "My name is Ken",
+      "options": [
+        "Ken",
+        "my",
+        "hello",
+        "is",
+        "hello",
+        "name",
+        "an",
+        "a"
+      ]
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "The boy is reading",
+      "answer": "Baiatul citeste acum",
+      "options": [
+        {
+          "label": "Baiatul mananca acum",
+          "value": "Baiatul mananca acum",
+          "isCorrect": false
+        },
+        {
+          "label": "Baiatul scrie acum",
+          "value": "Baiatul scrie acum",
+          "isCorrect": false
+        },
+        {
+          "label": "Baiatul citeste acum",
+          "value": "Baiatul citeste acum",
+          "isCorrect": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeAnswer",
+    "activity": {
+      "sentence": "My name is Ken",
+      "answer": "Numele meu este Ken"
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "An apple",
+      "answer": "Un măr",
+      "options": [
+        {
+          "label": "Un măr",
+          "value": "Un măr",
+          "isCorrect": true
+        },
+        {
+          "label": "Un băiat",
+          "value": "Un băiat",
+          "isCorrect": false
+        },
+        {
+          "label": "O coacăză",
+          "value": "O coacăză",
+          "isCorrect": false
+        }
+      ]
+    }
+  }
+]'
+);
+
+-- Insert lesson2
+INSERT INTO lessons (title, lesson_number, description, activities)
+VALUES (
+    'Greetings and Introductions',
+    2,
+    'This lesson focuses on basic greetings and introductions in English for Romanian speakers who are beginners.',
+    '[
+  {
+    "type": "listening",
+    "activity": {
+      "sentence": "Hello, how are you?",
+      "answer": "Bună, cum ești?",
+      "options": [
+        "Bună, cum ești?",
+        "Salut, ce faci?",
+        "Bună, ce mai faci?"
+      ]
+    }
+  },
+  {
+    "type": "matchingPairs",
+    "activity": {
+      "sentence": "Match the greeting with its meaning:",
+      "answers": [
+        [
+          "Hi",
+          "Salut"
+        ],
+        [
+          "Good morning",
+          "Bună dimineața"
+        ],
+        [
+          "Good afternoon",
+          "Bună ziua"
+        ],
+        [
+          "Good evening",
+          "Bună seara"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "missingWord",
+    "activity": {
+      "sentence": "Nice to @@@ you.",
+      "answer": "meet",
+      "options": [
+        {
+          "label": "say",
+          "value": "say"
+        },
+        {
+          "label": "meet",
+          "value": "meet"
+        },
+        {
+          "label": "sleep",
+          "value": "sleep"
+        }
+      ]
+    }
+  },
+  {
+    "type": "dragWords",
+    "activity": {
+      "sentence": "My name is Maria.",
+      "answer": "My name is Maria",
+      "options": [
+        "Maria",
+        "name",
+        "is",
+        "my",
+        "hello"
+      ]
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "What''s your name?",
+      "answer": "Cum te numești?",
+      "options": [
+        {
+          "label": "Cât de înalt ești?",
+          "value": "Cât de înalt ești?",
+          "isCorrect": false
+        },
+        {
+          "label": "Cum te numești?",
+          "value": "Cum te numești?",
+          "isCorrect": true
+        },
+        {
+          "label": "Cât timp faci sport?",
+          "value": "Cât timp faci sport?",
+          "isCorrect": false
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeAnswer",
+    "activity": {
+      "sentence": "I''m fine, thank you.",
+      "answer": "Sunt bine, mulțumesc."
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "How old are you?",
+      "answer": "Câți ani ai?",
+      "options": [
+        {
+          "label": "Ce faci?",
+          "value": "Ce faci?",
+          "isCorrect": false
+        },
+        {
+          "label": "Câți ani ai?",
+          "value": "Câți ani ai?",
+          "isCorrect": true
+        },
+        {
+          "label": "Unde locuiești?",
+          "value": "Unde locuiești?",
+          "isCorrect": false
+        }
+      ]
+    }
+  }
+]'
+);
+
+-- Insert lesson3
+INSERT INTO lessons (title, lesson_number, description, activities)
+VALUES (
+    'Everyday Activities',
+    3,
+    'This lesson covers common everyday activities in English for beginners who are Romanian speakers.',
+    '[
+  {
+    "type": "listening",
+    "activity": {
+      "sentence": "I brush my teeth every morning.",
+      "answer": "Îmi spăl dinții în fiecare dimineață.",
+      "options": [
+        "Îmi spăl dinții în fiecare dimineață.",
+        "Îmi aranjez părul în fiecare seară.",
+        "Îmi fac patul în fiecare după-amiază."
+      ]
+    }
+  },
+  {
+    "type": "matchingPairs",
+    "activity": {
+      "sentence": "Match the activity with its meaning:",
+      "answers": [
+        [
+          "Cooking",
+          "Gătit"
+        ],
+        [
+          "Cleaning",
+          "Curățenie"
+        ],
+        [
+          "Shopping",
+          "Cumpărături"
+        ],
+        [
+          "Exercising",
+          "Exercițiu"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "missingWord",
+    "activity": {
+      "sentence": "I like to @@@ books in the evening.",
+      "answer": "read",
+      "options": [
+        {
+          "label": "watch",
+          "value": "watch"
+        },
+        {
+          "label": "listen",
+          "value": "listen"
+        },
+        {
+          "label": "read",
+          "value": "read"
+        }
+      ]
+    }
+  },
+  {
+    "type": "dragWords",
+    "activity": {
+      "sentence": "I take a shower every day.",
+      "answer": "Mă spăl în fiecare zi.",
+      "options": [
+        "Mă",
+        "spăl",
+        "pe",
+        "cap",
+        "în",
+        "fiecare",
+        "zi."
+      ]
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "What do you do in the morning?",
+      "answer": "Ce faci dimineața?",
+      "options": [
+        {
+          "label": "Câte ore dormi?",
+          "value": "Câte ore dormi?",
+          "isCorrect": false
+        },
+        {
+          "label": "Ce faci dimineața?",
+          "value": "Ce faci dimineața?",
+          "isCorrect": true
+        },
+        {
+          "label": "Unde lucrezi?",
+          "value": "Unde lucrezi?",
+          "isCorrect": false
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeAnswer",
+    "activity": {
+      "sentence": "I cook dinner every evening.",
+      "answer": "Gătesc cină în fiecare seară."
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "When do you go to bed?",
+      "answer": "Când te culci?",
+      "options": [
+        {
+          "label": "Când te culci?",
+          "value": "Când te culci?",
+          "isCorrect": true
+        },
+        {
+          "label": "Cât timp stai la birou?",
+          "value": "Cât timp stai la birou?",
+          "isCorrect": false
+        },
+        {
+          "label": "Cât timp petreci la telefon?",
+          "value": "Cât timp petreci la telefon?",
+          "isCorrect": false
+        }
+      ]
+    }
+  }
+]'
+);
+
+
+-- Insert lesson4
+INSERT INTO lessons (title, lesson_number, description, activities)
+VALUES (
+    'Basic English for Beginners',
+    4,
+    'This lesson is designed for complete beginners who are Romanian speakers, covering basic greetings, introductions, and simple vocabulary.',
+    '[
+  {
+    "type": "listening",
+    "activity": {
+      "sentence": "Hello, my name is Alex.",
+      "answer": "Bună, mă numesc Alex.",
+      "options": [
+        "Bună, mă numesc Alex.",
+        "Salut, eu sunt Maria.",
+        "Bună ziua, numele meu este Ion."
+      ]
+    }
+  },
+  {
+    "type": "matchingPairs",
+    "activity": {
+      "sentence": "Match the word with its meaning:",
+      "answers": [
+        [
+          "Book",
+          "Carte"
+        ],
+        [
+          "Dog",
+          "Câine"
+        ],
+        [
+          "Cat",
+          "Pisică"
+        ],
+        [
+          "House",
+          "Casa"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "missingWord",
+    "activity": {
+      "sentence": "I like to @@@.",
+      "answer": "read",
+      "options": [
+        {
+          "label": "hello",
+          "value": "hello"
+        },
+        {
+          "label": "morning",
+          "value": "morning"
+        },
+        {
+          "label": "read",
+          "value": "read"
+        }
+      ]
+    }
+  },
+  {
+    "type": "dragWords",
+    "activity": {
+      "sentence": "She drinks @@@ every morning.",
+      "answer": "tea",
+      "options": [
+        "wood",
+        "stone",
+        "name",
+        "tea"
+      ]
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "How are you?",
+      "answer": "Cum ești?",
+      "options": [
+        {
+          "label": "Cum ești?",
+          "value": "Cum ești?",
+          "isCorrect": true
+        },
+        {
+          "label": "Cât de înalt ești?",
+          "value": "Cât de înalt ești?",
+          "isCorrect": false
+        },
+        {
+          "label": "Unde ești?",
+          "value": "Unde ești?",
+          "isCorrect": false
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeAnswer",
+    "activity": {
+      "sentence": "I am from Romania.",
+      "answer": "Eu sunt din România."
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "What is this?",
+      "answer": "Ce este asta?",
+      "options": [
+        {
+          "label": "Unde ești?",
+          "value": "Unde ești?",
+          "isCorrect": false
+        },
+        {
+          "label": "Cine ești?",
+          "value": "Cine ești?",
+          "isCorrect": false
+        },
+        {
+          "label": "Ce este asta?",
+          "value": "Ce este asta?",
+          "isCorrect": true
+        }
+      ]
+    }
+  }
+]'
+);
+
+-- Insert lesson5
+INSERT INTO lessons (title, lesson_number, description, activities)
+VALUES (
+    'Family Members',
+    5,
+    'This lesson introduces vocabulary related to family members in English for beginners who are Romanian speakers.',
+    '[
+  {
+    "type": "listening",
+    "activity": {
+      "sentence": "My father is a doctor.",
+      "answer": "Tatăl meu este medic.",
+      "options": [
+        "Tatăl meu este medic.",
+        "Mama mea este învățătoare.",
+        "Eu sunt student."
+      ]
+    }
+  },
+  {
+    "type": "matchingPairs",
+    "activity": {
+      "sentence": "Match the family member with its English translation:",
+      "answers": [
+        [
+          "Tată",
+          "Father"
+        ],
+        [
+          "Mamă",
+          "Mother"
+        ],
+        [
+          "Frate",
+          "Brother"
+        ],
+        [
+          "Soră",
+          "Sister"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "What is the Romanian word for \"sister\"?",
+      "answer": "Soră",
+      "options": [
+        {
+          "label": "Tată",
+          "value": "Tată",
+          "isCorrect": false
+        },
+        {
+          "label": "Mamă",
+          "value": "Mamă",
+          "isCorrect": false
+        },
+        {
+          "label": "Soră",
+          "value": "Soră",
+          "isCorrect": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "missingWord",
+    "activity": {
+      "sentence": "She h@@@.",
+      "answer": "brothers",
+      "options": [
+        {
+          "label": "amazing",
+          "value": "amazing"
+        },
+        {
+          "label": "brothers",
+          "value": "brothers"
+        },
+        {
+          "label": "great",
+          "value": "great"
+        }
+      ]
+    }
+  },
+  {
+    "type": "dragWords",
+    "activity": {
+      "sentence": "El este un bunic bun.",
+      "answer": "He is a good grandfather.",
+      "options": [
+        "He",
+        "not",
+        "is",
+        "a",
+        "doctor",
+        "good",
+        "grandfather."
+      ]
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "What is the English word for \"mamă\"?",
+      "answer": "Mother",
+      "options": [
+        {
+          "label": "Father",
+          "value": "Father",
+          "isCorrect": false
+        },
+        {
+          "label": "Mother",
+          "value": "Mother",
+          "isCorrect": true
+        },
+        {
+          "label": "Brother",
+          "value": "Brother",
+          "isCorrect": false
+        }
+      ]
+    }
+  },
+  {
+    "type": "typeAnswer",
+    "activity": {
+      "sentence": "El este unchiul meu.",
+      "answer": "He is my uncle."
+    }
+  },
+  {
+    "type": "pickAnswer",
+    "activity": {
+      "sentence": "What is the Romanian word for \"brother\"?",
+      "answer": "Frate",
+      "options": [
+        {
+          "label": "Soră",
+          "value": "Soră",
+          "isCorrect": false
+        },
+        {
+          "label": "Frate",
+          "value": "Frate",
+          "isCorrect": true
+        },
+        {
+          "label": "Mamă",
+          "value": "Mamă",
+          "isCorrect": false
+        }
+      ]
+    }
+  }
+]'
+);
+
+-- Insert lesson3
+-- INSERT INTO lessons (title, lesson_number, description, activities)
+-- VALUES (
+--     '',
+--     ,
+--     '',
+--     ''
+-- );
