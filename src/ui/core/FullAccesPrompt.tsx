@@ -20,7 +20,7 @@ export const FullAccessPrompt = () => {
         experimentalBlurMethod="dimezisBlurView"
         style={{ height: '100%', alignItems: 'center' }}>
         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-          <Card style={{ marginHorizontal: theme.spacing.lg }} maxHeight="auto">
+          <Card style={{ marginHorizontal: theme.spacing.lg }}>
             <View style={{ gap: theme.spacing.md }}>
               <EnhancedText preset="subheading" tx="auth.unlockAccessTitle" />
               <EnhancedText style={theme.typography.sizes.md} tx="auth.unlockAccessDetails" />

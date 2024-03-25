@@ -42,6 +42,5 @@ const getStyles = (theme: Theme) =>
     },
     container: {
       padding: theme.spacing.lg,
-      height: '100%',
     },
   });
