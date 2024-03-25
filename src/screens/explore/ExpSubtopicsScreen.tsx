@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { supabase } from '@/api';
-import { TxKeyPath, translate } from '@/core/i18n';
+import { TxKeyPath } from '@/core/i18n';
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { Explore, useExploreStore } from './exploreState';
@@ -38,7 +38,8 @@ export const ExpBasicTensesScreen = ({ route }) => {
       const { data: subTopics, error: subTopicsError } = await supabase
         .from('explore')
         .select('*')
-        .eq('topic_id', route.params.topic.topic_id);
+        .eq('topic_id', route.params.topic.topic_id)
+        .order('explore_id', { ascending: true });
 
       if (subTopicsError) {
         return;
@@ -53,7 +54,7 @@ export const ExpBasicTensesScreen = ({ route }) => {
 
   return (
     <ContainerWithInsets withoutBottom>
-      <HeaderScrollView title={translate('exp.12basicTenses')} withBackButton>
+      <HeaderScrollView title={route.params.topic.topic_name} withBackButton>
         {isLoading ? (
           <View style={[gStyles.centerColumn, { height: '100%' }]}>
             <Loader />
