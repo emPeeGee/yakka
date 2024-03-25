@@ -10,7 +10,9 @@ import {
   SoundProvider,
 } from '@/core/providers';
 import { RootNavigator } from '@/navigation';
+// TODO: import is awful
 import { useLearnStore } from '@/screens/learn/learnState';
+import { HeroLoading } from '@/ui/core';
 
 import './src/core/i18n';
 import './src/ui/sheets/sheets';
@@ -34,7 +36,7 @@ export function ApplicationConfigurator() {
       <SoundProvider>
         <FirstLaunchProvider>
           <SheetProvider>
-            <AuthProvider>
+            <AuthProvider loadingIndicator={<HeroLoading />}>
               <RootNavigator />
             </AuthProvider>
           </SheetProvider>

@@ -5,7 +5,6 @@ import { Session, User } from '@supabase/supabase-js';
 import { SheetManager } from 'react-native-actions-sheet';
 
 import { supabase } from '@/api';
-import { Loader } from '@/ui/core';
 import { noop } from '../utils';
 
 type Tokens = {
@@ -32,26 +31,33 @@ const initialValue: AuthContextType = {
 const AuthContext = createContext<AuthContextType>(initialValue);
 
 type AuthProviderProps = {
+  loadingIndicator: React.ReactNode; // TO prevent cycle
   children?: React.ReactNode;
 };
 
-export const AuthProvider = ({ children }: AuthProviderProps): React.ReactNode => {
+export const AuthProvider = ({
+  children,
+  loadingIndicator,
+}: AuthProviderProps): React.ReactNode => {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoading(true);
       setSession(session);
       setIsLoading(false);
     });
 
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoading(true);
       setSession(session);
       setIsLoading(false);
     });
 
     return () => {
       authListener.subscription.unsubscribe();
+      setIsLoading(false);
     };
   }, []);
 
@@ -96,7 +102,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): React.ReactNode =
   );
 
   if (isLoading) {
-    return <Loader />;
+    return loadingIndicator;
   }
 
   return (
