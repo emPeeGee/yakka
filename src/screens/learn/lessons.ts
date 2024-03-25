@@ -1,15 +1,7 @@
-import {
-  Lesson,
-  ListeningActivityType,
-  MissingWordActivityType,
-  MatchingPairsActivityType,
-  DragWordsActivityType,
-  PickAnswerActivityType,
-  TypeAnswerActivityType,
-} from '@/types';
+import { Lesson } from '@/types';
 
 export const lesson0: Lesson = {
-  id: '0',
+  lesson_id: 0,
   title: 'Introduction to Learning English',
   description:
     'Lesson 1. This lesson is designed for Romanian speakers who are beginning to learn English.',
@@ -20,7 +12,7 @@ export const lesson0: Lesson = {
         sentence: 'His name is Andrew',
         answer: 'Numele lui este Andrew',
         options: ['Numele lui este Andrew', 'Numele meu este Andrew', 'Numele tau este Andre'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -32,13 +24,13 @@ export const lesson0: Lesson = {
           { label: 'as', value: 'as' },
           { label: 'is', value: 'is' },
         ],
-      } as MissingWordActivityType,
+      },
     },
   ],
 };
 
 export const lesson1: Lesson = {
-  id: '1',
+  lesson_id: '1',
   title: 'Introduction to Learning English',
   description:
     'Lesson 1. This lesson is designed for Romanian speakers who are beginning to learn English.',
@@ -49,7 +41,7 @@ export const lesson1: Lesson = {
         sentence: 'His name is Andrew',
         answer: 'Numele lui este Andrew',
         options: ['Numele lui este Andrew', 'Numele meu este Andrew', 'Numele tau este Andre'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -57,12 +49,12 @@ export const lesson1: Lesson = {
         sentence: 'People',
         answers: [
           ['Barbat', 'Man'],
-          // ['Barbati', 'Men'],
-          // ['Baiat', 'Boy'],
-          // ['Fata', 'Girl'],
+          ['Barbati', 'Men'],
+          ['Baiat', 'Boy'],
+          ['Fata', 'Girl'],
           ['Femeie', 'Woman'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -74,7 +66,7 @@ export const lesson1: Lesson = {
           { label: 'as', value: 'as' },
           { label: 'is', value: 'is' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -82,7 +74,7 @@ export const lesson1: Lesson = {
         sentence: 'Ma numesc Ken',
         answer: 'My name is Ken',
         options: ['Ken', 'my', 'hello', 'is', 'hello', 'name', 'an', 'a'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -94,14 +86,14 @@ export const lesson1: Lesson = {
           { label: 'Baiatul scrie acum', value: 'Baiatul scrie acum', isCorrect: false },
           { label: 'Baiatul citeste acum', value: 'Baiatul citeste acum', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'My name is Ken',
         answer: 'Numele meu este Ken',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -113,13 +105,13 @@ export const lesson1: Lesson = {
           { label: 'Un băiat', value: 'Un băiat', isCorrect: false },
           { label: 'O coacăză', value: 'O coacăză', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson2: Lesson = {
-  id: '2',
+  lesson_id: '2',
   title: 'Greetings and Introductions',
   description:
     'This lesson focuses on basic greetings and introductions in English for Romanian speakers who are beginners.',
@@ -130,7 +122,7 @@ export const lesson2: Lesson = {
         sentence: 'Hello, how are you?',
         answer: 'Bună, cum ești?',
         options: ['Bună, cum ești?', 'Salut, ce faci?', 'Bună, ce mai faci?'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -142,7 +134,7 @@ export const lesson2: Lesson = {
           ['Good afternoon', 'Bună ziua'],
           ['Good evening', 'Bună seara'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -154,7 +146,7 @@ export const lesson2: Lesson = {
           { label: 'meet', value: 'meet' },
           { label: 'sleep', value: 'sleep' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -162,7 +154,7 @@ export const lesson2: Lesson = {
         sentence: 'My name is Maria.',
         answer: 'My name is Maria',
         options: ['Maria', 'name', 'is', 'my', 'hello'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -174,14 +166,14 @@ export const lesson2: Lesson = {
           { label: 'Cum te numești?', value: 'Cum te numești?', isCorrect: true },
           { label: 'Cât timp faci sport?', value: 'Cât timp faci sport?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: "I'm fine, thank you.",
         answer: 'Sunt bine, mulțumesc.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -193,13 +185,13 @@ export const lesson2: Lesson = {
           { label: 'Câți ani ai?', value: 'Câți ani ai?', isCorrect: true },
           { label: 'Unde locuiești?', value: 'Unde locuiești?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson3: Lesson = {
-  id: '3',
+  lesson_id: '3',
   title: 'Everyday Activities',
   description:
     'This lesson covers common everyday activities in English for beginners who are Romanian speakers.',
@@ -214,7 +206,7 @@ export const lesson3: Lesson = {
           'Îmi aranjez părul în fiecare seară.',
           'Îmi fac patul în fiecare după-amiază.',
         ],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -226,7 +218,7 @@ export const lesson3: Lesson = {
           ['Shopping', 'Cumpărături'],
           ['Exercising', 'Exercițiu'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -238,7 +230,7 @@ export const lesson3: Lesson = {
           { label: 'listen', value: 'listen' },
           { label: 'read', value: 'read' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -246,7 +238,7 @@ export const lesson3: Lesson = {
         sentence: 'I take a shower every day.',
         answer: 'Mă spăl în fiecare zi.',
         options: ['Mă', 'spăl', 'pe', 'cap', 'în', 'fiecare', 'zi.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -258,14 +250,14 @@ export const lesson3: Lesson = {
           { label: 'Ce faci dimineața?', value: 'Ce faci dimineața?', isCorrect: true },
           { label: 'Unde lucrezi?', value: 'Unde lucrezi?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'I cook dinner every evening.',
         answer: 'Gătesc cină în fiecare seară.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -281,13 +273,13 @@ export const lesson3: Lesson = {
             isCorrect: false,
           },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson4: Lesson = {
-  id: '4',
+  lesson_id: '4',
   title: 'Basic English for Beginners',
   description:
     'This lesson is designed for complete beginners who are Romanian speakers, covering basic greetings, introductions, and simple vocabulary.',
@@ -302,7 +294,7 @@ export const lesson4: Lesson = {
           'Salut, eu sunt Maria.',
           'Bună ziua, numele meu este Ion.',
         ],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -314,7 +306,7 @@ export const lesson4: Lesson = {
           ['Cat', 'Pisică'],
           ['House', 'Casa'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -326,7 +318,7 @@ export const lesson4: Lesson = {
           { label: 'morning', value: 'morning' },
           { label: 'read', value: 'read' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -334,7 +326,7 @@ export const lesson4: Lesson = {
         sentence: 'She drinks @@@ every morning.',
         answer: 'tea',
         options: ['wood', 'stone', 'name', 'tea'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -346,14 +338,14 @@ export const lesson4: Lesson = {
           { label: 'Cât de înalt ești?', value: 'Cât de înalt ești?', isCorrect: false },
           { label: 'Unde ești?', value: 'Unde ești?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'I am from Romania.',
         answer: 'Eu sunt din România.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -365,13 +357,13 @@ export const lesson4: Lesson = {
           { label: 'Cine ești?', value: 'Cine ești?', isCorrect: false },
           { label: 'Ce este asta?', value: 'Ce este asta?', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson5: Lesson = {
-  id: '5',
+  lesson_id: '5',
   title: 'Family Members',
   description:
     'This lesson introduces vocabulary related to family members in English for beginners who are Romanian speakers.',
@@ -382,7 +374,7 @@ export const lesson5: Lesson = {
         sentence: 'My father is a doctor.',
         answer: 'Tatăl meu este medic.',
         options: ['Tatăl meu este medic.', 'Mama mea este învățătoare.', 'Eu sunt student.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -394,7 +386,7 @@ export const lesson5: Lesson = {
           ['Frate', 'Brother'],
           ['Soră', 'Sister'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -406,19 +398,19 @@ export const lesson5: Lesson = {
           { label: 'Mamă', value: 'Mamă', isCorrect: false },
           { label: 'Soră', value: 'Soră', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
       activity: {
-        sentence: 'She has two @@@.',
+        sentence: 'She h@@@.',
         answer: 'brothers',
         options: [
           { label: 'amazing', value: 'amazing' },
           { label: 'brothers', value: 'brothers' },
           { label: 'great', value: 'great' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -426,7 +418,7 @@ export const lesson5: Lesson = {
         sentence: 'El este un bunic bun.',
         answer: 'He is a good grandfather.',
         options: ['He', 'not', 'is', 'a', 'doctor', 'good', 'grandfather.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -438,14 +430,14 @@ export const lesson5: Lesson = {
           { label: 'Mother', value: 'Mother', isCorrect: true },
           { label: 'Brother', value: 'Brother', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'El este unchiul meu.',
         answer: 'He is my uncle.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -457,13 +449,13 @@ export const lesson5: Lesson = {
           { label: 'Frate', value: 'Frate', isCorrect: true },
           { label: 'Mamă', value: 'Mamă', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson6: Lesson = {
-  id: '6',
+  lesson_id: '6',
   title: 'Shopping Vocabulary',
   description:
     'This lesson covers basic shopping vocabulary in English for beginners who are Romanian speakers.',
@@ -478,7 +470,7 @@ export const lesson6: Lesson = {
           'Vreau să mănânc o pizza.',
           'Aș dori să vizitez un muzeu.',
         ],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -490,7 +482,7 @@ export const lesson6: Lesson = {
           ['Eggs', 'Ouă'],
           ['Fruit', 'Fructe'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -502,7 +494,7 @@ export const lesson6: Lesson = {
           { label: 'Lapte', value: 'Lapte', isCorrect: false },
           { label: 'Ouă', value: 'Ouă', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -514,7 +506,7 @@ export const lesson6: Lesson = {
           { label: 'Bread', value: 'Bread' },
           { label: 'Saturday', value: 'Saturday' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -522,7 +514,7 @@ export const lesson6: Lesson = {
         sentence: 'I need to buy some vegetables.',
         answer: 'Trebuie să cumpăr niște legume.',
         options: ['Trebuie', 'none', 'să', 'milk', 'cumpăr', 'niște', 'baie', 'legume.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -542,7 +534,7 @@ export const lesson6: Lesson = {
             isCorrect: false,
           },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     // TODO: make it drag
     {
@@ -550,7 +542,7 @@ export const lesson6: Lesson = {
       activity: {
         sentence: 'I bought some apples and oranges.',
         answer: 'Am cumpărat niște mere și niște portocale.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -574,13 +566,13 @@ export const lesson6: Lesson = {
             isCorrect: false,
           },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson7: Lesson = {
-  id: '7',
+  lesson_id: '7',
   title: 'Colors and Shapes',
   description:
     'This lesson introduces basic colors and shapes vocabulary in English for beginners who are Romanian speakers.',
@@ -591,7 +583,7 @@ export const lesson7: Lesson = {
         sentence: 'The sky is blue.',
         answer: 'Cerul este albastru.',
         options: ['Cerul este albastru.', 'Soarele este galben.', 'Pământul este verde.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -603,7 +595,7 @@ export const lesson7: Lesson = {
           ['Blue', 'Albastru'],
           ['Yellow', 'Galben'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -615,7 +607,7 @@ export const lesson7: Lesson = {
           { label: 'Green', value: 'Green', isCorrect: false },
           { label: 'Yellow', value: 'Yellow', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -627,7 +619,7 @@ export const lesson7: Lesson = {
           { label: 'blue', value: 'blue' },
           { label: 'red', value: 'red' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -635,7 +627,7 @@ export const lesson7: Lesson = {
         sentence: 'The grass is green.',
         answer: 'Iarba este verde.',
         options: ['Iarba', 'albastră', 'este', 'name', 'verde.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -647,14 +639,14 @@ export const lesson7: Lesson = {
           { label: 'Ce culoare are soarele?', value: 'Ce culoare are soarele?', isCorrect: true },
           { label: 'Cât de înalt ești?', value: 'Cât de înalt ești?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'The moon is white.',
         answer: 'Luna este albă.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -666,13 +658,13 @@ export const lesson7: Lesson = {
           { label: 'Ce formă are un cerc?', value: 'Ce formă are un cerc?', isCorrect: true },
           { label: 'Ce mărime are?', value: 'Ce mărime are?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson8: Lesson = {
-  id: '8',
+  lesson_id: '8',
   title: 'Transportation Vocabulary',
   description:
     'This lesson covers basic transportation vocabulary in English for beginners who are Romanian speakers.',
@@ -687,7 +679,7 @@ export const lesson8: Lesson = {
           'Conduc mașina spre casă.',
           'Merg cu bicicleta la magazin.',
         ],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -699,7 +691,7 @@ export const lesson8: Lesson = {
           ['Train', 'Tren'],
           ['Plane', 'Avion'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -711,7 +703,7 @@ export const lesson8: Lesson = {
           { label: 'Bicicletă', value: 'Bicicletă', isCorrect: false },
           { label: 'Tren', value: 'Tren', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -723,7 +715,7 @@ export const lesson8: Lesson = {
           { label: 'train', value: 'train' },
           { label: 'bus', value: 'bus' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -731,7 +723,7 @@ export const lesson8: Lesson = {
         sentence: 'I prefer to travel by plane.',
         answer: 'Prefer să călătoresc cu avionul.',
         options: ['Prefer', 'să', 'călătoresc', 'cu', 'avionul.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -751,14 +743,14 @@ export const lesson8: Lesson = {
           },
           { label: 'Unde lucrezi?', value: 'Unde lucrezi?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'I travel by train to visit my parents.',
         answer: 'Călătoresc cu trenul să îmi vizitez părinții.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -778,13 +770,13 @@ export const lesson8: Lesson = {
             isCorrect: true,
           },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson9: Lesson = {
-  id: '9',
+  lesson_id: '9',
   title: 'Family Members Vocabulary',
   description:
     'This lesson covers basic family members vocabulary in English for beginners who are Romanian speakers.',
@@ -799,7 +791,7 @@ export const lesson9: Lesson = {
           'Fratele meu merge la școală.',
           'Mama face cină acum.',
         ],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -811,7 +803,7 @@ export const lesson9: Lesson = {
           ['Brother', 'Frate'],
           ['Sister', 'Soră'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -823,7 +815,7 @@ export const lesson9: Lesson = {
           { label: 'Frate', value: 'Frate', isCorrect: false },
           { label: 'Mamă', value: 'Mamă', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -835,7 +827,7 @@ export const lesson9: Lesson = {
           { label: 'father', value: 'father' },
           { label: 'sister', value: 'sister' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -843,7 +835,7 @@ export const lesson9: Lesson = {
         sentence: 'My grandparents live in the countryside.',
         answer: 'Bunicii mei locuiesc la țară.',
         options: ['Bunicii', 'mei', 'locuiesc', 'la', 'țară.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -863,14 +855,14 @@ export const lesson9: Lesson = {
           },
           { label: 'Ce ai mâncat la prânz?', value: 'Ce ai mâncat la prânz?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'My brother plays football every Saturday.',
         answer: 'Fratele meu joacă fotbal în fiecare sâmbătă.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -886,13 +878,13 @@ export const lesson9: Lesson = {
           { label: 'Ce ai mâncat la prânz?', value: 'Ce ai mâncat la prânz?', isCorrect: false },
           { label: 'Cine te ajută cu temele?', value: 'Cine te ajută cu temele?', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson10: Lesson = {
-  id: '10',
+  lesson_id: '10',
   title: 'Colors Vocabulary',
   description:
     'This lesson covers basic colors vocabulary in English for beginners who are Romanian speakers.',
@@ -903,7 +895,7 @@ export const lesson10: Lesson = {
         sentence: 'The sky is blue today.',
         answer: 'Cerul este albastru azi.',
         options: ['Cerul este albastru azi.', 'Pământul este roșu.', 'Frunzele sunt galbene.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -915,7 +907,7 @@ export const lesson10: Lesson = {
           ['Green', 'Verde'],
           ['Yellow', 'Galben'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -927,7 +919,7 @@ export const lesson10: Lesson = {
           { label: 'Green', value: 'Green', isCorrect: false },
           { label: 'Blue', value: 'Blue', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -939,7 +931,7 @@ export const lesson10: Lesson = {
           { label: 'blue', value: 'blue' },
           { label: 'yellow', value: 'yellow' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -947,7 +939,7 @@ export const lesson10: Lesson = {
         sentence: 'The grass is green.',
         answer: 'Iarba este verde.',
         options: ['Iarba', 'este', 'verde.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -963,14 +955,14 @@ export const lesson10: Lesson = {
           { label: 'Unde locuiești?', value: 'Unde locuiești?', isCorrect: false },
           { label: 'Cum te numești?', value: 'Cum te numești?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'I like the color purple.',
         answer: 'Îmi place culoarea mov.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -982,13 +974,13 @@ export const lesson10: Lesson = {
           { label: 'Ce culoare are banana?', value: 'Ce culoare are banana?', isCorrect: true },
           { label: 'Ce culoare are iarba?', value: 'Ce culoare are iarba?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson11: Lesson = {
-  id: '11',
+  lesson_id: '11',
   title: 'Animals Vocabulary',
   description:
     'This lesson covers basic animals vocabulary in English for beginners who are Romanian speakers.',
@@ -999,7 +991,7 @@ export const lesson11: Lesson = {
         sentence: 'The cat is sleeping.',
         answer: 'Pisica doarme.',
         options: ['Câinele aleargă.', 'Pisica doarme.', 'Păsările cântă.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1011,7 +1003,7 @@ export const lesson11: Lesson = {
           ['Bird', 'Pasăre'],
           ['Fish', 'Pește'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1023,7 +1015,7 @@ export const lesson11: Lesson = {
           { label: 'Bird', value: 'Bird', isCorrect: false },
           { label: 'Dog', value: 'Dog', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1035,7 +1027,7 @@ export const lesson11: Lesson = {
           { label: 'sky', value: 'sky' },
           { label: 'forest', value: 'forest' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1043,7 +1035,7 @@ export const lesson11: Lesson = {
         sentence: 'The fish swims in the water.',
         answer: 'Peștele înoată în apă.',
         options: ['Peștele', 'înoată', 'în', 'apă.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1059,14 +1051,14 @@ export const lesson11: Lesson = {
           { label: 'Cum te numești?', value: 'Cum te numești?', isCorrect: false },
           { label: 'Ce faci?', value: 'Ce faci?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'The dog barks.',
         answer: 'Câinele latră.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1090,13 +1082,13 @@ export const lesson11: Lesson = {
             isCorrect: false,
           },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson12: Lesson = {
-  id: '12',
+  lesson_id: '12',
   title: 'Food Vocabulary',
   description:
     'This lesson covers basic food vocabulary in English for beginners who are Romanian speakers.',
@@ -1107,7 +1099,7 @@ export const lesson12: Lesson = {
         sentence: 'I like to eat pizza.',
         answer: 'Îmi place să mănânc pizza.',
         options: ['Îmi place să mănânc pizza.', 'Eu beau apă.', 'Noi dormim mult.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1119,7 +1111,7 @@ export const lesson12: Lesson = {
           ['Bread', 'Pâine'],
           ['Orange', 'Portocală'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1131,7 +1123,7 @@ export const lesson12: Lesson = {
           { label: 'Apple', value: 'Apple', isCorrect: true },
           { label: 'Orange', value: 'Orange', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1143,7 +1135,7 @@ export const lesson12: Lesson = {
           { label: 'water', value: 'water' },
           { label: 'coffee', value: 'coffee' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1151,7 +1143,7 @@ export const lesson12: Lesson = {
         sentence: 'I eat bread for breakfast.',
         answer: 'Mănânc pâine la micul dejun.',
         options: ['Mănânc', 'pâine', 'la', 'micul', 'dejun.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1167,14 +1159,14 @@ export const lesson12: Lesson = {
           { label: 'Unde ești?', value: 'Unde ești?', isCorrect: false },
           { label: 'Ce faci?', value: 'Ce faci?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'I drink water every day.',
         answer: 'Beau apă în fiecare zi.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1190,13 +1182,13 @@ export const lesson12: Lesson = {
           { label: 'Ce este asta?', value: 'Ce este asta?', isCorrect: false },
           { label: 'Cât de înalt ești?', value: 'Cât de înalt ești?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson13: Lesson = {
-  id: '13',
+  lesson_id: '13',
   title: 'Numbers and Counting',
   description:
     'This lesson covers basic numbers and counting in English for beginners who are Romanian speakers.',
@@ -1207,7 +1199,7 @@ export const lesson13: Lesson = {
         sentence: 'There are five apples.',
         answer: 'Sunt cinci mere.',
         options: ['Sunt cinci mere.', 'Eu am patru mere.', 'Noi avem zece mere.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1219,7 +1211,7 @@ export const lesson13: Lesson = {
           ['3', 'Trei'],
           ['4', 'Patru'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1231,7 +1223,7 @@ export const lesson13: Lesson = {
           { label: 'Four', value: 'Four', isCorrect: false },
           { label: 'Five', value: 'Five', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1243,7 +1235,7 @@ export const lesson13: Lesson = {
           { label: 'five', value: 'five' },
           { label: 'ten', value: 'ten' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1251,7 +1243,7 @@ export const lesson13: Lesson = {
         sentence: 'He has seven books.',
         answer: 'El are șapte cărți.',
         options: ['El', 'are', 'șapte', 'cărți.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1267,14 +1259,14 @@ export const lesson13: Lesson = {
           { label: 'Ce faci?', value: 'Ce faci?', isCorrect: false },
           { label: 'Unde ești?', value: 'Unde ești?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'There are six chairs in the room.',
         answer: 'Sunt șase scaune în cameră.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1290,13 +1282,13 @@ export const lesson13: Lesson = {
           { label: 'Ce este asta?', value: 'Ce este asta?', isCorrect: false },
           { label: 'Cât de înalt ești?', value: 'Cât de înalt ești?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson14: Lesson = {
-  id: '14',
+  lesson_id: '14',
   title: 'Fruits and Vegetables',
   description:
     'This lesson introduces common fruits and vegetables in English for beginners who are Romanian speakers.',
@@ -1311,7 +1303,7 @@ export const lesson14: Lesson = {
           'Îmi place să mănânc banane.',
           'Îmi place să mănânc struguri.',
         ],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1323,7 +1315,7 @@ export const lesson14: Lesson = {
           ['Grapes', 'Struguri'],
           ['Orange', 'Portocală'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1335,7 +1327,7 @@ export const lesson14: Lesson = {
           { label: 'Banana', value: 'Banana', isCorrect: false },
           { label: 'Grapes', value: 'Grapes', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1347,7 +1339,7 @@ export const lesson14: Lesson = {
           { label: 'vegetables', value: 'vegetables' },
           { label: 'meat', value: 'meat' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1355,7 +1347,7 @@ export const lesson14: Lesson = {
         sentence: 'I like to eat carrots.',
         answer: 'Îmi place să mănânc morcovi.',
         options: ['Îmi', 'place', 'să', 'mănânc', 'morcovi.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1371,14 +1363,14 @@ export const lesson14: Lesson = {
           { label: 'Câte banane sunt?', value: 'Câte banane sunt?', isCorrect: false },
           { label: 'Unde ești?', value: 'Unde ești?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'I like to eat strawberries.',
         answer: 'Îmi place să mănânc căpșuni.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1394,13 +1386,13 @@ export const lesson14: Lesson = {
           { label: 'Ce culoare are mărul?', value: 'Ce culoare are mărul?', isCorrect: false },
           { label: 'Ce culoare are banana?', value: 'Ce culoare are banana?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson15: Lesson = {
-  id: '15',
+  lesson_id: '15',
   title: 'Animals',
   description:
     'This lesson introduces basic animals in English for beginners who are Romanian speakers.',
@@ -1411,7 +1403,7 @@ export const lesson15: Lesson = {
         sentence: 'A dog barks.',
         answer: 'Un câine latră.',
         options: ['Un câine latră.', 'Un pisică miaună.', 'O pasăre cântă.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1423,7 +1415,7 @@ export const lesson15: Lesson = {
           ['Bird', 'Pasăre'],
           ['Horse', 'Cal'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1435,7 +1427,7 @@ export const lesson15: Lesson = {
           { label: 'Cat', value: 'Cat', isCorrect: false },
           { label: 'Horse', value: 'Horse', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1447,7 +1439,7 @@ export const lesson15: Lesson = {
           { label: 'meows', value: 'meows' },
           { label: 'chirps', value: 'chirps' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1455,7 +1447,7 @@ export const lesson15: Lesson = {
         sentence: 'A bird flies.',
         answer: 'O pasăre zboară.',
         options: ['O', 'pasăre', 'zboară.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1471,14 +1463,14 @@ export const lesson15: Lesson = {
           { label: 'Ce zice un câine?', value: 'Ce zice un câine?', isCorrect: false },
           { label: 'Ce zice o pasăre?', value: 'Ce zice o pasăre?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'A horse runs fast.',
         answer: 'Un cal aleargă repede.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1498,13 +1490,13 @@ export const lesson15: Lesson = {
             isCorrect: false,
           },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson16: Lesson = {
-  id: '16',
+  lesson_id: '16',
   title: 'Action Verbs',
   description:
     'This lesson introduces basic action verbs in English for beginners who are Romanian speakers.',
@@ -1515,7 +1507,7 @@ export const lesson16: Lesson = {
         sentence: 'She runs in the park.',
         answer: 'Ea aleargă în parc.',
         options: ['Ea aleargă în parc.', 'El mănâncă în bucătărie.', 'Ea dorme în cameră.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1527,7 +1519,7 @@ export const lesson16: Lesson = {
           ['Sleep', 'Dormi'],
           ['Jump', 'Sări'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1539,7 +1531,7 @@ export const lesson16: Lesson = {
           { label: 'Eat', value: 'Eat', isCorrect: false },
           { label: 'Sleep', value: 'Sleep', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1551,7 +1543,7 @@ export const lesson16: Lesson = {
           { label: 'jumps', value: 'jumps' },
           { label: 'eats', value: 'eats' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1559,7 +1551,7 @@ export const lesson16: Lesson = {
         sentence: 'We eat dinner together.',
         answer: 'Noi luăm cina împreună.',
         options: ['Noi', 'luăm', 'cina', 'împreună.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1575,14 +1567,14 @@ export const lesson16: Lesson = {
           { label: 'Ce face ea seara?', value: 'Ce face ea seara?', isCorrect: false },
           { label: 'Ce face el după-amiază?', value: 'Ce face el după-amiază?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'She reads books every night.',
         answer: 'Ea citește cărți în fiecare seară.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1598,13 +1590,13 @@ export const lesson16: Lesson = {
           { label: 'Ce face el după-amiază?', value: 'Ce face el după-amiază?', isCorrect: false },
           { label: 'Ce face el dimineața?', value: 'Ce face el dimineața?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson17: Lesson = {
-  id: '17',
+  lesson_id: '17',
   title: 'Verbs 2',
   description:
     'This lesson introduces basic verbs in English for beginners who are Romanian speakers.',
@@ -1615,7 +1607,7 @@ export const lesson17: Lesson = {
         sentence: 'She runs in the park.',
         answer: 'Ea aleargă în parc.',
         options: ['Ea aleargă în parc.', 'El sari în casă.', 'Ea mănâncă în grădină.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1627,7 +1619,7 @@ export const lesson17: Lesson = {
           ['Eat', 'Mânca'],
           ['Sleep', 'Dormi'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1639,7 +1631,7 @@ export const lesson17: Lesson = {
           { label: 'Sleep', value: 'Sleep', isCorrect: true },
           { label: 'Eat', value: 'Eat', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1651,7 +1643,7 @@ export const lesson17: Lesson = {
           { label: 'jumps', value: 'jumps' },
           { label: 'eats', value: 'eats' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1659,7 +1651,7 @@ export const lesson17: Lesson = {
         sentence: 'She eats an apple.',
         answer: 'Ea mănâncă un măr.',
         options: ['Ea', 'mănâncă', 'un', 'măr.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1671,14 +1663,14 @@ export const lesson17: Lesson = {
           { label: 'Ce face ea?', value: 'Ce face ea?', isCorrect: false },
           { label: 'Ce face tu?', value: 'Ce face tu?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'She sleeps at night.',
         answer: 'Ea doarme noaptea.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1690,13 +1682,13 @@ export const lesson17: Lesson = {
           { label: 'Ce mănânci?', value: 'Ce mănânci?', isCorrect: false },
           { label: 'Ce bei?', value: 'Ce bei?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson18: Lesson = {
-  id: '18',
+  lesson_id: '18',
   title: 'Verbs 3',
   description:
     'This lesson introduces more verbs in English for beginners who are Romanian speakers.',
@@ -1707,7 +1699,7 @@ export const lesson18: Lesson = {
         sentence: 'They swim in the pool.',
         answer: 'Ei înoată în piscină.',
         options: ['Ei înoată în piscină.', 'Ea aleargă în parc.', 'El mănâncă în grădină.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1719,7 +1711,7 @@ export const lesson18: Lesson = {
           ['Sing', 'Cânta'],
           ['Dance', 'Dansa'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1731,7 +1723,7 @@ export const lesson18: Lesson = {
           { label: 'Sing', value: 'Sing', isCorrect: true },
           { label: 'Dance', value: 'Dance', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1743,7 +1735,7 @@ export const lesson18: Lesson = {
           { label: 'reads', value: 'reads' },
           { label: 'eats', value: 'eats' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1751,7 +1743,7 @@ export const lesson18: Lesson = {
         sentence: 'He dances at parties.',
         answer: 'El dansează la petreceri.',
         options: ['El', 'dansează', 'la', 'petreceri.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1763,14 +1755,14 @@ export const lesson18: Lesson = {
           { label: 'Ce face el?', value: 'Ce face el?', isCorrect: false },
           { label: 'Ce face tu?', value: 'Ce face tu?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'He sings in a band.',
         answer: 'El cântă într-o formație.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1782,13 +1774,13 @@ export const lesson18: Lesson = {
           { label: 'Ce mănânci?', value: 'Ce mănânci?', isCorrect: false },
           { label: 'Ce bei?', value: 'Ce bei?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson19: Lesson = {
-  id: '19',
+  lesson_id: '19',
   title: 'Verbs 4',
   description:
     'This lesson introduces more easy verbs in English for beginners who are Romanian speakers.',
@@ -1799,7 +1791,7 @@ export const lesson19: Lesson = {
         sentence: 'She sleeps at night.',
         answer: 'Ea doarme noaptea.',
         options: ['Ea doarme noaptea.', 'El aleargă în parc.', 'Eu citesc o carte.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1811,7 +1803,7 @@ export const lesson19: Lesson = {
           ['Drink', 'Bea'],
           ['Walk', 'Mergi'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1823,7 +1815,7 @@ export const lesson19: Lesson = {
           { label: 'Eat', value: 'Eat', isCorrect: true },
           { label: 'Drink', value: 'Drink', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1835,7 +1827,7 @@ export const lesson19: Lesson = {
           { label: 'walks', value: 'walks' },
           { label: 'eats', value: 'eats' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1843,7 +1835,7 @@ export const lesson19: Lesson = {
         sentence: 'They eat at the restaurant.',
         answer: 'Ei mănâncă la restaurant.',
         options: ['Ei', 'mănâncă', 'la', 'restaurant.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1855,14 +1847,14 @@ export const lesson19: Lesson = {
           { label: 'Ce face ea?', value: 'Ce face ea?', isCorrect: false },
           { label: 'Ce face tu?', value: 'Ce face tu?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'She drinks water.',
         answer: 'Ea bea apă.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1874,13 +1866,13 @@ export const lesson19: Lesson = {
           { label: 'Ce mănânci?', value: 'Ce mănânci?', isCorrect: false },
           { label: 'Ce bei?', value: 'Ce bei?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
 
 export const lesson20: Lesson = {
-  id: '20',
+  lesson_id: '20',
   title: 'Simple Adjectives',
   description:
     'This lesson introduces basic adjectives in English for beginners who are Romanian speakers.',
@@ -1891,7 +1883,7 @@ export const lesson20: Lesson = {
         sentence: 'She is happy.',
         answer: 'Ea este fericită.',
         options: ['Ea este fericită.', 'El este trist.', 'Eu sunt obosit.'],
-      } as ListeningActivityType,
+      },
     },
     {
       type: 'matchingPairs',
@@ -1903,7 +1895,7 @@ export const lesson20: Lesson = {
           ['Tired', 'Obosit'],
           ['Hungry', 'Înfometat'],
         ],
-      } as MatchingPairsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1915,7 +1907,7 @@ export const lesson20: Lesson = {
           { label: 'Sad', value: 'Sad', isCorrect: false },
           { label: 'Hungry', value: 'Hungry', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'missingWord',
@@ -1927,7 +1919,7 @@ export const lesson20: Lesson = {
           { label: 'sad', value: 'sad' },
           { label: 'tired', value: 'tired' },
         ],
-      } as MissingWordActivityType,
+      },
     },
     {
       type: 'dragWords',
@@ -1935,7 +1927,7 @@ export const lesson20: Lesson = {
         sentence: 'The cat is black.',
         answer: 'Pisica este neagră.',
         options: ['Pisica', 'este', 'neagră.'],
-      } as DragWordsActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1951,14 +1943,14 @@ export const lesson20: Lesson = {
           },
           { label: 'Ce culoare are iarba?', value: 'Ce culoare are iarba?', isCorrect: false },
         ],
-      } as PickAnswerActivityType,
+      },
     },
     {
       type: 'typeAnswer',
       activity: {
         sentence: 'The flowers are beautiful.',
         answer: 'Florile sunt frumoase.',
-      } as TypeAnswerActivityType,
+      },
     },
     {
       type: 'pickAnswer',
@@ -1970,7 +1962,7 @@ export const lesson20: Lesson = {
           { label: 'Sad', value: 'Sad', isCorrect: false },
           { label: 'Hungry', value: 'Hungry', isCorrect: true },
         ],
-      } as PickAnswerActivityType,
+      },
     },
   ],
 };
