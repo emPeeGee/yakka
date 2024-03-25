@@ -25,7 +25,7 @@ export const ProfileScreen = () => {
   const styles = getStyles(theme);
   const gStyles = useGlobalThemedStyles();
   const { navigate } = useNavigation();
-  const { signOut, user, withAccessControl } = useAuth();
+  const { signOut, user, username, withAccessControl } = useAuth();
 
   const DASHBOARD_LIST: DataListType[] = useMemo(
     () =>
@@ -85,7 +85,7 @@ export const ProfileScreen = () => {
           />
           <View style={[gStyles.fullWidthFromStart, styles.nameContainer]}>
             <EnhancedText style={styles.name} size="md">
-              {`${user?.user_metadata?.first_name || 'Unknown'} ${user?.user_metadata?.last_name}`}
+              {username}
             </EnhancedText>
             <EnhancedText style={styles.grade} size="xxs">
               Newbie

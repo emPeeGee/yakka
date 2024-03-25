@@ -21,7 +21,7 @@ export const ProfileEditScreen = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const { user } = useAuth();
+  const { user, username } = useAuth();
 
   const [firstName, setFirstName] = useState(user?.user_metadata?.first_name || '');
   const [lastName, setLastName] = useState(user?.user_metadata?.last_name || '');
@@ -75,7 +75,7 @@ export const ProfileEditScreen = () => {
             />
           </View>
           <EnhancedText style={{ textAlign: 'center' }} preset="heading">
-            {`${user?.user_metadata?.first_name || 'Unknown'} ${user?.user_metadata?.last_name}`}
+            {username}
           </EnhancedText>
 
           <View style={[gStyles.centerColumn, { gap: theme.spacing.md, width: '100%' }]}>

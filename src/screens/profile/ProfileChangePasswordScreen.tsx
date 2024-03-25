@@ -23,7 +23,7 @@ export const ProfileChangePasswordScreen = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const { user } = useAuth();
+  const { username } = useAuth();
   const [hidePassword, setHidePassword] = useState(true);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -82,7 +82,7 @@ export const ProfileChangePasswordScreen = () => {
             />
           </View>
           <EnhancedText style={{ textAlign: 'center' }} preset="heading">
-            {`${user?.user_metadata?.first_name || 'Unknown'} ${user?.user_metadata?.last_name}`}
+            {username}
           </EnhancedText>
 
           <View style={[gStyles.centerColumn, { gap: theme.spacing.md, width: '100%' }]}>

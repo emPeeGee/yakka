@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { useState, useEffect, createContext, useContext, useCallback } from 'react';
+import { useState, useEffect, createContext, useContext, useCallback, useMemo } from 'react';
 
 import { Session, User } from '@supabase/supabase-js';
 import { SheetManager } from 'react-native-actions-sheet';
@@ -15,6 +15,7 @@ type Tokens = {
 type AuthContextType = {
   user: User | null;
   session: Session | null;
+  username: string;
   signOut: (callback: VoidFunction) => void;
   loginWithToken: (credentials: Tokens) => Promise<void>;
   withAccessControl: (cb1: VoidFunction, cb2: VoidFunction) => () => Promise<void>;
@@ -23,6 +24,7 @@ type AuthContextType = {
 const initialValue: AuthContextType = {
   user: null,
   session: null,
+  username: 'Unknown',
   signOut: noop,
   loginWithToken: () => Promise.resolve(),
   withAccessControl: () => () => Promise.resolve(),
@@ -60,6 +62,12 @@ export const AuthProvider = ({
       setIsLoading(false);
     };
   }, []);
+
+  const username = useMemo(() => {
+    return `${session?.user?.user_metadata?.first_name || 'Unknown'} ${
+      session?.user?.user_metadata?.last_name || ''
+    }`;
+  }, [session]);
 
   const signOut = useCallback(async (callback: VoidFunction) => {
     await supabase.auth.signOut();
@@ -107,7 +115,14 @@ export const AuthProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ session, user: session?.user ?? null, signOut, loginWithToken, withAccessControl }}>
+      value={{
+        session,
+        user: session?.user ?? null,
+        username,
+        signOut,
+        loginWithToken,
+        withAccessControl,
+      }}>
       {children}
     </AuthContext.Provider>
   );
