@@ -45,6 +45,7 @@ export function SuccessEffect({
 
   const Icon = Animated.createAnimatedComponent(Feather);
   const SIZE = size;
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <View
@@ -135,18 +136,23 @@ export function SuccessEffect({
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Icon
-            name={iconName}
+          <Animated.View
             style={{
               alignSelf: 'center',
               opacity: animation.interpolate({
                 inputRange: [0, 0.5, 0.75, 1.5],
                 outputRange: [0, 0, 0.5, 1],
               }),
-            }}
-            size={iconSize}
-            color={iconColor}
-          />
+            }}>
+            <Icon
+              name={iconName}
+              size={iconSize}
+              color={iconColor}
+              style={{
+                alignSelf: 'center',
+              }}
+            />
+          </Animated.View>
         </Animated.View>
       </View>
 
