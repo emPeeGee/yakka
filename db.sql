@@ -429,34 +429,51 @@ CREATE POLICY user_access_policy ON favorite_words
     USING (auth.uid() = user_id);
 
 
--- 5 RANDOM WORDS
--- Define a composite type
-CREATE TYPE random_word_record AS (
+-- Define a custom composite type for the random words
+CREATE TYPE random_word_with_category AS (
     word_id INT,
     word VARCHAR(100),
-    category_id INT,
+    word_categories JSONB,
     pronunciation VARCHAR(100),
     definition TEXT,
     example TEXT,
     part_of_speech VARCHAR(50),
     synonyms TEXT[],
-    created_at TIMESTAMP,
-    category_name VARCHAR(100)
+    created_at TIMESTAMP
 );
 
--- Define the function to return the composite type
+-- Create a function to return random words with nested category information
 CREATE OR REPLACE FUNCTION get_random_words()
-RETURNS SETOF random_word_record AS $$
+RETURNS SETOF random_word_with_category AS $$
 BEGIN
     RETURN QUERY 
-    SELECT w.*, wc.category_name
-    FROM words w
-    INNER JOIN word_categories wc ON wc.category_id = w.category_id
-    ORDER BY RANDOM()
+    SELECT 
+        w.word_id,
+        w.word,
+        JSONB_BUILD_OBJECT(
+            'category_id', wc.category_id,
+            'category_name', wc.category_name,
+            'emoji', wc.emoji
+        ) AS word_categories,
+        w.pronunciation,
+        w.definition,
+        w.example,
+        w.part_of_speech,
+        w.synonyms,
+        w.created_at
+    FROM 
+        words w
+    JOIN 
+        word_categories wc ON wc.category_id = w.category_id
+    ORDER BY 
+        RANDOM()
     LIMIT 5;
 END;
 $$ LANGUAGE plpgsql;
 
+
+
+select * from get_random_words();
 
 CREATE TABLE daily_words (
     id SERIAL PRIMARY KEY,
