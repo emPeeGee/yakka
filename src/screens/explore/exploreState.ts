@@ -4,34 +4,10 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { supabase } from '@/api';
-import {} from '@/types';
-
-export type Topic = {
-  topic_id: number;
-  topic_name: string;
-  description?: string;
-  emoji: string;
-};
-
-export type Explore = {
-  explore_id: number;
-  lesson_name: string;
-  description?: string;
-  emoji: string;
-  lesson_content: string;
-  created_at: string;
-  topic_id: number;
-};
-
-export type ExploreUsers = {
-  id: number;
-  explore_id: number;
-  user_id: number;
-  liked: boolean;
-};
+import { Explore, ExploreTopic } from '@/types';
 
 interface ExploreState {
-  topics: Topic[];
+  topics: ExploreTopic[];
   exploreItems: Explore[];
   // favorites: Favorite[];
   isLoading: boolean;
@@ -65,7 +41,7 @@ export const useExploreStore = create<ExploreState>()(
         set(state => ({
           ...state,
           isLoading: false,
-          topics: [...(topics?.map(w => w) as Topic[])],
+          topics: [...(topics?.map(w => w) as ExploreTopic[])],
           // categories: categories as WordCategory[],
           // favorites: topics?.map(l => ({
           //   id: l.id,

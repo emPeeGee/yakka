@@ -1,5 +1,6 @@
 import { VoidCb } from './cb';
 import { SelectableOption, Dimensions } from './common';
+import { Explore, ExploreTopic, ExploreUsers } from './explore';
 import {
   ActivityType,
   ActivityUnion,
@@ -56,4 +57,7 @@ export type {
   ParsedLessonAnswers,
   LearningLessonStats,
   UserStats,
+  Explore,
+  ExploreTopic,
+  ExploreUsers,
 };
