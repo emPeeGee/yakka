@@ -5,6 +5,7 @@ import { Session, User } from '@supabase/supabase-js';
 import { SheetManager } from 'react-native-actions-sheet';
 
 import { supabase } from '@/api';
+import { useAuthState } from './authState';
 import { noop } from '../utils';
 
 type Tokens = {
@@ -43,17 +44,20 @@ export const AuthProvider = ({
 }: AuthProviderProps): React.ReactNode => {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { setUser } = useAuthState();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setIsLoading(true);
       setSession(session);
+      setUser(session?.user || null);
       setIsLoading(false);
     });
 
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setIsLoading(true);
       setSession(session);
+      setUser(session?.user || null);
       setIsLoading(false);
     });
 
