@@ -64,11 +64,14 @@ export const useLearnStore = create<LearnState>()(
           .from('user_statistics')
           .select('*')
           .eq('user_id', user.id)
-          .single();
+          .single(1);
 
         if (lessonsError || completedLessonsError || statsError) {
-          console.error('INIT ERR', lessonsError, completedLessonsError, statsError);
-          return;
+          // The result contains 0 rows
+          if (statsError?.code !== 'PGRST116') {
+            console.error('INIT ERR', lessonsError, completedLessonsError, statsError);
+            return;
+          }
         }
 
         const completed = completedLessons?.map(l => l.lessons.lesson_number);
@@ -78,12 +81,12 @@ export const useLearnStore = create<LearnState>()(
           isLoading: false,
           lessons: [...lessons],
           completed,
-          current: completed.at(-1) + 1, //  lessons.at(0).lesson_number,
+          current: isNaN(completed.at(-1) + 1) ? 1 : 0, //  lessons.at(0).lesson_number,
           stats: {
             ...state.stats,
-            balloons: stats.balloons,
-            experience: stats.experience,
-            lives: stats.lives,
+            balloons: stats?.balloons || 0,
+            experience: stats?.experience || 0,
+            lives: stats?.lives || MAX_LIVES,
           },
         }));
       },
