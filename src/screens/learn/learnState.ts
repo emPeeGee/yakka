@@ -5,6 +5,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { supabase } from '@/api';
 import { REGENERATE_INTERVAL_S } from '@/core/constants';
+import { useAuthState } from '@/core/providers/authState';
 import { LearningLessonStats, Lesson, UserStats } from '@/types';
 
 interface LearnState {
@@ -59,12 +60,14 @@ export const useLearnStore = create<LearnState>()(
           .select('*, lessons!inner(lesson_number)')
           .eq('user_id', user.id)
           .order('lesson_number', { referencedTable: 'lessons', ascending: true });
-        console.log('lessons', lessons, completedLessons);
+        const { data: stats, error: statsError } = await supabase
+          .from('user_statistics')
+          .select('*')
+          .eq('user_id', user.id)
+          .single();
 
-        console.log('errors', lessonsError, completedLessonsError);
-        console.log('completed', completedLessons?.map(l => l.lessons.lesson_number));
-
-        if (lessonsError || completedLessonsError) {
+        if (lessonsError || completedLessonsError || statsError) {
+          console.error('INIT ERR', lessonsError, completedLessonsError, statsError);
           return;
         }
 
@@ -76,6 +79,12 @@ export const useLearnStore = create<LearnState>()(
           lessons: [...lessons],
           completed,
           current: completed.at(-1) + 1, //  lessons.at(0).lesson_number,
+          stats: {
+            ...state.stats,
+            balloons: stats.balloons,
+            experience: stats.experience,
+            lives: stats.lives,
+          },
         }));
       },
       completeLesson: async (lesson_id: number, wonStats: LearningLessonStats, user: User) => {
@@ -90,9 +99,21 @@ export const useLearnStore = create<LearnState>()(
           { onConflict: 'user_lesson_id' },
         );
 
-        console.log(completedError);
+        // TODO: accessing the state in this way in this component
+        const stats = useLearnStore.getState().stats;
 
-        if (completedError) {
+        const { error: statsError } = await supabase.from('user_statistics').upsert(
+          {
+            user_id: user.id,
+            balloons: stats.balloons + wonStats.balloons,
+            experience: stats.experience + wonStats.experience,
+            lives: stats.lives - wonStats.livesUsed,
+          },
+          { onConflict: 'user_id' },
+        );
+
+        if (completedError || statsError) {
+          console.error('complete lesson', completedError, statsError);
           return;
         }
 
@@ -102,13 +123,12 @@ export const useLearnStore = create<LearnState>()(
           ) as Lesson;
           const nextLesson = passedLesson?.lesson_number + 1;
 
-          console.log('passed', passedLesson, nextLesson);
-
           return {
             ...state,
             completed: [...state.completed, passedLesson?.lesson_number],
             current: nextLesson,
             stats: {
+              ...state.stats,
               balloons: state.stats.balloons + wonStats.balloons,
               experience: state.stats.experience + wonStats.experience,
               lives: state.stats.lives - wonStats.livesUsed,
@@ -116,9 +136,12 @@ export const useLearnStore = create<LearnState>()(
           };
         });
       },
-      regenerateLife: () =>
+      regenerateLife: async () => {
+        let triggerRequest = true;
+
         set(state => {
           if (state.stats.lives >= MAX_LIVES) {
+            triggerRequest = false;
             return {
               ...state,
               lastRegeneration: Date.now(),
@@ -136,15 +159,17 @@ export const useLearnStore = create<LearnState>()(
             // How many intervals we should restore when in background
             const canFillWith = Math.round(elapsedSeconds / REGENERATE_INTERVAL_S);
 
+            // Fill all the lives or make calculate diff between current life and canFillWith
+            // eg. -4 + 8 = 4, Min(4, 10) = 4
+            // -4 + 28 = 24, Min(24, 10) = 10
+            const lives = Math.min(state.stats.lives + canFillWith, MAX_LIVES);
+
             return {
               ...state,
               lastRegeneration: Date.now(),
               stats: {
                 ...state.stats,
-                // Fill all the lives or make calculate diff between current life and canFillWith
-                // eg. -4 + 8 = 4, Min(4, 10) = 4
-                // -4 + 28 = 24, Min(24, 10) = 10
-                lives: Math.min(state.stats.lives + canFillWith, MAX_LIVES),
+                lives,
               },
             };
           }
@@ -157,7 +182,25 @@ export const useLearnStore = create<LearnState>()(
               lives: state.stats.lives + 1,
             },
           };
-        }),
+        });
+
+        const user = useAuthState.getState().user;
+        // TODO: accessing the state in this way in this component
+        const stats = useLearnStore.getState().stats;
+
+        // when lives will reach MAX_LIVES it will make only a request
+        if (triggerRequest) {
+          if (user) {
+            const { error } = await supabase
+              .from('user_statistics')
+              .upsert({ user_id: user.id, lives: stats.lives }, { onConflict: 'user_id' });
+
+            if (error) {
+              console.error('regenerate live', error);
+            }
+          }
+        }
+      },
 
       reset: () => {
         set(initialState);
