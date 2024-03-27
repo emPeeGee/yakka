@@ -11,8 +11,8 @@ interface ToggleButtonProps {
 }
 
 const ToggleButton: React.FC<ToggleButtonProps> = ({ label, onPress, selected }) => {
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  const { theme, appColorScheme } = useTheme();
+  const styles = getStyles(theme, appColorScheme === 'dark');
   const scaleValue = new Animated.Value(1);
 
   const handlePressIn = () => {
@@ -41,7 +41,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ label, onPress, selected })
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      style={[styles.button]}>
+      style={[styles.button, { flex: 1 }]}>
       <Animated.Text style={[styles.label, selected && styles.selectedLabel, animatedStyle]}>
         {label}
       </Animated.Text>
@@ -55,20 +55,19 @@ interface ToggleGroupProps {
 }
 
 export const ButtonToggleGroup: React.FC<ToggleGroupProps> = ({ options, onOptionChange }) => {
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  const { theme, appColorScheme } = useTheme();
+  const styles = getStyles(theme, appColorScheme === 'dark');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const positionValue = useRef(new Animated.Value(0)).current;
 
   const [containerDim, setContainerDim] = useState(0);
-  const buttonWidth = containerDim / options.length;
+  const buttonWidth = (containerDim - theme.borders.medium * 2) / options.length;
 
   const handlePress = (option: string, index: number) => {
     setSelectedOption(option);
     onOptionChange(option);
     Animated.timing(positionValue, {
       toValue: buttonWidth * index,
-      // toValue: ((index + 1) * 10 + buttonWidth) * index,
       duration: 200,
       useNativeDriver: false,
     }).start();
@@ -77,7 +76,15 @@ export const ButtonToggleGroup: React.FC<ToggleGroupProps> = ({ options, onOptio
   return (
     <View style={styles.container}>
       <View
-        style={{ position: 'relative', flexDirection: 'row' }}
+        style={{
+          borderRadius: theme.borderRadius.sm,
+          borderWidth: theme.borders.medium,
+          borderColor: theme.colors.surface,
+          backgroundColor: theme.colors.surface,
+          position: 'relative',
+          flexDirection: 'row',
+          width: '80%',
+        }}
         onLayout={(event: LayoutChangeEvent) => {
           setContainerDim(event.nativeEvent.layout.width);
         }}>
@@ -95,7 +102,7 @@ export const ButtonToggleGroup: React.FC<ToggleGroupProps> = ({ options, onOptio
   );
 };
 
-const getStyles = (theme: Theme) =>
+const getStyles = (theme: Theme, isDark: boolean) =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -105,22 +112,22 @@ const getStyles = (theme: Theme) =>
     },
     button: {
       padding: 10,
-      marginHorizontal: 5,
-      borderRadius: theme.borderRadius.sm,
+      borderRadius: theme.borderRadius.md,
     },
     label: {
+      color: theme.colors.textPri,
       textAlign: 'center',
       fontSize: 16,
       fontWeight: 'bold',
     },
     selectedLabel: {
-      color: theme.colors.base0,
+      // color: theme.colors.base0,
     },
     indicator: {
       position: 'absolute',
       top: 0,
       height: '100%',
-      backgroundColor: theme.colors.secondary500,
+      backgroundColor: isDark ? theme.colors.base60 : theme.colors.background,
       borderRadius: theme.borderRadius.sm,
     },
   });
