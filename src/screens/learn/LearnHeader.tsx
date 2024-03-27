@@ -11,6 +11,7 @@ import {
   ScrollViewProps,
 } from 'react-native';
 
+import { useAuth } from '@/core/providers';
 import { Theme, UserStats } from '@/types';
 import { EnhancedText, Fade, Tooltip } from '@/ui/core';
 import { BalloonIcon, LightningIcon, HeartIcon } from '@/ui/icons';
@@ -78,6 +79,7 @@ export function LearnHeader({
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
   const styles = getStyles(theme);
   const gStyles = useGlobalThemedStyles();
+  const { username } = useAuth();
 
   const onLayout = (event: LayoutChangeEvent) => {
     setHeaderHeight(event.nativeEvent.layout.height);
@@ -99,8 +101,6 @@ export function LearnHeader({
       setIsHeaderScrolled(isHeaderScrolled2);
     }
   };
-
-  const username = 'Mihail';
 
   const isRegeneratingLives = stats.lives < MAX_LIVES;
   const statsComponent = useMemo(
@@ -197,7 +197,7 @@ export function LearnHeader({
               size="xl"
               tx="learn.greeting"
               weight="medium"
-              txOptions={{ name: username || 'Mate' }}
+              txOptions={{ name: username }}
               style={{ color: theme.colors.base0 }}
             />
             <EnhancedText size="lg" tx="learn.wouldLearn" style={{ color: theme.colors.base0 }} />
