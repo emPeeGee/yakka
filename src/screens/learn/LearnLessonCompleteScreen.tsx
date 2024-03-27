@@ -22,7 +22,7 @@ export const LearnLessonCompleteScreen = ({ route }: any) => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const [lessonStats, setLessonStats] = useState<LearningLessonStats | undefined>();
-  const { setCompleted } = useLearnStore();
+  const { completeLesson } = useLearnStore();
   const lesson = useLearnStore(
     useShallow(state => state.lessons.find(l => l.lesson_id === route?.params?.lessonId)),
   ) as Lesson;
@@ -44,7 +44,7 @@ export const LearnLessonCompleteScreen = ({ route }: any) => {
 
       console.log('stats after lesson', statsAfterTheLesson);
 
-      setCompleted(lesson.lesson_id, statsAfterTheLesson, user as User);
+      completeLesson(lesson.lesson_id, statsAfterTheLesson, user as User);
       setLessonStats(statsAfterTheLesson);
       playSound('lessonSuccess');
     });

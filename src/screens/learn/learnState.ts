@@ -15,7 +15,7 @@ interface LearnState {
   stats: UserStats;
   lastRegeneration: number;
   init: (user: User | null) => void;
-  setCompleted: (lesson_id: number, wonStats: LearningLessonStats, user: User) => void;
+  completeLesson: (lesson_id: number, wonStats: LearningLessonStats, user: User) => void;
   regenerateLife: () => void;
   reset: () => void;
 }
@@ -78,7 +78,7 @@ export const useLearnStore = create<LearnState>()(
           current: completed.at(-1) + 1, //  lessons.at(0).lesson_number,
         }));
       },
-      setCompleted: async (lesson_id: number, wonStats: LearningLessonStats, user: User) => {
+      completeLesson: async (lesson_id: number, wonStats: LearningLessonStats, user: User) => {
         const { error: completedError } = await supabase.from('user_lessons').upsert(
           {
             // TODO: need to pass user_lesson_id when doing the lesson second time, otherwise it will be created twice
