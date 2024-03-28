@@ -6,7 +6,12 @@ import { noop } from './noop';
 import { isZero, percentage } from './numbers';
 import { recursiveToCamel } from './objects';
 import { parseSupabaseUrl } from './supabase';
-import { formatSecondsToMinutesSeconds } from './time';
+import {
+  formatSecondsToMinutesSeconds,
+  getWeekNumber,
+  formatMsToMinutes,
+  getMonthNameFromNumber,
+} from './time';
 import { isEmail, isNumb } from './validation';
 
 export {
@@ -25,5 +30,8 @@ export {
   isEmail,
   isNumb,
   recursiveToCamel,
+  getWeekNumber,
+  formatMsToMinutes,
+  getMonthNameFromNumber,
   shuffle,
 };

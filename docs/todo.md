@@ -82,6 +82,7 @@
 [ ] translate screens titles
 [ ] buy lives by payng balloons
 [ ] Make sign up flow with wizard as per mock
+[ ] user activity, make formating better, slice, and show a tooltip which explains: 'Daily only shows the current month', 'weekly shows number of the week',...
 
 ## Low:
 
