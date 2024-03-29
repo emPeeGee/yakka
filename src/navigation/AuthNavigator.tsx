@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { translate } from '@/core/i18n';
 import {
   LoginScreen,
   ResetPasswordRequestScreen,
@@ -24,7 +25,7 @@ export const AuthNavigator = () => {
         screenOptions={{
           headerShown: true,
           headerTransparent: true,
-          headerTitle: () => null,
+          headerTitleAlign: 'center',
           headerBackVisible: false,
           headerLeft: props => (
             <View style={{ marginLeft: theme.spacing.md }}>
@@ -32,8 +33,16 @@ export const AuthNavigator = () => {
             </View>
           ),
         }}>
-        <Stack.Screen name="AuthLogin" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="AuthSignUp" component={SignUpScreen} options={{ headerShown: true }} />
+        <Stack.Screen
+          name="AuthLogin"
+          component={LoginScreen}
+          options={{ headerLeft: () => null, headerShown: false }}
+        />
+        <Stack.Screen
+          name="AuthSignUp"
+          component={SignUpScreen}
+          options={{ headerTitle: translate('auth.signUp') }}
+        />
         <Stack.Screen
           name="AuthSignUpDone"
           component={SignUpDoneScreen}
@@ -42,12 +51,12 @@ export const AuthNavigator = () => {
         <Stack.Screen
           name="AuthResetPasswordRequest"
           component={ResetPasswordRequestScreen}
-          options={{ headerShown: true }}
+          options={{ headerTitle: translate('auth.resetPassword') }}
         />
         <Stack.Screen
           name="AuthResetPassword"
           component={ResetPasswordScreen}
-          options={{ headerShown: true }}
+          options={{ headerTitle: translate('auth.resetPassword') }}
         />
       </Stack.Group>
     </Stack.Navigator>

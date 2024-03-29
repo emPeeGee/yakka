@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { translate } from '@/core/i18n';
 import {
   AppearanceScreen,
   ProfileScreen,
@@ -50,18 +51,18 @@ export const ProfileNavigator = () => {
           component={ProfileScreen}
           options={{
             headerLeft: undefined,
-            headerTitle: 'Profile',
+            headerTitle: translate('profile.myProfile'),
             contentStyle: { paddingHorizontal: null },
           }}
         />
         <Stack.Screen
-          options={{ headerTitle: 'Settings' }}
+          options={{ headerTitle: translate('profile.settings') }}
           name="ProfSettings"
           component={SettingsScreen}
         />
         <Stack.Screen
           options={{
-            headerTitle: 'Achievements',
+            headerTitle: translate('profile.achievements'),
             headerTransparent: false,
           }}
           name="ProfAchievements"
@@ -70,22 +71,23 @@ export const ProfileNavigator = () => {
         <Stack.Screen
           options={{
             headerTransparent: false,
+            headerTitle: translate('profile.myActivity'),
           }}
           name="ProfActivity"
           component={ProfileActivityScreen}
         />
         <Stack.Screen
-          options={{ headerTitle: 'Appearance' }}
+          options={{ headerTitle: translate('profile.appearance') }}
           name="ProfAppearance"
           component={AppearanceScreen}
         />
         <Stack.Screen
-          // options={{ headerTitle: '' }}
+          options={{ headerTitle: translate('profile.editProfile') }}
           name="ProfProfileEdit"
           component={ProfileEditScreen}
         />
         <Stack.Screen
-          // options={{ headerTitle: '' }}
+          options={{ headerTitle: translate('profile.changePassword') }}
           name="ProfChangePassword"
           component={ProfileChangePasswordScreen}
         />
