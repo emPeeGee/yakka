@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,6 +6,7 @@ import {
   FlatList,
   ViewToken,
   ImageSourcePropType,
+  Platform,
 } from 'react-native';
 
 import Animated, {
@@ -49,9 +50,15 @@ export const Swiper = ({ items, onFinish }: SwiperProps) => {
     [],
   );
 
+  const viewabilityConfigCallbackPairs = useRef([{ onViewableItemsChanged }]);
+
   const onScroll = useAnimatedScrollHandler({
     onScroll: event => {
       x.value = event.contentOffset.x;
+
+      if (Platform.OS === 'web') {
+        flatListIndex.value = event.contentOffset.x / SCREEN_WIDTH;
+      }
     },
   });
 
@@ -60,13 +67,13 @@ export const Swiper = ({ items, onFinish }: SwiperProps) => {
       <Animated.FlatList
         ref={flatListRef as any}
         data={items}
-        keyExtractor={item => String(item.id)}
+        keyExtractor={item => String('itemid' + item.id)}
         renderItem={({ item, index }) => <SwiperItem index={index} item={item} x={x} />}
         horizontal
         bounces={false}
         showsHorizontalScrollIndicator={false}
         pagingEnabled
-        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         onScroll={onScroll}
         scrollEventThrottle={16}
       />
