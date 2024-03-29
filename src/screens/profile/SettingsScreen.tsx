@@ -7,14 +7,7 @@ import { SheetManager } from 'react-native-actions-sheet';
 import { rootLog } from '@/core/logger';
 import { useHaptics, useSound } from '@/core/providers';
 import { removeItem } from '@/core/storage';
-import {
-  EnhancedText,
-  Button,
-  List,
-  DataListType,
-  HeaderPlaceholder,
-  ContainerWithInsets,
-} from '@/ui/core';
+import { Button, List, DataListType, HeaderPlaceholder, ContainerWithInsets } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { useLearnStore } from '../learn/learnState';
 import { useVocabularyStore } from '../vocabulary/vocabularyState';
@@ -40,7 +33,8 @@ export const SettingsScreen = () => {
           withChevron: true,
         },
         {
-          label: 'Font size',
+          tx: 'profile.fontSize',
+          withChevron: true,
           callback: () => {
             fontSizeHandler();
           },

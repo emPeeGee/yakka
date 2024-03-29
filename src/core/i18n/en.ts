@@ -195,6 +195,7 @@ export const en = {
     myAccount: 'My account',
     rankNewbie: 'Newbie',
     totalLearn: 'Total learn',
+    fontSize: 'Font size',
   },
   temp: {
     clear1: 'Clear the storage',
