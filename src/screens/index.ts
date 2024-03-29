@@ -15,6 +15,7 @@ import { OnboardQuestionsDoneScreen } from './onboarding/OnboardQuestionsDoneScr
 import { OnboardQuestionsScreen } from './onboarding/OnboardQuestionsScreen';
 import { AchievementsScreen } from './profile/AchievementsScreen';
 import { AppearanceScreen } from './profile/AppearanceScreen';
+import { ProfileActivityScreen } from './profile/ProfileActivityScreen';
 import { ProfileChangePasswordScreen } from './profile/ProfileChangePasswordScreen';
 import { ProfileEditScreen } from './profile/ProfileEditScreen';
 import { ProfileScreen } from './profile/ProfileScreen';
@@ -52,4 +53,5 @@ export {
   ExpTopicsScreen,
   ExpBasicTensesScreen,
   ExpContentScreen,
+  ProfileActivityScreen,
 };
