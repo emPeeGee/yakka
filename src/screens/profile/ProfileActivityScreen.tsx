@@ -6,6 +6,7 @@ import { BarChart } from 'react-native-chart-kit';
 import { TIME_SPEND_DATA_KEY } from '@/core/constants';
 import { getItem } from '@/core/storage';
 import { formatMsToMinutes, getMonthNameFromNumber, getWeekNumber } from '@/core/utils';
+import { SelectableOption } from '@/types';
 import { ButtonToggleGroup, FocusAwareStatusBar } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -14,6 +15,12 @@ export enum GROUP_ACTIVITY_TYPE {
   Weekly = 'weekly',
   Monthly = 'monthly',
 }
+
+const TIMING_OPTIONS: SelectableOption<GROUP_ACTIVITY_TYPE>[] = [
+  { tx: 'common.daily', value: GROUP_ACTIVITY_TYPE.Daily },
+  { tx: 'common.weekly', value: GROUP_ACTIVITY_TYPE.Weekly },
+  { tx: 'common.monthly', value: GROUP_ACTIVITY_TYPE.Monthly },
+];
 
 export const ProfileActivityScreen = () => {
   const { theme } = useTheme();
@@ -57,7 +64,10 @@ export const ProfileActivityScreen = () => {
 
               return acc;
             }, {}),
+          ).map(([date, time]) => ({
             date: getMonthNameFromNumber({ monthNumber: Number(date) }),
+            time: time,
+          }));
       }
     },
     [],
@@ -80,14 +90,7 @@ export const ProfileActivityScreen = () => {
   return (
     <View style={{ marginVertical: theme.spacing.md }}>
       <FocusAwareStatusBar />
-      <ButtonToggleGroup
-        options={[
-          GROUP_ACTIVITY_TYPE.Daily,
-          GROUP_ACTIVITY_TYPE.Weekly,
-          GROUP_ACTIVITY_TYPE.Monthly,
-        ]}
-        onOptionChange={dispatch}
-      />
+      <ButtonToggleGroup options={TIMING_OPTIONS} onOptionChange={dispatch} />
       <View style={{}}>
         <ScrollView horizontal>
           <BarChart

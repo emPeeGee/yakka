@@ -36,6 +36,9 @@ export const en = {
     no: 'No',
     confirm: 'Confirm',
     areYouSure: 'Are you sure you want to do this?',
+    daily: 'Daily',
+    weekly: 'Weekly',
+    monthly: 'Monthly',
   },
 
   // Won't change depending on the language
@@ -182,6 +185,7 @@ export const en = {
     learnToday: 'What would you like to read?',
   },
   profile: {
+    myProfile: 'My profile',
     editProfile: 'Edit profile',
     myActivity: 'My activity',
     settings: 'Settings',

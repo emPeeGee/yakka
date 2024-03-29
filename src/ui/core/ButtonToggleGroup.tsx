@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import { StyleSheet, Animated, LayoutChangeEvent, TouchableOpacity, View } from 'react-native';
 
-import { Theme } from '@/types';
+import { translate } from '@/core/i18n';
+import { SelectableOption, Theme } from '@/types';
 import { useTheme } from '../theme';
 
 interface ToggleButtonProps {
@@ -49,21 +50,21 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ label, onPress, selected })
   );
 };
 
-interface ToggleGroupProps {
-  options: string[];
-  onOptionChange: (option: string) => void;
+interface ToggleGroupProps<T> {
+  options: SelectableOption<T>[];
+  onOptionChange: (option: T) => void;
 }
 
-export const ButtonToggleGroup: React.FC<ToggleGroupProps> = ({ options, onOptionChange }) => {
+export function ButtonToggleGroup<T>({ options, onOptionChange }: ToggleGroupProps<T>) {
   const { theme, appColorScheme } = useTheme();
   const styles = getStyles(theme, appColorScheme === 'dark');
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<T | null>(null);
   const positionValue = useRef(new Animated.Value(0)).current;
 
   const [containerDim, setContainerDim] = useState(0);
   const buttonWidth = (containerDim - theme.borders.medium * 2) / options.length;
 
-  const handlePress = (option: string, index: number) => {
+  const handlePress = (option: T, index: number) => {
     setSelectedOption(option);
     onOptionChange(option);
     Animated.timing(positionValue, {
@@ -91,16 +92,16 @@ export const ButtonToggleGroup: React.FC<ToggleGroupProps> = ({ options, onOptio
         <Animated.View style={[styles.indicator, { left: positionValue, width: buttonWidth }]} />
         {options.map((option, index) => (
           <ToggleButton
-            key={option}
-            label={option}
-            onPress={() => handlePress(option, index)}
-            selected={selectedOption === option}
+            key={`${option.value}-${index}`}
+            label={(option.tx ? translate(option.tx) : option.label) as string}
+            onPress={() => handlePress(option.value, index)}
+            selected={selectedOption === option.value}
           />
         ))}
       </View>
     </View>
   );
-};
+}
 
 const getStyles = (theme: Theme, isDark: boolean) =>
   StyleSheet.create({

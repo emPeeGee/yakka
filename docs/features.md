@@ -11,7 +11,7 @@ Continue without profile.
 1. learn, 5 lessons are allowed
 1. voc, can view the deck button are not blocked with action sheet,
 1. explore, topics are blocked,
-1. profile, achivements are blocked, create profile button in profile screen, no stats
+1. profile, achivements are blocked, create profile button in profile screen and login button, no stats
 
 Profile edit
 Password change
