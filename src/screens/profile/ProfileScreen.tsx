@@ -107,11 +107,7 @@ export const ProfileScreen = () => {
         <Separator paddingVertical={theme.spacing.md} />
 
         {user && (
-          <View
-            style={[
-              gStyles.centerRowBetween,
-              { marginBottom: theme.spacing.lg, justifyContent: 'space-around' },
-            ]}>
+          <View style={[gStyles.centerRowBetween, { justifyContent: 'space-around' }]}>
             <View style={gStyles.centerColumnBetween}>
               <View>
                 <EnhancedText size="md">2+ hours</EnhancedText>
@@ -137,10 +133,7 @@ export const ProfileScreen = () => {
         <ScrollView
           scrollEnabled
           horizontal
-          contentContainerStyle={[
-            gStyles.startRowStart,
-            { gap: theme.spacing.md, marginVertical: theme.spacing.md },
-          ]}>
+          contentContainerStyle={[gStyles.startRowStart, { gap: theme.spacing.md }]}>
           {user ? (
             <>
               <Button
@@ -217,10 +210,10 @@ export const ProfileScreen = () => {
             }}
           />
         </View> */}
-      </View>
 
-      <List txTitle="profile.dashboard" data={DASHBOARD_LIST} />
-      {user && <List txTitle="profile.myAccount" data={ACCOUNT_LIST} />}
+        <List txTitle="profile.dashboard" data={DASHBOARD_LIST} />
+        {user && <List txTitle="profile.myAccount" data={ACCOUNT_LIST} />}
+      </View>
     </View>
   );
 };
@@ -229,6 +222,7 @@ const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       paddingHorizontal: theme.spacing.md,
+      gap: theme.spacing.md,
     },
     nameContainer: {
       paddingHorizontal: theme.spacing.xs,

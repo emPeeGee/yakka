@@ -102,7 +102,6 @@ const getStyles = (theme: Theme) =>
       borderColor: theme.colors.border,
       borderWidth: theme.borders.thin,
       borderRadius: theme.borderRadius.sm,
-      marginBottom: theme.spacing.lg,
     },
     listHeader: { color: theme.colors.textSec },
     listHeaderContainer: {
