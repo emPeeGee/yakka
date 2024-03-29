@@ -57,7 +57,7 @@ export const ProfileActivityScreen = () => {
 
               return acc;
             }, {}),
-          ).map(([date, time]) => ({ date: getMonthNameFromNumber(date), time: time }));
+            date: getMonthNameFromNumber({ monthNumber: Number(date) }),
       }
     },
     [],

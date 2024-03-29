@@ -47,10 +47,13 @@ export function formatMsToMinutes(ms: number): string {
   return `${totalMinutes} m`;
 }
 
-export function getMonthNameFromNumber(
-  monthNumber: number,
-  options: Intl.DateTimeFormatOptions | undefined,
-): string {
+export function getMonthNameFromNumber({
+  monthNumber,
+  options,
+}: {
+  monthNumber: number;
+  options?: Intl.DateTimeFormatOptions | undefined;
+}): string {
   const date = new Date();
   date.setMonth(monthNumber - 1); // Month in JavaScript Date object is 0-indexed
 
