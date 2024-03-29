@@ -83,6 +83,7 @@
 [ ] buy lives by payng balloons
 [ ] Make sign up flow with wizard as per mock
 [ ] user activity, make formating better, slice, and show a tooltip which explains: 'Daily only shows the current month', 'weekly shows number of the week',...
+[ ] user activity: store in the database
 
 ## Low:
 
@@ -103,6 +104,7 @@
 ## Bugs:
 
 [ ] Header(explore) back button is not visible due to opacity but it is clickable. The same for tree header, click lives tooltips
+[ ] not every text is adjusted per font size sheet
 [ ] wizard back gesture android learning mode
 [ ] autokeyboard for typeanswer
 [x] status bar and bottom bar colors in different themes

@@ -4,6 +4,7 @@ export const en = {
     cancel: 'Cancel',
     back: 'Back',
     start: 'Start',
+    apply: 'Apply',
     doAgain: 'Do again',
     logOut: 'Log Out',
     finish: 'Finish',
@@ -202,6 +203,9 @@ export const en = {
   info: {
     lives:
       "Lives are used to attempt challenges during the lesson. If you run out of lives, you won't be able to attempt any more challenges. However, don't worry! Your current lesson progress won't be interrupted. You can continue with the other lessons once more lives are generated",
+  },
+  settings: {
+    textSize: 'Text size',
   },
 };
 

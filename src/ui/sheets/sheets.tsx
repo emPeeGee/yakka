@@ -2,12 +2,14 @@ import { SheetDefinition, registerSheet } from 'react-native-actions-sheet';
 
 import { TxKeyPath } from '@/core/i18n';
 import { ConfirmationSheet } from './ConfirmationSheet';
+import { FontSizeSheet } from './FontSizeSheet';
 import { StartLessonSheet } from './StartLessonSheet';
 import { UnlockFullAccessSheet } from './UnlockFullAccessSheet';
 
 registerSheet('start-lesson-sheet', StartLessonSheet);
 registerSheet('unlock-full-access-sheet', UnlockFullAccessSheet);
 registerSheet('confirmation-sheet', ConfirmationSheet);
+registerSheet('font-size-sheet', FontSizeSheet);
 
 // We extend some of the types here to give us great intellisense
 // across the app for all registered sheets.
@@ -34,6 +36,12 @@ declare module 'react-native-actions-sheet' {
         description?: TxKeyPath;
       };
       returnValue: boolean;
+    }>;
+    'font-size-sheet': SheetDefinition<{
+      payload: {
+        fontSize: number;
+      };
+      returnValue: number | null;
     }>;
   }
 }

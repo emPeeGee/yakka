@@ -1,20 +1,31 @@
-import React, { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useColorScheme } from 'react-native';
 
 import * as NavigationBar from 'expo-navigation-bar';
 
+import { FONT_SIZE_DATA_KEY } from '@/core/constants';
 import { rootLog } from '@/core/logger';
 import { getItem, setItem } from '@/core/storage';
 import { isThemeDark } from '@/core/utils';
 import { UserColorSchemeType, Theme, AppColorSchemeType } from '@/types';
-import { getTheme } from './appearance';
+import { DEFAULT_FONT_SIZE, getTheme } from './appearance';
 
 type ThemeContextType = {
   theme: Theme;
+  fontSize: number;
   userColorScheme: UserColorSchemeType;
   appColorScheme: AppColorSchemeType;
   setColorScheme: (colorScheme: UserColorSchemeType) => Promise<void>;
   isDark: boolean;
+  changeFontSize: (fontSize: number | null) => Promise<void>;
 };
 
 const SELECTED_THEME_KEY = 'SELECTED_THEME';
@@ -36,6 +47,7 @@ type ThemeProviderProps = {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = useState<Theme>(getTheme(systemColorScheme));
+  const fontSize = useRef<number>(DEFAULT_FONT_SIZE);
 
   /**
    * The color scheme selected by the user, which can be one of: dark, light, or system.
@@ -52,8 +64,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     const readTheme = async () => {
       const colorScheme = await getItem<UserColorSchemeType>(SELECTED_THEME_KEY);
+      const savedFontSize = await getItem<number>(FONT_SIZE_DATA_KEY);
+
       if (colorScheme) {
         setColorScheme(colorScheme);
+      }
+
+      if (savedFontSize) {
+        fontSize.current = savedFontSize;
+        setTheme(getTheme(appColorScheme.current, savedFontSize));
       }
     };
     readTheme();
@@ -61,7 +80,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (userColorScheme.current === 'system') {
-      setTheme(getTheme(systemColorScheme));
+      setTheme(getTheme(systemColorScheme, fontSize.current));
     }
   }, [systemColorScheme]);
 
@@ -73,20 +92,36 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       case 'light':
       case 'dark':
         appColorScheme.current = colorScheme;
-        setTheme(getTheme(colorScheme));
+        setTheme(getTheme(colorScheme, fontSize.current));
         break;
       case 'system':
         // NOTE: Assigning appColorScheme after setTheme won't have the latest value when consumed. It must be set before.
         appColorScheme.current = systemColorScheme as AppColorSchemeType;
-        setTheme(getTheme(systemColorScheme));
+        setTheme(getTheme(systemColorScheme, fontSize.current));
         break;
     }
 
-    const newTheme = getTheme(appColorScheme.current);
+    const newTheme = getTheme(appColorScheme.current, fontSize.current);
     // Color system nav bar as the background color
     NavigationBar.setBackgroundColorAsync(newTheme.colors.background);
     rootLog.info('User theme changed: ', userColorScheme.current, appColorScheme.current);
   };
+
+  const changeFontSize = useCallback(
+    async (size: number | null | undefined) => {
+      console.log('calling change', size);
+      if (fontSize.current === size || !size) {
+        return;
+      }
+
+      const newFontSize = size || DEFAULT_FONT_SIZE;
+
+      fontSize.current = newFontSize;
+      await setItem(FONT_SIZE_DATA_KEY, newFontSize);
+      setTheme(getTheme(appColorScheme.current, newFontSize));
+    },
+    [fontSize],
+  );
 
   return (
     <ThemeContext.Provider
@@ -96,6 +131,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         appColorScheme: appColorScheme.current,
         setColorScheme,
         isDark: isThemeDark(appColorScheme.current),
+        fontSize: fontSize.current,
+        changeFontSize,
       }}>
       {children}
     </ThemeContext.Provider>

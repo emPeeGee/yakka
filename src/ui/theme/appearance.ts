@@ -111,15 +111,36 @@ const LIGHT_COLORS: Colors = {
   tabColor: 'rgba(0, 0, 0, 0.87)',
 };
 
-const TYPOGRAPHY_SIZES = {
-  xxxl: { fontSize: 48, lineHeight: 56 } satisfies TextStyle,
-  xxl: { fontSize: 36, lineHeight: 44 } satisfies TextStyle,
-  xl: { fontSize: 24, lineHeight: 32 } satisfies TextStyle,
-  lg: { fontSize: 20, lineHeight: 30 } satisfies TextStyle,
-  md: { fontSize: 18, lineHeight: 24 } satisfies TextStyle,
-  sm: { fontSize: 16, lineHeight: 24 } satisfies TextStyle,
-  xs: { fontSize: 14, lineHeight: 20 } satisfies TextStyle,
-  xxs: { fontSize: 12, lineHeight: 16 } satisfies TextStyle,
+type TypographyItem = {
+  fontSize: number;
+  lineHeight: number;
+};
+
+type Typography = {
+  xxxl: TypographyItem;
+  xxl: TypographyItem;
+  xl: TypographyItem;
+  lg: TypographyItem;
+  md: TypographyItem;
+  sm: TypographyItem;
+  xs: TypographyItem;
+  xxs: TypographyItem;
+};
+
+const getTypographySizes = (size: number) => {
+  // TODO: rename
+  const baseSize = size - DEFAULT_FONT_SIZE;
+
+  return {
+    xxxl: { fontSize: 48 + baseSize * 2, lineHeight: 56 + baseSize * 2 } satisfies TextStyle,
+    xxl: { fontSize: 36 + baseSize * 2, lineHeight: 44 + baseSize * 2 } satisfies TextStyle,
+    xl: { fontSize: 24 + baseSize * 1.5, lineHeight: 32 + baseSize * 1.5 } satisfies TextStyle,
+    lg: { fontSize: 20 + baseSize, lineHeight: 30 } satisfies TextStyle,
+    md: { fontSize: 18 + baseSize, lineHeight: 24 } satisfies TextStyle,
+    sm: { fontSize: 16 + baseSize, lineHeight: 24 } satisfies TextStyle,
+    xs: { fontSize: 14 + baseSize, lineHeight: 20 } satisfies TextStyle,
+    xxs: { fontSize: 12 + baseSize, lineHeight: 16 } satisfies TextStyle,
+  };
 };
 
 const FONT_WEIGHTS = {
@@ -129,16 +150,18 @@ const FONT_WEIGHTS = {
   light: { fontWeight: '300' } satisfies TextStyle,
 };
 
-const textBaseStyle: StyleProp<TextStyle> = [TYPOGRAPHY_SIZES.xs, FONT_WEIGHTS.regular];
+const getFontPresets = (typography: Typography) => {
+  const textBaseStyle: StyleProp<TextStyle> = [typography.xs, FONT_WEIGHTS.regular];
 
-const FONT_PRESETS = {
-  default: textBaseStyle,
-  bold: [textBaseStyle, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
-  heading: [textBaseStyle, TYPOGRAPHY_SIZES.xxl, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
-  subheading: [textBaseStyle, TYPOGRAPHY_SIZES.lg, FONT_WEIGHTS.medium] as StyleProp<TextStyle>,
-  formLabel: [textBaseStyle, FONT_WEIGHTS.medium] as StyleProp<TextStyle>,
-  formHelper: [textBaseStyle, TYPOGRAPHY_SIZES.sm, FONT_WEIGHTS.regular] as StyleProp<TextStyle>,
-  button: [textBaseStyle, TYPOGRAPHY_SIZES.sm, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
+  return {
+    default: textBaseStyle,
+    bold: [textBaseStyle, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
+    heading: [textBaseStyle, typography.xxl, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
+    subheading: [textBaseStyle, typography.lg, FONT_WEIGHTS.medium] as StyleProp<TextStyle>,
+    formLabel: [textBaseStyle, FONT_WEIGHTS.medium] as StyleProp<TextStyle>,
+    formHelper: [textBaseStyle, typography.sm, FONT_WEIGHTS.regular] as StyleProp<TextStyle>,
+    button: [textBaseStyle, typography.sm, FONT_WEIGHTS.bold] as StyleProp<TextStyle>,
+  };
 };
 
 const SPACING = {
@@ -153,16 +176,19 @@ const SPACING = {
   xxxl: 64,
 };
 
+export const DEFAULT_FONT_SIZE = 16;
+
 // https://bareynol.github.io/mui-theme-creator/
 // eslint-disable-next-line max-lines-per-function
-export const getTheme = (colorScheme: ColorSchemeName): Theme => {
+export const getTheme = (colorScheme: ColorSchemeName, fontSize = DEFAULT_FONT_SIZE): Theme => {
   const colors = colorScheme === 'dark' ? DARK_COLORS : LIGHT_COLORS;
+  const typographySizes = getTypographySizes(fontSize);
   return {
     colors,
     typography: {
-      sizes: TYPOGRAPHY_SIZES,
+      sizes: typographySizes,
       weights: FONT_WEIGHTS,
-      presets: FONT_PRESETS,
+      presets: getFontPresets(typographySizes),
     },
     spacing: SPACING,
     borderRadius: {

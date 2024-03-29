@@ -2,11 +2,20 @@ import React, { useMemo } from 'react';
 
 import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
+import { SheetManager } from 'react-native-actions-sheet';
 
 import { rootLog } from '@/core/logger';
 import { useHaptics, useSound } from '@/core/providers';
 import { removeItem } from '@/core/storage';
-import { Button, List, DataListType, HeaderPlaceholder, ContainerWithInsets } from '@/ui/core';
+import {
+  EnhancedText,
+  Button,
+  List,
+  DataListType,
+  HeaderPlaceholder,
+  ContainerWithInsets,
+} from '@/ui/core';
+import { useTheme } from '@/ui/theme';
 import { useLearnStore } from '../learn/learnState';
 import { useVocabularyStore } from '../vocabulary/vocabularyState';
 
@@ -15,6 +24,12 @@ export const SettingsScreen = () => {
   const { setIsSoundEnabled, isSoundEnabled } = useSound();
   const { reset } = useVocabularyStore();
   const { reset: resetLearn } = useLearnStore();
+  const { fontSize, changeFontSize } = useTheme();
+
+  const fontSizeHandler = async () => {
+    const newFontSize = await SheetManager.show('font-size-sheet', { payload: { fontSize } });
+    changeFontSize(newFontSize);
+  };
 
   const SETTINGS_LIST = useMemo(
     () =>
@@ -23,6 +38,12 @@ export const SettingsScreen = () => {
           tx: 'profile.appearance',
           screen: 'ProfAppearance',
           withChevron: true,
+        },
+        {
+          label: 'Font size',
+          callback: () => {
+            fontSizeHandler();
+          },
         },
         {
           tx: 'profile.soundEffects',
