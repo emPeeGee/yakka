@@ -156,12 +156,24 @@ export const ProfileScreen = () => {
               />
             </>
           ) : (
-            <Button
-              tx="common.createProfile"
-              backgroundColor={theme.colors.primary500}
-              Left={UserCircleIcon}
-              onPress={() => navigate('Auth', { screen: 'AuthSignUp' })}
-            />
+            <>
+              <Button
+                tx="common.createProfile"
+                width="auto"
+                backgroundColor={theme.colors.primary500}
+                Left={UserCircleIcon}
+                onPress={() => navigate('Auth', { screen: 'AuthSignUp' })}
+                style={{ paddingVertical: theme.spacing.sm }}
+              />
+              <Button
+                tx="auth.login"
+                width="auto"
+                backgroundColor={theme.colors.primary500}
+                Left={UserCircleIcon}
+                onPress={() => navigate('Auth', { screen: 'AuthLogin' })}
+                style={{ paddingVertical: theme.spacing.sm }}
+              />
+            </>
           )}
         </ScrollView>
 
