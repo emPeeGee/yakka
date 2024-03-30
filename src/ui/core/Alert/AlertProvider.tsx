@@ -2,34 +2,18 @@ import React, { createContext, PropsWithChildren, useCallback, useMemo, useState
 import { StyleSheet, View } from 'react-native';
 
 import { AlertItem } from './AlertItem';
-import { ALERT_LEVEL, AlertItemType, AlertOptions } from './types';
+import { AlertItemType, AlertOptions } from './types';
 
 const uid = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 };
 
-export type AlertContextType = {
-  success: (options: AlertOptions) => void;
-  info: (options: AlertOptions) => void;
-  error: (options: AlertOptions) => void;
-};
+export type AlertContextType = (options: AlertOptions) => void;
 
 export const AlertContext = createContext<AlertContextType | null>(null);
 
 export const Provider = ({ children }: PropsWithChildren<any>) => {
   const [items, setItems] = useState<AlertItemType[]>([]);
-
-  const success = useCallback((options: AlertOptions) => {
-    fire({ ...options, level: ALERT_LEVEL.Success });
-  }, []);
-
-  const error = useCallback((options: AlertOptions) => {
-    fire({ ...options, level: ALERT_LEVEL.Error });
-  }, []);
-
-  const info = useCallback((options: AlertOptions) => {
-    fire({ ...options, level: ALERT_LEVEL.Info });
-  }, []);
 
   const fire = useCallback(
     ({
@@ -65,12 +49,8 @@ export const Provider = ({ children }: PropsWithChildren<any>) => {
   );
 
   const contextValue = useMemo(() => {
-    return {
-      error,
-      success,
-      info,
-    };
-  }, [error, success, info]);
+    return fire;
+  }, [fire]);
 
   return (
     <AlertContext.Provider value={contextValue}>
