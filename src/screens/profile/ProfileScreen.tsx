@@ -24,6 +24,7 @@ import {
   ClockIcon,
   PasswordIcon,
   UserCircleIcon,
+  UserFocusIcon,
 } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
@@ -169,7 +170,7 @@ export const ProfileScreen = () => {
                 tx="auth.login"
                 width="auto"
                 backgroundColor={theme.colors.primary500}
-                Left={UserCircleIcon}
+                Left={UserFocusIcon}
                 onPress={() => navigate('Auth', { screen: 'AuthLogin' })}
                 style={{ paddingVertical: theme.spacing.sm }}
               />

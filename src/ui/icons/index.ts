@@ -23,6 +23,7 @@ import { TileGlobeIcon } from './TileGlobeIcon';
 import { TileStarIcon } from './TileStarIcon';
 import { TrophyIcon } from './TrophyIcon';
 import { UserCircleIcon } from './UserCircleIcon';
+import { UserFocusIcon } from './UserFocusIcon';
 import { UserGearIcon } from './UserGearIcon';
 
 export {
@@ -51,5 +52,6 @@ export {
   CrosshairIcon,
   CheckIcon,
   UserGearIcon,
+  UserFocusIcon,
   ClockIcon,
 };

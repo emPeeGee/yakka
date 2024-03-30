@@ -109,6 +109,7 @@ export const LoginScreen = () => {
               backgroundColor={theme.colors.secondary500}
               onPress={signInWithEmail}
               disabled={loading}
+              Left={UserFocusIcon}
               Right={() => (loading ? <Loader size="s" /> : undefined)}
             />
           </View>
