@@ -70,8 +70,6 @@ export const Button = ({
   );
 };
 
-// TODO: toast for feedback
-
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
     button: {

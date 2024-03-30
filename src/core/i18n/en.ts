@@ -195,6 +195,7 @@ export const en = {
   profile: {
     myProfile: 'My profile',
     editProfile: 'Edit profile',
+    profileUpdated: 'Profile has been updated',
     myActivity: 'My activity',
     settings: 'Settings',
     changePassword: 'Change password',

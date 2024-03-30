@@ -1,11 +1,12 @@
-import { useCallback, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { useCallback, useRef, useState } from 'react';
+import { ScrollView, TextInput, View } from 'react-native';
 
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { supabase } from '@/api';
 import {
+  ALERT_LEVEL,
   Button,
   ContainerWithInsets,
   EnhancedPressable,
@@ -14,19 +15,23 @@ import {
   HeroWithChat,
   Loader,
   TextField,
+  useAlert,
 } from '@/ui/core';
-import { EyeIcon, EyeOffIcon, PasswordIcon, UserCircleIcon } from '@/ui/icons';
+import { EyeIcon, EyeOffIcon, PasswordIcon, UserCircleIcon, UserFocusIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
 export const LoginScreen = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const { theme, isDark } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const [hidePassword, setHidePassword] = useState(true);
+  const alert = useAlert();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
+
+  const passwordRef = useRef<TextInput>(null);
 
   const onEyeHandler = useCallback(() => {
     setHidePassword(prev => !prev);
@@ -44,7 +49,11 @@ export const LoginScreen = () => {
     });
 
     if (error) {
-      Alert.alert(error.message);
+      alert({
+        tx: 'auth.invalidCred',
+        level: ALERT_LEVEL.Error,
+        limit: 2,
+      });
     }
 
     setLoading(false);
@@ -82,14 +91,19 @@ export const LoginScreen = () => {
             keyboardType="email-address"
             inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
             labelTextProps={{ style: { color: theme.colors.primary700 } }}
+            blurOnSubmit={false}
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              passwordRef.current?.focus();
+            }}
           />
           <TextField
+            ref={passwordRef}
             value={password}
             onChangeText={setPassword}
             labelTx="auth.password"
             secureTextEntry={hidePassword}
             autoCorrect={false}
-            // returnKeyType="go"
             textContentType="password"
             inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
             labelTextProps={{ style: { color: theme.colors.primary700 } }}
