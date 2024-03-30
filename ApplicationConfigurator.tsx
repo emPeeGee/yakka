@@ -15,7 +15,7 @@ import { getItem } from '@/core/storage';
 import { RootNavigator } from '@/navigation';
 // TODO: import is awful
 import { useLearnStore } from '@/screens/learn/learnState';
-import { HeroLoading } from '@/ui/core';
+import { AlertProvider, HeroLoading } from '@/ui/core';
 
 import './src/core/i18n';
 import './src/ui/sheets/sheets';
@@ -65,7 +65,9 @@ export function ApplicationConfigurator() {
         <FirstLaunchProvider>
           <SheetProvider>
             <AuthProvider loadingIndicator={<HeroLoading />}>
-              <RootNavigator />
+              <AlertProvider>
+                <RootNavigator />
+              </AlertProvider>
             </AuthProvider>
           </SheetProvider>
         </FirstLaunchProvider>

@@ -1,3 +1,5 @@
+import { AlertProvider } from './Alert/AlertProvider';
+import { useAlert } from './Alert/useAlert';
 import { BackButton } from './BackButton';
 import { Button } from './Button';
 import { ButtonToggleGroup } from './ButtonToggleGroup';
@@ -65,6 +67,8 @@ export {
   FocusAwareStatusBar,
   FullAccessPrompt,
   ButtonToggleGroup,
+  AlertProvider,
+  useAlert,
 };
 
 export type {
