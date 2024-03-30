@@ -99,7 +99,11 @@ export function AlertItem({ item, onRemoved }: Props) {
             onRemoved(item.id);
           });
         }}>
-        <EnhancedText tx={item.tx} style={[{ color: levelStyle.color }, item.options?.textStyle]} />
+        <EnhancedText
+          tx={item.tx}
+          text={item.text}
+          style={[{ color: levelStyle.color, textAlign: 'center' }, item.options?.textStyle]}
+        />
       </TouchableOpacity>
       {!item.noTimeoutBar && (
         <Animated.View

@@ -9,7 +9,8 @@ export enum ALERT_LEVEL {
 }
 
 export type AlertOptions = {
-  tx: TxKeyPath;
+  tx?: TxKeyPath;
+  text?: string;
   level: ALERT_LEVEL;
   duration?: number;
   noTimeoutBar?: boolean;
