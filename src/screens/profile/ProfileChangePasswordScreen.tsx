@@ -6,8 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { supabase } from '@/api';
 import { useAuth } from '@/core/providers';
-import { enhancedAlert } from '@/core/utils';
 import {
+  ALERT_LEVEL,
   Button,
   ContainerWithInsets,
   EnhancedPressable,
@@ -15,6 +15,7 @@ import {
   HeaderPlaceholder,
   Loader,
   TextField,
+  useAlert,
 } from '@/ui/core';
 import { EyeIcon, EyeOffIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -24,6 +25,7 @@ export const ProfileChangePasswordScreen = () => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const { username } = useAuth();
+  const alert = useAlert();
   const [hidePassword, setHidePassword] = useState(true);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -38,13 +40,13 @@ export const ProfileChangePasswordScreen = () => {
     setLoading(true);
 
     if (password !== confirmPassword) {
-      enhancedAlert('Passwords should match');
+      alert({ tx: 'auth.vaPasswordMatch', level: ALERT_LEVEL.Error });
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      enhancedAlert('Password should be at least 6 characters long');
+      alert({ tx: 'auth.vaPasswordLength', level: ALERT_LEVEL.Error });
       setLoading(false);
       return;
     }
@@ -60,7 +62,7 @@ export const ProfileChangePasswordScreen = () => {
     setLoading(false);
 
     if (data.user) {
-      enhancedAlert('Password has been changed');
+      alert({ tx: 'auth.passwordChanged', level: ALERT_LEVEL.Success });
       navigate('ProfProfile');
     }
   }

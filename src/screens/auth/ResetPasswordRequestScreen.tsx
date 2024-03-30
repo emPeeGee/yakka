@@ -6,8 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import * as Linking from 'expo-linking';
 
 import { supabase } from '@/api';
-import { enhancedAlert } from '@/core/utils';
 import {
+  ALERT_LEVEL,
   Button,
   ContainerWithInsets,
   EnhancedText,
@@ -15,6 +15,7 @@ import {
   HeroWithChat,
   Loader,
   TextField,
+  useAlert,
 } from '@/ui/core';
 import { PasswordIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -24,6 +25,7 @@ export const ResetPasswordRequestScreen = () => {
   const { theme, isDark } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const [loading, setLoading] = useState(false);
+  const alert = useAlert();
 
   const [email, setEmail] = useState('');
 
@@ -34,9 +36,14 @@ export const ResetPasswordRequestScreen = () => {
     });
 
     if (error) {
-      enhancedAlert(error.message);
+      alert({
+        tx: 'auth.resetPasswordFail',
+        text: error.message,
+        level: ALERT_LEVEL.Error,
+        limit: 2,
+      });
     } else {
-      enhancedAlert('Email has been sent');
+      alert({ tx: 'auth.emailSent', level: ALERT_LEVEL.Success });
       navigate('AuthLogin');
     }
 

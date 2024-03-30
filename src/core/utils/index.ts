@@ -1,4 +1,3 @@
-import { enhancedAlert } from './alert';
 import { isLast, areArraysEqual, shuffle } from './arrays';
 import { getContrastColor, isThemeDark, isThemeLight } from './colors';
 import { isBool } from './isBoolean';
@@ -15,7 +14,6 @@ import {
 import { isEmail, isNumb } from './validation';
 
 export {
-  enhancedAlert,
   getContrastColor,
   isThemeDark,
   isThemeLight,

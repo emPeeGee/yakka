@@ -98,6 +98,8 @@ export const en = {
     signUp: 'Sign up',
     contWithoutProf: 'Continue without profile',
     resetPassword: 'Reset password',
+    resetPasswordFail: 'Failed to reset password',
+    passwordChanged: 'Password has been changed',
     login: 'Log in',
     email: 'Email',
     password: 'Password',
@@ -109,6 +111,12 @@ export const en = {
     unlockAccessTitle: 'Unlock full access',
     unlockAccessDetails:
       'Want to unlock all features? Simply create an account to access everything the app has to offer',
+    invalidCred: 'Invalid login credentials',
+    vaAge: 'Age should contain only digits',
+    vaEmail: 'Email should be valid',
+    vaPasswordMatch: 'Passwords should match',
+    vaPasswordLength: 'Password should be at least 6 characters long',
+    emailSent: 'Email has been sent',
   },
   learn: {
     greeting: 'Hello, {{name}}!',

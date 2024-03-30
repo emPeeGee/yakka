@@ -5,8 +5,9 @@ import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { supabase } from '@/api';
-import { enhancedAlert, isEmail, isNumb } from '@/core/utils';
+import { isEmail, isNumb } from '@/core/utils';
 import {
+  ALERT_LEVEL,
   Button,
   ContainerWithInsets,
   EnhancedPressable,
@@ -15,6 +16,7 @@ import {
   HeroWithChat,
   Loader,
   TextField,
+  useAlert,
 } from '@/ui/core';
 import { EyeIcon, EyeOffIcon, UserCircleIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -24,6 +26,7 @@ export const SignUpScreen = () => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const [hidePassword, setHidePassword] = useState(true);
+  const alert = useAlert();
 
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -47,25 +50,25 @@ export const SignUpScreen = () => {
     setLoading(true);
 
     if (!isNumb(age)) {
-      enhancedAlert('Age should contain only digits');
+      alert({ tx: 'auth.vaAge', level: ALERT_LEVEL.Info });
       setLoading(false);
       return;
     }
 
     if (!isEmail(email)) {
-      enhancedAlert('Email should be valid');
+      alert({ tx: 'auth.vaEmail', level: ALERT_LEVEL.Info });
       setLoading(false);
       return;
     }
 
     if (password !== confirmPassword) {
-      enhancedAlert('Passwords should match');
+      alert({ tx: 'auth.vaPasswordMatch', level: ALERT_LEVEL.Info });
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      enhancedAlert('Password should be at least 6 characters long');
+      alert({ tx: 'auth.vaPasswordLength', level: ALERT_LEVEL.Info });
       setLoading(false);
       return;
     }

@@ -6,14 +6,16 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { supabase } from '@/api';
 import { useAuth } from '@/core/providers';
-import { enhancedAlert, isNumb } from '@/core/utils';
+import { isNumb } from '@/core/utils';
 import {
+  ALERT_LEVEL,
   Button,
   ContainerWithInsets,
   EnhancedText,
   HeaderPlaceholder,
   Loader,
   TextField,
+  useAlert,
 } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 
@@ -22,6 +24,7 @@ export const ProfileEditScreen = () => {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
   const { user, username } = useAuth();
+  const alert = useAlert();
 
   const [firstName, setFirstName] = useState(user?.user_metadata?.first_name || '');
   const [lastName, setLastName] = useState(user?.user_metadata?.last_name || '');
@@ -32,7 +35,7 @@ export const ProfileEditScreen = () => {
     setLoading(true);
 
     if (!isNumb(age)) {
-      enhancedAlert('Age should contain only digits');
+      alert({ tx: 'auth.vaAge', level: ALERT_LEVEL.Error });
       setLoading(false);
       return;
     }
@@ -53,7 +56,7 @@ export const ProfileEditScreen = () => {
     setLoading(false);
 
     if (data.user) {
-      enhancedAlert('Profile has been updated');
+      alert({ tx: 'profile.profileUpdated', level: ALERT_LEVEL.Success });
       navigate('ProfProfile');
     }
   }

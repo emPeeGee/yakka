@@ -7,8 +7,9 @@ import * as Linking from 'expo-linking';
 
 import { supabase } from '@/api';
 import { useAuth } from '@/core/providers';
-import { enhancedAlert, parseSupabaseUrl } from '@/core/utils';
+import { parseSupabaseUrl } from '@/core/utils';
 import {
+  ALERT_LEVEL,
   Button,
   ContainerWithInsets,
   EnhancedPressable,
@@ -17,6 +18,7 @@ import {
   HeroWithChat,
   Loader,
   TextField,
+  useAlert,
 } from '@/ui/core';
 import { EyeIcon, EyeOffIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -25,11 +27,12 @@ export const ResetPasswordScreen = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const [hidePassword, setHidePassword] = useState(true);
+  const alert = useAlert();
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
   const { loginWithToken } = useAuth();
 
   useEffect(() => {
@@ -54,13 +57,13 @@ export const ResetPasswordScreen = () => {
     setLoading(true);
 
     if (password !== confirmPassword) {
-      enhancedAlert('Passwords should match');
+      alert({ tx: 'auth.vaPasswordMatch', level: ALERT_LEVEL.Error });
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      enhancedAlert('Password should be at least 6 characters long');
+      alert({ tx: 'auth.vaPasswordLength', level: ALERT_LEVEL.Error });
       setLoading(false);
       return;
     }
@@ -70,7 +73,12 @@ export const ResetPasswordScreen = () => {
     });
 
     if (error) {
-      enhancedAlert(error.message);
+      alert({
+        tx: 'auth.resetPasswordFail',
+        text: error.message,
+        level: ALERT_LEVEL.Error,
+        limit: 2,
+      });
     }
 
     setLoading(false);
