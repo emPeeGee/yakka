@@ -97,6 +97,7 @@ export const AlertProvider = ({ children }: PropsWithChildren<any>) => {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
+    height: '100%',
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
