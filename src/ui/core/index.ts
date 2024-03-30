@@ -1,4 +1,5 @@
 import { AlertProvider } from './Alert/AlertProvider';
+import { ALERT_LEVEL } from './Alert/types';
 import { useAlert } from './Alert/useAlert';
 import { BackButton } from './BackButton';
 import { Button } from './Button';
@@ -69,6 +70,7 @@ export {
   ButtonToggleGroup,
   AlertProvider,
   useAlert,
+  ALERT_LEVEL,
 };
 
 export type {

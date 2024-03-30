@@ -94,7 +94,7 @@ export function AlertItem({ item, onRemoved }: Props) {
       layout={CurvedTransition}
       pointerEvents={item.onPress ? 'auto' : 'none'}
       onLayout={onLayout}
-      style={[styles.container, levelStyle, item.options?.containerStyle]}>
+      style={[styles.container, levelStyle, item.options?.containerStyle || {}]}>
       <TouchableOpacity
         style={[gStyles.centerRow, styles.wrapper]}
         onPress={() => {
