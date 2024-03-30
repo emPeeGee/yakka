@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Alert, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -57,52 +57,49 @@ export const LoginScreen = () => {
 
   return (
     <ContainerWithInsets>
-      <View style={{ flex: 1, paddingHorizontal: theme.spacing.md }}>
-        <View style={[gStyles.fullWidthFromStart, { gap: theme.spacing.md }]}>
-          <HeaderPlaceholder />
-          {/* // TODO: the background confetti is cut */}
-          <HeroWithChat
-            chatPosition="no-chat"
-            hero="default"
-            withConfetti
-            width={90}
-            height={109}
-          />
+      <ScrollView
+        automaticallyAdjustKeyboardInsets
+        contentContainerStyle={[
+          { flexGrow: 1, justifyContent: 'center', paddingHorizontal: theme.spacing.md },
+        ]}>
+        <HeaderPlaceholder />
+        <HeroWithChat chatPosition="no-chat" hero="default" width={90} height={109} />
 
-          <EnhancedText
-            tx="universal.yakka"
-            size="xxxl"
-            weight="medium"
-            style={{ color: theme.colors.primary700, textAlign: 'center' }}
-          />
+        <EnhancedText
+          tx="universal.yakka"
+          size="xxxl"
+          weight="medium"
+          style={{ color: theme.colors.primary700, textAlign: 'center' }}
+        />
 
-          <View style={[gStyles.centerColumn, { gap: theme.spacing.md, width: '100%' }]}>
-            <TextField
-              value={email}
-              onChangeText={setEmail}
-              labelTx="auth.email"
-              autoCorrect={false}
-              autoCapitalize="none"
-              keyboardType="email-address"
-              inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
-              labelTextProps={{ style: { color: theme.colors.primary700 } }}
-            />
-            <TextField
-              value={password}
-              onChangeText={setPassword}
-              labelTx="auth.password"
-              secureTextEntry={hidePassword}
-              autoCorrect={false}
-              // returnKeyType="go"
-              textContentType="password"
-              inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
-              labelTextProps={{ style: { color: theme.colors.primary700 } }}
-              RightAccessory={props => (
-                <EnhancedPressable {...props} onPress={onEyeHandler}>
-                  {hidePassword ? <EyeIcon /> : <EyeOffIcon />}
-                </EnhancedPressable>
-              )}
-            />
+        <View style={[gStyles.centerColumn, { gap: theme.spacing.md, width: '100%' }]}>
+          <TextField
+            value={email}
+            onChangeText={setEmail}
+            labelTx="auth.email"
+            autoCorrect={false}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
+            labelTextProps={{ style: { color: theme.colors.primary700 } }}
+          />
+          <TextField
+            value={password}
+            onChangeText={setPassword}
+            labelTx="auth.password"
+            secureTextEntry={hidePassword}
+            autoCorrect={false}
+            // returnKeyType="go"
+            textContentType="password"
+            inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
+            labelTextProps={{ style: { color: theme.colors.primary700 } }}
+            RightAccessory={props => (
+              <EnhancedPressable {...props} onPress={onEyeHandler}>
+                {hidePassword ? <EyeIcon /> : <EyeOffIcon />}
+              </EnhancedPressable>
+            )}
+          />
+          <View style={{ flexDirection: 'row', flex: 1, width: '100%' }}>
             <Button
               tx="auth.login"
               color={theme.colors.base0}
@@ -146,7 +143,7 @@ export const LoginScreen = () => {
             onPress={onSkipHandler}
           />
         </View>
-      </View>
+      </ScrollView>
     </ContainerWithInsets>
   );
 };

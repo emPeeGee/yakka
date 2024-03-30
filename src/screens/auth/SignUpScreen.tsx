@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -93,22 +93,25 @@ export const SignUpScreen = () => {
       <View style={{ flex: 1, paddingHorizontal: theme.spacing.md }}>
         <View style={[gStyles.fullWidthFromStart, { gap: theme.spacing.md }]}>
           <HeaderPlaceholder />
-          <HeroWithChat
-            chatPosition="no-chat"
-            hero="default"
-            withConfetti
-            width={90}
-            height={109}
-          />
-
-          <EnhancedText
-            tx="universal.yakka"
-            size="xxxl"
-            weight="medium"
-            style={{ color: theme.colors.primary700, textAlign: 'center' }}
-          />
-
-          <View style={[gStyles.centerColumn, { gap: theme.spacing.md, width: '100%' }]}>
+          <ScrollView
+            automaticallyAdjustKeyboardInsets
+            contentContainerStyle={[
+              gStyles.centerColumn,
+              { gap: theme.spacing.md, width: '100%' },
+            ]}>
+            <HeroWithChat
+              chatPosition="no-chat"
+              hero="default"
+              withConfetti
+              width={90}
+              height={109}
+            />
+            <EnhancedText
+              tx="universal.yakka"
+              size="xxxl"
+              weight="medium"
+              style={{ color: theme.colors.primary700, textAlign: 'center' }}
+            />
             <TextField
               value={email}
               onChangeText={setEmail}
@@ -180,7 +183,8 @@ export const SignUpScreen = () => {
               inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
               labelTextProps={{ style: { color: theme.colors.primary700 } }}
             />
-          </View>
+            <View style={{ height: 30 }} />
+          </ScrollView>
         </View>
 
         <View
