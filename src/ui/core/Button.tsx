@@ -49,6 +49,7 @@ export const Button = ({
         styles.button,
         { backgroundColor: background, width, gap: theme.spacing.xs },
         disabled ? styles.disabledButton : {},
+        Right || Left ? { paddingVertical: theme.spacing.sm } : {},
         style,
       ]}
       onPress={onPress}
@@ -68,6 +69,8 @@ export const Button = ({
     </EnhancedPressable>
   );
 };
+
+// TODO: toast for feedback
 
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
