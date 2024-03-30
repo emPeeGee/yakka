@@ -11,7 +11,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import { useTheme } from '@/ui/theme';
+import { Theme } from '@/types';
+import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { ALERT_LEVEL, AlertItemType } from './types';
 import { EnhancedText } from '../EnhancedText';
 
@@ -39,6 +40,8 @@ const DEFAULT_DURATION = 3000;
 
 export function AlertItem({ item, onRemoved }: Props) {
   const { theme } = useTheme();
+  const gStyles = useGlobalThemedStyles();
+  const styles = getStyles(theme);
   const { width, onLayout } = useLayout();
 
   const barWidth = useSharedValue(0);
@@ -93,7 +96,7 @@ export function AlertItem({ item, onRemoved }: Props) {
       onLayout={onLayout}
       style={[styles.container, levelStyle, item.options?.containerStyle]}>
       <TouchableOpacity
-        style={styles.wrapper}
+        style={[gStyles.centerRow, styles.wrapper]}
         onPress={() => {
           item.onPress?.(() => {
             onRemoved(item.id);
@@ -121,21 +124,20 @@ export function AlertItem({ item, onRemoved }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    marginTop: 10,
-    borderRadius: 10,
-    width: '100%',
-    overflow: 'hidden',
-  },
-  wrapper: {
-    width: '100%',
-    padding: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  bar: {
-    height: 5,
-  },
-});
+const getStyles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      width: '100%',
+      marginTop: theme.spacing.xs,
+      alignItems: 'center',
+      borderRadius: theme.borderRadius.lg,
+      overflow: 'hidden',
+    },
+    wrapper: {
+      width: '100%',
+      padding: theme.spacing.md,
+    },
+    bar: {
+      height: theme.spacing.xxs,
+    },
+  });
