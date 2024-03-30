@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import { Alert, ScrollView, View } from 'react-native';
+import { useCallback, useRef, useState } from 'react';
+import { Alert, ScrollView, TextInput, View } from 'react-native';
 
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -32,6 +32,12 @@ export const SignUpScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const firstNameRef = useRef<TextInput>(null);
+  const lastNameRef = useRef<TextInput>(null);
+  const ageRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
+  const confPasswordRef = useRef<TextInput>(null);
 
   const onEyeHandler = useCallback(() => {
     setHidePassword(prev => !prev);
@@ -121,9 +127,14 @@ export const SignUpScreen = () => {
               textContentType="emailAddress"
               inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
               labelTextProps={{ style: { color: theme.colors.primary700 } }}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                firstNameRef.current?.focus();
+              }}
+              blurOnSubmit={false}
             />
-
             <TextField
+              ref={firstNameRef}
               value={firstName}
               onChangeText={setFirstName}
               labelTx="auth.firstName"
@@ -132,9 +143,14 @@ export const SignUpScreen = () => {
               textContentType="givenName"
               inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
               labelTextProps={{ style: { color: theme.colors.primary700 } }}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                lastNameRef.current?.focus();
+              }}
+              blurOnSubmit={false}
             />
-
             <TextField
+              ref={lastNameRef}
               value={lastName}
               onChangeText={setLastName}
               labelTx="auth.lastName"
@@ -143,9 +159,14 @@ export const SignUpScreen = () => {
               textContentType="familyName"
               inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
               labelTextProps={{ style: { color: theme.colors.primary700 } }}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                ageRef.current?.focus();
+              }}
+              blurOnSubmit={false}
             />
-
             <TextField
+              ref={ageRef}
               value={age}
               onChangeText={setAge}
               labelTx="auth.age"
@@ -154,9 +175,14 @@ export const SignUpScreen = () => {
               textContentType="telephoneNumber"
               inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
               labelTextProps={{ style: { color: theme.colors.primary700 } }}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                passwordRef.current?.focus();
+              }}
+              blurOnSubmit={false}
             />
-
             <TextField
+              ref={passwordRef}
               value={password}
               onChangeText={setPassword}
               labelTx="auth.password"
@@ -170,18 +196,23 @@ export const SignUpScreen = () => {
                   {hidePassword ? <EyeIcon /> : <EyeOffIcon />}
                 </EnhancedPressable>
               )}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                confPasswordRef.current?.focus();
+              }}
+              blurOnSubmit={false}
             />
-
             <TextField
+              ref={confPasswordRef}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
               labelTx="auth.confirmPassword"
               secureTextEntry={hidePassword}
               autoCorrect={false}
-              // returnKeyType="go"
               textContentType="password"
               inputWrapperStyle={{ borderColor: theme.colors.primary700 }}
               labelTextProps={{ style: { color: theme.colors.primary700 } }}
+              returnKeyType="done"
             />
             <View style={{ height: 30 }} />
           </ScrollView>
