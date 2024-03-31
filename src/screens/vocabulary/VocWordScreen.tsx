@@ -21,7 +21,7 @@ export const VocWordScreen = ({ route }: any) => {
   }
 
   return (
-    <View style={{ padding: theme.spacing.md }}>
+    <View style={{ marginVertical: theme.spacing.md }}>
       <FlipCardWrapper side="back" item={word} />
     </View>
   );

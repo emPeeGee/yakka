@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Animated, PanResponder, Dimensions, Text, Platform } from 'react-native';
 import PropTypes from 'prop-types';
-import { Card } from './Card';
 
 const { height, width } = Dimensions.get('window');
 

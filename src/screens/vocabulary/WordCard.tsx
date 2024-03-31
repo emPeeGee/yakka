@@ -24,6 +24,7 @@ import {
 } from '@/ui/core';
 import { BookIcon, SpeakerIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { CARD_HEIGHT, CARD_WIDTH } from './constants';
 import { useVocabularyStore } from './vocabularyState';
 
 interface WordCardProps {
@@ -74,7 +75,11 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
 
   return (
     <Card>
-      <View style={[gStyles.centerColumn, { gap: theme.spacing.lg, height: '100%' }]}>
+      <View
+        style={[
+          gStyles.centerColumn,
+          { gap: theme.spacing.lg, width: CARD_WIDTH, height: CARD_HEIGHT },
+        ]}>
         <View
           style={[
             gStyles.centerRow,

@@ -7,7 +7,6 @@ import { ContainerWithInsets, Loader } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { WordCard } from './WordCard';
 
-// TODO: word of the day will be provided via network
 export const VocWordOfTheDayScreen = () => {
   const { theme, appColorScheme } = useTheme();
   const gStyles = useGlobalThemedStyles();
@@ -34,10 +33,8 @@ export const VocWordOfTheDayScreen = () => {
       backgroundColor={
         appColorScheme === 'light' ? theme.colors.primary100 : theme.colors.background
       }>
-      <View style={[gStyles.centerColumn, { marginVertical: theme.spacing.md }]}>
-        <View style={{ minWidth: 320, minHeight: 560 }}>
-          {isLoading ? <Loader /> : <WordCard word={wordOfTheDay} />}
-        </View>
+      <View style={[{ paddingVertical: theme.spacing.md }, gStyles.centerColumn]}>
+        {isLoading ? <Loader /> : <WordCard word={wordOfTheDay} />}
       </View>
     </ContainerWithInsets>
   );

@@ -13,22 +13,20 @@ import {
   CardStack,
   Loader,
   Tooltip,
+  HeroEmptyState,
 } from '@/ui/core';
 import { HeartIcon, BookBookmarkIcon, MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { CARD_HEIGHT, CARD_WIDTH } from './constants';
 import { useVocabularyStore } from './vocabularyState';
 import { WordCard } from './WordCard';
 
 // TODO: to be deleted
 const styles = StyleSheet.create({
   content: {
-    flex: 5,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  card: {
-    width: 360,
-    height: 560,
   },
   footer: {
     flex: 1,
@@ -126,7 +124,6 @@ export const VocStartScreen = () => {
               )}
             />
             <View style={[gStyles.fullWidthFromStart, { width: 'auto' }]} />
-            {/* TODO: Tooltip */}
 
             <Tooltip
               ref={searchTooltipRef}
@@ -150,7 +147,6 @@ export const VocStartScreen = () => {
                 )}
               />
             </Tooltip>
-            {/* TODO: Tooltip */}
             <Tooltip
               ref={favoritesTooltipRef}
               actionType="longPress"
@@ -174,10 +170,16 @@ export const VocStartScreen = () => {
               />
             </Tooltip>
           </View>
-          <View style={{ minWidth: 320, minHeight: 560 }}>
+          <View>
             <CardStack
               style={[styles.content]}
               renderNoMoreCards={() => (
+                <View
+                  style={[
+                    gStyles.centerColumn,
+                    // 24 is padding
+                    { height: CARD_HEIGHT + 24 * 2, width: CARD_WIDTH + 24 * 2 },
+                  ]}>
                 <EnhancedText style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>
                   No more cards :(
                 </EnhancedText>
@@ -189,16 +191,10 @@ export const VocStartScreen = () => {
               onSwiped={() => console.log('onSwiped')}
               onSwipedLeft={() => console.log('onSwipedLeft')}>
               {words.map(word => (
-                <CardStackItem key={word.word} style={[styles.card]}>
+                <CardStackItem key={word.word}>
                   <WordCard word={word} />
                 </CardStackItem>
               ))}
-              {/* <CardStackItem style={[styles.card]} onSwipedLeft={() => alert('left swipe')}>
-              <WordCard word={vocabulary.mildly as Word} />
-            </CardStackItem>
-            <CardStackItem style={[styles.card]}>
-              <WordCard word={vocabulary.momently as Word} />
-            </CardStackItem> */}
             </CardStack>
           </View>
           <View style={styles.footer}>
