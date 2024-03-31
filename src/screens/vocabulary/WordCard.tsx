@@ -203,7 +203,7 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
               isFavorite.value = withSpring(isFavorite.value ? 0 : 1);
               setFavorites(
                 isFavorite.value ? 'delete' : 'add',
-                favorite || { word_id: item.word_id },
+                { ...item, id: favorite?.id || item.favorite_id },
                 user,
               );
             }}>

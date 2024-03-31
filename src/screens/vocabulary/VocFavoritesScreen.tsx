@@ -42,7 +42,7 @@ export const VocFavoritesScreen = () => {
         ) : (
           <ChoiceGroup
             options={favorites
-              .filter(word => word.word.includes(favoriteInput.toLocaleLowerCase()))
+              .filter(word => word.word.includes(favoriteInput.toLocaleLowerCase()) && word.liked)
               .map(favorite => ({
                 value: favorite.word,
                 label: favorite.word,

@@ -449,7 +449,8 @@ CREATE TYPE random_word_with_category AS (
     example TEXT,
     part_of_speech VARCHAR(50),
     synonyms TEXT[],
-    created_at TIMESTAMP
+    created_at TIMESTAMP,
+    favorite_id INT
 );
 
 -- Create a function to return random words with nested category information
@@ -470,17 +471,19 @@ BEGIN
         w.example,
         w.part_of_speech,
         w.synonyms,
-        w.created_at
+        w.created_at,
+        fw.id as favorite_id
     FROM 
         words w
     JOIN 
         word_categories wc ON wc.category_id = w.category_id
+    LEFT JOIN 
+        favorite_words fw ON fw.word_id = w.word_id
     ORDER BY 
         RANDOM()
     LIMIT 5;
 END;
 $$ LANGUAGE plpgsql;
-
 
 
 select * from get_random_words();

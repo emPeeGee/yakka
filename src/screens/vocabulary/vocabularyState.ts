@@ -111,20 +111,26 @@ export const useVocabularyStore = create<VocabularyState>()(
         switch (action) {
           case 'add':
             // eslint-disable-next-line no-case-declarations
-            const { error: addError } = await supabase.from('favorite_words').upsert(
-              {
-                id: favorite.id,
-                user_id: user.id,
-                word_id: favorite.word_id,
-                liked: true,
-              },
-              { onConflict: 'id' },
-            );
+            const { data: insertedWord, error: insertError } = await supabase
+              .from('favorite_words')
+              .upsert(
+                {
+                  id: favorite.id || undefined,
+                  user_id: user.id,
+                  word_id: favorite.word_id,
+                  liked: true,
+                },
+                { onConflict: 'id' },
+              )
+              .select();
 
-            if (!addError) {
+            if (!insertError) {
               set(state => ({
                 ...state,
-                favorites: [...state.favorites, favorite],
+                favorites: [
+                  ...state.favorites,
+                  { ...favorite, id: insertedWord[0].id, liked: true },
+                ],
               }));
             }
             break;

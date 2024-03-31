@@ -6,6 +6,7 @@ export type WordCategory = {
 
 export type Word = {
   word_id: number;
+  favorite_id?: number;
   word: string;
   word_categories?: WordCategory | null;
   category_id: null;
