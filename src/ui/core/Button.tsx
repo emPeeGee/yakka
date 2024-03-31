@@ -15,6 +15,7 @@ type ButtonProps = {
   color?: string;
   width?: DimensionValue;
   onPress?: VoidCb;
+  onLongPress?: VoidCb;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
@@ -33,6 +34,7 @@ export const Button = ({
   style,
   textStyle,
   onPress,
+  onLongPress,
   Right,
   Left,
 }: ButtonProps) => {
@@ -53,6 +55,7 @@ export const Button = ({
         style,
       ]}
       onPress={onPress}
+      onLongPress={onLongPress}
       disabled={disabled}>
       {Left && <Left />}
       {(tx || text) && (

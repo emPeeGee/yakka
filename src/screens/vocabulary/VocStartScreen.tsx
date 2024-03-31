@@ -12,6 +12,7 @@ import {
   CardStackItem,
   CardStack,
   Loader,
+  Tooltip,
 } from '@/ui/core';
 import { HeartIcon, BookBookmarkIcon, MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -71,10 +72,13 @@ const styles = StyleSheet.create({
 export const VocStartScreen = () => {
   const { theme, appColorScheme } = useTheme();
   const gStyles = useGlobalThemedStyles();
-  const swiperRef = useRef<any>();
   const { navigate } = useNavigation();
   const { words, init, isLoading, setIsLoading } = useVocabularyStore();
   const { withAccessControl, user } = useAuth();
+
+  const swiperRef = useRef<any>();
+  const searchTooltipRef = useRef<Tooltip>(null);
+  const favoritesTooltipRef = useRef<Tooltip>(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -118,36 +122,57 @@ export const VocStartScreen = () => {
               textStyle={{ fontSize: theme.typography.sizes.xs.fontSize, textTransform: 'none' }}
               onPress={withAccessControl(
                 () => navigate('VocWordOfTheDay' as never),
-                () => navigate('Auth', { screen: 'AuthSignUp' }),
+                () => navigate('Auth' as never, { screen: 'AuthSignUp' }),
               )}
             />
             <View style={[gStyles.fullWidthFromStart, { width: 'auto' }]} />
             {/* TODO: Tooltip */}
-            <Button
-              // tx="voc.search"
-              width="auto"
-              backgroundColor={theme.colors.secondary500}
-              color={theme.colors.primary900}
-              Left={() => MagnifyingGlassIcon({ width: 26, height: 26 })}
-              style={[{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }]}
-              onPress={withAccessControl(
-                () => navigate('VocCategories' as never),
-                () => navigate('Auth', { screen: 'AuthSignUp' }),
-              )}
-            />
+
+            <Tooltip
+              ref={searchTooltipRef}
+              actionType="longPress"
+              height="auto"
+              backgroundColor={theme.colors.info}
+              pointerColor={theme.colors.info}
+              popover={<EnhancedText style={{ color: theme.colors.base0 }} tx="voc.search" />}>
+              <Button
+                width="auto"
+                backgroundColor={theme.colors.secondary500}
+                color={theme.colors.primary900}
+                Left={() => MagnifyingGlassIcon({ width: 26, height: 26 })}
+                style={[{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }]}
+                onLongPress={() => {
+                  searchTooltipRef.current?.toggleTooltip();
+                }}
+                onPress={withAccessControl(
+                  () => navigate('VocCategories' as never),
+                  () => navigate('Auth' as never, { screen: 'AuthSignUp' }),
+                )}
+              />
+            </Tooltip>
             {/* TODO: Tooltip */}
-            <Button
-              // tx="voc.favorites"
-              width="auto"
-              backgroundColor={theme.colors.secondary500}
-              color={theme.colors.primary900}
-              Left={() => HeartIcon({ width: 26, height: 26, fill: theme.colors.primary900 })}
-              style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
-              onPress={withAccessControl(
-                () => navigate('VocFavorites' as never),
-                () => navigate('Auth', { screen: 'AuthSignUp' }),
-              )}
-            />
+            <Tooltip
+              ref={favoritesTooltipRef}
+              actionType="longPress"
+              height="auto"
+              backgroundColor={theme.colors.info}
+              pointerColor={theme.colors.info}
+              popover={<EnhancedText style={{ color: theme.colors.base0 }} tx="voc.favorites" />}>
+              <Button
+                width="auto"
+                backgroundColor={theme.colors.secondary500}
+                color={theme.colors.primary900}
+                Left={() => HeartIcon({ width: 26, height: 26, fill: theme.colors.primary900 })}
+                style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
+                onPress={withAccessControl(
+                  () => navigate('VocFavorites' as never),
+                  () => navigate('Auth', { screen: 'AuthSignUp' }),
+                )}
+                onLongPress={() => {
+                  favoritesTooltipRef.current?.toggleTooltip();
+                }}
+              />
+            </Tooltip>
           </View>
           <View style={{ minWidth: 320, minHeight: 560 }}>
             <CardStack
