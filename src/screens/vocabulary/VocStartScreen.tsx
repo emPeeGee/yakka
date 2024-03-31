@@ -180,9 +180,8 @@ export const VocStartScreen = () => {
                     // 24 is padding
                     { height: CARD_HEIGHT + 24 * 2, width: CARD_WIDTH + 24 * 2 },
                   ]}>
-                <EnhancedText style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>
-                  No more cards :(
-                </EnhancedText>
+                  <HeroEmptyState title="voc.noMoreCardsTit" description="voc.noMoreCardsDesc" />
+                </View>
               )}
               ref={swiper => {
                 swiperRef.current = swiper;

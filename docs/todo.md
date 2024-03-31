@@ -18,7 +18,7 @@
 [x] Logger. Make it singleton.
 [x] Deprecate useIsFirstTime
 [x] too many unstyled pressables
-[ ] use more global styles and extract the existing ones
+[x] use more global styles and extract the existing ones
 [x] Hide back button on tab main screen
 [x] List with switch
 [x] better colors for background in light and dark
@@ -32,7 +32,7 @@
 [x] refactor theme props to be consistent: xxs, xs, sm, md, lg...
 [ ] Height of the vocabulary card should not be fixed by calculated depending on the screen height
 [ ] Lessons should be grouped. Revise the mock
-[ ] Display proper category in card stack instead of the id
+[x] Display proper category in card stack instead of the id
 [x] store favorite words in the storage
 [ ] content for explore
 [x] Lesson: On back/exit, should show a modal with confirmation
@@ -74,12 +74,12 @@
 [ ] Better docs
 [ ] Russian language support
 [ ] RN navigation. Get rid of `never`
-[ ] Before going to the lesson, make a confirmation dialog (as duo)
-[ ] Login to save progress.
-[ ] Login to enable access to full content ???
+[x] Before going to the lesson, make a confirmation dialog (as duo)
+[x] Login to save progress.
+[x] Login to enable access to full content
 [x] No card in vocabulary: lottie animation
 [ ] time and accuracy from the completed lesson should be send for statistics and records.
-[ ] translate screens titles
+[x] translate screens titles
 [ ] buy lives by payng balloons
 [ ] Make sign up flow with wizard as per mock
 [ ] user activity, make formating better, slice, and show a tooltip which explains: 'Daily only shows the current month', 'weekly shows number of the week',...
@@ -96,7 +96,7 @@
 [ ] Better radio box
 [ ] animation after onboarding is finished. LowP.
 [ ] Change the pagination animation: worm style https://www.animatereactnative.com/post/react-native-parallax-carousel-%2B-worm-pagination https://github.com/weahforsage/react-native-animated-pagination-dots
-[ ] Tooltip for buttons with only an icon
+[x] Tooltip for buttons with only an icon
 [ ] Enhanced radio box
 [ ] match pairs activity -> deselect pairs
 [ ] voc categories status bar and background animation color conflict
@@ -110,5 +110,5 @@
 [x] status bar and bottom bar colors in different themes
 [x] randomize matching pairs
 [ ] click favorite word => no category
-[ ] after adding new word to like, click favorites
+[x] after adding new word to like, click favorites
 [ ] word of the day, front and back card have different width and height

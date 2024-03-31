@@ -1,13 +1,16 @@
 import { View } from 'react-native';
 
+import { TxKeyPath } from '@/core/i18n';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { HeroWithChat } from './HeroWithChat';
 import { EnhancedText } from '../EnhancedText';
 
 type HeroEmptyStateProps = {
   notFound?: boolean;
+  title?: TxKeyPath;
+  description?: TxKeyPath;
 };
-export const HeroEmptyState = ({ notFound = false }: HeroEmptyStateProps) => {
+export const HeroEmptyState = ({ title, description, notFound = false }: HeroEmptyStateProps) => {
   const gStyles = useGlobalThemedStyles();
   const { theme } = useTheme();
 
@@ -17,13 +20,19 @@ export const HeroEmptyState = ({ notFound = false }: HeroEmptyStateProps) => {
       <EnhancedText
         weight="bold"
         preset="heading"
-        tx={notFound ? 'common.noEntriesFound' : 'common.noEntriesYet'}
+        tx={title ? title : notFound ? 'common.noEntriesFound' : 'common.noEntriesYet'}
         style={[{ color: theme.colors.secondary700 }, theme.typography.sizes.xl]}
       />
       <EnhancedText
         weight="bold"
         preset="subheading"
-        tx={notFound ? 'common.noEntriesFoundDetails' : 'common.noEntiresYetDetails'}
+        tx={
+          description
+            ? description
+            : notFound
+              ? 'common.noEntriesFoundDetails'
+              : 'common.noEntiresYetDetails'
+        }
         style={[
           { width: '75%', textAlign: 'center', color: theme.colors.textSec },
           theme.typography.sizes.lg,

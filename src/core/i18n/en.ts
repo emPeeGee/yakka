@@ -170,6 +170,8 @@ export const en = {
     family: 'Family and relationships',
     schoolEducation: 'School and education',
     jobs: 'Jobs',
+    noMoreCardsTit: 'No more cards',
+    noMoreCardsDesc: 'You have viewed all available cards. Check back later for updates!',
   },
   exp: {
     '12basicTenses': '12 Basic tenses',

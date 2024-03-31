@@ -40,6 +40,3 @@ module.exports = {
     ],
   },
 };
-
-// Js(Node, React and React Native). Python(Fastapi). Golang.
-//↪️  revert️: this [wip] init the work on custom font
