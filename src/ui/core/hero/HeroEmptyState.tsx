@@ -15,29 +15,47 @@ export const HeroEmptyState = ({ title, description, notFound = false }: HeroEmp
   const { theme } = useTheme();
 
   return (
-    <View style={[gStyles.centerColumn, { gap: theme.spacing.xl, flex: 1 }]}>
+    <View style={[gStyles.centerColumn, { gap: theme.spacing.xl }]}>
       <HeroWithChat hero="tears" width={114} height={120} />
-      <EnhancedText
-        weight="bold"
-        preset="heading"
-        tx={title ? title : notFound ? 'common.noEntriesFound' : 'common.noEntriesYet'}
-        style={[{ color: theme.colors.secondary700 }, theme.typography.sizes.xl]}
-      />
-      <EnhancedText
-        weight="bold"
-        preset="subheading"
-        tx={
-          description
-            ? description
-            : notFound
-              ? 'common.noEntriesFoundDetails'
-              : 'common.noEntiresYetDetails'
-        }
-        style={[
-          { width: '75%', textAlign: 'center', color: theme.colors.textSec },
-          theme.typography.sizes.lg,
-        ]}
-      />
+      <View
+        style={{
+          flexDirection: 'row',
+        }}>
+        <EnhancedText
+          weight="bold"
+          preset="heading"
+          tx={title ? title : notFound ? 'common.noEntriesFound' : 'common.noEntriesYet'}
+          style={[
+            { color: theme.colors.secondary700, flexWrap: 'wrap' },
+            theme.typography.sizes.xl,
+          ]}
+        />
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+        }}>
+        <EnhancedText
+          weight="bold"
+          preset="subheading"
+          tx={
+            description
+              ? description
+              : notFound
+                ? 'common.noEntriesFoundDetails'
+                : 'common.noEntiresYetDetails'
+          }
+          style={[
+            {
+              flexWrap: 'wrap',
+              width: '90%',
+              textAlign: 'center',
+              color: theme.colors.textSec,
+            },
+            theme.typography.sizes.lg,
+          ]}
+        />
+      </View>
     </View>
   );
 };
