@@ -13,23 +13,25 @@ type State = {
   elementHeight: number;
 };
 
+type TooltipActionType = 'press' | 'longPress' | 'none';
+
 type Props = {
   children?: React.ReactNode;
-  withPointer: boolean;
-  popover: React.Element;
-  height: number | string;
-  width: number | string;
-  containerStyle: StyleProp<ViewStyle>;
+  withPointer?: boolean;
+  popover: JSX.Element;
+  height?: number | string;
+  width?: number | string;
+  containerStyle?: StyleProp<ViewStyle>;
   pointerColor: string;
-  pointerStyle: StyleProp<ViewStyle>;
-  onClose: () => void;
-  onOpen: () => void;
-  withOverlay: boolean;
-  overlayColor: string;
-  backgroundColor: string;
-  highlightColor: string;
-  toggleWrapperProps: StyleProp<ViewStyle>;
-  actionType: 'press' | 'longPress' | 'none';
+  pointerStyle?: StyleProp<ViewStyle>;
+  onClose?: () => void;
+  onOpen?: () => void;
+  withOverlay?: boolean;
+  overlayColor?: string;
+  backgroundColor?: string;
+  highlightColor?: string;
+  toggleWrapperProps?: StyleProp<ViewStyle>;
+  actionType: TooltipActionType;
 };
 
 export class Tooltip extends React.Component<Props, State> {
@@ -41,8 +43,8 @@ export class Tooltip extends React.Component<Props, State> {
     elementHeight: 0,
   };
 
-  renderedElement;
-  timeout;
+  renderedElement: View | null | undefined;
+  timeout: NodeJS.Timeout | undefined;
 
   toggleTooltip = () => {
     const { onClose } = this.props;
@@ -56,7 +58,7 @@ export class Tooltip extends React.Component<Props, State> {
     });
   };
 
-  wrapWithAction = (actionType, children) => {
+  wrapWithAction = (actionType: TooltipActionType, children: React.ReactNode) => {
     switch (actionType) {
       case 'press':
         return (
@@ -187,6 +189,7 @@ export class Tooltip extends React.Component<Props, State> {
 
   getElementPosition = () => {
     this.renderedElement &&
+      // eslint-disable-next-line max-params
       this.renderedElement.measureInWindow((pageOffsetX, pageOffsetY, width, height) => {
         this.setState({
           xOffset: pageOffsetX,
@@ -212,7 +215,7 @@ export class Tooltip extends React.Component<Props, State> {
           onShow={onOpen}
           onRequestClose={onClose}>
           <TouchableOpacity
-            style={styles.container(withOverlay, overlayColor)}
+            style={styles.container(withOverlay as boolean, overlayColor as string)}
             onPress={this.toggleTooltip}
             activeOpacity={1}>
             {this.renderContent(true)}
@@ -222,25 +225,6 @@ export class Tooltip extends React.Component<Props, State> {
     );
   }
 }
-
-// Tooltip.propTypes = {
-//   children: PropTypes.element,
-//   withPointer: PropTypes.bool,
-//   popover: PropTypes.element,
-//   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-//   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-//   containerStyle: ViewPropTypes.style,
-//   pointerColor: PropTypes.string,
-//   pointerStyle: PropTypes.object,
-//   onClose: PropTypes.func,
-//   onOpen: PropTypes.func,
-//   withOverlay: PropTypes.bool,
-//   toggleWrapperProps: PropTypes.object,
-//   overlayColor: PropTypes.string,
-//   backgroundColor: PropTypes.string,
-//   highlightColor: PropTypes.string,
-//   actionType: PropTypes.oneOf(['press', 'longPress', 'none']),
-// };
 
 Tooltip.defaultProps = {
   toggleWrapperProps: {},
@@ -258,12 +242,8 @@ Tooltip.defaultProps = {
 };
 
 const styles = {
-  container: (withOverlay, overlayColor) => ({
-    backgroundColor: withOverlay
-      ? overlayColor
-        ? overlayColor
-        : 'rgba(250, 250, 250, 0.70)'
-      : 'transparent',
+  container: (withOverlay: boolean, overlayColor: string) => ({
+    backgroundColor: withOverlay ? (overlayColor ? overlayColor : '#303030AA') : 'transparent',
     flex: 1,
   }),
 };
