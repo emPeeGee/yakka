@@ -3,7 +3,13 @@ import { Animated, ScrollView, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { ChoiceGroup, EnhancedText, HeroEmptyState, TextField } from '@/ui/core';
+import {
+  ChoiceGroup,
+  EnhancedText,
+  FocusAwareStatusBar,
+  HeroEmptyState,
+  TextField,
+} from '@/ui/core';
 import { MagnifyingGlassIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { useVocabularyStore } from './vocabularyState';
@@ -17,6 +23,7 @@ export const VocFavoritesScreen = () => {
 
   return (
     <View style={{ padding: theme.spacing.md, flex: 1 }}>
+      <FocusAwareStatusBar />
       <View>
         <TextField
           value={favoriteInput}
