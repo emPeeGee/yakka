@@ -4,11 +4,12 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '@/core/providers';
+import { ExploreTopic } from '@/types';
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader, TextField } from '@/ui/core';
 import { MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-import { Topic, useExploreStore } from './exploreState';
-import { HeaderScrollView } from './Header';
+import { ExploreHeader } from './ExploreHeader';
+import { useExploreStore } from './exploreState';
 
 // TODO: not the best location
 export enum ExploreTopics {
@@ -42,7 +43,8 @@ export const ExpTopicsScreen = () => {
           <Loader />
         </View>
       ) : (
-        <HeaderScrollView title="exp.learnToday">
+        // <HeaderScrollView title="exp.learnToday">
+        <ExploreHeader title="exp.learnToday">
           <View
             style={{
               paddingVertical: theme.spacing.xs,
@@ -71,7 +73,7 @@ export const ExpTopicsScreen = () => {
                     value: t,
                     tx: t.topic_name,
                     Left: () => <Emoji emoji={t.emoji} />,
-                  }) as Choice<Topic>,
+                  }) as Choice<ExploreTopic>,
               )}
               onChange={topic => {
                 setTimeout(() => {
@@ -83,7 +85,7 @@ export const ExpTopicsScreen = () => {
               }}
             />
           </View>
-        </HeaderScrollView>
+        </ExploreHeader>
       )}
     </ContainerWithInsets>
   );

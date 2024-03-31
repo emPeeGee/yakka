@@ -7,8 +7,8 @@ import { supabase } from '@/api';
 import { TxKeyPath } from '@/core/i18n';
 import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import { ExploreHeader } from './ExploreHeader';
 import { Explore, useExploreStore } from './exploreState';
-import { HeaderScrollView } from './Header';
 
 export const VERBS: Choice<{ content: string; title: TxKeyPath }>[] = [
   {
@@ -54,7 +54,7 @@ export const ExpBasicTensesScreen = ({ route }) => {
 
   return (
     <ContainerWithInsets withoutBottom>
-      <HeaderScrollView title={route.params.topic.topic_name} withBackButton>
+      <ExploreHeader title={route.params.topic.topic_name} withBackButton>
         {isLoading ? (
           <View style={[gStyles.centerColumn, { height: '100%' }]}>
             <Loader />
@@ -78,7 +78,7 @@ export const ExpBasicTensesScreen = ({ route }) => {
             />
           </View>
         )}
-      </HeaderScrollView>
+      </ExploreHeader>
     </ContainerWithInsets>
   );
 };
