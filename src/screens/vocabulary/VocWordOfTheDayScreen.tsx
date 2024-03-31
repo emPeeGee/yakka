@@ -33,7 +33,7 @@ export const VocWordOfTheDayScreen = () => {
       backgroundColor={
         appColorScheme === 'light' ? theme.colors.primary100 : theme.colors.background
       }>
-      <View style={[{ paddingVertical: theme.spacing.md }, gStyles.centerColumn]}>
+      <View style={[{ paddingVertical: theme.spacing.md, flex: 1 }, gStyles.centerColumn]}>
         {isLoading ? <Loader /> : <WordCard word={wordOfTheDay} />}
       </View>
     </ContainerWithInsets>

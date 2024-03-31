@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { View, Animated, PanResponder, Dimensions, Text, Platform } from 'react-native';
 import PropTypes from 'prop-types';
+// TODO: bad import
+import { CARD_HEIGHT, CARD_WIDTH } from '@/screens/vocabulary/constants';
 
-const { height, width } = Dimensions.get('window');
+const height = CARD_HEIGHT;
+const width = CARD_WIDTH;
 
 export class CardStack extends Component {
   static distance(x, y) {
@@ -387,19 +390,7 @@ export class CardStack extends Component {
     });
 
     return (
-      <View
-        {...this._panResponder.panHandlers}
-        style={[
-          this.props.style,
-          {
-            position: 'relative',
-            height: '100%',
-            backgroundColor: theme.colors.surface,
-            borderRadius: theme.borderRadius.lg,
-            borderColor: theme.colors.border,
-            borderWidth: theme.borders.medium,
-          },
-        ]}>
+      <View {...this._panResponder.panHandlers} style={[this.props.style]}>
         {renderNoMoreCards()}
 
         <Animated.View

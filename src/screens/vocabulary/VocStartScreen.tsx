@@ -14,6 +14,8 @@ import {
   Loader,
   Tooltip,
   HeroEmptyState,
+  Card,
+  HeaderPlaceholder,
 } from '@/ui/core';
 import { HeartIcon, BookBookmarkIcon, MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
@@ -24,9 +26,7 @@ import { WordCard } from './WordCard';
 // TODO: to be deleted
 const styles = StyleSheet.create({
   content: {
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   footer: {
     flex: 1,
@@ -109,6 +109,7 @@ export const VocStartScreen = () => {
             },
             gStyles.centerColumn,
           ]}>
+          <HeaderPlaceholder />
           <View style={[gStyles.centerRowBetween, { gap: theme.spacing.xs, width: '100%' }]}>
             <Button
               tx="voc.seeWordOfTheDay"
@@ -174,14 +175,14 @@ export const VocStartScreen = () => {
             <CardStack
               style={[styles.content]}
               renderNoMoreCards={() => (
-                <View
+                <Card
                   style={[
                     gStyles.centerColumn,
                     // 24 is padding
-                    { height: CARD_HEIGHT + 24 * 2, width: CARD_WIDTH + 24 * 2 },
+                    { height: CARD_HEIGHT + 24 * 2 + 12, width: CARD_WIDTH + 24 * 2 - 12 },
                   ]}>
                   <HeroEmptyState title="voc.noMoreCardsTit" description="voc.noMoreCardsDesc" />
-                </View>
+                </Card>
               )}
               ref={swiper => {
                 swiperRef.current = swiper;
