@@ -5,10 +5,17 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '@/core/providers';
 import { ExploreTopic } from '@/types';
-import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader, TextField } from '@/ui/core';
+import {
+  HeaderScroll,
+  Choice,
+  ChoiceGroup,
+  ContainerWithInsets,
+  Emoji,
+  Loader,
+  TextField,
+} from '@/ui/core';
 import { MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-import { ExploreHeader } from './ExploreHeader';
 import { useExploreStore } from './exploreState';
 
 // TODO: not the best location
@@ -44,7 +51,7 @@ export const ExpTopicsScreen = () => {
         </View>
       ) : (
         // <HeaderScrollView title="exp.learnToday">
-        <ExploreHeader title="exp.learnToday">
+        <HeaderScroll title="exp.learnToday">
           <View
             style={{
               paddingVertical: theme.spacing.xs,
@@ -85,7 +92,7 @@ export const ExpTopicsScreen = () => {
               }}
             />
           </View>
-        </ExploreHeader>
+        </HeaderScroll>
       )}
     </ContainerWithInsets>
   );

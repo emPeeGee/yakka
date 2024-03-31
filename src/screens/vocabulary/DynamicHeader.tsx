@@ -9,6 +9,11 @@ import { useVocabularyStore } from './vocabularyState';
 const HEADER_MAX_HEIGHT = 200;
 const HEADER_MIN_HEIGHT = 90;
 
+/**
+ * @deprecated
+ * @param param0
+ * @returns
+ */
 export function DynamicHeader({ animHeaderValue }: { animHeaderValue: any }) {
   const { theme } = useTheme();
   const gStyles = useGlobalThemedStyles();

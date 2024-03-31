@@ -5,10 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 
 import { supabase } from '@/api';
 import { TxKeyPath } from '@/core/i18n';
-import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader } from '@/ui/core';
+import { ExploreTopic } from '@/types';
+import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader, HeaderScroll } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
-import { ExploreHeader } from './ExploreHeader';
-import { Explore, useExploreStore } from './exploreState';
+import { useExploreStore } from './exploreState';
 
 export const VERBS: Choice<{ content: string; title: TxKeyPath }>[] = [
   {
@@ -27,7 +27,7 @@ export const ExpBasicTensesScreen = ({ route }) => {
   const { theme } = useTheme();
   const { navigate } = useNavigation();
   const gStyles = useGlobalThemedStyles();
-  const [subtopics, setSubtopics] = useState<Explore[]>([]);
+  const [subtopics, setSubtopics] = useState<ExploreTopic[]>([]);
 
   const { setIsLoading, isLoading } = useExploreStore();
 
@@ -54,7 +54,7 @@ export const ExpBasicTensesScreen = ({ route }) => {
 
   return (
     <ContainerWithInsets withoutBottom>
-      <ExploreHeader title={route.params.topic.topic_name} withBackButton>
+      <HeaderScroll title={route.params.topic.topic_name} withBackButton>
         {isLoading ? (
           <View style={[gStyles.centerColumn, { height: '100%' }]}>
             <Loader />
@@ -78,7 +78,7 @@ export const ExpBasicTensesScreen = ({ route }) => {
             />
           </View>
         )}
-      </ExploreHeader>
+      </HeaderScroll>
     </ContainerWithInsets>
   );
 };

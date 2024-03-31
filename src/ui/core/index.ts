@@ -17,6 +17,7 @@ import { FlipCard } from './FlipCard';
 import { FocusAwareStatusBar } from './FocusAwareStatusBar';
 import { FullAccessPrompt } from './FullAccesPrompt';
 import { HeaderPlaceholder } from './HeaderPlaceholder';
+import { HeaderScroll } from './HeaderScroll';
 import { HeroEmptyState } from './hero/HeroEmptyState';
 import { HeroLoading } from './hero/HeroLoading';
 import { HeroWithChat } from './hero/HeroWithChat';
@@ -71,6 +72,7 @@ export {
   AlertProvider,
   useAlert,
   ALERT_LEVEL,
+  HeaderScroll,
 };
 
 export type {

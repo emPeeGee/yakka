@@ -51,7 +51,7 @@ const getStyles = (theme: Theme) =>
     },
   });
 
-type ExploreHeaderProps = {
+type HeaderScrollProps = {
   title: TxKeyPath;
   titleStyle?: StyleProp<any>;
   headlineStyle?: StyleProp<TextStyle>;
@@ -64,7 +64,7 @@ type ExploreHeaderProps = {
   withBackButton?: boolean;
 };
 
-export function ExploreHeader({
+export function HeaderScroll({
   title,
   titleStyle,
   headlineStyle,
@@ -75,7 +75,7 @@ export function ExploreHeader({
   scrollContainerStyle,
   scrollViewProps = {},
   withBackButton = false,
-}: ExploreHeaderProps) {
+}: HeaderScrollProps) {
   const { theme } = useTheme();
   const [headerHeight, setHeaderHeight] = useState(0);
   const [headerY, setHeaderY] = useState(0);
@@ -126,6 +126,7 @@ export function ExploreHeader({
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                gap: theme.spacing.md,
               }}>
               {withBackButton && <BackButton />}
               <View style={{ flex: 1, alignItems: 'center' }}>

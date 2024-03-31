@@ -14,6 +14,7 @@ import { MagnifyingGlassIcon } from '@/ui/icons';
 import { useTheme } from '@/ui/theme';
 import { useVocabularyStore } from './vocabularyState';
 
+// TODO: header with scroll here?
 export const VocFavoritesScreen = () => {
   const { theme } = useTheme();
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
