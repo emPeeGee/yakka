@@ -13,7 +13,7 @@ import {
 
 import { useAuth } from '@/core/providers';
 import { Theme, UserStats } from '@/types';
-import { EnhancedText, Fade, Tooltip } from '@/ui/core';
+import { EnhancedText, Tooltip } from '@/ui/core';
 import { BalloonIcon, LightningIcon, HeartIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { MAX_LIVES } from './learnState';
@@ -57,7 +57,6 @@ type LearnHeaderProps = {
   headerContainerStyle?: StyleProp<ViewStyle>;
   headerComponentContainerStyle?: StyleProp<ViewStyle>;
   scrollContainerStyle?: StyleProp<ViewStyle>;
-  fadeDirection?: string;
   scrollViewProps?: ScrollViewProps;
   stats: UserStats;
 };
@@ -69,7 +68,6 @@ export function LearnHeader({
   headerContainerStyle,
   headerComponentContainerStyle,
   scrollContainerStyle,
-  fadeDirection,
   scrollViewProps = {},
   stats,
 }: LearnHeaderProps) {
@@ -120,7 +118,7 @@ export function LearnHeader({
         </View>
         <View style={[gStyles.centerRow, { gap: theme.spacing.xs }]}>
           <Tooltip
-            overlayColor=""
+            actionType="press"
             height="auto"
             backgroundColor={theme.colors.info}
             pointerColor={theme.colors.info}
@@ -141,7 +139,7 @@ export function LearnHeader({
           </Tooltip>
 
           <Tooltip
-            overlayColor=""
+            actionType="press"
             height="auto"
             backgroundColor={theme.colors.info}
             pointerColor={theme.colors.info}
@@ -159,10 +157,32 @@ export function LearnHeader({
     [stats],
   );
 
+  const opacityHeaderAnimation = scrollAnimatedValue.interpolate({
+    inputRange: [0, headerHeight / 2, headerHeight / 1.5, headerHeight],
+    outputRange: [0, 0.05, 0.1, 1],
+    extrapolate: 'clamp',
+  });
+
+  const backgroundColorHeaderAnimation = scrollAnimatedValue.interpolate({
+    inputRange: [0, headerHeight / 2, headerHeight / 1.5, headerHeight],
+    outputRange: [
+      theme.colors.primary500,
+      theme.colors.primary500,
+      theme.colors.primary500,
+      theme.colors.background,
+    ],
+    extrapolate: 'clamp',
+  });
+
   return (
     <View style={[styles.container, containerStyle]}>
-      <View style={[styles.headerContainer, headerContainerStyle]}>
-        <Fade visible={isHeaderScrolled} direction={fadeDirection}>
+      <Animated.View
+        style={[
+          styles.headerContainer,
+          headerContainerStyle,
+          { backgroundColor: backgroundColorHeaderAnimation },
+        ]}>
+        <Animated.View style={{ opacity: opacityHeaderAnimation }}>
           <View style={[styles.headerComponentContainer, headerComponentContainerStyle]}>
             <View
               style={{
@@ -174,8 +194,8 @@ export function LearnHeader({
               {statsComponent}
             </View>
           </View>
-        </Fade>
-      </View>
+        </Animated.View>
+      </Animated.View>
       <ScrollView
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollAnimatedValue } } }], {
           listener: handleScroll,
