@@ -16,7 +16,7 @@ export const VocFavoritesScreen = () => {
   const { navigate } = useNavigation();
 
   return (
-    <View style={{ padding: theme.spacing.md }}>
+    <View style={{ padding: theme.spacing.md, flex: 1 }}>
       <View>
         <TextField
           value={favoriteInput}
@@ -35,31 +35,33 @@ export const VocFavoritesScreen = () => {
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }], {
           useNativeDriver: false, // NOTE: native driver doesn't work on ios (not sure on Android) https://stackoverflow.com/questions/55055873/react-native-animated-with-usenativedriver-reactnative-animated-event-is
         })}>
-        {favorites.length === 0 ? (
-          <View style={{ paddingTop: theme.spacing.xl }}>
-            <HeroEmptyState notFound={!!favoriteInput} />
-          </View>
-        ) : (
-          <ChoiceGroup
-            options={favorites
-              .filter(word => word.word.includes(favoriteInput.toLocaleLowerCase()) && word.liked)
-              .map(favorite => ({
-                value: favorite.word,
-                label: favorite.word,
-                Right: () => (
-                  <EnhancedText
-                    style={[{ color: theme.colors.textDis }, theme.typography.sizes.sm]}>
-                    {favorite.part_of_speech}
-                  </EnhancedText>
-                ),
-              }))}
-            onChange={word => {
-              setTimeout(() => {
-                navigate('VocWord' as never, { word } as never);
-              });
-            }}
-          />
-        )}
+        <View>
+          {favorites.length === 0 ? (
+            <View style={{ paddingTop: theme.spacing.xl }}>
+              <HeroEmptyState notFound={!!favoriteInput} />
+            </View>
+          ) : (
+            <ChoiceGroup
+              options={favorites
+                .filter(word => word.word.includes(favoriteInput.toLocaleLowerCase()) && word.liked)
+                .map(favorite => ({
+                  value: favorite.word,
+                  label: favorite.word,
+                  Right: () => (
+                    <EnhancedText
+                      style={[{ color: theme.colors.textDis }, theme.typography.sizes.sm]}>
+                      {favorite.part_of_speech}
+                    </EnhancedText>
+                  ),
+                }))}
+              onChange={word => {
+                setTimeout(() => {
+                  navigate('VocWord' as never, { word } as never);
+                });
+              }}
+            />
+          )}
+        </View>
       </ScrollView>
     </View>
   );
