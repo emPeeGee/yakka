@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ComponentType, useState } from 'react';
 import {
   View,
   ScrollView,
@@ -62,6 +62,7 @@ type HeaderScrollProps = {
   scrollContainerStyle?: StyleProp<ViewStyle>;
   scrollViewProps?: ScrollViewProps;
   withBackButton?: boolean;
+  Right?: ComponentType<any>;
 };
 
 export function HeaderScroll({
@@ -75,6 +76,7 @@ export function HeaderScroll({
   scrollContainerStyle,
   scrollViewProps = {},
   withBackButton = false,
+  Right,
 }: HeaderScrollProps) {
   const { theme } = useTheme();
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -156,7 +158,11 @@ export function HeaderScroll({
             alignItems: 'center',
           }}>
           {withBackButton && <BackButton />}
-          <EnhancedText tx={title} style={[styles.title, titleStyle, titleStyles]} />
+          <View style={{ flex: 1 }}>
+            <EnhancedText tx={title} style={[styles.title, titleStyle, titleStyles]} />
+          </View>
+
+          {Right && <Right />}
         </View>
         {children}
       </ScrollView>
