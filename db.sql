@@ -703,8 +703,11 @@ CREATE TABLE user_lessons (
 alter table user_lessons
   enable row level security;
 
-create policy "user_lessons are viewable by users who created them." on user_lessons
-  for select using (auth.uid() = user_id);
+CREATE POLICY user_access_policy ON user_lessons
+    FOR ALL
+    TO public
+    USING (auth.uid() = user_id);
+
 
 
 -- Create a trigger on the table that calls the update_changetimestamp_column() function whenever an update occurs like so:
@@ -734,15 +737,15 @@ CREATE TABLE user_statistics (
 alter table user_statistics
   enable row level security;
 
-create policy "user_statistics are viewable by users who created them." on user_statistics
-  for select using (auth.uid() = user_id);
+CREATE POLICY user_access_policy ON user_statistics
+    FOR ALL
+    TO public
+    USING (auth.uid() = user_id);
 
 
 CREATE TRIGGER update_user_statistics_changetimestamp BEFORE UPDATE
 ON user_statistics FOR EACH ROW EXECUTE PROCEDURE 
 update_updated_at_column();
-
-
 
 
 -- drop table words_users;
