@@ -18,6 +18,9 @@
       "userInterfaceStyle": "automatic"
     },
     "android": {
+      "package": "com.emPeeGee.yakka",
+      "permissions": ["NOTIFICATIONS"],
+      "useNextNotificationsApi": true,
       "userInterfaceStyle": "automatic",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",

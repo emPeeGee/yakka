@@ -62,6 +62,7 @@
 [x] don't send user to store
 [ ] store user activity
 [ ] notification + option in the settings
+[ ] global error handler to prevent app crashes
 
 ## Medium:
 

@@ -27,6 +27,7 @@ import {
   UserFocusIcon,
 } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
+import * as Notifications from 'expo-notifications';
 
 export const ProfileScreen = () => {
   const { theme, isDark } = useTheme();
@@ -80,6 +81,48 @@ export const ProfileScreen = () => {
       ] as DataListType[],
     [theme, rootLog],
   );
+
+  const sendLocalNotification = async () => {
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true, // TODO: make configurable
+        shouldSetBadge: false,
+      }),
+    });
+
+    // Second, call the method
+
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Look at that notification',
+        body: "I'm so proud of myself!",
+      },
+      trigger: {
+        seconds: 10,
+      },
+    });
+    // Cancel any existing notifications
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Look at that notification',
+        body: "I'm so proud of myself!",
+      },
+      trigger: {
+        seconds: 10,
+      },
+    });
+    // await Notifications.scheduleNotificationAsync({
+    //   content: {
+    //     title: 'Hello!',
+    //     body: 'This is a local notification sent from your app.',
+    //   },
+    //   trigger: {
+    //     seconds: 5, // 5 seconds from now
+    //   },
+    // });
+  };
 
   return (
     <View>
@@ -177,6 +220,7 @@ export const ProfileScreen = () => {
             </>
           )}
         </ScrollView>
+        <Button text="Send Local Notification" onPress={sendLocalNotification} />
 
         <List txTitle="profile.dashboard" data={DASHBOARD_LIST} />
         {user && <List txTitle="profile.myAccount" data={ACCOUNT_LIST} />}
