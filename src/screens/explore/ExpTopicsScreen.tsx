@@ -26,14 +26,12 @@ export const ExpTopicsScreen = () => {
   const gStyles = useGlobalThemedStyles();
   const { navigate } = useNavigation();
   const [typedTopic, setTypedTopic] = useState('');
-  const { withAccessControl, user } = useAuth();
-  const { init, isLoading, topics, exploreUsers } = useExploreStore();
+  const { withAccessControl } = useAuth();
+  const { init, isLoading, topics } = useExploreStore();
   const favoritesTooltipRef = useRef<Tooltip>(null);
 
-  console.log('explore users', exploreUsers);
-
   useEffect(() => {
-    init(user);
+    init();
   }, []);
 
   return (

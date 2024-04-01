@@ -72,7 +72,7 @@ export const VocStartScreen = () => {
   const gStyles = useGlobalThemedStyles();
   const { navigate } = useNavigation();
   const { words, init, isLoading, setIsLoading } = useVocabularyStore();
-  const { withAccessControl, user } = useAuth();
+  const { withAccessControl } = useAuth();
 
   const swiperRef = useRef<any>();
   const searchTooltipRef = useRef<Tooltip>(null);
@@ -80,8 +80,8 @@ export const VocStartScreen = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    init(user);
-  }, [user]);
+    init();
+  }, []);
 
   useEffect(() => {
     if (words.length > 0) {

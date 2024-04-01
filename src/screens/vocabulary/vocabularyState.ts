@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { User } from '@supabase/supabase-js';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { supabase } from '@/api';
+import { useAuthState } from '@/core/providers/authState';
 import { Favorite, Word, WordCategory } from '@/types';
 
 interface VocabularyState {
@@ -15,10 +15,10 @@ interface VocabularyState {
   isLoading: boolean;
   setTypedCategory: (category: string) => void;
   setCategory: (category: WordCategory) => void;
-  setFavorites: (action: 'add' | 'delete', favorite: Favorite, user: User) => void;
+  setFavorites: (action: 'add' | 'delete', favorite: Favorite) => void;
   setIsLoading: (isLoading: boolean) => void;
   reset: () => void;
-  init: (user: User | null) => void;
+  init: () => void;
 }
 
 const initialState: Pick<
@@ -37,7 +37,8 @@ export const useVocabularyStore = create<VocabularyState>()(
   persist<VocabularyState>(
     set => ({
       ...initialState,
-      init: async (user: User | null) => {
+      init: async () => {
+        const user = useAuthState.getState().user;
         if (!user) {
           return;
         }
@@ -106,7 +107,8 @@ export const useVocabularyStore = create<VocabularyState>()(
           isLoading: false,
         }));
       },
-      setFavorites: async (action, favorite, user) => {
+      setFavorites: async (action, favorite) => {
+        const user = useAuthState.getState().user;
         switch (action) {
           case 'add':
             // eslint-disable-next-line no-case-declarations

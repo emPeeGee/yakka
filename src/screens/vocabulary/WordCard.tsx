@@ -12,7 +12,6 @@ import Animated, {
 import { useShallow } from 'zustand/react/shallow';
 
 import { TxKeyPath } from '@/core/i18n';
-import { useAuth } from '@/core/providers';
 import { Word } from '@/types';
 import {
   FlipCard,
@@ -52,7 +51,6 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
   );
   const gStyles = useGlobalThemedStyles();
   const isFavorite = useSharedValue(favorite?.liked ? 1 : 0);
-  const { user } = useAuth();
 
   const { setFavorites } = useVocabularyStore();
 
@@ -206,11 +204,10 @@ export const FlipCardWrapper = ({ item, side }: FlipCardWrapperProps) => {
           <EnhancedPressable
             onPress={() => {
               isFavorite.value = withSpring(isFavorite.value ? 0 : 1);
-              setFavorites(
-                isFavorite.value ? 'delete' : 'add',
-                { ...item, id: favorite?.id || item.favorite_id },
-                user,
-              );
+              setFavorites(isFavorite.value ? 'delete' : 'add', {
+                ...item,
+                id: favorite?.id || item.favorite_id,
+              });
             }}>
             <Animated.View style={[StyleSheet.absoluteFillObject, outlineStyle]}>
               <MaterialCommunityIcons name="heart-outline" size={32} color={theme.colors.chilly} />

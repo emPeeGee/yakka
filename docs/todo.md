@@ -59,8 +59,9 @@
 [ ] text inputs keyboard type
 [ ] move all auth request into the use auth
 [ ] only one header the one from explorer
+[x] don't send user to store
 [ ] store user activity
-[ ] don't send user to store
+[ ] notification + option in the settings
 
 ## Medium:
 

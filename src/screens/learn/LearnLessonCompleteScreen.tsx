@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import { User } from '@supabase/supabase-js';
 import { useShallow } from 'zustand/react/shallow';
 
 import { LESSON_DONE_DATA_KEY } from '@/core/constants';
-import { useAuth, useSound } from '@/core/providers';
+import { useSound } from '@/core/providers';
 import { getItem } from '@/core/storage';
 import { formatSecondsToMinutesSeconds, percentage } from '@/core/utils';
 import { ParsedLessonAnswers, LearningLessonStats, Lesson } from '@/types';
@@ -27,7 +26,6 @@ export const LearnLessonCompleteScreen = ({ route }: any) => {
     useShallow(state => state.lessons.find(l => l.lesson_id === route?.params?.lessonId)),
   ) as Lesson;
   const { playSound } = useSound();
-  const { user } = useAuth();
 
   useEffect(() => {
     getItem<ParsedLessonAnswers>(LESSON_DONE_DATA_KEY).then(data => {
@@ -44,7 +42,7 @@ export const LearnLessonCompleteScreen = ({ route }: any) => {
 
       console.log('stats after lesson', statsAfterTheLesson);
 
-      completeLesson(lesson.lesson_id, statsAfterTheLesson, user as User);
+      completeLesson(lesson.lesson_id, statsAfterTheLesson);
       setLessonStats(statsAfterTheLesson);
       playSound('lessonSuccess');
     });

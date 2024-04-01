@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { User } from '@supabase/supabase-js';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -12,7 +11,7 @@ interface ExploreState {
   exploreItems: Explore[];
   exploreUsers: ExploreUser[];
   isLoading: boolean;
-  init: (user: User | null) => void;
+  init: () => void;
   setExploreUsers: (action: 'add' | 'delete', favorite: ExploreUser) => void;
   setIsLoading: (isLoading: boolean) => void;
   reset: () => void;
@@ -29,7 +28,8 @@ export const useExploreStore = create<ExploreState>()(
   persist<ExploreState>(
     set => ({
       ...initialState,
-      init: async (user: User | null) => {
+      init: async () => {
+        const user = useAuthState.getState().user;
         if (!user) {
           return;
         }

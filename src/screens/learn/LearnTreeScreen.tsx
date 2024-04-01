@@ -27,7 +27,7 @@ export const LearnTreeScreen = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    init(user);
+    init();
   }, []);
 
   const lessonPressHandler = async (lesson: Lesson) => {
@@ -37,8 +37,6 @@ export const LearnTreeScreen = () => {
         description: lesson.description,
         isCompleted: completed.includes(lesson.lesson_number),
         lives: stats.lives,
-        // title: `Form basic sentences`,
-        // description: 'Lesson 1',
       },
     });
 

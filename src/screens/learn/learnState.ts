@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { User } from '@supabase/supabase-js';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -15,8 +14,8 @@ interface LearnState {
   current: number;
   stats: UserStats;
   lastRegeneration: number;
-  init: (user: User | null) => void;
-  completeLesson: (lesson_id: number, wonStats: LearningLessonStats, user: User) => void;
+  init: () => void;
+  completeLesson: (lesson_id: number, wonStats: LearningLessonStats) => void;
   regenerateLife: () => void;
   reset: () => void;
 }
@@ -46,7 +45,8 @@ export const useLearnStore = create<LearnState>()(
   persist<LearnState>(
     set => ({
       ...initialState,
-      init: async (user: User | null) => {
+      init: async () => {
+        const user = useAuthState.getState().user;
         if (!user) {
           return;
         }
@@ -90,12 +90,13 @@ export const useLearnStore = create<LearnState>()(
           },
         }));
       },
-      completeLesson: async (lesson_id: number, wonStats: LearningLessonStats, user: User) => {
+      completeLesson: async (lesson_id: number, wonStats: LearningLessonStats) => {
+        const user = useAuthState.getState().user;
         const { error: completedError } = await supabase.from('user_lessons').upsert(
           {
             // TODO: need to pass user_lesson_id when doing the lesson second time, otherwise it will be created twice
             lesson_id: lesson_id,
-            user_id: user.id,
+            user_id: user?.id,
             completed: true,
             completed_at: new Date().toISOString().toLocaleString('en-US'),
           },
