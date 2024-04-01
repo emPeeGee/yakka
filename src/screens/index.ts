@@ -4,6 +4,7 @@ import { ResetPasswordScreen } from './auth/ResetPasswordScreen';
 import { SignUpDoneScreen } from './auth/SignUpDoneScreen';
 import { SignUpScreen } from './auth/SignUpScreen';
 import { ExpContentScreen } from './explore/ExpContentScreen';
+import { ExpFavoritesScreen } from './explore/ExpFavoritesScreen';
 import { ExpBasicTensesScreen } from './explore/ExpSubtopicsScreen';
 import { ExpTopicsScreen } from './explore/ExpTopicsScreen';
 import { LearnLessonCompleteScreen } from './learn/LearnLessonCompleteScreen';
@@ -53,5 +54,6 @@ export {
   ExpTopicsScreen,
   ExpBasicTensesScreen,
   ExpContentScreen,
+  ExpFavoritesScreen,
   ProfileActivityScreen,
 };

@@ -59,6 +59,8 @@
 [ ] text inputs keyboard type
 [ ] move all auth request into the use auth
 [ ] only one header the one from explorer
+[ ] store user activity
+[ ] don't send user to store
 
 ## Medium:
 

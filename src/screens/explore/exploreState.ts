@@ -86,7 +86,7 @@ export const useExploreStore = create<ExploreState>()(
                 });
 
                 // replace the current one if it exists or append it
-                if (i != -1) {
+                if (i !== -1) {
                   return {
                     ...state,
                     exploreUsers: state.exploreUsers.map(eu =>

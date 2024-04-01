@@ -3,7 +3,12 @@ import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ExpTopicsScreen, ExpBasicTensesScreen, ExpContentScreen } from '@/screens';
+import {
+  ExpTopicsScreen,
+  ExpBasicTensesScreen,
+  ExpContentScreen,
+  ExpFavoritesScreen,
+} from '@/screens';
 import { BackButton } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
@@ -11,6 +16,7 @@ export type ExploreStackParamList = {
   ExpTopics: undefined;
   ExpSubtopics: undefined;
   ExpContent: undefined;
+  ExpFavorites: undefined;
 };
 
 const Stack = createNativeStackNavigator<ExploreStackParamList>();
@@ -51,6 +57,14 @@ export const ExploreNavigator = () => {
         <Stack.Screen
           name="ExpContent"
           component={ExpContentScreen}
+          options={{
+            headerShown: false,
+            contentStyle: { paddingHorizontal: null },
+          }}
+        />
+        <Stack.Screen
+          name="ExpFavorites"
+          component={ExpFavoritesScreen}
           options={{
             headerShown: false,
             contentStyle: { paddingHorizontal: null },

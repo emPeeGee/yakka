@@ -22,4 +22,5 @@ export type ExploreUser = {
   liked: boolean;
   created_at?: string;
   updated_at?: string;
+  explore?: Explore;
 };

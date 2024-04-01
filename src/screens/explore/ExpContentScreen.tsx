@@ -67,6 +67,7 @@ export const ExpContentScreen = ({ route }) => {
                     setExploreUsers(isLiked ? 'delete' : 'add', {
                       explore_id: expUser?.explore_id || explore.explore_id,
                       explore_user_id: expUser?.explore_user_id,
+                      explore: { ...explore },
                     });
                   }}
                   onLongPress={() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -13,23 +13,13 @@ import {
   Emoji,
   Loader,
   TextField,
+  Tooltip,
+  EnhancedText,
+  Button,
 } from '@/ui/core';
-import { MagnifyingGlassIcon } from '@/ui/icons';
+import { HeartIcon, MagnifyingGlassIcon } from '@/ui/icons';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { useExploreStore } from './exploreState';
-
-// TODO: not the best location
-export enum ExploreTopics {
-  BasicTenses = 'BasicTenses',
-  Verbs = 'Verbs',
-  Grammar = 'Grammar',
-}
-
-export const TOPICS: Choice<ExploreTopics>[] = [
-  { value: ExploreTopics.BasicTenses, tx: 'exp.12basicTenses', Left: () => <Emoji emoji="📜" /> },
-  { value: ExploreTopics.Grammar, tx: 'exp.grammar', Left: () => <Emoji emoji="📚" /> },
-  { value: ExploreTopics.Verbs, tx: 'exp.verbs', Left: () => <Emoji emoji="🤸" /> },
-];
 
 export const ExpTopicsScreen = () => {
   const { theme } = useTheme();
@@ -37,7 +27,10 @@ export const ExpTopicsScreen = () => {
   const { navigate } = useNavigation();
   const [typedTopic, setTypedTopic] = useState('');
   const { withAccessControl, user } = useAuth();
-  const { init, isLoading, topics } = useExploreStore();
+  const { init, isLoading, topics, exploreUsers } = useExploreStore();
+  const favoritesTooltipRef = useRef<Tooltip>(null);
+
+  console.log('explore users', exploreUsers);
 
   useEffect(() => {
     init(user);
@@ -45,55 +38,83 @@ export const ExpTopicsScreen = () => {
 
   return (
     <ContainerWithInsets>
-      {isLoading ? (
-        <View style={[gStyles.centerColumn, { height: '100%' }]}>
-          <Loader />
-        </View>
-      ) : (
-        // <HeaderScrollView title="exp.learnToday">
-        <HeaderScroll title="exp.learnToday">
-          <View
-            style={{
-              paddingVertical: theme.spacing.xs,
-              paddingHorizontal: theme.spacing.md,
-            }}>
-            <View
-              style={{
-                paddingVertical: theme.spacing.md,
-              }}>
-              <TextField
-                value={typedTopic}
-                onChangeText={setTypedTopic}
-                placeholderTx="exp.searchTopic"
-                style={{ paddingVertical: theme.spacing.md }}
-                RightAccessory={props => (
-                  <View style={[props.style]}>
-                    <MagnifyingGlassIcon />
-                  </View>
+      <View
+        style={{
+          padding: theme.spacing.md,
+          // flex: 1,
+          height: '100%',
+        }}>
+        <HeaderScroll
+          title="exp.learnToday"
+          scrollContainerStyle={{ flexGrow: 1 }}
+          Right={() => (
+            <Tooltip
+              ref={favoritesTooltipRef}
+              actionType="longPress"
+              height="auto"
+              backgroundColor={theme.colors.info}
+              pointerColor={theme.colors.info}
+              popover={<EnhancedText style={{ color: theme.colors.base0 }} tx="voc.favorites" />}>
+              <Button
+                width="auto"
+                backgroundColor={theme.colors.secondary500}
+                color={theme.colors.primary900}
+                Left={() => HeartIcon({ width: 26, height: 26, fill: theme.colors.primary900 })}
+                style={{ paddingVertical: theme.spacing.xs, paddingHorizontal: theme.spacing.xs }}
+                onPress={withAccessControl(
+                  () => navigate('ExpFavorites' as never),
+                  () => navigate('Auth', { screen: 'AuthSignUp' }),
                 )}
+                onLongPress={() => {
+                  favoritesTooltipRef.current?.toggleTooltip();
+                }}
               />
+            </Tooltip>
+          )}>
+          {isLoading ? (
+            <View style={[gStyles.centerColumn, { flex: 1 }]}>
+              <Loader />
             </View>
-            <ChoiceGroup
-              options={topics.map(
-                t =>
-                  ({
-                    value: t,
-                    tx: t.topic_name,
-                    Left: () => <Emoji emoji={t.emoji} />,
-                  }) as Choice<ExploreTopic>,
-              )}
-              onChange={topic => {
-                setTimeout(() => {
-                  withAccessControl(
-                    () => navigate('ExpSubtopics' as never, { topic } as never),
-                    () => navigate('Auth', { screen: 'AuthSignUp' }),
-                  )();
-                });
-              }}
-            />
-          </View>
+          ) : (
+            <>
+              <View
+                style={{
+                  paddingVertical: theme.spacing.md,
+                }}>
+                <TextField
+                  value={typedTopic}
+                  onChangeText={setTypedTopic}
+                  placeholderTx="exp.searchTopic"
+                  style={{ paddingVertical: theme.spacing.md }}
+                  RightAccessory={props => (
+                    <View style={[props.style]}>
+                      <MagnifyingGlassIcon />
+                    </View>
+                  )}
+                />
+              </View>
+              <ChoiceGroup
+                options={topics.map(
+                  t =>
+                    ({
+                      value: t,
+                      tx: t.topic_name,
+                      Left: () => <Emoji emoji={t.emoji} />,
+                    }) as Choice<ExploreTopic>,
+                )}
+                onChange={topic => {
+                  setTimeout(() => {
+                    withAccessControl(
+                      () => navigate('ExpSubtopics' as never, { topic } as never),
+                      () => navigate('Auth', { screen: 'AuthSignUp' }),
+                    )();
+                  });
+                }}
+              />
+            </>
+          )}
         </HeaderScroll>
-      )}
+      </View>
     </ContainerWithInsets>
   );
 };
