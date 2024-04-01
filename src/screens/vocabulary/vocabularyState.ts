@@ -104,7 +104,6 @@ export const useVocabularyStore = create<VocabularyState>()(
           category,
           words: [...wordsForCategory],
           isLoading: false,
-          // words: category.category_id === 1 ? wordsForCategory.slice(-5) : [...wordsForCategory],
         }));
       },
       setFavorites: async (action, favorite, user) => {

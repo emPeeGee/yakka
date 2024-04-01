@@ -4,14 +4,14 @@ import { Path, Svg, SvgProps } from 'react-native-svg';
 
 import { useTheme } from '@/ui/theme';
 
-export const HeartIcon = (props: SvgProps) => {
+export const HeartIcon = (props: SvgProps & { filled: boolean }) => {
   const { theme } = useTheme();
   const fill = props.fill || theme.colors.secondary500;
 
   return (
     <Svg width="32" height="32" viewBox="0 0 26 26" fill="none" {...props}>
       <Path
-        opacity="0.2"
+        opacity={props.filled ? '1' : '0.2'}
         d="M23.5625 9.54688C23.5625 16.25 13 21.9375 13 21.9375C13 21.9375 2.4375 16.25 2.4375 9.54688C2.4375 8.09233 3.01532 6.69736 4.04384 5.66884C5.07236 4.64032 6.46733 4.0625 7.92188 4.0625C10.2162 4.0625 12.1814 5.31273 13 7.3125C13.8186 5.31273 15.7838 4.0625 18.0781 4.0625C19.5327 4.0625 20.9276 4.64032 21.9562 5.66884C22.9847 6.69736 23.5625 8.09233 23.5625 9.54688Z"
         fill={fill}
       />

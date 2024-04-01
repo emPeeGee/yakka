@@ -52,7 +52,7 @@ export const ExploreNavigator = () => {
           name="ExpContent"
           component={ExpContentScreen}
           options={{
-            headerShown: true,
+            headerShown: false,
             contentStyle: { paddingHorizontal: null },
           }}
         />

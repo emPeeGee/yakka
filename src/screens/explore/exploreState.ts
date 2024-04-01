@@ -4,21 +4,23 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { supabase } from '@/api';
-import { Explore, ExploreTopic } from '@/types';
+import { useAuthState } from '@/core/providers/authState';
+import { Explore, ExploreTopic, ExploreUser } from '@/types';
 
 interface ExploreState {
   topics: ExploreTopic[];
   exploreItems: Explore[];
-  // favorites: Favorite[];
+  exploreUsers: ExploreUser[];
   isLoading: boolean;
   init: (user: User | null) => void;
-  // setFavorites: (action: 'add' | 'delete', favorite: Favorite, user: User) => void;
+  setExploreUsers: (action: 'add' | 'delete', favorite: ExploreUser) => void;
   setIsLoading: (isLoading: boolean) => void;
   reset: () => void;
 }
 
-const initialState: Pick<ExploreState, 'topics' | 'exploreItems' | 'isLoading'> = {
+const initialState: Pick<ExploreState, 'topics' | 'exploreItems' | 'exploreUsers' | 'isLoading'> = {
   topics: [],
+  exploreUsers: [],
   exploreItems: [],
   isLoading: true,
 };
@@ -33,8 +35,15 @@ export const useExploreStore = create<ExploreState>()(
         }
 
         const { data: topics, error: topicsError } = await supabase.from('topics').select('*');
+        const { data: likedExplore, error: likedExploreError } = await supabase
+          .from('explore_users')
+          .select(
+            'explore_user_id, explore_id, liked, explore!inner(explore_id, lesson_name, description, emoji, lesson_content)',
+          )
+          .eq('user_id', user.id);
+        console.log('exp_users', likedExplore, likedExploreError, topicsError);
 
-        if (topicsError) {
+        if (topicsError || likedExploreError) {
           return;
         }
 
@@ -42,64 +51,82 @@ export const useExploreStore = create<ExploreState>()(
           ...state,
           isLoading: false,
           topics: [...(topics?.map(w => w) as ExploreTopic[])],
-          // categories: categories as WordCategory[],
-          // favorites: topics?.map(l => ({
-          //   id: l.id,
-          //   word_id: l.word_id,
-          //   liked: l.liked,
-          //   word: l.words.word,
-          //   part_of_speech: l.words.part_of_speech,
-          //   definition: l.words.definition,
-          //   example: l.words.example,
-          //   pronunciation: l.words.pronunciation,
-          // })),
+          exploreUsers: [...likedExplore] as ExploreUser[],
         }));
       },
-      // setFavorites: async (action, favorite, user) => {
-      //   switch (action) {
-      //     case 'add':
-      //       // eslint-disable-next-line no-case-declarations
-      //       const { error: addError } = await supabase.from('favorite_words').upsert(
-      //         {
-      //           id: favorite.id,
-      //           user_id: user.id,
-      //           word_id: favorite.word_id,
-      //           liked: true,
-      //         },
-      //         { onConflict: 'id' },
-      //       );
+      setExploreUsers: async (action, expUser) => {
+        const user = useAuthState.getState().user;
+        switch (action) {
+          case 'add':
+            // eslint-disable-next-line no-case-declarations
+            const { data: insertedWord, error: insertError } = await supabase
+              .from('explore_users')
+              .upsert(
+                {
+                  explore_user_id: expUser.explore_user_id || undefined,
+                  user_id: user?.id,
+                  explore_id: expUser.explore_id,
+                  liked: true,
+                },
+                { onConflict: 'explore_user_id' },
+              )
+              .select();
 
-      //       if (!addError) {
-      //         set(state => ({
-      //           ...state,
-      //           favorites: [...state.favorites, favorite],
-      //         }));
-      //       }
-      //       break;
+            console.log(expUser, insertError, insertedWord);
 
-      //     case 'delete':
-      //       // eslint-disable-next-line no-case-declarations
-      //       const { error: deleteError } = await supabase.from('favorite_words').upsert(
-      //         {
-      //           id: favorite.id,
-      //           user_id: user.id,
-      //           word_id: favorite.word_id,
-      //           liked: false,
-      //         },
-      //         { onConflict: 'id' },
-      //       );
+            if (!insertError) {
+              set(state => {
+                const newExpUser = {
+                  ...expUser,
+                  explore_user_id: insertedWord[0].explore_user_id,
+                  liked: true,
+                };
+                const i = state.exploreUsers.findIndex(function (eu) {
+                  return eu.explore_user_id == expUser.explore_user_id;
+                });
 
-      //       if (!deleteError) {
-      //         set(state => ({
-      //           ...state,
-      //           favorites: state.favorites.map(f =>
-      //             favorite.id === f.id ? { ...f, liked: false } : f,
-      //           ),
-      //         }));
-      //       }
-      //       break;
-      //   }
-      // },
+                // replace the current one if it exists or append it
+                if (i != -1) {
+                  return {
+                    ...state,
+                    exploreUsers: state.exploreUsers.map(eu =>
+                      eu.explore_user_id === expUser.explore_user_id ? newExpUser : eu,
+                    ),
+                  };
+                } else {
+                  return {
+                    ...state,
+                    exploreUsers: [...state.exploreUsers, newExpUser],
+                  };
+                }
+              });
+            }
+            break;
+
+          case 'delete':
+            // eslint-disable-next-line no-case-declarations
+            const { error: deleteError } = await supabase.from('explore_users').upsert(
+              {
+                explore_user_id: expUser.explore_user_id,
+                explore_id: expUser.explore_id,
+                user_id: user?.id,
+                liked: false,
+              },
+              { onConflict: 'explore_user_id' },
+            );
+            console.log(expUser, deleteError);
+
+            if (!deleteError) {
+              set(state => ({
+                ...state,
+                exploreUsers: state.exploreUsers.map(eu =>
+                  expUser.explore_user_id === eu.explore_user_id ? { ...eu, liked: false } : eu,
+                ),
+              }));
+            }
+            break;
+        }
+      },
       setIsLoading: (isLoading: boolean) => {
         set(state => ({
           ...state,

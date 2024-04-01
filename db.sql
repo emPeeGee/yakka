@@ -428,7 +428,12 @@ CREATE TABLE favorite_words (
   word_id INT REFERENCES words(word_id) NOT NULL,
   liked BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TRIGGER update_favorite_words_changetimestamp BEFORE UPDATE
+ON favorite_words FOR EACH ROW EXECUTE PROCEDURE 
+update_updated_at_column();
 
 alter table favorite_words
   enable row level security;
@@ -628,18 +633,29 @@ INSERT INTO explore (lesson_name, emoji, topic_id, lesson_content) VALUES
 ----------------- EXPLORE USERS ------------------------------------------
 -------------------------------------------------------------------
 CREATE TABLE explore_users (
-    id SERIAL PRIMARY KEY,
+    explore_user_id SERIAL PRIMARY KEY,
     explore_id INT REFERENCES explore (explore_id) NOT NULL,
     user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
-    liked BOOLEAN DEFAULT FALSE
+    liked BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TRIGGER update_explore_users_changetimestamp BEFORE UPDATE
+ON explore_users FOR EACH ROW EXECUTE PROCEDURE 
+update_updated_at_column();
 
 
 alter table explore_users
   enable row level security;
 
-create policy "Explore_users are viewable by users who created them." on explore_users 
-  for select using (auth.uid() = user_id);
+-- create policy "Explore_users are viewable by users who created them." on explore_users 
+--   for select using (auth.uid() = user_id);
+
+CREATE POLICY explore_users_access_policy ON explore_users
+    FOR ALL
+    TO public
+    USING (auth.uid() = user_id);
 
 
 -------------------------------------------------------------------

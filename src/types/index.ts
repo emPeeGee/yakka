@@ -1,6 +1,6 @@
 import { VoidCb } from './cb';
 import { SelectableOption, Dimensions } from './common';
-import { Explore, ExploreTopic, ExploreUsers } from './explore';
+import { Explore, ExploreTopic, ExploreUser } from './explore';
 import {
   ActivityType,
   ActivityUnion,
@@ -59,5 +59,5 @@ export type {
   UserStatistics as UserStats,
   Explore,
   ExploreTopic,
-  ExploreUsers,
+  ExploreUser,
 };

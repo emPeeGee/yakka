@@ -60,7 +60,7 @@ export const ExpBasicTensesScreen = ({ route }) => {
           withBackButton
           scrollContainerStyle={{ flexGrow: 1 }}>
           {isLoading ? (
-            <View style={[gStyles.centerColumn, { height: '100%' }]}>
+            <View style={[gStyles.centerColumn, { flex: 1 }]}>
               <Loader />
             </View>
           ) : (
@@ -74,9 +74,9 @@ export const ExpBasicTensesScreen = ({ route }) => {
                       Left: () => <Emoji emoji={s.emoji} />,
                     }) as Choice<Explore>,
                 )}
-                onChange={({ lesson_content, lesson_name }) => {
+                onChange={exp => {
                   setTimeout(() => {
-                    navigate('ExpContent' as never, { lesson_content, lesson_name } as never);
+                    navigate('ExpContent' as never, exp as never);
                   });
                 }}
               />

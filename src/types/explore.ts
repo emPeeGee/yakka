@@ -15,9 +15,11 @@ export type Explore = {
   topic_id: number;
 };
 
-export type ExploreUsers = {
-  id: number;
+export type ExploreUser = {
+  explore_user_id: number;
   explore_id: number;
   user_id: number;
   liked: boolean;
+  created_at?: string;
+  updated_at?: string;
 };
