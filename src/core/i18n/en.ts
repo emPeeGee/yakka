@@ -143,6 +143,7 @@ export const en = {
     wordOfTheDay: 'Word of the day',
     seeWordOfTheDay: 'See word of the day',
     favorites: 'Favorites',
+    favoritesHand: 'Handpicked favorites',
     search: 'Search',
     searchWord: 'Search a word',
     searchCategory: 'Search a category',

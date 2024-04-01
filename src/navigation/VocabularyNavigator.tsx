@@ -49,10 +49,7 @@ export const VocabularyNavigator = () => {
         <Stack.Screen
           name="VocFavorites"
           component={VocFavoritesScreen}
-          options={{
-            title: translate('voc.favorites'),
-            headerTitleAlign: 'center',
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="VocWord"

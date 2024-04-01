@@ -152,7 +152,6 @@ export function HeaderScroll({
           onLayout={onLayout}
           style={{
             gap: theme.spacing.md,
-            paddingHorizontal: theme.spacing.md,
             flexDirection: 'row',
             alignItems: 'center',
           }}>
