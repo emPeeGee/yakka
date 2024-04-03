@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { supabase } from '@/api';
 import { Word } from '@/types';
-import { ContainerWithInsets, Loader } from '@/ui/core';
+import { Loader } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { WordCard } from './WordCard';
 
@@ -29,13 +29,17 @@ export const VocWordOfTheDayScreen = () => {
   }, []);
 
   return (
-    <ContainerWithInsets
-      backgroundColor={
-        appColorScheme === 'light' ? theme.colors.primary100 : theme.colors.background
-      }>
-      <View style={[{ paddingVertical: theme.spacing.md, flex: 1 }, gStyles.centerColumn]}>
-        {isLoading ? <Loader /> : <WordCard word={wordOfTheDay} />}
-      </View>
-    </ContainerWithInsets>
+    <View
+      style={[
+        {
+          paddingVertical: theme.spacing.md,
+          flex: 1,
+          backgroundColor:
+            appColorScheme === 'light' ? theme.colors.primary100 : theme.colors.background,
+        },
+        gStyles.centerColumn,
+      ]}>
+      {isLoading ? <Loader /> : <WordCard word={wordOfTheDay} />}
+    </View>
   );
 };
