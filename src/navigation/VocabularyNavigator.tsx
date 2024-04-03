@@ -42,9 +42,7 @@ export const VocabularyNavigator = () => {
         <Stack.Screen
           name="VocCategories"
           component={VocCategoriesScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="VocFavorites"

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { supabase } from '@/api';
 import { TxKeyPath } from '@/core/i18n';
 import { Explore } from '@/types';
-import { Choice, ChoiceGroup, ContainerWithInsets, Emoji, Loader, HeaderScroll } from '@/ui/core';
+import { Choice, ChoiceGroup, Emoji, Loader, HeaderScroll } from '@/ui/core';
 import { useGlobalThemedStyles, useTheme } from '@/ui/theme';
 import { useExploreStore } from './exploreState';
 
@@ -53,37 +53,35 @@ export const ExpBasicTensesScreen = ({ route }) => {
   }, []);
 
   return (
-    <ContainerWithInsets withoutBottom>
-      <View style={{ padding: theme.spacing.md, height: '100%' }}>
-        <HeaderScroll
-          title={route.params.topic.topic_name}
-          withBackButton
-          scrollContainerStyle={{ flexGrow: 1 }}>
-          {isLoading ? (
-            <View style={[gStyles.centerColumn, { flex: 1 }]}>
-              <Loader />
-            </View>
-          ) : (
-            <View style={{ paddingVertical: theme.spacing.md }}>
-              <ChoiceGroup
-                options={subtopics.map(
-                  s =>
-                    ({
-                      value: s,
-                      tx: s.lesson_name,
-                      Left: () => <Emoji emoji={s.emoji} />,
-                    }) as Choice<Explore>,
-                )}
-                onChange={exp => {
-                  setTimeout(() => {
-                    navigate('ExpContent' as never, exp as never);
-                  });
-                }}
-              />
-            </View>
-          )}
-        </HeaderScroll>
-      </View>
-    </ContainerWithInsets>
+    <View style={{ padding: theme.spacing.md, height: '100%' }}>
+      <HeaderScroll
+        title={route.params.topic.topic_name}
+        withBackButton
+        scrollContainerStyle={{ flexGrow: 1 }}>
+        {isLoading ? (
+          <View style={[gStyles.centerColumn, { flex: 1 }]}>
+            <Loader />
+          </View>
+        ) : (
+          <View style={{ paddingVertical: theme.spacing.md }}>
+            <ChoiceGroup
+              options={subtopics.map(
+                s =>
+                  ({
+                    value: s,
+                    tx: s.lesson_name,
+                    Left: () => <Emoji emoji={s.emoji} />,
+                  }) as Choice<Explore>,
+              )}
+              onChange={exp => {
+                setTimeout(() => {
+                  navigate('ExpContent' as never, exp as never);
+                });
+              }}
+            />
+          </View>
+        )}
+      </HeaderScroll>
+    </View>
   );
 };

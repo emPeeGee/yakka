@@ -7,13 +7,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { useAuth } from '@/core/providers';
 import { Lesson } from '@/types';
-import {
-  HeaderPlaceholder,
-  Tile,
-  ContainerWithInsets,
-  FullAccessPrompt,
-  HeroLoading,
-} from '@/ui/core';
+import { Tile, ContainerWithInsets, FullAccessPrompt, HeroLoading } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 import { LearnHeader } from './LearnHeader';
 import { useLearnStore } from './learnState';
@@ -52,9 +46,7 @@ export const LearnTreeScreen = () => {
   const shouldPromptLoginForFullAccess = !user && completed.length >= 5;
 
   return (
-    <ContainerWithInsets>
-      <HeaderPlaceholder />
-
+    <ContainerWithInsets withoutBottom>
       {shouldPromptLoginForFullAccess && <FullAccessPrompt />}
 
       <LearnHeader stats={stats}>
@@ -81,19 +73,6 @@ export const LearnTreeScreen = () => {
                 />
               );
             })}
-
-            {/* <Tile type="globe" />
-          <Tile type="countdown" withHero heroPos="left" />
-          <Tile type="globe" current onPress={() => lessonPressHandler()} />
-          <Tile completed type="globe" />
-          <Tile completed type="countdown" withHero heroPos="right" />
-          <Tile completed type="globe" />
-          <Tile completed type="globe" />
-          <Tile completed type="globe" />
-          <Tile completed type="globe" />
-          <Tile completed type="globe" />
-          <Tile completed type="globe" withHero heroPos="left" />
-          <Tile completed type="start" /> */}
           </View>
         </ScrollView>
       </LearnHeader>
