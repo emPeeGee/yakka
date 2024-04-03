@@ -18,7 +18,6 @@ import { TabNavigator } from './TabNavigator';
 
 const prefix = Linking.createURL('/');
 const Stack = createNativeStackNavigator();
-const userStatus: 'signOut' | 'onboarding' | 'signIn' = 'signOut';
 
 // Needs this for token parsing - since we're dealing with global shims, TS is going to be a little weird.
 // eslint-disable-next-line
@@ -44,15 +43,8 @@ export function RootNavigator() {
 
   useEffect(() => {
     getItem(ONBOARD_DATA_KEY).then(onboardData => {
-      // TODO: dev purpose
-      // setInitialRoute('App');
-      // setInitialRoute('Auth');
-      // setTimeout(() => {
-      //   setIsLoading(false);
-      // }, 2000);
-      // return;
-
-      if (isFirstLaunch || !onboardData) {
+      // TODO: onboardData
+      if (isFirstLaunch) {
         setInitialRoute('Onboard');
       } else if (user) {
         setInitialRoute('App');
@@ -133,24 +125,9 @@ export function RootNavigator() {
           gestureEnabled: false,
           animation: 'none',
         }}>
-        {/* eslint-disable-next-line no-constant-condition */}
-        {true || isFirstLaunch ? (
-          <>
-            <Stack.Screen name="Onboard" component={OnboardNavigator} />
-            <Stack.Screen name="Auth" component={AuthNavigator} />
-            <Stack.Screen name="App" component={TabNavigator} />
-          </>
-        ) : (
-          <Stack.Group>
-            {userStatus === 'signOut' ? (
-              // TODO:
-              <Stack.Screen name="App" component={TabNavigator} />
-            ) : (
-              // TODO:
-              <Stack.Screen name="App" component={TabNavigator} />
-            )}
-          </Stack.Group>
-        )}
+        <Stack.Screen name="App" component={TabNavigator} />
+        <Stack.Screen name="Auth" component={AuthNavigator} />
+        <Stack.Screen name="Onboard" component={OnboardNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
