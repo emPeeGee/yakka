@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -90,7 +90,7 @@ export const VocStartScreen = () => {
   }, [words]);
 
   return (
-    <ContainerWithInsets>
+    <ContainerWithInsets withoutBottom>
       {isLoading && words.length === 0 ? (
         <View style={[gStyles.centerColumn, { height: '100%' }]}>
           <Loader />
@@ -99,6 +99,7 @@ export const VocStartScreen = () => {
         <View
           style={[
             {
+              height: '100%',
               flex: 1,
               width: '100%',
               gap: theme.spacing.md,
@@ -197,31 +198,41 @@ export const VocStartScreen = () => {
               ))}
             </CardStack>
           </View>
-          <View style={styles.footer}>
-            <View style={styles.buttonContainer}>
-              <EnhancedPressable
-                style={[styles.button, styles.red, { backgroundColor: theme.colors.background }]}
-                onPress={() => {
-                  swiperRef.current.swipeLeft();
-                }}>
-                <EnhancedText>to left</EnhancedText>
-              </EnhancedPressable>
-              <EnhancedPressable
-                style={[styles.button, styles.orange, { backgroundColor: theme.colors.background }]}
-                onPress={() => {
-                  swiperRef.current.goBackFromLeft();
-                }}>
-                <EnhancedText>restart</EnhancedText>
-              </EnhancedPressable>
-              <EnhancedPressable
-                style={[styles.button, styles.green, { backgroundColor: theme.colors.background }]}
-                onPress={() => {
-                  swiperRef.current.swipeRight();
-                }}>
-                <EnhancedText>to right</EnhancedText>
-              </EnhancedPressable>
+          {Platform.OS === 'web' && (
+            <View style={styles.footer}>
+              <View style={styles.buttonContainer}>
+                <EnhancedPressable
+                  style={[styles.button, styles.red, { backgroundColor: theme.colors.background }]}
+                  onPress={() => {
+                    swiperRef.current.swipeLeft();
+                  }}>
+                  <EnhancedText>to left</EnhancedText>
+                </EnhancedPressable>
+                <EnhancedPressable
+                  style={[
+                    styles.button,
+                    styles.orange,
+                    { backgroundColor: theme.colors.background },
+                  ]}
+                  onPress={() => {
+                    swiperRef.current.goBackFromLeft();
+                  }}>
+                  <EnhancedText>restart</EnhancedText>
+                </EnhancedPressable>
+                <EnhancedPressable
+                  style={[
+                    styles.button,
+                    styles.green,
+                    { backgroundColor: theme.colors.background },
+                  ]}
+                  onPress={() => {
+                    swiperRef.current.swipeRight();
+                  }}>
+                  <EnhancedText>to right</EnhancedText>
+                </EnhancedPressable>
+              </View>
             </View>
-          </View>
+          )}
         </View>
       )}
     </ContainerWithInsets>

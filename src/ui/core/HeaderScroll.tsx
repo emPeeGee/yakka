@@ -13,7 +13,7 @@ import {
 
 import { TxKeyPath } from '@/core/i18n';
 import { Theme } from '@/types';
-import { BackButton, EnhancedText } from '@/ui/core';
+import { BackButton, ContainerWithInsets, EnhancedText } from '@/ui/core';
 import { useTheme } from '@/ui/theme';
 
 const HEADER_HEIGHT = 64;
@@ -118,54 +118,59 @@ export function HeaderScroll({
   });
 
   return (
-    <View style={[styles.container, containerStyle]}>
-      <Animated.View style={[styles.headerContainer, headerContainerStyle]}>
-        <Animated.View style={{ opacity: opacityHeaderAnimation }}>
-          <View style={[styles.headerComponentContainer, headerComponentContainerStyle]}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: theme.spacing.md,
-              }}>
-              {withBackButton && <BackButton />}
-              <View style={{ flex: 1, alignItems: 'center' }}>
-                <EnhancedText
-                  preset="subheading"
-                  style={[styles.headline, headlineStyle]}
-                  tx={title}
-                />
+    <ContainerWithInsets withoutBottom>
+      <View style={[styles.container, containerStyle]}>
+        <Animated.View style={[styles.headerContainer, headerContainerStyle]}>
+          <Animated.View style={{ opacity: opacityHeaderAnimation }}>
+            <View style={[styles.headerComponentContainer, headerComponentContainerStyle]}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  gap: theme.spacing.md,
+                }}>
+                {withBackButton && <BackButton />}
+                <View style={{ flex: 1, alignItems: 'center' }}>
+                  <EnhancedText
+                    preset="subheading"
+                    style={[styles.headline, headlineStyle]}
+                    tx={title}
+                  />
+                </View>
               </View>
             </View>
-          </View>
+          </Animated.View>
         </Animated.View>
-      </Animated.View>
-      <ScrollView
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollAnimatedValue } } }], {
-          listener: handleScroll,
-          useNativeDriver: false,
-        })}
-        scrollEventThrottle={16}
-        contentContainerStyle={[scrollContainerStyle]}
-        {...scrollViewProps}>
-        <View
-          onLayout={onLayout}
-          style={{
-            gap: theme.spacing.md,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          {withBackButton && <BackButton />}
-          <View style={{ flex: 1 }}>
-            <EnhancedText tx={title} style={[styles.title, titleStyle, titleStyles]} />
-          </View>
+        <ScrollView
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollAnimatedValue } } }],
+            {
+              listener: handleScroll,
+              useNativeDriver: false,
+            },
+          )}
+          scrollEventThrottle={16}
+          contentContainerStyle={[scrollContainerStyle]}
+          {...scrollViewProps}>
+          <View
+            onLayout={onLayout}
+            style={{
+              gap: theme.spacing.md,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            {withBackButton && <BackButton />}
+            <View style={{ flex: 1 }}>
+              <EnhancedText tx={title} style={[styles.title, titleStyle, titleStyles]} />
+            </View>
 
-          {Right && <Right />}
-        </View>
-        {children}
-      </ScrollView>
-    </View>
+            {Right && <Right />}
+          </View>
+          {children}
+        </ScrollView>
+      </View>
+    </ContainerWithInsets>
   );
 }
